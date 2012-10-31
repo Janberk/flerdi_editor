@@ -1,13 +1,20 @@
+var link = null;
+var creatingLink = false;
 
+var startDrag = null;
+var stopDrag = null;
 
 $(window).load(function () {
-	var jg = new jsGraphics('canvas');
-
-	jg.setColor("#ff0000");
-	jg.setStroke(5);
-	jg.drawLine(100,100,200,50);
-	jg.paint();	
 	
+	draginit();
+	
+	var div1 = newDiv(0, 0);
+	var div2 = newDiv(500, 500);
+	
+	var element1 = new NetworkElement(div1);
+	var element2 = new NetworkElement(div2);
+	
+	link = new NetworkLink(element1, element2, 'canvas');
 });
 
 //Das Objekt, das gerade bewegt wird.
@@ -32,12 +39,21 @@ function remove(element){
 	document.body.removeChild(element.parentNode);
 }
 
-function newDiv(){
+function newDiv(top, left){
+	
+	if(top === undefined)
+	{
+		top = posy - 60;
+	}
+	
+	if(left === undefined)
+	{
+		left = posx - 60;
+	}
+	
 	var newDiv = document.createElement("div");
 	newDiv.setAttribute('class','dragable_note',0);
 	newDiv.setAttribute('onmousedown','dragstart(this)',0);
-	var left = posx - 70;
-	var top = posy - 5;
 	newDiv.setAttribute('style','top:'+top+'px; left:'+left+'px;background-color:#'+getRandomColor()+';',0);
 	
 		var closeDiv = document.createElement("div");
@@ -46,9 +62,18 @@ function newDiv(){
 	
 	//newDiv.innerHTML  = 'Test';
 	newDiv.appendChild(closeDiv);
-	document.body.appendChild(newDiv);
 	
-	dragstart(newDiv);
+	return newDiv;
+}
+
+function createDiv(top, left){
+	var element = new NetworkElement(newDiv(top, left));
+	
+	dragstart(element.getDiv());
+}
+
+function createLink(){
+	creatingLink = true;
 }
 
 function getRandomColor(){
@@ -62,12 +87,20 @@ function getRandomColor(){
 }
 
 function dragstart(element) {
+	
+	console.log("b");
+	
 	//Wird aufgerufen, wenn ein Objekt bewegt werden soll.
 	if( element.getAttribute('class') == 'verschiebeding'){
 		dragobjekt = element.parentNode;
 		dragx = posx - dragobjekt.offsetLeft;
 		dragy = posy - dragobjekt.offsetTop;
-	}else{
+	}
+	else if(creatingLink){
+		console.log("a");
+		startDrag = [posx, posy];
+	}
+	else{
 		dragobjekt = element;
 		dragx = posx - dragobjekt.offsetLeft;
 		dragy = posy - dragobjekt.offsetTop;
@@ -76,6 +109,19 @@ function dragstart(element) {
 
 
 function dragstop() {
+	
+	if(creatingLink)
+	{
+		stopDrag = [posx, posy];
+		alert(startDrag[0] + startDrag[1] + stopDrag[0] + stopDrag[1]);
+		creatingLink = false;
+	}
+	
+	if(dragobjekt.getAttribute('class') == 'dragable_note')
+	{
+		link.draw();
+	}
+	
 	//Wird aufgerufen, wenn ein Objekt nicht mehr bewegt werden soll.
 	dragobjekt=null;
 	if (window.getSelection) {
@@ -87,6 +133,7 @@ function dragstop() {
 	} else if (document.selection) {  // IE?
 		document.selection.empty();
 	}
+
 }
 
 

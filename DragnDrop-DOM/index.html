@@ -5,16 +5,19 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="wz_jsgraphics.js"></script>
+		<script type="text/javascript" src="network_element.js"></script>
+		<script type="text/javascript" src="network_link.js"></script>
 		<script type="text/javascript" src="JS.js"></script>
 
 		<title>Drag n Drop - Test</title>
 	</head>
-	<body id="canvas" onload="draginit()">
+	<body id="canvas" onmousedown="dragstart(this)">
 			
 	
 		<div class="toolBox">
 			<div class="verschiebeding" onmousedown="dragstart(this)"></div>
-			<div class="neuErstellen" onmousedown="newDiv()"></div>
+			<div class="neuErstellen" onmousedown="createDiv()"></div>
+			<div class="neuLink" onClick="createLink()"></div>
 		</div>
 		 <!--Aufbau einer divBox
 		 <div class="dragable_note" onmousedown="dragstart(this)" style="top:0px; left:0px;background-color:green;">Test</div>
