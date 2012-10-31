@@ -1,8 +1,14 @@
-<!-- gueltig fuer Netscape ab Version 6, Mozilla, Internet Explorer ab Version 4
-var jg = new jsGraphics(); // direkt in's document zeichnen
-jg.setColor("#ff0000"); // rot
-jg.drawLine(10, 113, 220, 55); // Koordinaten auf Zeichenfläche bezogen
-jg.paint();
+
+
+$(window).load(function () {
+	var jg = new jsGraphics('canvas');
+
+	jg.setColor("#ff0000");
+	jg.setStroke(5);
+	jg.drawLine(100,100,200,50);
+	jg.paint();	
+	
+});
 
 //Das Objekt, das gerade bewegt wird.
 var dragobjekt = null;
@@ -14,6 +20,7 @@ var dragy = 0;
 // Mausposition
 var posx = 0;
 var posy = 0;
+
 
 function draginit() {
 	// Initialisierung der Überwachung der Events
