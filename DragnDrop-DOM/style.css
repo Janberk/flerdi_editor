@@ -1,0 +1,56 @@
+body{
+	background-image: url(bg/bg.png);
+}
+div.dragable_note{
+	position: absolute;
+	display: block;
+	height: 150px;
+	width: 150px;
+	z-index:0;
+	text-align: center;
+	cursor: pointer;
+	background-image: url(bg/note.png);
+}
+div.dragable_note div.close{
+	display: none;
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-image: url(bg/toolbox/close.png);
+	cursor: pointer;
+}
+div.dragable_note:hover div.close{
+	display: block;
+}
+
+div.toolBox{
+	display: block;
+	position: fixed;
+	z-index: 1;
+	width: 56px;
+	height: 306px;
+	background-image: url(bg/toolbox/toolbox-bg.png);
+}
+
+div.toolBox div.verschiebeding{
+	position: relative;
+	top: 0px;
+	left:0px;
+	display: block;
+	width:50px;
+	height: 15px;
+	background-image: url(bg/toolbox/toolbox-top.png);
+	cursor: pointer;
+}
+
+div.toolBox div.neuErstellen{
+	margin: 5px 5px 5px 5px;
+	display: block;
+	width: 40px;
+	height: 40px;
+	background-color: gray;
+	cursor:pointer;
+	background-image: url(bg/new.png);
+}
