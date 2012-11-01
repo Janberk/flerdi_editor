@@ -4,10 +4,12 @@ var creatingLink = false;
 var startDrag = null;
 var stopDrag = null;
 
+var isLoad = false;
+
 $(window).load(function () {
 	
 	draginit();
-	
+	isLoad = true;
 	var div1 = newDiv(0, 0);
 	var div2 = newDiv(500, 500);
 	
@@ -87,38 +89,27 @@ function getRandomColor(){
 }
 
 function dragstart(element) {
-	
-	console.log("b");
-	
 	//Wird aufgerufen, wenn ein Objekt bewegt werden soll.
 	if( element.getAttribute('class') == 'verschiebeding'){
 		dragobjekt = element.parentNode;
 		dragx = posx - dragobjekt.offsetLeft;
 		dragy = posy - dragobjekt.offsetTop;
-	}
-	else if(creatingLink){
-		console.log("a");
+	} else if(creatingLink){
 		startDrag = [posx, posy];
-	}
-	else{
+	} else{
 		dragobjekt = element;
 		dragx = posx - dragobjekt.offsetLeft;
 		dragy = posy - dragobjekt.offsetTop;
 	}
 }
 
-
 function dragstop() {
 	
-	if(creatingLink)
-	{
+	if(creatingLink){
 		stopDrag = [posx, posy];
-		alert(startDrag[0] + startDrag[1] + stopDrag[0] + stopDrag[1]);
+		alert("start : x:"+startDrag[0] +", y:" +startDrag[1] + " ende : x" + stopDrag[0] + " y:"+stopDrag[1]);
 		creatingLink = false;
-	}
-	
-	if(dragobjekt.getAttribute('class') == 'dragable_note')
-	{
+	} else if(dragobjekt.getAttribute('class') == 'dragable_note'){
 		link.draw();
 	}
 	

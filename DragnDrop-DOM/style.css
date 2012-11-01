@@ -6,9 +6,9 @@ div.dragable_note{
 	display: block;
 	height: 150px;
 	width: 150px;
-	z-index:0;
+	z-index:2;
 	text-align: center;
-	cursor: pointer;
+	cursor: move;
 	background-image: url(bg/note.png);
 }
 div.dragable_note div.close{
@@ -42,7 +42,7 @@ div.toolBox div.verschiebeding{
 	width:50px;
 	height: 15px;
 	background-image: url(bg/toolbox/toolbox-top.png);
-	cursor: pointer;
+	cursor: move;
 }
 
 div.toolBox div.neuErstellen{
