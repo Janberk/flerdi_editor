@@ -26,6 +26,15 @@ define (["jquery"],
 		return newDiv;
 	}
 	
+	/*
+	* This function returns a integer from a css value
+	* e.g. 150px -> 150
+	* value : css value you want to parse
+	*/
+	Util.cssToInt = function(value){
+		return parseInt(String(value).replace(/[^-\d\.]/g, ''));
+	}
+	
 	//This function returns a random color in hex notaion
 	Util.getRandomColorHex = function(){
 		var farbe = Math.floor(Math.random()*16777215).toString(16);

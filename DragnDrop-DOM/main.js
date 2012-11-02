@@ -17,6 +17,7 @@ requirejs.config({
 	"util" : "backend/util",
 	"network_element" : "elements/network_element",
 	"network_link" : "elements/network_link",
+	"toolbox" : "gui/toolbox",
     }
 });
 
