@@ -6,7 +6,7 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 	var Environment = function(canvasId){
 		this.canvas = canvasId; // if og the canvas, at the moment unimportent
 		this.toolBox = new ToolBox(this);
-		this.knotes = []; // array of al NetworkElement-Objects in the scene
+		this.knotes = []; // array of all NetworkElement-Objects in the scene
 		this.lines = []; // array of all NetworkLink-Objects in the scene
 		
 		this.lastClickedPoint = undefined;
@@ -24,6 +24,38 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 		this.knotes.push(new NetworkElement(div,this.lines.length+this.knotes.lenght +1,this));
 		this.updateZIndex();
 	}
+		
+	/* 
+	* This function creates a new NetworkLink and adds it to the array
+	* start	: position where the Link should start : [x,y]
+	* end 	: position where the Link should end : [x,y]
+	*/
+	Environment.prototype.newLine = function(start,end) {
+		// actually, it doesn't do anything
+		var _start = undefined;
+		var _end = undefined
+		
+		for(i=this.knotes.length; i>0;i--){
+			if(this.knotes[i-1].isHit(start)){
+				_start = this.knotes[i-1];
+				break; // OMG der GOETHE-BREAK, tanz den GOETHE-BREAK-DANCE
+			}
+		}
+		for(i=this.knotes.length; i>0;i--){
+			if(this.knotes[i-1].isHit(end)){
+				_end = this.knotes[i-1];
+				break; // OMG der GOETHE-BREAK, tanz den GOETHE-BREAK-DANCE
+			}
+		}
+		
+		if(_start === undefined || _end === undefined){
+			console.log('keine elemente gefunden');
+		} else {
+			
+			this.lines.push(new NetworkLink(_start,_end,this.canvas));
+		}
+
+	}
 	
 	/*
 	* This function updates the Z-Index value for all elements in the scene, by calling the setZIndex() function
@@ -38,16 +70,6 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 			this.knotes[i].setZIndex(index++);
 		}
 		this.toolBox.setZIndex(index);
-	}
-
-		
-	/* 
-	* This function creates a new NetworkLink and adds it to the array
-	* start	: NetworkElement where the Link should start
-	* end 	: NetworkElement where the Link should end
-	*/
-	Environment.prototype.newLine = function(start,end) {
-		// actually, it doesn't do anything
 	}
 	
 	/* 
@@ -73,12 +95,44 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 			}
 		})*/
 		
-		$(window).bind('drag',function(event){}).bind('dragstart',function(event){
-			console.log(event.pageX);
-		}).bind('dragend',function(event){
-			console.log(event.pageX);
-		});
+		// wow, i just don't know why this function is still in.
 		
+	}
+	
+	/*
+	* This function binds all event to determined where the drag starts an where the drag ends
+	*/
+	Environment.prototype.startLineDrag = function(){
+		var element = this;
+		var start = [];
+		var end = [];
+		
+		for(i=0; i< this.knotes.length;i++){ //unbind all events from all NetworkElements
+			this.knotes[i].unbindDragEvent();
+		}
+		
+		$(window).on('drag',function(event){}).on('dragstart',function(event){
+			start = [event.pageX,event.pageY];
+		}).on('dragend',function(event){
+			end = [event.pageX,event.pageY];
+			element.stopLineDrag(start, end);
+		});
+	}
+	
+	/*
+	* This function unbinds all Events
+	* start : startpoint of the drag : [x,y]
+	* end : endpoint of the drag : [x,y]
+	*/
+	Environment.prototype.stopLineDrag = function(start, end){
+		
+		$(window).off('drag').off('dragstart').off('dragend');
+		
+		for(i=0; i< this.knotes.length;i++){ //bind all events from all NetworkElements
+			this.knotes[i].bindDragEvent();
+		}
+
+		this.newLine(start,end);
 	}
 	
 	return Environment;

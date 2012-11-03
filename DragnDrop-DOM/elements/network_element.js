@@ -7,6 +7,7 @@ define (["jquery",'util'],
 		this.zindex = zindex;
 		this.environtment = envrionment;
 		document.body.appendChild(div); // perhaps replace with a jQuery funciton.
+		this.bindDragEvent();
 	}
 	
 	/*
@@ -14,11 +15,11 @@ define (["jquery",'util'],
 	*/
 	NetworkElement.prototype.getPoint = function()
 	{
-		var x = $(div).position().left;
-		var y = $(div).position().top;
+		var x = $(this.div).position().left;
+		var y = $(this.div).position().top;
 			
-		var width = $(div).width();
-		var length = $(div).height();
+		var width = $(this.div).width();
+		var length = $(this.div).height();
 			
 		return [(x+width/2), (y+length/2)];
 	}
@@ -58,6 +59,29 @@ define (["jquery",'util'],
 		var height = Util.cssToInt($(this.div).css('height'));
 		
 		return ((thisPosition[0] <= position[0] && thisPosition[1] <= position[1]) && (position[0] <= (thisPosition[0]+width) && position[1] <= (thisPosition[1]+height)));
+	}
+	
+	/*
+	* This function binds the drag Eventhandler to the div
+	*/
+	NetworkElement.prototype.bindDragEvent = function(){
+		var div = this.div;
+		$(div).on('drag',function( event ){
+			$( this ).css({
+				top: event.offsetY,
+				left: event.offsetX
+			});
+                });
+		
+		var _this = this;
+	}
+	
+	/*
+	* This function unbinds the drag Eventhandler to the div
+	*/
+	NetworkElement.prototype.unbindDragEvent = function(){
+		var div = this.div;
+		$(div).off('drag');
 	}
 	
 	return NetworkElement;

@@ -14,10 +14,13 @@ requirejs.config({
         // jquery library
         "jquery": 'lib/jquery',
 	"drag": "lib/jquery.event.drag-1.5.min",
+	"drawing1" : "lib/jquery.drawinglibrary",
+	"drawing2" : "lib/jquery.svg",
 	"util" : "backend/util",
 	"network_element" : "elements/network_element",
 	"network_link" : "elements/network_link",
 	"toolbox" : "gui/toolbox",
+	"graphics" : "lib/wz_jsgraphics",
     }
 });
 

@@ -15,13 +15,6 @@ define (["jquery"],
 			closeDiv.setAttribute('onClick','remove(this)',0);
 	
 		newDiv.appendChild(closeDiv);
-		$(newDiv).bind('drag',function( event ){
-			$( this ).css({
-				top: event.offsetY,
-				left: event.offsetX
-			});
-                });
-		
 		
 		return newDiv;
 	}
