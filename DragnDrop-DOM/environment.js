@@ -52,7 +52,13 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 			console.log('keine elemente gefunden');
 		} else {
 			
-			this.lines.push(new NetworkLink(_start,_end,this.canvas));
+			var line = new NetworkLink(_start,_end,this.canvas);
+			
+			// give references to the new link
+			_start.addLink(line);
+			_end.addLink(line);
+			
+			this.lines.push(line);
 		}
 
 	}
@@ -63,6 +69,8 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 	*/
 	Environment.prototype.updateZIndex = function(){
 		var index = 0;
+		
+		
 		for(i=0;i<this.lines.length;i++){
 			this.lines[i].setZIndex(index++);
 		}
@@ -128,7 +136,7 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 		
 		$(window).off('drag').off('dragstart').off('dragend');
 		
-		for(i=0; i< this.knotes.length;i++){ //bind all events from all NetworkElements
+		for(i=0; i< this.knotes.length;i++){ //bind all events to all NetworkElements
 			this.knotes[i].bindDragEvent();
 		}
 

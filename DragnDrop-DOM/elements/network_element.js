@@ -6,7 +6,11 @@ define (["jquery",'util'],
 		this.div = div;
 		this.zindex = zindex;
 		this.environtment = envrionment;
-		document.body.appendChild(div); // perhaps replace with a jQuery funciton.
+		
+		this.linkList = []; // save all links that are connected to this element
+		
+		document.body.appendChild(div); // perhaps replace with a jQuery function.
+		
 		this.bindDragEvent();
 	}
 	
@@ -61,17 +65,41 @@ define (["jquery",'util'],
 		return ((thisPosition[0] <= position[0] && thisPosition[1] <= position[1]) && (position[0] <= (thisPosition[0]+width) && position[1] <= (thisPosition[1]+height)));
 	}
 	
+	
+	/*
+	* This function adds a new link to network element
+	* link : the new link
+	*/
+	NetworkElement.prototype.addLink = function(link){
+		this.linkList.push(link);
+	}
+	
+	/*
+	* This function updates all links that are connected to this element
+	*/
+	NetworkElement.prototype.updateAllLinks = function(){
+		
+		for(i in this.linkList){
+			this.linkList[i].canvas.clear();
+			this.linkList[i].draw();
+		}
+	}
+	
 	/*
 	* This function binds the drag Eventhandler to the div
 	*/
 	NetworkElement.prototype.bindDragEvent = function(){
 		var div = this.div;
+		var element = this;
+		
 		$(div).on('drag',function( event ){
 			$( this ).css({
 				top: event.offsetY,
 				left: event.offsetX
 			});
-                });
+			
+			element.updateAllLinks();
+        });
 		
 		var _this = this;
 	}
