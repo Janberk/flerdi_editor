@@ -68,3 +68,15 @@ div.toolBox div.neuLink{
 	
 	background-image: url(bg/linie.png);
 }
+
+div.toolBox div.neuLink_aktive{
+	margin: 5px 5px 5px 5px;
+	display: block;
+	width: 40px;
+	height: 40px;
+	position: static;
+	background-color: gray;
+	cursor:pointer;
+	
+	background-image: url(bg/new-aktive.png);
+}

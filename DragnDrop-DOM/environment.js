@@ -103,6 +103,9 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 	* This function binds all event to determined where the drag starts an where the drag ends
 	*/
 	Environment.prototype.startLineDrag = function(){
+		
+		$(this.toolBox.buttons[1]).attr('class','neuLink_aktive');
+		
 		var element = this;
 		var start = [];
 		var end = [];
@@ -125,6 +128,8 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 	* end : endpoint of the drag : [x,y]
 	*/
 	Environment.prototype.stopLineDrag = function(start, end){
+		
+		$(this.toolBox.buttons[1]).attr('class','neuLink');
 		
 		$(window).off('drag').off('dragstart').off('dragend');
 		
