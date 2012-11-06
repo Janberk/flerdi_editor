@@ -148,5 +148,35 @@ define (["jquery",'drag',"network_element","network_link","util","toolbox"],
 		this.newLine(start,end);
 	}
 	
+	Environment.prototype.getMaxZIndex =function(){
+		return this.lines.length + this.knotes.length + 2;
+	}
+	
+	Environment.prototype.deleteNetworkElement = function(div){
+		console.log("vorher  : " + this.knotes.length);
+		for(var i=0;i<this.knotes.length;i++){
+			if(this.knotes[i].is(div)){
+				this.knotes.splice(i,1);
+				console.log('nachher : ' + this.knotes.length);
+				return true;
+			}
+		}
+		return false;
+	}
+	Environment.prototype.deleteNetworkLink = function(id){
+		console.log("vorher  : " + this.lines.length);
+		for(var i=0;i<this.lines.length;i++){
+			if(this.lines[i].is(id)){
+				this.lines[i].deleteNetworkLink();
+				this.lines.splice(i,1);
+				for(var j=0;j<this.knotes.length;j++){
+					this.knotes[j].deleteLink(id);
+				}
+				console.log("nachher : " + this.lines.length);
+				break;// OMG der GOETHE-BREAK, tanz den GOETHE-BREAK-DANCE
+			}
+		}
+	}
+	
 	return Environment;
 }));

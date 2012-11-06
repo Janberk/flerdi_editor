@@ -5,9 +5,15 @@ define (["jquery",'util'],
 	{
 		this.div = div;
 		this.zindex = zindex;
-		this.environtment = envrionment;
+		this.environment = envrionment;
 		
 		this.linkList = []; // save all links that are connected to this element
+		
+		// creating the div to delete this NetworkElement, jQuery should provide a function to, i don't know and i don't look, way to lazy
+			this.closeDiv = document.createElement("div");
+			this.closeDiv.setAttribute('class','close',0);
+			
+			this.div.appendChild(this.closeDiv);
 		
 		document.body.appendChild(div); // perhaps replace with a jQuery function.
 		
@@ -37,7 +43,7 @@ define (["jquery",'util'],
 	}
 	
 	/*
-	* This function checks if the div belongs to this NetowrkElement
+	* This function checks if the div belongs to this NetworkElement
 	* div : well , what to say^^
 	*/
 	NetworkElement.prototype.is = function(div){
@@ -78,9 +84,8 @@ define (["jquery",'util'],
 	* This function updates all links that are connected to this element
 	*/
 	NetworkElement.prototype.updateAllLinks = function(){
-		
+
 		for(i in this.linkList){
-			this.linkList[i].canvas.clear();
 			this.linkList[i].draw();
 		}
 	}
@@ -90,17 +95,35 @@ define (["jquery",'util'],
 	*/
 	NetworkElement.prototype.bindDragEvent = function(){
 		var div = this.div;
+		var close = this.closeDiv;
 		var element = this;
 		
-		$(div).on('drag',function( event ){
-			$( this ).css({
-				top: event.offsetY,
-				left: event.offsetX
+		$(div).on('dragstart',function(event){
+				return $( this ).css('opacity',1)
+					.clone().addClass('active')
+					.insertAfter( this );
+			})
+			.on('dragend',function(event){
+				$( event.dragProxy ).remove();
+				$( this ).css({
+					top: event.offsetY,
+					left: event.offsetX,
+					opacity: 1
+					})
+				element.updateAllLinks();
+			})	
+			.on('drag',function( event ){
+				$( event.dragProxy ).css({
+					top: event.offsetY,
+					left: event.offsetX
+				});
+
 			});
-			
-			element.updateAllLinks();
-        });
 		
+		$(close).on('click',function(event){
+			element.deleteElement();
+		});
+
 		var _this = this;
 	}
 	
@@ -109,8 +132,35 @@ define (["jquery",'util'],
 	*/
 	NetworkElement.prototype.unbindDragEvent = function(){
 		var div = this.div;
-		$(div).off('drag');
+		var close = this.closeDiv;
+		$(div).off('dragstart').off('drag').off('dragend');
+		$(close).off('click');
+		
 	}
+	/*
+	* This function delets this NetworkElement
+	*/
+	NetworkElement.prototype.deleteElement = function(){
+		if(this.environment.deleteNetworkElement(this.div)){
+			this.environment
+			for(var i=0;i<this.linkList.length;i++){
+				this.environment.deleteNetworkLink(this.linkList[i].id);
+			}
+			$(this.div).remove();
+		}
+	}
+	
+	/*
+	* This function deletes a Link from the array of this NetworkElement
+	*/
+	NetworkElement.prototype.deleteLink = function(id){
+		for(var i=0; i<this.linkList.length;i++){
+			if(this.linkList[i].is(id)){
+				this.linkList.splice(i,1);
+				break;// OMG der GOETHE-BREAK, tanz den GOETHE-BREAK-DANCE
+			}
+		}
+	}		
 	
 	return NetworkElement;
 	

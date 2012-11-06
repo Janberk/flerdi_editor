@@ -9,12 +9,6 @@ define (["jquery"],
 		var newDiv = document.createElement("div");
 		newDiv.setAttribute('class','dragable_note',0);
 		newDiv.setAttribute('style','top:'+y+'px; left:'+x+'px;background-color:#'+this.getRandomColorHex()+';',0);
-	
-			var closeDiv = document.createElement("div");
-			closeDiv.setAttribute('class','close',0);
-			closeDiv.setAttribute('onClick','remove(this)',0);
-	
-		newDiv.appendChild(closeDiv);
 		
 		return newDiv;
 	}
