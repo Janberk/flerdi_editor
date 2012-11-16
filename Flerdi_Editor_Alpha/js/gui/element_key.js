@@ -1,3 +1,11 @@
+/*
+ * Module element_key: displays colors for network elements
+ * Author: Flerdi Team, Franz Nieschalk
+ */
+ 
+/*
+ * RequireJS module definition
+ */ 
 define (["jquery"],
 (function($)
 {
