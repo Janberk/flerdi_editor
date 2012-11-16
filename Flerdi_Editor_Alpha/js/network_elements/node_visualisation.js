@@ -25,6 +25,8 @@ define (["jquery"], (function($) {
 		switch (nodeType) {
 			case "/node/host/generic":
 				return "#CA2840";
+			case "/node/host/pip":
+				return "#929292";
 			case "/node/switch/cisco":
 				return "#28B228";
 			case "/node/switch/tunnelbridge":

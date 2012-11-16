@@ -12,7 +12,8 @@ requirejs.config({
 		"environment": "js/environment",
 		"network": "js/network_elements/network",
 		"node": "js/network_elements/node",
-		"node_visualisation": "js/network_elements/node_visualisation"
+		"node_visualisation": "js/network_elements/node_visualisation",
+		"element_key" : "js/gui/element_key"
 	} //paths
 }); //config
 

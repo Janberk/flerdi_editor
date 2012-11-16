@@ -1,11 +1,12 @@
-define (["jquery",'drag',"network_element","network_link","util","toolbox"],
-(function($,drag,NetworkElement,NetworkLink,Util,ToolBox) {
+define (["jquery",'drag',"network_element","network_link","util","toolbox", "element_key"],
+(function($,drag,NetworkElement,NetworkLink,Util,ToolBox,ElementKey) {
 	
 	//This handels everything....just everything, even your PC, but no MACs, MACs are evil.
 	
 	var Environment = function(canvasId){
 		this.canvas = canvasId; // if og the canvas, at the moment unimportent
 		this.toolBox = new ToolBox(this);
+		this.elementKey = new ElementKey(50, 50);
 		this.knotes = []; // array of all NetworkElement-Objects in the scene
 		this.lines = []; // array of all NetworkLink-Objects in the scene
 		

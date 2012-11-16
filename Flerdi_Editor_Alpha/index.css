@@ -12,3 +12,23 @@ div.node_visualisation{
 	text-align: center;
 	background-image: url(assets/pictures/node.png);
 }
+
+div.key{
+	display: block;
+	position: fixed;
+	z-index: 1;
+	width: 500px;
+	height: 250px;
+	background-image: url(assets/pictures/key/key-bg.png);
+}
+
+div.key div.keyDragger{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	display: block;
+	width: 500px;
+	height: 15px;
+	background-image: url(assets/pictures/key/key-top.png);
+	cursor: move;
+}

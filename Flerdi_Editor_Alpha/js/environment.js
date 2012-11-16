@@ -6,7 +6,7 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery","network"], (function($, Network) {
+define (["jquery","network", "element_key"], (function($, Network, ElementKey) {
 
 	/* constructor */
 	var Environment = function(bodyId) {
@@ -14,6 +14,7 @@ define (["jquery","network"], (function($, Network) {
 		
 		this.network = undefined;
 		this.body = bodyId;
+		this.elementKey = new ElementKey(10, 10);
 		this.importJson(this.createTestJson());
 	} //constructor
 

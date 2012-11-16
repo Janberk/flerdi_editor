@@ -20,6 +20,7 @@ requirejs.config({
 	"network_element" : "elements/network_element",
 	"network_link" : "elements/network_link",
 	"toolbox" : "gui/toolbox",
+	"element_key" : "gui/element_key",
 	"graphics" : "lib/wz_jsgraphics",
     }
 });
