@@ -1,12 +1,15 @@
 /*
  * Module environment: handles the program
  * Author: Flerdi Team, Kai Müller
+ *
+ * ----------
+ * insert on-change function: Johanna Wehrens
  */
  
 /*
  * RequireJS module definition
  */ 
-define (["jquery","network", "element_key"], (function($, Network, ElementKey) {
+define (["jquery","network", "element_key", "parser"], (function($, Network, ElementKey, Parser) {
 
 	/* constructor */
 	var Environment = function(bodyId) {
@@ -15,7 +18,18 @@ define (["jquery","network", "element_key"], (function($, Network, ElementKey) {
 		this.network = undefined;
 		this.body = bodyId;
 		this.elementKey = new ElementKey(10, 10);
-		this.importJson(this.createTestJson());
+
+		this.jsonObj;
+		
+		var _this = this;
+		
+				
+		 $('#yaml_datei').on('change', function(){ 
+			_this.jsonObj = Parser.load("test_files/"+$('#yaml_datei').val());
+			_this.importJson(_this.jsonObj);
+		 });
+
+		//this.importJson(this.createTestJson());
 	} //constructor
 
 	/* creates a new networkObject from a given jsonObject */

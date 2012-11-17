@@ -3,7 +3,7 @@
  * Author: Flerdi Team, Kai Müller
  * 
  * ---
- * addes new libs : Stefan Boitschuk
+ * added new libs : Stefan Boitschuk
  */
 
 /*
