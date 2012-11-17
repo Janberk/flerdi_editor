@@ -1,7 +1,8 @@
 /* 
  * index.css: style handling for index.html
  * Author: Team Flerdi, Kai Müller
- */
+ * 
+*/
  
 div.node_visualisation{
 	position: absolute;
@@ -34,7 +35,7 @@ div.key div.keyDragger{
 }
 
 #yaml_datei{
-display: block;
-position: absolute;
-bottom: 5px;
+	display: block;
+	position: absolute;
+	bottom: 5px;
 }

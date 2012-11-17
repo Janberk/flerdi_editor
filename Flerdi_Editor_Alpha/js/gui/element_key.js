@@ -46,8 +46,8 @@ define (["jquery"],
 		this.key = key;
 		
 		// set position for this key
-		$(this.key).css('left', this.x);
-		$(this.key).css('top', this.y);
+		$(this.key).css('right', '0');
+		$(this.key).css('bottom', '0');
 		
 		// add the key to the document
 		document.body.appendChild(key);

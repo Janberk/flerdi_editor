@@ -27,7 +27,7 @@ div.dragable_note:hover div.close{
 
 div.toolBox{
 	display: block;
-	position: fixed;
+	position: absolute;
 	z-index: 1;
 	width: 56px;
 	height: 306px;
