@@ -18,6 +18,8 @@ requirejs.config({
 	"drawing2" : "lib/jquery.svg",
 	"util" : "backend/util",
 	"network_element" : "elements/network_element",
+	"parser" : "lib/parser",
+	"yamlParser" : "lib/js-yaml.min",
 	"network_link" : "elements/network_link",
 	"toolbox" : "gui/toolbox",
 	"element_key" : "gui/element_key",

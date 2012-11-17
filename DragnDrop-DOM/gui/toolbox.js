@@ -1,5 +1,5 @@
-define (["jquery",'util'],
-(function($,Util) {
+define (["jquery",'util','parser'],
+(function($,Util,Parser) {
 	
 	var ToolBar = function(environment)
 	{
@@ -39,6 +39,9 @@ define (["jquery",'util'],
 		var newNote2 = document.createElement('div');
 		newNote2.setAttribute('class','neuLink');
 		
+		var newNote3 = document.createElement('div');
+		newNote3.setAttribute('class','neuLink');
+		
 		var element = this.environment;
 		
 		$(newNote).mousedown(function(e){
@@ -52,8 +55,13 @@ define (["jquery",'util'],
 			element.startLineDrag();
 		});
 		
+		$(newNote3).click(function(e){
+			console.log(Parser.load('res/noconnect-50-nodes.yaml'));
+		});
+		
 		this.appendButton(newNote);
 		this.appendButton(newNote2);
+		this.appendButton(newNote3);
 		
 		document.body.appendChild(toolBar);
 		$(toolBar).bind('dragstart',function( event ){

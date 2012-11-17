@@ -1,6 +1,9 @@
 /*
  * Module main: handles requireJS and starts the program
  * Author: Flerdi Team, Kai Müller
+ * 
+ * ---
+ * addes new libs : Stefan Boitschuk
  */
 
 /*
@@ -13,6 +16,8 @@ requirejs.config({
 		"network": "js/network_elements/network",
 		"node": "js/network_elements/node",
 		"node_visualisation": "js/network_elements/node_visualisation",
+		"parser": "lib/parser",
+		"yamlParser": "lib/js-yaml.min",
 		"element_key" : "js/gui/element_key"
 	} //paths
 }); //config
