@@ -34,6 +34,12 @@ div.key div.keyDragger{
 	cursor: move;
 }
 
+div.line{
+  transform-origin: 0 100%;
+  height: 3px;
+  background: #000;
+}
+
 #yaml_datei{
 	display: block;
 	position: absolute;
