@@ -34,6 +34,14 @@ define (["jquery",'util'],
 		// set dragger as child of the key
 		key.appendChild(keyDragger);
 		
+		// create a dragger for this key
+		var keyCloser = document.createElement("div");
+		keyCloser.setAttribute('style','width:30px;height:30px;background:#333333;border:1px solid orange;');
+		//keyCloser.setAttribute('class','keyDragger');
+		
+		// set dragger as child of the key
+		key.appendChild(keyCloser);
+
 		// save the div container for drag events
 		this.key = key;
 		

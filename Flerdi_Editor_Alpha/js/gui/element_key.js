@@ -24,6 +24,8 @@ define (["jquery"],
 		
 		// draw this key
 		this.draw();
+		
+		this.showing = true;
 	}
 	
 	/*
@@ -41,6 +43,29 @@ define (["jquery"],
 		
 		// set dragger as child of the key
 		key.appendChild(keyDragger);
+		
+		//sedef
+		// create a closer element for this container
+		var keyCloser = document.createElement("div");
+		keyCloser.setAttribute('class','keyCloser'); // set css class
+		keyCloser.setAttribute('id','open'); // set id to detect if open or closed
+		$(keyCloser).bind('click', function(event) { // add onclick handler
+			if (this.getAttribute('id')=='open') { // check open/closed state by id
+				key.setAttribute('style','height:15px;bottom:10px;right:20px;'); // set small style
+				this.setAttribute('id', 'closed'); 
+				return true; // leave event
+			}
+			else if (this.getAttribute('id')=='closed') {
+				key.setAttribute('style', 'right:0;bottom:0;');
+				this.setAttribute('id', 'open');
+				return true;
+			}
+		});
+		
+		// set closer as child of dagger
+		keyDragger.appendChild(keyCloser); // closer an dagger anheften
+		//sedef-ende
+		
 		
 		// save the div container for drag events
 		this.key = key;

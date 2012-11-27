@@ -22,7 +22,6 @@ div.key{
 	height: 250px;
 	background-image: url(assets/pictures/key/key-bg.png);
 }
-
 div.key div.keyDragger{
 	position: relative;
 	top: 0px;
@@ -32,6 +31,17 @@ div.key div.keyDragger{
 	height: 15px;
 	background-image: url(assets/pictures/key/key-top.png);
 	cursor: move;
+}
+div.key div.keyCloser {
+	position: absolute;
+	top: 1px;
+	right: 10px;
+	background: orange;
+	cursor: pointer;
+	border: 1px solid blue;
+	z-index: 3000;
+	width: 30px;
+	height: 10px;
 }
 
 #yaml_datei{

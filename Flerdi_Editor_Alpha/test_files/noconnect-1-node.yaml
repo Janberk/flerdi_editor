@@ -13,6 +13,18 @@ network_elements:
   attributes: 
     graph_label_id: "1"
     ne_type: /node/host/generic
+    id: "2"
+    provisioning_interface_id: 
+    console_interface_id: 
+    alias: alias1-c1
+    identifier: c1
+    customer_console_interface_id: 
+  attributes_cache: {}
+  
+- !yaml.org,2002:NetworkElement  
+  attributes: 
+    graph_label_id: "1"
+    ne_type: /node/host/generic
     id: "1"
     provisioning_interface_id: 
     console_interface_id: 
@@ -96,7 +108,7 @@ network_elements:
 attributes:
   id: "1"
   x: 256
-  x: 512
+  y: 512
   network_element_id: "1"
 attributes_cache: {}
 
@@ -104,6 +116,6 @@ attributes_cache: {}
 attributes:
   id: "2"
   x: 333
-  x: 512
+  y: 400
   network_element_id: "2"
 attributes_cache: {}
