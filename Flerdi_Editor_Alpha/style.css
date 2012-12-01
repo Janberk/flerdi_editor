@@ -55,3 +55,10 @@ div.line{
 	position: absolute;
 	bottom: 5px;
 }
+
+#save_button{
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	left: 450px;
+}

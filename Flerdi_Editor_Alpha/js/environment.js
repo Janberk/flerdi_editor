@@ -25,19 +25,42 @@ define (["jquery","network", "element_key", "parser"], (function($, Network, Ele
 		
 				
 		 $('#yaml_datei').on('change', function(){ 
+		 	var name = $('#yaml_datei').val();
+			name = name.replace(/\..*/,'');
 			_this.jsonObj = Parser.load("test_files/"+$('#yaml_datei').val());
-			_this.importJson(_this.jsonObj);
+			_this.importJson(_this.jsonObj, name);
 		 });
+		 
+		 $('#save_button').on('click', function() {
+			if (_this.network == undefined) {
+				alert("Load a network first.");
+			} else {
+				_this.saveNetwork();
+			}
+		 });		 
 
 		//this.importJson(this.createTestJson());
 	} //constructor
 
 	/* creates a new networkObject from a given jsonObject */
-	Environment.prototype.importJson = function(jsonObject) {
+	Environment.prototype.importJson = function(jsonObject, name) {
 		console.log("importing network from json object");
 		
-		this.network = new Network(jsonObject);
+		this.network = new Network(jsonObject, name);
 	} //importJson
+	
+	/* saves the network as a yaml file per php */
+	Environment.prototype.saveNetwork = function() {
+		$.ajax({
+			url: 'http://localhost/flerdi/saveNetwork.php',
+			type: 'POST',
+			datatype: 'json',
+			data: {
+				fileName: this.network.getName() + ".yaml",
+				content: this.network.getYaml()				
+			}
+		});
+	} //saveNetwork	
 	
 	/* creates and returns a test jsonObject */
 	Environment.prototype.createTestJson = function() {

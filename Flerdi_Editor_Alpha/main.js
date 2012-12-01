@@ -18,7 +18,8 @@ requirejs.config({
 		"node_visualisation": "js/network_elements/node_visualisation",
 		"parser": "lib/parser",
 		"yamlParser": "lib/js-yaml.min",
-		"element_key" : "js/gui/element_key"
+		"element_key" : "js/gui/element_key",
+		"json2yaml" : "lib/json2yaml/json2yaml"
 	} //paths
 }); //config
 
