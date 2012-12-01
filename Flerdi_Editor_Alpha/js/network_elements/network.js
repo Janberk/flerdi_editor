@@ -77,6 +77,8 @@ define (["jquery","node", "json2yaml"], (function($, Node, Json2yaml) {
 			yaml += this.nodes[i].getPositionYaml();
 			yaml += "\n"
 		}
+		
+		yaml = yaml.replace(/\t/g, "  ");
 		return yaml;
 	} //getYaml	
 	
