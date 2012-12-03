@@ -11,6 +11,7 @@ define (["jquery",'yamlParser','loadingWindow'],
 	*/ 
 	Parser.load = function(path,callback){
 		$.ajaxSetup({async:true,});
+		$('#yaml_datei').prop('disabled',true);
 		this.pff = new LoadingWindow('YAML-Datei wird geladen...');
 		var _this = this;
 		this.loadFile(path,function(string){
@@ -18,6 +19,7 @@ define (["jquery",'yamlParser','loadingWindow'],
 					parseFile(string,function(json){
 							callback(json);
 							_this.pff.close();
+							$('#yaml_datei').prop('disabled',false);
 						});
 				});
 		
