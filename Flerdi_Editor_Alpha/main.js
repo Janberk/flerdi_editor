@@ -21,7 +21,9 @@ requirejs.config({
 		"parser": "lib/parser",
 		"yamlParser": "lib/js-yaml.min",
 		"element_key" : "js/gui/element_key",
-		"json2yaml" : "lib/json2yaml/json2yaml"
+		"json2yaml" : "lib/json2yaml/json2yaml",
+		"spinner":"lib/spinner.min",
+		"loadingWindow":"js/loadingWindow",
 	} //paths
 }); //config
 

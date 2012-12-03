@@ -45,8 +45,10 @@ define (["jquery","network", "element_key", "parser", "node_visualisation"],
 		 $('#yaml_datei').on('change', function(){ 
 		 	var name = $('#yaml_datei').val();
 			name = name.replace(/\..*/,'');
-			_this.jsonObj = Parser.load("test_files/"+$('#yaml_datei').val());
-			_this.importJson(_this.jsonObj, name);
+			Parser.load("test_files/"+$('#yaml_datei').val(),function(json){
+				_this.importJson(json, name);	
+			});
+			
 		 });
 		 
 		 $('#save_button').on('click', function() {
