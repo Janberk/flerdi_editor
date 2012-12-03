@@ -1,5 +1,4 @@
 /* 
- * index.css: style handling for index.html
  * Author: Team Flerdi, Kai Müller
  * 
 */
@@ -61,4 +60,13 @@ div.line{
 	position: absolute;
 	bottom: 5px;
 	left: 450px;
+}
+
+#buttons{
+	display: block;
+	position: fixed;
+	right: 0px;
+	left: 0px;
+	margin: 0px auto 0px auto;
+	width: 110px;
 }
