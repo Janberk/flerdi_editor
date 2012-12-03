@@ -156,7 +156,7 @@ network_elements:
 attributes:
   id: "1"
   x: 256
-  x: 512
+  y: 256
   network_element_id: "1"
 attributes_cache: {}
 
@@ -164,6 +164,6 @@ attributes_cache: {}
 attributes:
   id: "2"
   x: 333
-  x: 512
+  y: 256
   network_element_id: "2"
 attributes_cache: {}
