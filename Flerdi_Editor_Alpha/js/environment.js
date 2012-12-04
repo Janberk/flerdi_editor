@@ -9,12 +9,10 @@
 /*
  * RequireJS module definition
  */ 
-<<<<<<< HEAD
-define (["jquery", "drag", "network", "element_key", "parser"], (function($, Drag, Network, ElementKey, Parser) {
-=======
+
 define (["jquery","network", "element_key", "parser", "node_visualisation"], 
 		(function($, Network, ElementKey, Parser, Node_Visualisation) {
->>>>>>> a395dedd2f5efd54bb7163b8d4d2dbb35db3fe4a
+
 
 	/* constructor */
 	var Environment = function(bodyId) {
