@@ -31,7 +31,7 @@ define (["jquery"], (function($) {
 				return "#28B228";
 			case "/node/switch/tunnelbridge":
 				return "#396CB3";
-			case "/node/host/pip":
+			case "/node/switch/pip":
 				return "#D7D72A";
 			default:
 				return "#000000";

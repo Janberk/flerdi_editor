@@ -1,12 +1,14 @@
 /*
  * Module network: represents a network, handles the nodes and links
  * Author: Flerdi Team, Kai Müller
+ * ----------
+ * insert create links function: Franz Nieschalk
  */
  
 /*
  * RequireJS module definition
  */ 
-define (["jquery","node", "json2yaml"], (function($, Node, Json2yaml) {
+define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2yaml) {
 
 	/* constructor */
 	var Network = function(jsonObject, name) {
@@ -28,13 +30,25 @@ define (["jquery","node", "json2yaml"], (function($, Node, Json2yaml) {
 		console.log("pushing nodes");
 		
 		for (var i = 0; i < this.network_elements.length; i++) {
-			this.nodes.push(new Node(this.network_elements[i], this.positions));
+		
+			var element = this.network_elements[i];
+			var element_type = element.attributes.ne_type;
+		
+			if(element_type.substr(0,5) == "/node")
+				this.nodes.push(new Node(element, this.positions));
 		}
 	} //createNodes
 	
 	/* creates the links of the network */
 	Network.prototype.createLinks = function() {
-		//TODO
+		for (var i = 0; i < this.network_elements.length; i++) {
+			
+			var element = this.network_elements[i];
+			var element_type = element.attributes.ne_type;
+		
+			if(element_type.substr(0,5) == "/link")
+				this.links.push(new Link(element, this.nodes[0], this.nodes[1])); //TODO: determine which elements are actually connected
+		}
 	} //createLinks
 	
 	/* returns the name of the network */

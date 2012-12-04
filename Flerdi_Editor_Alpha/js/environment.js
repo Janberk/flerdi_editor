@@ -3,13 +3,18 @@
  * Author: Flerdi Team, Kai Müller
  *
  * ----------
- * insert on-change function: Johanna Wehrens
+ * insert on-change and new_node-click function: Johanna Wehrens
  */
  
 /*
  * RequireJS module definition
  */ 
+<<<<<<< HEAD
 define (["jquery", "drag", "network", "element_key", "parser"], (function($, Drag, Network, ElementKey, Parser) {
+=======
+define (["jquery","network", "element_key", "parser", "node_visualisation"], 
+		(function($, Network, ElementKey, Parser, Node_Visualisation) {
+>>>>>>> a395dedd2f5efd54bb7163b8d4d2dbb35db3fe4a
 
 	/* constructor */
 	var Environment = function(bodyId) {
@@ -19,16 +24,35 @@ define (["jquery", "drag", "network", "element_key", "parser"], (function($, Dra
 		this.body = bodyId;
 		this.elementKey = new ElementKey(10, 10);
 
-		this.jsonObj;
-		
 		var _this = this;
 		
+		this.creating = false;
+		this.test = 0;
+		
+		
+		$("#new_node").on("mousedown", (function(e){
+			console.log("blub2");
+			_this.creating = true;
+			$(document).on("click", function(e){_this.drawNode(e)});
+			console.log(this.creating);	
+		}));
+		
+		$("#move").on("click", (function(e){
+			this.creating = false;
+			$(document).off("click");
+			_this.test = 0;
+		}));		
+		
+		//loads selected yaml file and parses it
+		this.jsonObj;
 				
 		 $('#yaml_datei').on('change', function(){ 
 		 	var name = $('#yaml_datei').val();
 			name = name.replace(/\..*/,'');
-			_this.jsonObj = Parser.load("test_files/"+$('#yaml_datei').val());
-			_this.importJson(_this.jsonObj, name);
+			Parser.load("test_files/"+$('#yaml_datei').val(),function(json){
+				_this.importJson(json, name);	
+			});
+			
 		 });
 		 
 		 $('#save_button').on('click', function() {
@@ -41,6 +65,22 @@ define (["jquery", "drag", "network", "element_key", "parser"], (function($, Dra
 
 		//this.importJson(this.createTestJson());
 	} //constructor
+	
+		Environment.prototype.drawNode = function(e) {
+		console.log(this.creating);
+		if (this.creating == true) {
+			if (this.test > 0){
+			var pos = [0,0];
+			pos[0] = e.pageX; 
+			pos[1] = e.pageY;
+			var nodeType = "/node"+$("#node_types").val();
+			console.log();
+			var node = new Node_Visualisation(pos, nodeType);
+			node.show();
+			}
+		}
+		this.test = this.test + 1;
+	}
 
 	/* creates a new networkObject from a given jsonObject */
 	Environment.prototype.importJson = function(jsonObject, name) {
