@@ -22,6 +22,7 @@ div.key{
 	height: 250px;
 	background-image: url(assets/pictures/key/key-bg.png);
 }
+
 div.key div.keyDragger{
 	position: relative;
 	top: 0px;
@@ -32,6 +33,18 @@ div.key div.keyDragger{
 	background-image: url(assets/pictures/key/key-top.png);
 	cursor: move;
 }
+
+div.nodeDragger{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	display: block;
+	width: 150px;
+	height: 150px;
+	background-image: url(assets/pictures/node.png);
+	cursor: move;
+}
+
 div.key div.keyCloser {
 	position: absolute;
 	top: 1px;

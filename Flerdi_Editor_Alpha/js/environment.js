@@ -9,7 +9,7 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery","network", "element_key", "parser"], (function($, Network, ElementKey, Parser) {
+define (["jquery", "drag", "network", "element_key", "parser"], (function($, Drag, Network, ElementKey, Parser) {
 
 	/* constructor */
 	var Environment = function(bodyId) {

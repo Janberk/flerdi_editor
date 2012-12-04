@@ -57,5 +57,19 @@ define (["jquery"], (function($) {
 		$(this.div).remove();
 	} //hide
 	
+	// /* adds drag-function to nodes */
+	Node_Visualisation.prototype.addDrag = function() {
+		var node = this.div;
+		var nodeDragger = document.createElement('div');
+		nodeDragger.setAttribute('class', 'nodeDragger');
+		node.appendChild(nodeDragger);
+		$(node).css('right', '0');
+		$(node).css('bottom', '0');
+		document.body.appendChild(node);
+		$(node).on('drag',function(event){
+			$(this).css({top: event.offsetY, left: event.offsetX});
+		}); 
+	} //addDrag
+	
 	return Node_Visualisation;
 })); //define

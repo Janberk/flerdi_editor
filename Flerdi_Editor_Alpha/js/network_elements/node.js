@@ -20,6 +20,7 @@ define (["jquery", "node_visualisation", "json2yaml"], (function($, Node_Visuali
 			this.readPosition(positions);
 		}
 		this.visualisation = new Node_Visualisation(this.position, this.type);
+		this.visualisation.addDrag();
 		this.visualisation.show();
 	} //constructor
 	

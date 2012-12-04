@@ -12,6 +12,7 @@
 requirejs.config({
 	paths: {
 		"jquery": "lib/jquery-1.8.2.min",
+		"drag": "lib/jquery.event.drag-1.5.min",
 		"environment": "js/environment",
 		"network": "js/network_elements/network",
 		"node": "js/network_elements/node",
