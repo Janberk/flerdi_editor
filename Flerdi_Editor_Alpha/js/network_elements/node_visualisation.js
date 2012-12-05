@@ -6,7 +6,7 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery"], (function($) {
+define (["jquery", "drag"], (function($,Drag) {
 	
 	/* constructor */
 	var Node_Visualisation = function(position, nodeType) {

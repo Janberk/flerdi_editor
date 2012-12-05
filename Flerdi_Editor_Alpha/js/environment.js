@@ -74,6 +74,7 @@ define (["jquery","network", "element_key", "parser", "node_visualisation"],
 			var nodeType = "/node"+$("#node_types").val();
 			console.log();
 			var node = new Node_Visualisation(pos, nodeType);
+			node.addDrag();
 			node.show();
 			}
 		}
