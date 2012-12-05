@@ -64,13 +64,13 @@ div.line{
 
 #yaml_datei{
 	display: block;
-	position: absolute;
+	position: fixed;
 	bottom: 5px;
 }
 
 #save_button{
 	display: block;
-	position: absolute;
+	position: fixed;
 	bottom: 5px;
 	left: 450px;
 }
