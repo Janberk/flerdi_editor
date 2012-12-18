@@ -8,12 +8,25 @@
 define (["jquery", "menubarButton"],(function($, MenuButton) {
 	var Menu = (function(id, title) {
 		this.title = title;
-		this.id = id;
+		this.id = title;
 		this.buttons = new Array();
-		this.src = '<div class="mb_menu">'+this.title+'</div>';
+		this.src = '<div id="' + this.id + '" class="mb_menu">'+this.title+'</div><div class="mb_sub" id="menu' + this.id + '"></div>';
 	});
 	Menu.prototype.addMenubutton = (function(title, funct) {
-		buttons.push(new MenuButton(title, funct));
-	}
+		var btn = new MenuButton(title, funct);
+		this.buttons.push(btn);
+		$('#menu'+this.id).append(btn.src);
+		$('#'+btn.id).click(btn.funct);
+	});
+	Menu.prototype.addSeperator = (function() {
+		$('#menu'+this.id).append('<div class="mb_seperator"></div>');
+	});
+	Menu.prototype.showSubMenu = (function() {
+		$('#menu'+this.id).css('display','block');
+		$("#menu"+this.id).css( "left", $("#"+this.id).offset().left );
+	});
+	Menu.prototype.hideSubMenu = (function() {
+		$('#menu'+this.id).css('display','none');
+	});
 	return Menu;
 }));	

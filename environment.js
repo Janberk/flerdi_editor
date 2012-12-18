@@ -28,14 +28,17 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.toolbar.addButton("dummy",(function() { alert("button3")}));
 		// add additional Buttons here
 
-		this.toolbar.draw();
 
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
+		this.menubar.addSubMenu("File", "New", (function() { alert("New File - Comming Soon") }));
+		this.menubar.addSubMenu("File", "Open...", (function() { alert("Open File - Comming Soon") }));
+		this.menubar.addSubSeperator("File");
+		this.menubar.addSubMenu("File", "Save", (function() { alert("Save File - Comming Soon") }));
 		this.menubar.addMenu("Edit");
+		this.menubar.addSubMenu("Edit", "Undo", (function() { alert("Undo - Comming Soon") }));
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
-		this.menubar.draw();
 
 		var _this = this;
 		

@@ -145,8 +145,8 @@ div.line{
 	width: 30px;
 	height: 30px;
 }
-.tb_seperator {
-	width: 30px;
+.tb_seperator, .mb_seperator {
+	width: 100%;
 	background-color: #aaaaaa;
 	height: 1px;
 	margin: 3px 0;
@@ -160,4 +160,16 @@ div.line{
 }
 .mb_menu:hover, .tb_button:hover {
 	background-color: #dddddd;
+}
+.mb_sub {
+	position: absolute;
+	background-color: #cccccc;
+	display: none;
+	z-index: 10;
+	top: 25px;
+	border: 1px solid #aaaaaa;
+}
+.mb_sub div {
+	width: 150px;
+	display: block;
 }

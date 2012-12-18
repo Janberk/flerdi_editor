@@ -10,7 +10,9 @@ define (["jquery"],(function($) {
 		this.title = title;
 		this.id = id;
 		this.buttons = new Array();
-		this.src = '<div class="mb_menu">'+this.title+'</div>';
+		this.src = '<div class="mb_menu" id="' + this.id + '">'+this.title+'</div>';
+
+		this.funct = funct || (function() { alert("No function yet"); });
 	});
 	return Button;
 }));	

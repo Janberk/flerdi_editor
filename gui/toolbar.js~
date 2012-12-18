@@ -13,23 +13,17 @@ define (["jquery", "toolbarButton"],(function($, ToolbarButton) {
 		this.checked = this.buttons[0];
 	});
 	Toolbar.prototype.addButton = (function(img, funct) {
-		this.buttons.push(new ToolbarButton(this.imageSrc, "tb"+this.buttons.length, img));
+		var btn = new ToolbarButton(this.imageSrc, "tb"+this.buttons.length, img, funct);
+		this.buttons.push(btn);
+		$("#toolbar").append(btn.src);
+		$("#"+btn.id).click(function() {
+			this.checked = btn.id;
+			btn.funct();
+		});
 	});
 	Toolbar.prototype.addSeperator = (function() {
 		this.buttons.push(0);
-	});
-	Toolbar.prototype.draw = (function() {
-		$.each( this.buttons, (function(i, val) {
-			if( val != 0 ) {
-				$("#toolbar").append(val.src);
-				$("#"+val.id).click(function() {
-					val.funct();
-					this.checked = val.id;
-				});
-			} else {
-				$("#toolbar").append('<div class="tb_seperator"></div>');
-			}
-		}));
+		$("#toolbar").append('<div class="tb_seperator"></div>');
 	});
 	Toolbar.prototype.setImageSource = (function(src) {
 		this.imageSrc = src;
