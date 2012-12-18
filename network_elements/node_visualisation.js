@@ -12,42 +12,71 @@ define (["jquery", "drag"], (function($,Drag) {
 	var Node_Visualisation = function(position, nodeType) {
 		console.log("creating div for node");
 		
-		this.div = document.createElement("div");
+		this.div = document.createElement("div"); // the container for the svg
+		this.svg = document.createElement('img'); // the img container holding the svg file
 		this.position = position;
-		this.color = this.getNodeColor(nodeType);
-		this.div.setAttribute("class", "node_visualisation", 0);
+		this.nodeType = nodeType || '/node/host/generic';
+		
+		this.size = {width:50, height:50}
 		
 		this.updateAttributes();
 	} //constructor
 	
-	/* returns a hex color for the node, depending on node type */
-	Node_Visualisation.prototype.getNodeColor = function(nodeType) {
+	/*
+	*  This function returns the path to the .svg file for the gven node type  
+	*/
+	Node_Visualisation.prototype.getNodePath = function(nodeType) {
+		var path =' /assets/img/network_elements/';
 		switch (nodeType) {
 			case "/node/host/generic":
-				return "#CA2840";
+				return path + 'generic_host.svg';
 			case "/node/host/pip":
-				return "#929292";
+				return path + 'pip_host.svg';
 			case "/node/switch/cisco":
-				return "#28B228";
+				return path + 'cisco_switch.svg';
 			case "/node/switch/tunnelbridge":
-				return "#396CB3";
+				return path + 'tunnelbridge_switch.svg';
 			case "/node/switch/pip":
-				return "#D7D72A";
+				return path + 'pip_switch.svg';
 			default:
-				return "#000000";
+				return path + 'generic_host.svg';
 		}
-	} //getNodeColor
+	} //getNodePath
 	
-	/* updates the position and color of the node */
+	/* 
+	* This function updates the position and apperance of the Node
+	*/
 	Node_Visualisation.prototype.updateAttributes = function() {
-		this.div.setAttribute("style", "left:" + this.position[0] + "px;top:" + this.position[1] + "px;background-color:" + this.color + ";", 0);
+		var _this = this;
+		
+		$(this.div).css({left:     this.position[0],
+				 top:      this.position[1],
+				 height:   this.size.height,
+				 width:    this.size.width,
+				 position: 'absolute',
+				 cursor:   'move'});
+				 
+		$(this.div).hover(function(){$(this).css({border: '1px dashed black',});
+					    },function(){$(this).css({ border:'none',});
+							});
+		
+				 
+		$(this.svg).attr({src: _this.getNodePath(_this.nodeType),
+				  alt: _this.nodeType})
+			   .css({width:   this.size.width,
+				 height:  this.size.height,
+				 display: 'block'});
 	}
 	
-	/* makes the node visible by appending it to the body */
+	/* This function appends the node to the canvas elements */
 	Node_Visualisation.prototype.show = function() {
-		console.log("showing node");
+		console.log('Appending node {nodeType : '+this.nodeType+', position : '+this.position+'}');
 		
-		$("#body_element").append(this.div);
+		this.div.appendChild(this.svg);
+		
+		document.getElementById('drawarea').appendChild(this.div);
+		
+		//$("#body_element").append(this.div);
 	} //show
 	
 	/* makes the node invisible by removing it from the body */
@@ -58,17 +87,11 @@ define (["jquery", "drag"], (function($,Drag) {
 	} //hide
 	
 	// /* adds drag-function to nodes */
-	Node_Visualisation.prototype.addDrag = function() {
-		var node = this.div;
-		var nodeDragger = document.createElement('div');
-		nodeDragger.setAttribute('class', 'nodeDragger');
-		node.appendChild(nodeDragger);
-		$(node).css('right', '0');
-		$(node).css('bottom', '0');
-		document.body.appendChild(node);
-		$(node).on('drag',function(event){
-			$(this).css({top: event.offsetY, left: event.offsetX});
-		}); 
+	Node_Visualisation.prototype.addDrag = function() {	
+		$(this.div).on('drag', function(event){ $(this).css({ top:  (event.offsetY-32),
+								      left: (event.offsetX-32),});
+							console.log(event.offsetX);
+						 });
 	} //addDrag
 	
 	return Node_Visualisation;

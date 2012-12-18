@@ -22,7 +22,7 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.body = bodyId;
 		//this.elementKey = new ElementKey(10, 10);
 		this.toolbar = new Toolbar("assets/img/");
-		this.toolbar.addButton("dummy",(function() { alert("button1")}));
+		this.toolbar.addButton("network_elements/generic_host",(function() { alert("button1")}));
 		this.toolbar.addButton("dummy",(function() { alert("button2")}));
 		this.toolbar.addSeperator();
 		this.toolbar.addButton("dummy",(function() { alert("button3")}));
@@ -79,24 +79,19 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 			}
 		 });		 
 
+		 this.drawNode({x:50,y:50}, '/node/switch/pip'); // just a test for drawing the svg notes
+		 
 		//this.importJson(this.createTestJson());
 	} //constructor
 	
-		Environment.prototype.drawNode = function(e) {
-		console.log(this.creating);
-		if (this.creating == true) {
-			if (this.test > 0){
-			var pos = [0,0];
-			pos[0] = e.pageX; 
-			pos[1] = e.pageY;
-			var nodeType = "/node"+$("#node_types").val();
-			console.log();
-			var node = new Node_Visualisation(pos, nodeType);
-			node.addDrag();
-			node.show();
-			}
-		}
-		this.test = this.test + 1;
+	Environment.prototype.drawNode = function(position, type) {
+		var pos = [0,0];		
+		pos[0] = position.x; 
+		pos[1] = position.y;
+		//var nodeType = "/node"+$("#node_types").val();
+		var node = new Node_Visualisation(pos, type);
+		node.addDrag();
+		node.show();
 	}
 
 	/* creates a new networkObject from a given jsonObject */
