@@ -22,7 +22,6 @@ define (["jquery", "toolbarButton"],(function($, ToolbarButton) {
 		});
 	});
 	Toolbar.prototype.addSeperator = (function() {
-		this.buttons.push(0);
 		$("#toolbar").append('<div class="tb_seperator"></div>');
 	});
 	Toolbar.prototype.setImageSource = (function(src) {

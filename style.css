@@ -173,3 +173,6 @@ div.line{
 	width: 150px;
 	display: block;
 }
+.checked {
+	border: inset 1px;
+}

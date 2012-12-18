@@ -166,7 +166,7 @@ div.line{
 	background-color: #cccccc;
 	display: none;
 	z-index: 10;
-	top: 30px;
+	top: 25px;
 	border: 1px solid #aaaaaa;
 }
 .mb_sub div {

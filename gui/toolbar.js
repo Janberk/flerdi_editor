@@ -6,18 +6,24 @@
  *  This class handles the appearance of toolbar
  */
 define (["jquery", "toolbarButton"],(function($, ToolbarButton) {
+	var _this = this;
 	var Toolbar = (function(src) {
 		this.buttons = new Array();
 		this.imageSrc = src || "";
-
-		this.checked = this.buttons[0];
+		this.checked = "";
 	});
 	Toolbar.prototype.addButton = (function(img, funct) {
 		var btn = new ToolbarButton(this.imageSrc, "tb"+this.buttons.length, img, funct);
 		this.buttons.push(btn);
 		$("#toolbar").append(btn.src);
+		if(this.buttons.length == 1) {
+			_this.checked = btn.id;
+			$("#"+_this.checked).addClass("checked");
+		}
 		$("#"+btn.id).click(function() {
-			this.checked = btn.id;
+			$("#"+_this.checked).removeClass("checked");
+			_this.checked = btn.id;
+			$("#"+_this.checked).addClass("checked");
 			btn.funct();
 		});
 	});
