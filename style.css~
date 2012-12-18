@@ -136,6 +136,10 @@ div.line{
 	height: 30px;
 	background-color: #cccccc;
 }
+.tb_button svg {
+	width: 30px;
+	height: 30px;
+}
 .tb_seperator {
 	width: 30px;
 	background-color: #aaaaaa;

@@ -21,7 +21,8 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.network = undefined;
 		this.body = bodyId;
 		//this.elementKey = new ElementKey(10, 10);
-		this.toolbar = new Toolbar();
+		this.toolbar = new Toolbar("assets/img/");
+		this.toolbar.addButton();
 
 		var _this = this;
 		
