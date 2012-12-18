@@ -52,13 +52,13 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.jsonObj;
 				
 		$('#yaml_datei').on('change', function() {
-			var _this = this;
+			var environment = _this;
 			var name = $('#yaml_datei').val();
 			console.log(name);
 			name = name.replace(/\..*/,'');
 			console.log(name);
 			Parser.load("test_files/"+$('#yaml_datei').val(),function(json){
-				_this.importJson(json, name);	
+				environment.importJson(json, name);	
 			});	
 		 });
 		 
