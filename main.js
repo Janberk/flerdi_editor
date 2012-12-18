@@ -27,6 +27,9 @@ requirejs.config({
 		"loadingWindow":"gui/loadingWindow",
 		"toolbar":"gui/toolbar",
 		"toolbarButton":"gui/toolbarButton",
+		"menubar":"gui/menubar",
+		"menubarMenu":"gui/menubarMenu",
+		"menubarButton":"gui/menubarButton",
 	} //paths
 }); //config
 

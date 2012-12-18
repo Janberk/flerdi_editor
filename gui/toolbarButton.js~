@@ -11,7 +11,7 @@ define (["jquery"],(function($) {
 		this.img = img || "dummy";
 		this.src = '<div id="' + this.id + '" class="tb_button"><img src="' + src + this.img + '.svg"></div>';
 
-		this.funct = funct || (function() { alert("bla"); });
+		this.funct = funct || (function() { alert("No function yet"); });
 	});
 	return ToolbarButton;
 }));	

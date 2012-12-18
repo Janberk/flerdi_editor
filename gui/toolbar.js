@@ -11,15 +11,12 @@ define (["jquery", "toolbarButton"],(function($, ToolbarButton) {
 		this.imageSrc = src || "";
 
 		this.checked = this.buttons[0];
-		
 	});
 	Toolbar.prototype.addButton = (function(img, funct) {
-		this.buttons.push(new ToolbarButton(this.imageSrc, this.buttons.length, img));
-		this.draw();
+		this.buttons.push(new ToolbarButton(this.imageSrc, "tb"+this.buttons.length, img, funct));
 	});
 	Toolbar.prototype.addSeperator = (function() {
 		this.buttons.push(0);
-		this.draw();
 	});
 	Toolbar.prototype.draw = (function() {
 		$.each( this.buttons, (function(i, val) {

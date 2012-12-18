@@ -101,9 +101,13 @@ div.line{
 	left: 0;
 	right: 0;
 }
+#menubar {
+	border-bottom: 1px solid #aaaaaa;
+	height: 31px;
+}
 #toolbar {
 	width: 32px;
-	margin: 32px 0 32px;;
+	margin: 32px 0 32px;
 	top: 0;
 	bottom: 0;
 	max-height: 100%;
@@ -135,6 +139,7 @@ div.line{
 	width: 30px;
 	height: 30px;
 	background-color: #cccccc;
+	margin: 5px 0;
 }
 .tb_button img {
 	width: 30px;
@@ -145,4 +150,14 @@ div.line{
 	background-color: #aaaaaa;
 	height: 1px;
 	margin: 3px 0;
+}
+.mb_menu {
+	display: inline;
+	padding: 10px;
+	font-family: Verdana;
+	font-size: 13px;
+	background-color: #cccccc;
+}
+.mb_menu:hover, .tb_button:hover {
+	background-color: #dddddd;
 }

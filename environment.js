@@ -10,8 +10,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery","network", "element_key", "parser", "node_visualisation", "toolbar"], 
-		(function($, Network, ElementKey, Parser, Node_Visualisation, Toolbar) {
+define (["jquery","network", "element_key", "parser", "node_visualisation", "toolbar", "menubar"], 
+		(function($, Network, ElementKey, Parser, Node_Visualisation, Toolbar, Menubar) {
 
 
 	/* constructor */
@@ -22,7 +22,20 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.body = bodyId;
 		//this.elementKey = new ElementKey(10, 10);
 		this.toolbar = new Toolbar("assets/img/");
-		this.toolbar.addButton();
+		this.toolbar.addButton("dummy",(function() { alert("button1")}));
+		this.toolbar.addButton("dummy",(function() { alert("button2")}));
+		this.toolbar.addSeperator();
+		this.toolbar.addButton("dummy",(function() { alert("button3")}));
+		// add additional Buttons here
+
+		this.toolbar.draw();
+
+		this.menubar = new Menubar();
+		this.menubar.addMenu("File");
+		this.menubar.addMenu("Edit");
+		this.menubar.addMenu("View");
+		this.menubar.addMenu("Help");
+		this.menubar.draw();
 
 		var _this = this;
 		

@@ -26,6 +26,7 @@ requirejs.config({
 		"spinner":"lib/spinner.min",
 		"loadingWindow":"gui/loadingWindow",
 		"toolbar":"gui/toolbar",
+		"toolbarButton":"gui/toolbarButton",
 	} //paths
 }); //config
 
