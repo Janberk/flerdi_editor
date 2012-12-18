@@ -90,7 +90,6 @@ define (["jquery", "drag"], (function($,Drag) {
 	Node_Visualisation.prototype.addDrag = function() {	
 		$(this.div).on('drag', function(event){ $(this).css({ top:  (event.offsetY-32),
 								      left: (event.offsetX-32),});
-							console.log(event.offsetX);
 						 });
 	} //addDrag
 	

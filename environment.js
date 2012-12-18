@@ -22,17 +22,20 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.body = bodyId;
 		//this.elementKey = new ElementKey(10, 10);
 		this.toolbar = new Toolbar("assets/img/");
-		this.toolbar.addButton("network_elements/generic_host",(function() { alert("button1")}));
-		this.toolbar.addButton("dummy",(function() { alert("button2")}));
+		this.toolbar.addButton("arrow",(function() { _this.moveClicked()}));
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("dummy",(function() { alert("button3")}));
+		this.toolbar.addButton("network_elements/generic_host",(function(e) { _this.newNodeClicked('/node/host/generic') }));
+		this.toolbar.addButton("network_elements/pip_host",(function(e) { _this.newNodeClicked('/node/host/pip') }));
+		this.toolbar.addButton("network_elements/cisco_switch",(function(e) { _this.newNodeClicked('/node/switch/cisco') }));		
+		this.toolbar.addButton("network_elements/tunnelbridge_switch",(function(e) { _this.newNodeClicked('/node/switch/tunnelbridge') }));	
+		this.toolbar.addButton("network_elements/pip_switch",(function(e) { _this.newNodeClicked('/node/switch/pip') }));
 		// add additional Buttons here
 
 
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
 		this.menubar.addSubMenu("File", "New", (function() { alert("New File - Comming Soon") }));
-		this.menubar.addSubMenu("File", "Open...", (function() { alert("Open File - Comming Soon") }));
+		this.menubar.addSubMenu("File", "Open...", (function() { _this.loadSomething("noconnect-4-nodes.yaml") }));
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Save", (function() { alert("Save File - Comming Soon") }));
 		this.menubar.addMenu("Edit");
@@ -43,32 +46,20 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		var _this = this;
 		
 		this.creating = false;
-		this.test = 0;
-		
-		
-		$("#new_node").on("mousedown", (function(e){
-			console.log("blub2");
-			_this.creating = true;
-			$(document).on("click", function(e){_this.drawNode(e)});
-			console.log(_this.creating);	
-		}));
-		
-		$("#move").on("click", (function(e){
-			this.creating = false;
-			$(document).off("click");
-			_this.test = 0;
-		}));		
+		this.test = 0;	
 		
 		//loads selected yaml file and parses it
 		this.jsonObj;
 				
-		 $('#yaml_datei').on('change', function(){ 
-		 	var name = $('#yaml_datei').val();
+		$('#yaml_datei').on('change', function() {
+			var _this = this;
+			var name = $('#yaml_datei').val();
+			console.log(name);
 			name = name.replace(/\..*/,'');
+			console.log(name);
 			Parser.load("test_files/"+$('#yaml_datei').val(),function(json){
 				_this.importJson(json, name);	
-			});
-			
+			});	
 		 });
 		 
 		 $('#save_button').on('click', function() {
@@ -78,17 +69,33 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 				_this.saveNetwork();
 			}
 		 });		 
-
-		 this.drawNode({x:50,y:50}, '/node/switch/pip'); // just a test for drawing the svg notes
 		 
 		//this.importJson(this.createTestJson());
 	} //constructor
 	
+	Environment.prototype.loadSomething = function(oname){ 
+		var _this = this;
+		var name = oname;
+		name = name.replace(/\..*/,'');
+		Parser.load("/test_files/"+oname,function(json){
+			_this.importJson(json, name);	
+		});			
+	};
+	
+	Environment.prototype.newNodeClicked = function(type) {
+		var _this = this;		
+		$('#drawarea').off("click");
+		$('#drawarea').on("click", function(e){_this.drawNode({x:e.pageX-31,y:e.pageY-31}, type)});
+	}
+	
+	Environment.prototype.moveClicked = function() {
+		$('#drawarea').off("click");
+	}
+	
 	Environment.prototype.drawNode = function(position, type) {
 		var pos = [0,0];		
-		pos[0] = position.x; 
+		pos[0] = position.x;
 		pos[1] = position.y;
-		//var nodeType = "/node"+$("#node_types").val();
 		var node = new Node_Visualisation(pos, type);
 		node.addDrag();
 		node.show();
@@ -114,121 +121,5 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		});
 	} //saveNetwork	
 	
-	/* creates and returns a test jsonObject */
-	Environment.prototype.createTestJson = function() {
-		var jsonTest = { 
-			attributes: { 
-				graph_type: 'OL',
-				id: '1',
-				role_identifier: 'PIP91',
-				v_net_identifier: 'noconnect-1',
-				graph_tag: null,
-				graph_nr: '0' 
-			},
-			attributes_cache: {},
-			network_elements: [ 
-				{ 
-					attributes: { 
-						graph_label_id: '1',
-						ne_type: '/node/host/generic',
-						id: '1',
-						provisioning_interface_id: null,
-						console_interface_id: null,
-						alias: 'alias1-c1',
-						identifier: 'c1',
-						customer_console_interface_id: null 
-					},
-					attributes_cache: {},
-					constraint_groups_network_elements: [],
-					features: [ 
-						{ 
-							attributes: { 
-								priority: '1',
-								id: '1',
-								value: 'xen-3.4',
-								avp_attribute: '/node/host/generic/Virtualization/mechanism',
-								network_interface_id: null,
-								network_element_id: '1',
-								is_request: '1' 
-							},
-							attributes_cache: {} 
-						},
-						{ 
-							attributes: { 
-								priority: '1',
-								id: '2',
-								value: 'text',
-								avp_attribute: '/node/host/generic/Console/type',
-								network_interface_id: null,
-								network_element_id: '1',
-								is_request: '1' 
-							},
-							attributes_cache: {} 
-						} 
-					],
-					hosted_network_elements_mappings: [],
-					mgmt_flags: [],
-					network_interfaces: [],
-					resources: [
-						{ 
-							attributes: { 
-								timestamp: null,
-								time_unit: null,
-								value_type: 'constant',
-								the_parent_record_id: '1',
-								resource_unit: null,
-								confidence: null,
-								composing_operation: null,
-								id: '1',
-								value: '768',
-								avp_attribute: '/node/host/generic/RAM/real/amount',
-								is_request: '1',
-								alias: null,
-								identifier: null,
-								interval: null 
-							},
-							attributes_cache: {} 
-						},
-						{ 
-							attributes: {
-								timestamp: null,
-								time_unit: null,
-								value_type: 'constant',
-								the_parent_record_id: '1',
-								resource_unit: null,
-								confidence: null,
-								composing_operation: null,
-								id: '2',
-								value: '512',
-								avp_attribute: '/node/host/generic/HDD/hd_0/space',
-								is_request: '1',
-								alias: null,
-								identifier: null,
-								interval: null 
-							},
-							attributes_cache: {} 
-						} 
-					] 
-				} 
-			],
-			positions: [
-				{ 
-					attributes: { 
-						id: '1', x: 512, network_element_id: '1' 
-					},
-					attributes_cache: {} 
-				},
-				{ 
-					attributes: { 
-						id: '2', x: 512, network_element_id: '2' 
-					},
-					attributes_cache: {} 
-				} 
-			] 
-		};
-		
-		var jsonObject = eval(jsonTest);
-		return jsonObject;	   
-	} //createTestJson
 	return Environment;
 })); //define

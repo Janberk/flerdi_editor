@@ -20,11 +20,11 @@ define (["jquery", "toolbarButton"],(function($, ToolbarButton) {
 			_this.checked = btn.id;
 			$("#"+_this.checked).addClass("checked");
 		}
-		$("#"+btn.id).click(function() {
+		$("#"+btn.id).on('click', function(e) {
 			$("#"+_this.checked).removeClass("checked");
 			_this.checked = btn.id;
 			$("#"+_this.checked).addClass("checked");
-			btn.funct();
+			btn.funct(e);
 		});
 	});
 	Toolbar.prototype.addSeperator = (function() {
