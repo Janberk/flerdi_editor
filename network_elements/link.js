@@ -17,12 +17,12 @@ define (["jquery", "link_visualisation"], (function($, Link_Visualisation) {
 		//this.endPosition = endNode.position || [Math.floor(Math.random() * 501), Math.floor(Math.random() * 501)];
 		this.endPosition = [0, 0];
 
-		this.network_element = network_element;	
+		this.network_element = network_element;
 		this.attributes = network_element.attributes;
 		this.id = network_element.attributes.id;
 		this.type = network_element.attributes.ne_type;
 		
-		this.visualisation = new Link_Visualisation(this.startPosition, this.endPosition, this.type);
+		this.visualisation = new Link_Visualisation(this.startPosition[0], this.startPosition[1], this.endPosition[0], this.endPosition[1], this.type);
 		this.visualisation.show();
 	} //constructor
 	

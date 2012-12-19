@@ -135,6 +135,13 @@ div.line{
 	min-width: 100%;
 	min-height: 100%;
 }
+
+#svg_root {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
 .tb_button {
 	width: 30px;
 	height: 30px;
