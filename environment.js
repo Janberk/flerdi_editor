@@ -1,6 +1,6 @@
 /*
  * Module environment: handles the program
- * Author: Flerdi Team, Kai Müller
+ * Author: Flerdi Team
  *
  * ----------
  * insert on-change and new_node-click function: Johanna Wehrens
@@ -58,7 +58,7 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 			name = name.replace(/\..*/,'');
 			console.log(name);
 			Parser.load("test_files/"+$('#yaml_datei').val(),function(json){
-				environment.importJson(json, name);	
+				environment.importJson(json, name);
 			});	
 		 });
 		 
@@ -68,7 +68,7 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 			} else {
 				_this.saveNetwork();
 			}
-		 });		 
+		 });
 		 
 		//this.importJson(this.createTestJson());
 	} //constructor

@@ -13,6 +13,7 @@ define (["jquery"],(function($) {
 		this.src = '<div class="mb_menu" id="' + this.id + '">'+this.title+'</div>';
 
 		this.funct = funct || (function() { alert("No function yet"); });
+	// create irgendwas, addatribute, on('click') etc
 	});
 	return Button;
 }));	

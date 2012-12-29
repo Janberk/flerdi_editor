@@ -5,33 +5,30 @@
  /* 
  *  This class handles the appearance of toolbar
  */
-define (["jquery", "toolbarButton"],(function($, ToolbarButton) {
+define (['jquery', 'toolbarButton'],function($, ToolbarButton) {
 	var _this = this;
-	var Toolbar = (function(src) {
+	var Toolbar = function(src) {
 		this.buttons = new Array();
 		this.imageSrc = src || "";
 		this.checked = "";
-	});
-	Toolbar.prototype.addButton = (function(img, funct) {
-		var btn = new ToolbarButton(this.imageSrc, "tb"+this.buttons.length, img, funct);
+	};
+	Toolbar.prototype.addButton = function(img, funct) {
+		var btn = new ToolbarButton(this.imageSrc, img, funct);
 		this.buttons.push(btn);
-		$("#toolbar").append(btn.src);
+		$('#toolbar').append(btn.html);
 		if(this.buttons.length == 1) {
-			_this.checked = btn.id;
-			$("#"+_this.checked).addClass("checked");
+			_this.checked = btn.html;
+			$(_this.checked).addClass('checked');
 		}
-		$("#"+btn.id).on('click', function(e) {
-			$("#"+_this.checked).removeClass("checked");
-			_this.checked = btn.id;
-			$("#"+_this.checked).addClass("checked");
-			btn.funct(e);
-		});
-	});
-	Toolbar.prototype.addSeperator = (function() {
-		$("#toolbar").append('<div class="tb_seperator"></div>');
-	});
-	Toolbar.prototype.setImageSource = (function(src) {
-		this.imageSrc = src;
-	});
+		$(btn.html).on('click', function() { 
+			$(_this.checked).removeClass('checked');
+			_this.checked = btn.html;
+			$(_this.checked).addClass('checked'); } );
+	};
+	Toolbar.prototype.addSeperator = function() {
+		var sep = document.createElement('div');
+		sep.setAttribute('class' , 'tb_seperator');
+		$('#toolbar').append(sep);
+	};
 	return Toolbar;
-}));	
+});	

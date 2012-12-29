@@ -5,13 +5,17 @@
  /* 
  *  This class handles the appearance of toolbar
  */
-define (["jquery"],(function($) {
-	var ToolbarButton = (function(src, id, img, funct) {
-		this.id = id;
-		this.img = img || "dummy";
-		this.src = '<div id="' + this.id + '" class="tb_button"><img src="' + src + this.img + '.svg"></div>';
+define (['jquery'],function($) {
+	var ToolbarButton = function(src, img, funct) {
+		this.html = document.createElement('div');
+		this.html.setAttribute('class', 'tb_button');
 
-		this.funct = funct || (function() { alert("No function yet"); });
-	});
+		this.img = document.createElement('img');
+		this.img.setAttribute('src', src + (img || 'dummy') + '.svg');
+		this.img.setAttribute('alt', 'hover text');
+
+		this.html.appendChild(this.img);
+		$(this.html).on('click', funct || function() { alert('No function yet') });
+	};
 	return ToolbarButton;
-}));	
+});	
