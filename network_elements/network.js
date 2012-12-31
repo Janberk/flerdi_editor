@@ -17,7 +17,8 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		this.attributes = jsonObject.attributes;
 		this.attributes_cache = jsonObject.attributes_cache;
 		this.network_elements = jsonObject.network_elements;
-		this.positions = jsonObject.positions;
+		this.positions = jsonObject['--- !Flerdit,2012'];
+		
 		this.nodes = [];
 		this.links = [];
 		

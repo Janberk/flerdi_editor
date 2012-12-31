@@ -3933,18 +3933,17 @@ network_elements:
 
 # Example position objects (used by Flerdit and ignored by the prototype)
 
---- !Flerdit,2012:Position 
-attributes:
+--- !Flerdit,2012:Position
+ -
   id: "1"
   x: 256
-  x: 512
+  y: 512
   network_element_id: "1"
-attributes_cache: {}
+ attributes_cache: {}
 
---- !Flerdit,2012:Position 
-attributes:
+ -
   id: "2"
   x: 333
-  x: 512
+  y: 512
   network_element_id: "2"
-attributes_cache: {}
+ attributes_cache: {}

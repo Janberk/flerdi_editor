@@ -27,9 +27,9 @@ define (["jquery", "node_visualisation", "json2yaml"], (function($, Node_Visuali
 	/* overrides the random position if one is given */
 	Node.prototype.readPosition = function(positions) {
 		for (var i = 0; i < positions.length; i++) {
-			if (positions[i].attributes.id == this.id) {
-				this.position[0] = positions[i].attributes.x;
-				this.position[1] = positions[i].attributes.y;
+			if (positions[i].id == this.id) {
+				this.position[0] = positions[i].x;
+				this.position[1] = positions[i].y;
 				break;
 			}
 		}

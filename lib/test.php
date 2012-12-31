@@ -1,16 +1,29 @@
---- !yaml.org,2002:GraphLabel 
-attributes: 
+<?php
+/*$test = '--- !yaml.org,2002:GraphLabel 
+ attributes: 
   graph_type: OL
   id: "1"
   role_identifier: PIP91
-  v_net_identifier: noconnect-4
+  v_net_identifier: noconnect-1
   graph_tag: 
   graph_nr: "0"
-attributes_cache: {}
+ attributes_cache: {}
 
-network_elements: 
-- !yaml.org,2002:NetworkElement 
-  attributes: 
+ network_elements: 
+  - !yaml.org,2002:NetworkElement 
+   attributes: 
+    graph_label_id: "1"
+    ne_type: /node/host/generic
+    id: "2"
+    provisioning_interface_id: 
+    console_interface_id: 
+    alias: alias1-c1
+    identifier: c1
+    customer_console_interface_id: 
+   attributes_cache: {}
+  
+  - !yaml.org,2002:NetworkElement  
+   attributes: 
     graph_label_id: "1"
     ne_type: /node/host/generic
     id: "1"
@@ -19,11 +32,11 @@ network_elements:
     alias: alias1-c1
     identifier: c1
     customer_console_interface_id: 
-  attributes_cache: {}
+   attributes_cache: {}
 
   constraint_groups_network_elements: []
 
-  features: 
+ features: 
   - !yaml.org,2002:Feature 
     attributes: 
       priority: "1"
@@ -32,7 +45,7 @@ network_elements:
       avp_attribute: /node/host/generic/Virtualization/mechanism
       network_interface_id: 
       network_element_id: "1"
-      is_request: "0"
+      is_request: "1"
     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
@@ -43,7 +56,7 @@ network_elements:
       avp_attribute: /node/host/generic/Console/type
       network_interface_id: 
       network_element_id: "1"
-      is_request: "0"
+      is_request: "1"
     attributes_cache: {}
 
   hosted_network_elements_mappings: []
@@ -52,7 +65,7 @@ network_elements:
 
   network_interfaces: []
 
-  resources: 
+ resources: 
   - !yaml.org,2002:Resource 
     attributes: 
       timestamp: 
@@ -65,7 +78,7 @@ network_elements:
       id: "1"
       value: "768"
       avp_attribute: /node/host/generic/RAM/real/amount
-      is_request: "0"
+      is_request: "1"
       alias: 
       identifier: 
       interval: 
@@ -83,37 +96,78 @@ network_elements:
       id: "2"
       value: "512"
       avp_attribute: /node/host/generic/HDD/hd_0/space
-      is_request: "0"
+      is_request: "1"
       alias: 
       identifier: 
       interval: 
     attributes_cache: {}
 
-- !yaml.org,2002:NetworkElement 
-  attributes: 
+
+# Example position objects (used by Flerdit and ignored by the prototype)
+
+--- !Flerdit,2012:Position 
+ -
+  attributes:
+   id: "1"
+   x: 256
+   y: 512
+   network_element_id: "1"
+  attributes_cache: {}
+ -
+  attributes:
+   id: "2"
+   x: 333
+   y: 400
+   network_element_id: "2"
+  attributes_cache: {}
+';*/
+$test = '--- !yaml.org,2002:GraphLabel 
+ attributes: 
+  graph_type: OL
+  id: "1"
+  role_identifier: PIP91
+  v_net_identifier: noconnect-4
+  graph_tag: 
+  graph_nr: "0"
+ attributes_cache: {}
+
+network_elements: 
+ - !yaml.org,2002:NetworkElement 
+   attributes: 
     graph_label_id: "1"
-    ne_type: /node/switch/cisco
-    id: "2"
+    ne_type: /node/host/generic
+    id: "1"
     provisioning_interface_id: 
     console_interface_id: 
-    alias: alias1-c2
-    identifier: c2
+    alias: alias1-c1
+    identifier: c1
     customer_console_interface_id: 
-  attributes_cache: {}
+   attributes_cache: {}
 
   constraint_groups_network_elements: []
 
   features: 
   - !yaml.org,2002:Feature 
-    attributes: 
+     attributes: 
       priority: "1"
-      id: "3"
-      value: domestic
-      avp_attribute: /node/switch/cisco/Virtualization/vlan/zone
+      id: "1"
+      value: xen-3.4
+      avp_attribute: /node/host/generic/Virtualization/mechanism
       network_interface_id: 
-      network_element_id: "2"
+      network_element_id: "1"
       is_request: "0"
-    attributes_cache: {}
+     attributes_cache: {}
+
+  - !yaml.org,2002:Feature 
+     attributes: 
+      priority: "1"
+      id: "2"
+      value: text
+      avp_attribute: /node/host/generic/Console/type
+      network_interface_id: 
+      network_element_id: "1"
+      is_request: "0"
+     attributes_cache: {}
 
   hosted_network_elements_mappings: []
 
@@ -123,7 +177,76 @@ network_elements:
 
   resources: 
   - !yaml.org,2002:Resource 
-    attributes: 
+     attributes: 
+      timestamp: 
+      time_unit: 
+      value_type: constant
+      the_parent_record_id: "1"
+      resource_unit: 
+      confidence: 
+      composing_operation: 
+      id: "1"
+      value: "768"
+      avp_attribute: /node/host/generic/RAM/real/amount
+      is_request: "0"
+      alias: 
+      identifier: 
+      interval: 
+    attributes_cache: {}
+
+  - !yaml.org,2002:Resource 
+     attributes: 
+      timestamp: 
+      time_unit: 
+      value_type: constant
+      the_parent_record_id: "1"
+      resource_unit: 
+      confidence: 
+      composing_operation: 
+      id: "2"
+      value: "512"
+      avp_attribute: /node/host/generic/HDD/hd_0/space
+      is_request: "0"
+      alias: 
+      identifier: 
+      interval: 
+    attributes_cache: {}
+    
+ - !yaml.org,2002:NetworkElement 
+   attributes: 
+    graph_label_id: "1"
+    ne_type: /node/switch/cisco
+    id: "2"
+    provisioning_interface_id: 
+    console_interface_id: 
+    alias: alias1-c2
+    identifier: c2
+    customer_console_interface_id: 
+   attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: 
+  - !yaml.org,2002:Feature 
+     attributes: 
+      priority: "1"
+      id: "3"
+      value: domestic
+      avp_attribute: /node/switch/cisco/Virtualization/vlan/zone
+      network_interface_id: 
+      network_element_id: "2"
+      is_request: "0"
+     attributes_cache: {}
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: 
+  - !yaml.org,2002:Resource 
+     attributes: 
       timestamp: 
       time_unit: 
       value_type: constant
@@ -138,10 +261,10 @@ network_elements:
       alias: 
       identifier: 
       interval: 
-    attributes_cache: {}
+     attributes_cache: {}
 
   - !yaml.org,2002:Resource 
-    attributes: 
+     attributes: 
       timestamp: 
       time_unit: 
       value_type: constant
@@ -156,10 +279,10 @@ network_elements:
       alias: 
       identifier: 
       interval: 
-    attributes_cache: {}
+     attributes_cache: {}
 
-- !yaml.org,2002:NetworkElement 
-  attributes: 
+ - !yaml.org,2002:NetworkElement 
+   attributes: 
     graph_label_id: "1"
     ne_type: /node/switch/tunnelbridge
     id: "3"
@@ -168,13 +291,13 @@ network_elements:
     alias: alias1-c3
     identifier: c3
     customer_console_interface_id: 
-  attributes_cache: {}
+   attributes_cache: {}
 
   constraint_groups_network_elements: []
 
   features: 
   - !yaml.org,2002:Feature 
-    attributes: 
+     attributes: 
       priority: "1"
       id: "4"
       value: domestic
@@ -182,7 +305,7 @@ network_elements:
       network_interface_id: 
       network_element_id: "3"
       is_request: "0"
-    attributes_cache: {}
+     attributes_cache: {}
 
   hosted_network_elements_mappings: []
 
@@ -192,7 +315,7 @@ network_elements:
 
   resources: 
   - !yaml.org,2002:Resource 
-    attributes: 
+     attributes: 
       timestamp: 
       time_unit: 
       value_type: constant
@@ -207,10 +330,10 @@ network_elements:
       alias: 
       identifier: 
       interval: 
-    attributes_cache: {}
+     attributes_cache: {}
 
   - !yaml.org,2002:Resource 
-    attributes: 
+     attributes: 
       timestamp: 
       time_unit: 
       value_type: constant
@@ -225,10 +348,10 @@ network_elements:
       alias: 
       identifier: 
       interval: 
-    attributes_cache: {}
+     attributes_cache: {}
 
-- !yaml.org,2002:NetworkElement 
-  attributes: 
+ - !yaml.org,2002:NetworkElement 
+   attributes: 
     graph_label_id: "1"
     ne_type: /node/host/pip
     id: "4"
@@ -237,13 +360,13 @@ network_elements:
     alias: alias1-c4
     identifier: c4
     customer_console_interface_id: 
-  attributes_cache: {}
+   attributes_cache: {}
 
   constraint_groups_network_elements: []
 
   features: 
   - !yaml.org,2002:Feature 
-    attributes: 
+     attributes: 
       priority: "1"
       id: "5"
       value: xen-3.4
@@ -251,10 +374,10 @@ network_elements:
       network_interface_id: 
       network_element_id: "4"
       is_request: "0"
-    attributes_cache: {}
+     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
-    attributes: 
+     attributes: 
       priority: "2"
       id: "6"
       value: kvm
@@ -262,10 +385,10 @@ network_elements:
       network_interface_id: 
       network_element_id: "4"
       is_request: "0"
-    attributes_cache: {}
+     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
-    attributes: 
+     attributes: 
       priority: "1"
       id: "7"
       value: text
@@ -273,7 +396,7 @@ network_elements:
       network_interface_id: 
       network_element_id: "4"
       is_request: "0"
-    attributes_cache: {}
+     attributes_cache: {}
 
   hosted_network_elements_mappings: []
 
@@ -283,7 +406,7 @@ network_elements:
 
   resources: 
   - !yaml.org,2002:Resource 
-    attributes: 
+     attributes: 
       timestamp: 
       time_unit: 
       value_type: constant
@@ -298,10 +421,10 @@ network_elements:
       alias: 
       identifier: 
       interval: 
-    attributes_cache: {}
+     attributes_cache: {}
 
   - !yaml.org,2002:Resource 
-    attributes: 
+     attributes: 
       timestamp: 
       time_unit: 
       value_type: constant
@@ -316,23 +439,26 @@ network_elements:
       alias: 
       identifier: 
       interval: 
-    attributes_cache: {}
+     attributes_cache: {}
 
 
 
 # Example position objects (used by Flerdit and ignored by the prototype)
 
---- !Flerdit,2012:Position
- -
+--- !Flerdit,2012:Position 
+ attributes:
   id: "1"
   x: 256
-  y: 512
+  x: 512
   network_element_id: "1"
  attributes_cache: {}
 
- -
+--- !Flerdit,2012:Position 
+ attributes:
   id: "2"
   x: 333
-  y: 512
+  x: 512
   network_element_id: "2"
  attributes_cache: {}
+';
+?>

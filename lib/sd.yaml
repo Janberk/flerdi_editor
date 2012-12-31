@@ -1,4 +1,4 @@
---- !yaml.org,2002:GraphLabel 
+---
 attributes: 
   graph_type: OL
   id: "1"
@@ -9,7 +9,7 @@ attributes:
 attributes_cache: {}
 
 network_elements: 
-- !yaml.org,2002:NetworkElement 
+-
   attributes: 
     graph_label_id: "1"
     ne_type: /node/host/generic
@@ -21,7 +21,7 @@ network_elements:
     customer_console_interface_id: 
   attributes_cache: {}
   
-- !yaml.org,2002:NetworkElement  
+-
   attributes: 
     graph_label_id: "1"
     ne_type: /node/host/generic
@@ -36,7 +36,7 @@ network_elements:
   constraint_groups_network_elements: []
 
   features: 
-  - !yaml.org,2002:Feature 
+  -
     attributes: 
       priority: "1"
       id: "1"
@@ -47,7 +47,7 @@ network_elements:
       is_request: "1"
     attributes_cache: {}
 
-  - !yaml.org,2002:Feature 
+  -
     attributes: 
       priority: "1"
       id: "2"
@@ -65,7 +65,7 @@ network_elements:
   network_interfaces: []
 
   resources: 
-  - !yaml.org,2002:Resource 
+  -
     attributes: 
       timestamp: 
       time_unit: 
@@ -83,7 +83,7 @@ network_elements:
       interval: 
     attributes_cache: {}
 
-  - !yaml.org,2002:Resource 
+  -
     attributes: 
       timestamp: 
       time_unit: 
@@ -104,17 +104,19 @@ network_elements:
 
 # Example position objects (used by Flerdit and ignored by the prototype)
 
---- !Flerdit,2012:Position
- -
-  id: "1"
-  x: 256
-  y: 512
-  network_element_id: "1"
+positions:
+-
+ attributes:
+   id: "1"
+   x: 256
+   y: 512
+   network_element_id: "1"
  attributes_cache: {}
-
- -
-  id: "2"
-  x: 333
-  y: 400
-  network_element_id: "2"
+ 
+-
+ attributes:
+   id: "2"
+   x: 333
+   y: 400
+   network_element_id: "2"
  attributes_cache: {}
