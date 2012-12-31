@@ -35,7 +35,7 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
 		this.menubar.addSubMenu("File", "New", (function() { alert("New File - Comming Soon") }));
-		this.menubar.addSubMenu("File", "Open...", (function() { _this.loadSomething("noconnect-4-nodes.yaml") }));
+		this.menubar.addSubMenu("File", "Open...", (function() {document.getElementById('yaml_datei').click()}));
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Save", (function() { alert("Save File - Comming Soon") }));
 		this.menubar.addMenu("Edit");

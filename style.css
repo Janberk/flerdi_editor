@@ -70,9 +70,7 @@ div.line{
 }
 
 #yaml_datei{
-	display: block;
-	position: fixed;
-	bottom: 5px;
+	display: none;
 }
 
 #save_button{
