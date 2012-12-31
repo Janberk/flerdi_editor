@@ -11,7 +11,7 @@ define (["jquery","spinner" ],
 	/* constructor */
 	var LoadingWindow = function(message) {
 	//creating the window
-	this.message = message || "";
+	this.message = message || '';
 	this.container = document.createElement('div');
 		
 	this.messageContainer = document.createElement('div');
@@ -20,12 +20,12 @@ define (["jquery","spinner" ],
 	var width = 400;
 	var height = 200;
 		
-	$(this.container).css({	'width':width+'px',
-				'height':height+'px',
+	$(this.container).css({	'width':400,
+				'height':200,
 				'position':'fixed',
-				'left' : (($(window).width()/2)-(width/2))+"px",
-				'top' : (($(window).height()/2)-(height/2))+'px',
-				'z-index':'999999',
+				'left' : (($(window).width()/2)-(width/2)),
+				'top' : (($(window).height()/2)-(height/2)),
+				'z-index':999999,
 				'background-color':'#626262',
 				'border-top':'2px solid #a2a2a2',
 				'border-left':'2px solid #a2a2a2',
@@ -34,8 +34,8 @@ define (["jquery","spinner" ],
 			});
 	var messageHeight = 20;
 	$(this.messageContainer).css({	'position':'relative',
-					'height' : messageHeight+'px',
-					'top':	(((height/2)-(messageHeight/2))+50)+'px',
+					'height' : messageHeight,
+					'top':	(((height/2)-(messageHeight/2))+50),
 					'color':'white',
 					'text-align':'center',
 			}).html(message);
@@ -57,15 +57,14 @@ define (["jquery","spinner" ],
 		  top: 'auto', // Top position relative to parent in px
 		  left: 'auto' // Left position relative to parent in px
 		};
-		this.container.appendChild(this.messageContainer);
+	this.container.appendChild(this.messageContainer);
 	document.body.appendChild(this.container);
 	this.spinner = new Spinner(opts).spin(this.container);
 
-	
 	} //constructor
-	
 
-	/* This functions clos the Window and remov all objects.
+	/* 
+	*  This functions close the Window and remov all objects.
 	*  In Order to show the Window again, you have to crete a new LoadingWindow-Object
 	*/
 	LoadingWindow.prototype.close = function() {
@@ -75,8 +74,14 @@ define (["jquery","spinner" ],
 		this.messgaeContainer = null;
 		document.body.removeChild(this.container);
 		this.container = null;
-		//document.body.removeChild(this.container);
 	} 
+	
+	/*
+	*  This function is a setter, you do the math.
+	*/
+	LoadingWindow.prototype.setMessage = function(message){
+		this.message = message || '';
+	}
 	
 	return LoadingWindow;
 }));

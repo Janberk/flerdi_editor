@@ -1,5 +1,5 @@
 <?php
-require_once "spyc.php";
+require_once "../lib/spyc.php";
 
 $file = $_POST['file'];
 
