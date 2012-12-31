@@ -6,13 +6,12 @@
  *  This class handles the appearance of menubar
  */
 define (["jquery"],(function($) {
-	var Button = (function(id, title, funct) {
-		this.title = title;
-		this.id = id;
-		this.buttons = new Array();
-		this.src = '<div class="mb_menu" id="' + this.id + '">'+this.title+'</div>';
-
-		this.funct = funct || (function() { alert("No function yet"); });
+	var Button = (function(title, funct) {
+		var html = $(document.createElement('div'))
+			.attr('class', 'mb_menu')
+			.append(title)
+			.on('click', funct || function() { alert('No function yet') });
+		this.html = html
 	});
 	return Button;
 }));	

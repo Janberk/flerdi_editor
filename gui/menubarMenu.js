@@ -3,30 +3,35 @@
  */
  
  /* 
- *  This class handles the appearance of menubar
+ *  This class handles the appearance of the menubar
  */
-define (["jquery", "menubarButton"],(function($, MenuButton) {
-	var Menu = (function(id, title) {
-		this.title = title;
-		this.id = title;
-		this.buttons = new Array();
-		this.src = '<div id="' + this.id + '" class="mb_menu">'+this.title+'</div><div class="mb_sub" id="menu' + this.id + '"></div>';
-	});
-	Menu.prototype.addMenubutton = (function(title, funct) {
-		var btn = new MenuButton(this.id + this.buttons.length, title, funct);
-		this.buttons.push(btn);
-		$('#menu'+this.id).append(btn.src);
-		$('#'+btn.id).click(btn.funct);
-	});
-	Menu.prototype.addSeperator = (function() {
-		$('#menu'+this.id).append('<div class="mb_seperator"></div>');
-	});
-	Menu.prototype.showSubMenu = (function() {
-		$('#menu'+this.id).css('display','block');
-		$("#menu"+this.id).css( "left", $("#"+this.id).offset().left );
-	});
-	Menu.prototype.hideSubMenu = (function() {
-		$('#menu'+this.id).css('display','none');
-	});
+define (["jquery", "menubarButton"],function($, MenuButton) {
+	var Menu = function(title) {
+		var html = $(document.createElement('div'))
+			.attr('class', 'mb_menu')
+			.append(title)
+			.append($(document.createElement('div'))
+				.attr('class', 'mb_sub')
+			);
+		this.html = html;
+	};
+	Menu.prototype.addMenubutton = function(title, funct) {
+		$(this.html).children('.mb_sub').append((new MenuButton(title,funct)).html);
+	};
+	Menu.prototype.addSeperator = function() {
+		$(this.html).children('.mb_sub').append(
+			$(document.createElement('div'))
+				.attr('class', 'mb_seperator')
+		);
+	};
+	Menu.prototype.showSubMenu = function() {
+		$(this.html).children('.mb_sub').css({
+			'display': 'block',
+			'left': $(this.html).offset().left
+		});
+	};
+	Menu.prototype.hideSubMenu = function() {
+		$(this.html).children('.mb_sub').css('display','none');
+	};
 	return Menu;
-}));	
+});	

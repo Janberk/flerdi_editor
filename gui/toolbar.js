@@ -6,29 +6,28 @@
  *  This class handles the appearance of toolbar
  */
 define (['jquery', 'toolbarButton'],function($, ToolbarButton) {
-	var _this = this;
+	var checked = "";
+	var imageSrc = "";
 	var Toolbar = function(src) {
-		this.buttons = new Array();
-		this.imageSrc = src || "";
-		this.checked = "";
+		imageSrc = src || "";
 	};
 	Toolbar.prototype.addButton = function(img, funct) {
-		var btn = new ToolbarButton(this.imageSrc, img, funct);
-		this.buttons.push(btn);
+		var btn = new ToolbarButton(imageSrc, img, funct);
 		$('#toolbar').append(btn.html);
-		if(this.buttons.length == 1) {
-			_this.checked = btn.html;
-			$(_this.checked).addClass('checked');
+		if($('#toolbar').children().length == 1) {
+			checked = btn.html;
+			checked.addClass('checked');
 		}
 		$(btn.html).on('click', function() { 
-			$(_this.checked).removeClass('checked');
-			_this.checked = btn.html;
-			$(_this.checked).addClass('checked'); } );
+			checked.removeClass('checked');
+			checked = btn.html;
+			checked.addClass('checked');
+		});
 	};
 	Toolbar.prototype.addSeperator = function() {
-		var sep = document.createElement('div');
-		sep.setAttribute('class' , 'tb_seperator');
-		$('#toolbar').append(sep);
+		$('#toolbar').append($(document.createElement('div'))
+			.attr('class', 'tb_seperator')
+		);
 	};
 	return Toolbar;
 });	
