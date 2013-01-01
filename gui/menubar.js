@@ -3,7 +3,7 @@
  */
  
  /* 
- *  This class handles the appearance of menubar
+ *  This class handles the appearance of the menubar
  */
 define (['jquery', 'menubarMenu', 'menubarButton'],function($, Menu, MenuButton) {
 	var active = false;

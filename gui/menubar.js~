@@ -10,7 +10,7 @@ define (['jquery', 'menubarMenu', 'menubarButton'],function($, Menu, MenuButton)
 	var activeMenu = '';
 	var Menubar = function() {
 		this.menus = new Array();
-		$('#mb_button').on('click', function() {
+		$('.mb_button').on('click', function() {
 			active = false;
 			setActive();
 		});

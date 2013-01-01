@@ -13,7 +13,6 @@ define (['jquery', 'menubarButton'],function($, MenuButton) {
 			.append($(document.createElement('div'))
 				.attr('class', 'mb_sub')
 			);
-		html.children('.mb_sub').css('left', html.offset().left);
 		this.html = html;
 	};
 	Menu.prototype.addMenubutton = function(title, funct) {

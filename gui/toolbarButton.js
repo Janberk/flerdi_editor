@@ -7,17 +7,15 @@
  */
 define (['jquery'],function($) {
 	var ToolbarButton = function(src, image, funct) {
-		var img = $(document.createElement('img'))
-			.attr({
-				'src': src + (image || 'dummy') + '.svg',
-				'alt': 'hover text',
-		});
-		var html = $(document.createElement('div'))
+		this.html = $(document.createElement('div'))
 			.attr('class', 'tb_button')
-			.append(img)
-			.on('click', funct || function() { alert('No function yet') });
-
-		this.html = html;
+			.on('click', funct || function() { alert('No function yet') })
+			.append($(document.createElement('img'))
+				.attr({
+					'src': src + (image || 'dummy') + '.svg',
+					'alt': 'hover text',
+				})
+			);
 	};
 	return ToolbarButton;
 });	

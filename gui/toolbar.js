@@ -6,10 +6,10 @@
  *  This class handles the appearance of toolbar
  */
 define (['jquery', 'toolbarButton'],function($, ToolbarButton) {
-	var checked = "";
-	var imageSrc = "";
+	var checked = '';
+	var imageSrc = '';
 	var Toolbar = function(src) {
-		imageSrc = src || "";
+		imageSrc = src || '';
 	};
 	Toolbar.prototype.addButton = function(img, funct) {
 		var btn = new ToolbarButton(imageSrc, img, funct);

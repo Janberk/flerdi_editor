@@ -7,13 +7,12 @@
  */
 define (['jquery', 'menubarButton'],function($, MenuButton) {
 	var Menu = function(title) {
-		var html = $(document.createElement('div'))
+		this.html = $(document.createElement('div'))
 			.attr('class', 'mb_menu')
 			.append(title)
 			.append($(document.createElement('div'))
 				.attr('class', 'mb_sub')
 			);
-		this.html = html;
 	};
 	Menu.prototype.addMenubutton = function(title, funct) {
 		$(this.html).children('.mb_sub').append((new MenuButton(title,funct)).html);
