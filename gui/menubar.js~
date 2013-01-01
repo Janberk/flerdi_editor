@@ -20,11 +20,6 @@ define (['jquery', 'menubarMenu', 'menubarButton'],function($, Menu, MenuButton)
 				setActive();
 			}
 		});
-		$('#menubar').hover(function(e) {
-			if($(e.target).closest('.mb_menu').length === 0) {
-				setActive('');
-			}
-		});
 	};
 	Menubar.prototype.addMenu = function(title) {
 		var menu = new Menu(title);
