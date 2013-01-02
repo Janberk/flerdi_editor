@@ -11,7 +11,8 @@ define (['jquery', 'menubarMenu', 'menubarButton'],function($, Menu, MenuButton)
 	var Menubar = function() {
 		this.menus = new Array();
 		$(document).on('click', function(e) {
-			if(($(e.target).closest('.mb_menu').length == 0)||$(e.target).closest('.mb_button').length > 0) {
+			if($(e.target).closest('.mb_menu').length == 0 ||
+					$(e.target).closest('.mb_button').length > 0) {
 				active = false;
 				setActive();
 			}

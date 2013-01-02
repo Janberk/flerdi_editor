@@ -29,6 +29,9 @@ requirejs.config({
 		"menubar":"gui/menubar",
 		"menubarMenu":"gui/menubarMenu",
 		"menubarButton":"gui/menubarButton",
+		"drawArea":"gui/drawArea",
+		"move":"gui/States/move",
+		"newNode":"gui/States/newNode",
 	} //paths
 }); //config
 

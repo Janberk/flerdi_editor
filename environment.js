@@ -10,8 +10,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery","network", "element_key", "parser", "node_visualisation", "toolbar", "menubar"], 
-		(function($, Network, ElementKey, Parser, Node_Visualisation, Toolbar, Menubar) {
+define (["jquery","network", "element_key", "parser", "node_visualisation", "toolbar", "menubar", "drawArea", "move", "newNode"], 
+		(function($, Network, ElementKey, Parser, Node_Visualisation, Toolbar, Menubar, DrawArea, Move, NewNode) {
 
 
 	/* constructor */
@@ -20,15 +20,17 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		
 		this.network = undefined;
 		this.body = bodyId;
+
+		var drawArea = new DrawArea();
 		//this.elementKey = new ElementKey(10, 10);
 		this.toolbar = new Toolbar("assets/img/");
-		this.toolbar.addButton("arrow",(function() { _this.moveClicked()}));
+		this.toolbar.addButton("arrow",function() { drawArea.setState(new Move())});
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/generic_host",(function(e) { _this.newNodeClicked('/node/host/generic') }));
-		this.toolbar.addButton("network_elements/pip_host",(function(e) { _this.newNodeClicked('/node/host/pip') }));
-		this.toolbar.addButton("network_elements/cisco_switch",(function(e) { _this.newNodeClicked('/node/switch/cisco') }));		
-		this.toolbar.addButton("network_elements/tunnelbridge_switch",(function(e) { _this.newNodeClicked('/node/switch/tunnelbridge') }));	
-		this.toolbar.addButton("network_elements/pip_switch",(function(e) { _this.newNodeClicked('/node/switch/pip') }));
+		this.toolbar.addButton("network_elements/generic_host",function(e) { drawArea.setState(new NewNode('/node/host/generic'))});
+		this.toolbar.addButton("network_elements/pip_host",function(e) { drawArea.setState(new NewNode('/node/host/pip'))});
+		this.toolbar.addButton("network_elements/cisco_switch",function(e) { drawArea.setState(new NewNode('/node/switch/cisco'))});		
+		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { drawArea.setState(new NewNode('/node/switch/tunnelbridge') )});	
+		this.toolbar.addButton("network_elements/pip_switch",function(e) { drawArea.setState(new NewNode('/node/switch/pip'))});
 		// add additional Buttons here
 
 
@@ -81,7 +83,7 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 			_this.importJson(json, name);	
 		});			
 	};
-	
+	/*
 	Environment.prototype.newNodeClicked = function(type) {
 		var _this = this;		
 		$('#drawarea').off("click");
@@ -99,7 +101,7 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		var node = new Node_Visualisation(pos, type);
 		node.addDrag();
 		node.show();
-	}
+	} */
 
 	/* creates a new networkObject from a given jsonObject */
 	Environment.prototype.importJson = function(jsonObject, name) {
