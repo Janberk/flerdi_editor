@@ -14,8 +14,7 @@ define (["jquery", "link_visualisation"], (function($, Link_Visualisation) {
 		console.log("creating link");
 		
 		this.startPosition = startNode.position || [Math.floor(Math.random() * 501), Math.floor(Math.random() * 501)];
-		//this.endPosition = endNode.position || [Math.floor(Math.random() * 501), Math.floor(Math.random() * 501)];
-		this.endPosition = [0, 0];
+		this.endPosition = endNode.position || [Math.floor(Math.random() * 501), Math.floor(Math.random() * 501)];
 
 		this.network_element = network_element;
 		this.attributes = network_element.attributes;

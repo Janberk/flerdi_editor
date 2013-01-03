@@ -1,8 +1,6 @@
 /*
  * Module network: represents a network, handles the nodes and links
- * Author: Flerdi Team, Kai Müller
- * ----------
- * insert create links function: Franz Nieschalk
+ * Author: Flerdi Team, Kai Müller, Franz Nieschalk
  */
  
 /*
@@ -16,15 +14,38 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		this.name = name;
 		this.attributes = jsonObject.attributes;
 		this.attributes_cache = jsonObject.attributes_cache;
-		this.network_elements = jsonObject.network_elements;
 		this.positions = jsonObject['--- !Flerdit,2012'];
 		
+		this.network_elements = [];
+		this.network_interfaces = [];
 		this.nodes = [];
 		this.links = [];
+		
+		this.sortElements(jsonObject.network_elements);
 		
 		this.createNodes();
 		this.createLinks();
 	} //constructor
+	
+	/* sorts the elements and their interfaces of the network by ID */
+	Network.prototype.sortElements = function(elements) {
+		for(var i = 0; i < elements.length; i++) {
+			if(elements[i] === undefined) continue;
+
+			var element = elements[i];
+			var element_id = element.attributes.id;
+			
+			this.network_elements[element_id] = element;
+			
+			/* sorts all the interfaces of the current element by ID */
+			for(var j = 0; j < element.network_interfaces.length; j++) {
+				var network_interface = element.network_interfaces[j];
+				var network_interface_id = network_interface.attributes.id;
+			
+				this.network_interfaces[network_interface_id] = network_interface;
+			}
+		}
+	} //sortElements
 	
 	/* creates the nodes of the network */
 	Network.prototype.createNodes = function() {
@@ -32,23 +53,41 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		
 		for (var i = 0; i < this.network_elements.length; i++) {
 		
-			var element = this.network_elements[i];
+			if(this.network_elements[i] === undefined) continue;
+		
+			var element = this.network_elements[i];	
 			var element_type = element.attributes.ne_type;
 		
-			if(element_type.substr(0,5) == "/node")
-				this.nodes.push(new Node(element, this.positions));
+			if(element_type.substr(0,5) == "/node") {
+				this.nodes[i] = new Node(element, this.positions);
+			}
 		}
 	} //createNodes
 	
 	/* creates the links of the network */
 	Network.prototype.createLinks = function() {
+		console.log("pushing links");
+	
 		for (var i = 0; i < this.network_elements.length; i++) {
+			
+			if(this.network_elements[i] === undefined) continue;
 			
 			var element = this.network_elements[i];
 			var element_type = element.attributes.ne_type;
 		
-			if(element_type.substr(0,5) == "/link")
-				this.links.push(new Link(element, this.nodes[0], this.nodes[1])); //TODO: determine which elements are actually connected
+			if(element_type.substr(0,5) == "/link") {
+				var connected_nodes = [];
+				
+				for(var j = 0; j < element.network_interfaces.length; j++) {
+					var connected_interface_id = element.network_interfaces[j].attributes.network_interface_id;
+					var connected_interface = this.network_interfaces[connected_interface_id];
+					var connected_node = this.nodes[connected_interface.attributes.network_element_id];
+					
+					connected_nodes.push(connected_node);
+				}
+
+				this.links[i] = new Link(element, connected_nodes.pop(), connected_nodes.pop());
+			}
 		}
 	} //createLinks
 	

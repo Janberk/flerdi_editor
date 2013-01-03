@@ -12,8 +12,12 @@ define (["jquery"], (function($) {
 	var Link_Visualisation = function(x1, y1, x2, y2, linkType) {
 		console.log("creating svg-line for link");
 		
-		this.x1 = x1; this.y1 = y1;
-		this.x2 = x2; this.y2 = y2;
+		// TODO: determine the current size of the svg picture of the connected nodes
+		var svg_length = 50;
+		var svg_height = 50;
+		
+		this.x1 = x1 + svg_length/2; this.y1 = y1 + svg_height/2;
+		this.x2 = x2 + svg_length/2; this.y2 = y2 + svg_height/2;
 		this.style = this.getLinkStyle(linkType);
 		
 		this.svg_line = document.createElementNS("http://www.w3.org/2000/svg", "line");
