@@ -21,7 +21,10 @@ define (["jquery", "link_visualisation"], (function($, Link_Visualisation) {
 		this.id = network_element.attributes.id;
 		this.type = network_element.attributes.ne_type;
 		
-		this.visualisation = new Link_Visualisation(this.startPosition[0], this.startPosition[1], this.endPosition[0], this.endPosition[1], this.type);
+		var resource = network_element.resources.pop();
+		this.avp_attribute = resource.attributes.avp_attribute;
+		
+		this.visualisation = new Link_Visualisation(this.startPosition[0], this.startPosition[1], this.endPosition[0], this.endPosition[1], this.type, this.avp_attribute);
 		this.visualisation.show();
 	} //constructor
 	

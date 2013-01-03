@@ -9,7 +9,7 @@
 define (["jquery"], (function($) {
 	
 	/* constructor */
-	var Link_Visualisation = function(x1, y1, x2, y2, linkType) {
+	var Link_Visualisation = function(x1, y1, x2, y2, link_type, avp_attribute) {
 		console.log("creating svg-line for link");
 		
 		// TODO: determine the current size of the svg picture of the connected nodes
@@ -18,7 +18,7 @@ define (["jquery"], (function($) {
 		
 		this.x1 = x1 + svg_length/2; this.y1 = y1 + svg_height/2;
 		this.x2 = x2 + svg_length/2; this.y2 = y2 + svg_height/2;
-		this.style = this.getLinkStyle(linkType);
+		this.style = this.getLinkStyle(link_type, avp_attribute);
 		
 		this.svg_line = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
@@ -31,15 +31,26 @@ define (["jquery"], (function($) {
 	} //constructor
 	
 	/* returns the style for the link, depending on link type */
-	Link_Visualisation.prototype.getLinkStyle = function(linkType) {
-		switch (linkType) {
+	Link_Visualisation.prototype.getLinkStyle = function(link_type, avp_attribute) {
+		var link_style;
+	
+		switch (link_type) {
 			case "/link/generic":
-				return "stroke:rgb(115,62,145);stroke-width:2"; //#733e91
+				link_style = "stroke:rgb(115,62,145);"; break; //#733e91
 			case "/link/transit" :
-				return "stroke:rgb(81,188,190);stroke-width:2"; //#51bcbe
+				link_style = "stroke:rgb(81,188,190);"; break; //#51bcbe
 			default:
-				return "stroke:rgb(0,0,0);stroke-width:2"; //#000000
+				link_style = "stroke:rgb(0,0,0);"; break; //#000000
 		}
+		
+		if(avp_attribute == "/link/generic/symmetric/bandwidth") {
+			link_style = link_style + "stroke-width:2"; //half-duplex-link
+		}
+		else {
+			link_style = link_style + "stroke-width:4"; //full-duplex-link
+		}
+		
+		return link_style;
 	} //getLinkColor
 	
 	/* makes the link visible by appending it to the svg root */
