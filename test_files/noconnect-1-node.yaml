@@ -21,18 +21,6 @@ network_elements:
     customer_console_interface_id: 
   attributes_cache: {}
   
-- !yaml.org,2002:NetworkElement  
-  attributes: 
-    graph_label_id: "1"
-    ne_type: /node/host/generic
-    id: "1"
-    provisioning_interface_id: 
-    console_interface_id: 
-    alias: alias1-c1
-    identifier: c1
-    customer_console_interface_id: 
-  attributes_cache: {}
-
   constraint_groups_network_elements: []
 
   features: 

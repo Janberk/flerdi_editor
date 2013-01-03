@@ -16,6 +16,7 @@ define (["jquery",'loadingWindow'],
 		this.loadingScreen = new LoadingWindow('\''+path+'\' wird geladen...');
 		var _this = this;
 		$.post("/backend/parser.php", { file: path}, function(json) {
+								console.log(json);
 								_this.loadingScreen.close();
 								$('#yaml_datei').prop('disabled',false);
 								callback(json);
