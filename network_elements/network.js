@@ -86,7 +86,7 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 					connected_nodes.push(connected_node);
 				}
 
-				this.links[i] = new Link(element, connected_nodes.pop(), connected_nodes.pop());
+				this.links[i] = new Link(element, connected_nodes);
 			}
 		}
 	} //createLinks
