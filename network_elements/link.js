@@ -1,38 +1,127 @@
 /*
- * Module link: represents a single link in the network
- * Author: Flerdi Team, Franz Nieschalk
+ * Author: Flerdi Team
  */
  
- /*
+/*
  * RequireJS module definition
  */ 
-define (["jquery", "link_visualisation"], (function($, Link_Visualisation) {
+define (["jquery"], (function($) {
 
-	/* constructor */
-	var Link = function(network_element, connected_nodes) {
+	var Link = function(json,network){
+		console.log('creating link');
+		this.json = json;
+		this.network = network;
+		this.setAttributes(json);
+
+		this.nodes = []; //references to nodes, connected to this link
+				
+		this.lines = []; 
+	}
 	
-		console.log("creating link");
-		
-		this.connected_nodes = connected_nodes;
-		this.node_positions = [];
-		
-		for(var i = 0; i < this.connected_nodes.length; i++) {
-			var node = this.connected_nodes[i];
+	Link.prototype.setAttributes = function(json){
+		this.json.attributes.alias = json.attributes.alias || "";
+		this.json.attributes.console_interface_id = json.attributes.console_interface_id || "";
+		this.json.attributes.graph_label_id = json.attributesgraph_label_idalias || this.network.getNetworkId();
+		this.json.attributes.id = json.attributes.id || this.network.getNextElementId();
+		this.json.attributes.ne_type = json.attributes.ne_type || "/node/host/generic";
+		this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id || "";
+		this.json.attributes_cache = json.attributes_cache || [];
+		this.json.constraint_groups_network_elements = json.constraint_groups_network_elements || [];
+		this.json.features = json.features || [];
+		this.json.hosted_network_element_mappings = json.hosted_network_element_mappings || [];
+		this.json.mgmt_flags = json.mgmt_flags || [];
+		this.json.network_interfaces = json.network_interfaces || [];
+		this.json.resources = json.resources || [];
 
-			this.node_positions.push(node.position || [Math.floor(Math.random() * 501), Math.floor(Math.random() * 501)]);
+	}
+	
+	Link.prototype.getJson = function(){
+		return this.json;
+	}
+	
+	Link.prototype.getLinkStyle = function() {
+		var link_style;
+		
+		switch (this.json.attributes.ne_type) {
+			case "/link/generic":
+				link_style = "stroke:rgb(115,62,145);"; break; //#733e91
+			case "/link/transit" :
+				link_style = "stroke:rgb(81,188,190);"; break; //#51bcbe
+			default:
+				link_style = "stroke:rgb(0,0,0);"; break; //#000000
 		}
+		
+		if(this.json.resources[0].attributes.avp_attribute == "/link/generic/symmetric/bandwidth") {
+			link_style = link_style + "stroke-width:2"; //half-duplex-link
+		}
+		else {
+			link_style = link_style + "stroke-width:4"; //full-duplex-link
+		}
+		return link_style;
+	}
+	
+	Link.prototype.createSvgTag = function(){
+		console.log('creating svg-tags for this link');
+		/*this loop determinate all nodes connected to this link*/
+		for(var i=0;i<this.json.network_interfaces.length;i++){
+			this.nodes.push(this.network.getNodeByInterfaceId(parseInt(this.json.network_interfaces[i].attributes.network_interface_id)));
+		}
+		
+		var node_length = 50;
+		var node_height = 50;
+		
+		var svg_lines = [];
+		
+		// create the first line
+		var x1 = this.nodes[0].getPositionJson().x + node_length/2;
+		var y1 = this.nodes[0].getPositionJson().y + node_height/2;
+		var x2 = this.nodes[1].getPositionJson().x + node_length/2;
+		var y2 = this.nodes[1].getPositionJson().y + node_height/2;
+		
+		var i = svg_lines.push(document.createElementNS("http://www.w3.org/2000/svg", "line")) - 1;
 
-		this.network_element = network_element;
-		this.attributes = network_element.attributes;
-		this.id = network_element.attributes.id;
-		this.type = network_element.attributes.ne_type;
+		svg_lines[i].setAttribute("x1", x1);
+		svg_lines[i].setAttribute("y1", y1);
+		svg_lines[i].setAttribute("x2", x2);
+		svg_lines[i].setAttribute("y2", y2);
+		svg_lines[i].setAttribute("style", this.getLinkStyle());
 		
-		var resource = network_element.resources.pop();
-		this.avp_attribute = resource.attributes.avp_attribute;
+		// create an anchor point for additional lines
+		var anchor_x = Math.min(x1, x2) + ((Math.max(x1, x2) - Math.min(x1, x2)) / 2);
+		var anchor_y = Math.min(y1, y2) + ((Math.max(y1, y2) - Math.min(y1, y2)) / 2);
+		var anchor = [anchor_x, anchor_y];
 		
-		this.visualisation = new Link_Visualisation(this.node_positions, this.type, this.avp_attribute);
-		this.visualisation.show();
-	} //constructor
+		// if there are more than 2 nodes connected, add more lines
+		for(var j = 2; j < this.nodes.length; j++) {
+			x1 = anchor[0];
+			y1 = anchor[1];
+			x2 = this.nodes[j].getPositionJson().x + node_length/2;
+			y2 = this.nodes[j].getPositionJson().y + node_height/2;
+			
+			i = svg_lines.push(document.createElementNS("http://www.w3.org/2000/svg", "line")) - 1;
+
+			svg_lines[i].setAttribute("x1", x1);
+			svg_lines[i].setAttribute("y1", y1);
+			svg_lines[i].setAttribute("x2", x2);
+			svg_lines[i].setAttribute("y2", y2);
+			svg_lines[i].setAttribute("style", this.getLinkStyle());
+		}
+		this.lines = svg_lines;
+	}
+	
+	Link.prototype.removeSvgTag = function(){
+		console.log('removing svg-tags for this link from the svgRoot');
+		for(var i = 0; i < this.lines.length; i++) {
+			document.getElementById('links').removeChild(this.lines[i]);
+		}
+	}
+	
+	Link.prototype.appendSvgTag = function(){
+		console.log('appanding svg-tags for this link to the svgRoot');
+		for(var i = 0; i < this.lines.length; i++) {
+			document.getElementById('links').appendChild(this.lines[i]);
+		}
+	}
 	
 	return Link;
-}));
+})); //define

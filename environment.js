@@ -10,33 +10,36 @@
  * RequireJS module definition
  */ 
 
-define (["jquery","network", "element_key", "parser", "node_visualisation", "toolbar", "menubar", "drawArea", "move", "newNode"], 
-		(function($, Network, ElementKey, Parser, Node_Visualisation, Toolbar, Menubar, DrawArea, Move, NewNode) {
+define (["jquery","networkOrganisation", "element_key", "parser", "node_visualisation", "toolbar", "menubar", "drawArea", "move", "newNode"], 
+		(function($, NetworkOrganisation, ElementKey, Parser, Node_Visualisation, Toolbar, Menubar, DrawArea, Move, NewNode) {
 
 
 	/* constructor */
 	var Environment = function(bodyId) {
 		console.log("creating environment");
 		
-		this.network = undefined;
+		this.networks = new NetworkOrganisation();
+		this.networks.newNetwork({});
 		this.body = bodyId;
 
+		var _this = this;
+			
 		var drawArea = new DrawArea();
 		//this.elementKey = new ElementKey(10, 10);
 		this.toolbar = new Toolbar("assets/img/");
 		this.toolbar.addButton("arrow",function() { drawArea.setState(new Move())});
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/generic_host",function(e) { drawArea.setState(new NewNode('/node/host/generic'))});
-		this.toolbar.addButton("network_elements/pip_host",function(e) { drawArea.setState(new NewNode('/node/host/pip'))});
-		this.toolbar.addButton("network_elements/cisco_switch",function(e) { drawArea.setState(new NewNode('/node/switch/cisco'))});		
-		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { drawArea.setState(new NewNode('/node/switch/tunnelbridge') )});	
-		this.toolbar.addButton("network_elements/pip_switch",function(e) { drawArea.setState(new NewNode('/node/switch/pip'))});
+		this.toolbar.addButton("network_elements/generic_host",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/host/generic'))});
+		this.toolbar.addButton("network_elements/pip_host",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/host/pip'))});
+		this.toolbar.addButton("network_elements/cisco_switch",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/cisco'))});		
+		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/tunnelbridge') )});	
+		this.toolbar.addButton("network_elements/pip_switch",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/pip'))});
 		// add additional Buttons here
 
 
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
-		this.menubar.addSubMenu("File", "New", (function() { alert("New File - Comming Soon") }));
+		this.menubar.addSubMenu("File", "New", (function() { _this.networks.newNetwork({}); }));
 		this.menubar.addSubMenu("File", "Open...", (function() {document.getElementById('yaml_datei').click()}));
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Save", (function() { alert("Save File - Comming Soon") }));
@@ -45,8 +48,6 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
 
-		var _this = this;
-		
 		this.creating = false;
 		this.test = 0;	
 		
@@ -56,12 +57,11 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		$('#yaml_datei').on('change', function() {
 			var environment = _this;
 			var name = $('#yaml_datei').val();
-			console.log(name);
 			name = name.replace(/\..*/,'');
 			console.log(name);
 			Parser.load("test_files/"+$('#yaml_datei').val(),function(json){
 				environment.importJson(json, name);
-			});	
+			});
 		 });
 		 
 		 $('#save_button').on('click', function() {
@@ -73,41 +73,12 @@ define (["jquery","network", "element_key", "parser", "node_visualisation", "too
 		 });
 		 
 		//this.importJson(this.createTestJson());
-	} //constructor
-	
-	Environment.prototype.loadSomething = function(oname){ 
-		var _this = this;
-		var name = oname;
-		name = name.replace(/\..*/,'');
-		Parser.load("/test_files/"+oname,function(json){
-			_this.importJson(json, name);	
-		});			
-	};
-	/*
-	Environment.prototype.newNodeClicked = function(type) {
-		var _this = this;		
-		$('#drawarea').off("click");
-		$('#drawarea').on("click", function(e){_this.drawNode({x:e.pageX-31,y:e.pageY-31}, type)});
 	}
-	
-	Environment.prototype.moveClicked = function() {
-		$('#drawarea').off("click");
-	}
-	
-	Environment.prototype.drawNode = function(position, type) {
-		var pos = [0,0];		
-		pos[0] = position.x;
-		pos[1] = position.y;
-		var node = new Node_Visualisation(pos, type);
-		node.addDrag();
-		node.show();
-	} */
 
 	/* creates a new networkObject from a given jsonObject */
 	Environment.prototype.importJson = function(jsonObject, name) {
 		console.log("importing network from json object");
-		
-		this.network = new Network(jsonObject, name);
+		this.networks.newNetwork(jsonObject, name);
 	} //importJson
 	
 	/* saves the network as a yaml file per php */

@@ -32,6 +32,7 @@ requirejs.config({
 		"drawArea":"gui/drawArea",
 		"move":"gui/States/move",
 		"newNode":"gui/States/newNode",
+		"networkOrganisation":"network_elements/network_organisation",
 	} //paths
 }); //config
 

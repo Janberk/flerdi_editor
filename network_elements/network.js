@@ -1,140 +1,172 @@
 /*
  * Module network: represents a network, handles the nodes and links
- * Author: Flerdi Team, Kai Müller, Franz Nieschalk
+ * Author: Flerdi Team
  */
  
 /*
  * RequireJS module definition
  */ 
-define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2yaml) {
+define (["jquery", "node", "link"], (function($, Node, Link) {
 
-	/* constructor */
-	var Network = function(jsonObject, name) {
-		console.log("creating network");
-		this.name = name;
-		this.attributes = jsonObject.attributes;
-		this.attributes_cache = jsonObject.attributes_cache;
-		this.positions = jsonObject['--- !Flerdit,2012'];
+	var Network = function(json, name){
+		this.elements = json;
+		this.name = name || "Unknown network" ;
+		console.log('creating new Network "'+name+'"');
 		
-		this.network_elements = [];
-		this.network_interfaces = [];
+			
 		this.nodes = [];
+		
 		this.links = [];
 		
-		this.sortElements(jsonObject.network_elements);
+		this.element_id = 0;
+		this.position_id = 0;
 		
-		this.createNodes();
-		this.createLinks();
-	} //constructor
-	
-	/* sorts the elements and their interfaces of the network by ID */
-	Network.prototype.sortElements = function(elements) {
-		for(var i = 0; i < elements.length; i++) {
-			if(elements[i] === undefined) continue;
-
-			var element = elements[i];
-			var element_id = element.attributes.id;
-			
-			this.network_elements[element_id] = element;
-			
-			/* sorts all the interfaces of the current element by ID */
-			for(var j = 0; j < element.network_interfaces.length; j++) {
-				var network_interface = element.network_interfaces[j];
-				var network_interface_id = network_interface.attributes.id;
-			
-				this.network_interfaces[network_interface_id] = network_interface;
-			}
-		}
-	} //sortElements
-	
-	/* creates the nodes of the network */
-	Network.prototype.createNodes = function() {
-		console.log("pushing nodes");
+		this.setAttributes(json);
 		
-		for (var i = 0; i < this.network_elements.length; i++) {
-		
-			if(this.network_elements[i] === undefined) continue;
-		
-			var element = this.network_elements[i];	
-			var element_type = element.attributes.ne_type;
-		
-			if(element_type.substr(0,5) == "/node") {
-				this.nodes[i] = new Node(element, this.positions);
-			}
-		}
-	} //createNodes
-	
-	/* creates the links of the network */
-	Network.prototype.createLinks = function() {
-		console.log("pushing links");
-	
-		for (var i = 0; i < this.network_elements.length; i++) {
-			
-			if(this.network_elements[i] === undefined) continue;
-			
-			var element = this.network_elements[i];
-			var element_type = element.attributes.ne_type;
-		
-			if(element_type.substr(0,5) == "/link") {
-				var connected_nodes = [];
-				
-				for(var j = 0; j < element.network_interfaces.length; j++) {
-					var connected_interface_id = element.network_interfaces[j].attributes.network_interface_id;
-					var connected_interface = this.network_interfaces[connected_interface_id];
-					var connected_node = this.nodes[connected_interface.attributes.network_element_id];
-					
-					connected_nodes.push(connected_node);
+		/*This loop searches tje biggest positin id, only if there is an id*/
+		if(this.elements['--- !Flerdit,2012'] !== undefined){
+			for(j=0; j<  this.elements['--- !Flerdit,2012'].length; j++){				
+				if(this.elements['--- !Flerdit,2012'][j].id > this.position_id){
+					this.position_id = this.elements['--- !Flerdit,2012'][j].id;
 				}
-
-				this.links[i] = new Link(element, connected_nodes);
 			}
 		}
-	} //createLinks
-	
-	/* returns the name of the network */
-	Network.prototype.getName = function() {
-		return this.name;
-	} //getName
-	
-	/* returns a representation of the network in yaml format */
-	Network.prototype.getYaml = function() {
-		var yaml = "--- !yaml.org,2002:GraphLabel\n";
-		
-		//attributes
-		yaml += "attributes:\n";
-		var yaml_attr = "\t";
-		yaml_attr += json2yaml(this.attributes);
-		yaml_attr = yaml_attr.replace(/(\n)/g,"\n\t");
-		yaml_attr = yaml_attr.replace(/null/g,"");
-		yaml_attr = yaml_attr.replace(/\"/g,"");
-		yaml_attr = yaml_attr.replace(/ (\d+)/g," \"$1\"");
-		yaml_attr += "\n";
-		yaml += yaml_attr;
-		
-		//attributes_cache
-		yaml += "attributes_cache:";
-		var yaml_attr_cache = " {}\n\n";
-		yaml += yaml_attr_cache;
-		
-		//network_elements
-		yaml += "network_elements:\n";
-		var yaml_network_elements = "";
-		for (var i = 0; i < this.network_elements.length; i++) {
-			yaml_network_elements += this.nodes[i].getNodeYaml();
-			yaml_network_elements += "\n";
-		}
-		yaml += yaml_network_elements;
-		
-		//positions
-		yaml += "# Example position objects (used by Flerdit and ignored by the prototype)\n\n";
-		for (var i = 0; i < this.network_elements.length; i++) {
-			yaml += this.nodes[i].getPositionYaml();
-			yaml += "\n"
+		for(var i=0; i < this.elements.network_elements.length; i++){
+			var type = this.elements.network_elements[i].attributes.ne_type.split('/')[1];
+			var position = this.getPositionById(this.elements.network_elements[i].attributes.id);
+			
+			/*this if searches the biggest id, only if there is an id*/
+			if(this.elements.network_elements[i].attributes.id !== undefined){
+				if(parseInt(this.elements.network_elements[i].attributes.id) > this.element_id){
+					this.element_id = parseInt(this.elements.network_elements[i].attributes.id);
+				}
+			}
+					
+			switch(type){
+				case 'link':
+					this.importLink(this.elements.network_elements[i]);
+					break;
+				case 'node':
+					this.importNode(this.elements.network_elements[i],position);
+					break;
+			}
 		}
 		
-		yaml = yaml.replace(/\t/g, "  ");
-		return yaml;
-	} //getYaml	
+		for(i=0; i < this.nodes.length; i++){
+			this.nodes[i].createSvgTag();
+			this.nodes[i].appendSvgTag();
+		}
+		
+		for(i=0;i<this.links.length;i++){
+			this.links[i].createSvgTag();
+			this.links[i].appendSvgTag();
+		}
+
+		
+	};
+	
+	Network.prototype.setAttributes = function(json){
+		this.elements['--- !Flerdit,2012'] = json['--- !Flerdit,2012'] || {};
+		this.elements['--- !yaml.org,2002'] = json['--- !yaml.org,2002'] || {};
+		this.elements['--- !yaml.org,2002'].attributes = json['--- !yaml.org,2002'].attributes || {};
+		
+		this.elements['--- !yaml.org,2002'].attributes.graph_nr = json['--- !yaml.org,2002'].attributes.graph_nr || "0";
+		this.elements['--- !yaml.org,2002'].attributes.graph_tag = json['--- !yaml.org,2002'].attributes.graph_tag || "";
+		this.elements['--- !yaml.org,2002'].attributes.graph_type = json['--- !yaml.org,2002'].attributes.graph_type || "OL";
+		this.elements['--- !yaml.org,2002'].attributes.id = json['--- !yaml.org,2002'].attributes.id || "1";
+		this.elements['--- !yaml.org,2002'].attributes.role_identifier = json['--- !yaml.org,2002'].attributes.role_identifier || "PIP91";
+		this.elements['--- !yaml.org,2002'].attributes.v_net_identifier = json['--- !yaml.org,2002'].attributes.v_net_identifier || this.name;
+		this.elements['--- !yaml.org,2002'].attributes_cache = json['--- !yaml.org,2002'].attributes_cache || [];
+			
+			
+		this.elements.network_elements = json.network_elements || {};
+	}
+	
+	Network.prototype.importNode = function(json,position, show){
+		var s = show || false;
+		
+		var id = this.nodes.push(new Node(json,position,this))-1;
+		
+		if(s){
+			this.nodes[id].createSvgTag();
+			this.nodes[id].appendSvgTag();
+		}
+	};
+	
+	Network.prototype.importLink = function(json){
+		this.links.push(new Link(json,this));
+	};
+	
+	Network.prototype.getPositionById = function(id){
+		var input = this.elements['--- !Flerdit,2012'];
+		var output = {};
+		if(input !== undefined){
+			for(j=0; j< input.length; j++){				
+				if(input[j].network_element_id == id){
+					output = input[j]; 
+					break;
+				}
+			}
+		}
+		
+		return output;
+	};
+	
+	Network.prototype.getNextElementId = function(){
+		return ++this.element_id;
+	};
+	
+	Network.prototype.getNextPositionId = function(){
+		return ++this.position_id;
+	};
+	
+	Network.prototype.getNodeByInterfaceId = function(id){
+		for(var j=0;j<this.nodes.length;j++){
+			for(var k=0; k<this.nodes[j].getJson().network_interfaces.length;k++){
+				if(parseInt(this.nodes[j].getJson().network_interfaces[k].attributes.id) == id){
+					return this.nodes[j];
+				}
+			}
+		}
+		return null;
+	};
+	
+	Network.prototype.getNodeById = function(id){
+		for(var i=0;i<this.nodeslength; i++){
+			if(parseInt(this.nodes[i].getjson().attribues.id) == parseInt(id)){
+				return this.nodes[i];
+			}
+		}
+		return null;
+	}
+	
+	Network.prototype.remove = function(){
+		console.log('remove every element  of this network');
+		for(var i=0; i<this.nodes.length; i++){
+			this.nodes[i].removeSvgTag();
+		}
+		for(var i=0; i<this.links.length; i++){
+			this.links[i].removeSvgTag();
+		}
+	}
+	Network.prototype.getNetworkId = function(){
+		return this.elements['--- !yaml.org,2002'].attributes.id;
+	}
+	
+	Network.prototype.getJson = function(){
+		this.elements.network_elements = [];
+		this.elements['--- !Flerdit,2012'] = [];
+		console.log(this.elements);
+		for(var i=0; i<this.links.length; i++){
+			this.elements.network_elements.push(this.links[i].getJson());
+		}
+		
+		
+		for(var i=0; i<this.nodes.length; i++){
+			this.elements.network_elements.push(this.nodes[i].getJson());
+			this.elements['--- !Flerdit,2012'].push(this.nodes[i].getPositionJson());
+		}
+	}
 	
 	return Network;
 })); //define
