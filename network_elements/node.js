@@ -5,7 +5,8 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery", "drag"], (function($, Drag) {
+
+define (["jquery", "drag", "listDialogue"], (function($, Drag, listDialogue) {
 
 	var Node = function(json,position,network){
 		console.log('creating node');
@@ -86,6 +87,13 @@ define (["jquery", "drag"], (function($, Drag) {
 		
 		// TODO remove this
 		this.appendMoveEvent();
+
+		var _this = this;
+		$(node).on ('click', function() {
+			console.log(_this.getJson());
+			new listDialogue("resources", _this.getJson());
+		});
+
 	}
 	
 	Node.prototype.appendMoveEvent = function (){

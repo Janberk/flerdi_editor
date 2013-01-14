@@ -31,6 +31,8 @@ requirejs.config({
 		"move":"gui/States/move",
 		"newNode":"gui/States/newNode",
 		"networkOrganisation":"network_elements/network_organisation",
+		"dialogue":"gui/dialogue",
+		"listDialogue":"gui/listDialogue",
 	} //paths
 }); //config
 
