@@ -5,7 +5,7 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery"], (function($) {
+define (["jquery", "listDialogue"], (function($, listDialogue) {
 
 	var Node = function(json,position,network){
 		console.log('creating node');
@@ -83,6 +83,12 @@ define (["jquery"], (function($) {
 		node.setAttribute("xlink:href", this.getPathToSvg());
 		
 		this.element = node;
+		
+		var _this = this;
+		$(node).on ('click', function() {
+			console.log(_this.getJson());
+			new listDialogue("resources", _this.getJson());
+		});
 	}
 	
 	Node.prototype.appendMoveEvent = function (){
