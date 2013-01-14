@@ -5,7 +5,7 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery"], (function($) {
+define (["jquery", "drag"], (function($, Drag) {
 
 	var Node = function(json,position,network){
 		console.log('creating node');
@@ -83,14 +83,22 @@ define (["jquery"], (function($) {
 		node.setAttribute("xlink:href", this.getPathToSvg());
 		
 		this.element = node;
+		
+		// TODO remove this
+		this.appendMoveEvent();
 	}
 	
 	Node.prototype.appendMoveEvent = function (){
-		
+		var _this = this;
+	
+		$(_this.element).on('drag', function(event){
+			$(_this.element).attr('x', event.offsetX-32);
+			$(_this.element).attr('y', event.offsetY-32);
+		});
 	}
 	
 	Node.prototype.removeMoveEvent = function(){
-		
+		$(this.element).off('drag');
 	}
 	
 	Node.prototype.removeSvgTag = function(){

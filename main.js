@@ -17,8 +17,6 @@ requirejs.config({
 		"network": "network_elements/network",
 		"node": "network_elements/node",
 		"link": "network_elements/link",
-		"node_visualisation": "network_elements/node_visualisation",
-		"link_visualisation": "network_elements/link_visualisation",
 		"parser": "backend/parser",
 		"element_key" : "gui/element_key",
 		"json2yaml" : "lib/json2yaml",

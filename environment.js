@@ -10,8 +10,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery","networkOrganisation", "element_key", "parser", "node_visualisation", "toolbar", "menubar", "drawArea", "move", "newNode"], 
-		(function($, NetworkOrganisation, ElementKey, Parser, Node_Visualisation, Toolbar, Menubar, DrawArea, Move, NewNode) {
+define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "menubar", "drawArea", "move", "newNode"], 
+		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode) {
 
 
 	/* constructor */
