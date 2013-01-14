@@ -23,7 +23,7 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 		
 		this.setAttributes(json);
 		
-		/*This loop searches tje biggest positin id, only if there is an id*/
+		/*This loop searches the biggest positin id, only if there is an id*/
 		if(this.elements['--- !Flerdit,2012'] !== undefined){
 			for(j=0; j<  this.elements['--- !Flerdit,2012'].length; j++){				
 				if(this.elements['--- !Flerdit,2012'][j].id > this.position_id){

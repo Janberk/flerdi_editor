@@ -71,15 +71,18 @@ define (["jquery"], (function($) {
 	
 	Node.prototype.createSvgTag = function(){
 		console.log('creating svg-tags for this node');
-		var svg = document.createElement('div');
-		$(svg).css({	height:50,
-				width:50,
-				'background-color':'blue',
-				position:'absolute',
-				left:this.position.x,
-				top:this.position.y});
-				
-		this.element = svg;
+
+		var node = document.createElementNS("http://www.w3.org/2000/svg", "image");
+		node.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', ''); 
+		
+		// TODO replace standart width and height values
+		node.setAttribute("x", this.position.x);
+		node.setAttribute("y", this.position.y);
+		node.setAttribute("width", 50);
+		node.setAttribute("height", 50);
+		node.setAttribute("xlink:href", this.getPathToSvg());
+		
+		this.element = node;
 	}
 	
 	Node.prototype.appendMoveEvent = function (){
@@ -92,12 +95,12 @@ define (["jquery"], (function($) {
 	
 	Node.prototype.removeSvgTag = function(){
 		console.log('removing svg-tags for this node from the svgRoot');
-		document.getElementById('drawarea').removeChild(this.element);
+		document.getElementById('nodes').removeChild(this.element);
 	}
 	
 	Node.prototype.appendSvgTag = function(){
 		console.log('appanding svg-tags for this node to the svgRoot');
-		document.getElementById('drawarea').appendChild(this.element);
+		document.getElementById('nodes').appendChild(this.element);
 	}
 	
 	return Node;

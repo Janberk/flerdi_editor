@@ -8,7 +8,7 @@ define (["jquery",'network'], (function($,Network) {
 
 
 	var Network_Organisation = function() {
-		/*in order to managa more than one networks, this had to be a array*/
+		/*in order to manage more than one networks, this had to be a array*/
 		this.networks;
 	}
 	
