@@ -15,13 +15,12 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 
 
 	/* constructor */
-	var Environment = function(bodyId) {
+	var Environment = function() {
 		console.log("creating environment");
 		
 		this.networks = new NetworkOrganisation();
 		this.networks.newNetwork({});
-		this.body = bodyId;
-
+			
 		var _this = this;
 			
 		var drawArea = new DrawArea();

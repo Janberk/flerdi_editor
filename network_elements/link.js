@@ -16,6 +16,7 @@ define (["jquery"], (function($) {
 		this.nodes = []; //references to nodes, connected to this link
 				
 		this.lines = []; 
+		
 	}
 	
 	Link.prototype.setAttributes = function(json){
@@ -121,6 +122,10 @@ define (["jquery"], (function($) {
 		for(var i = 0; i < this.lines.length; i++) {
 			document.getElementById('links').appendChild(this.lines[i]);
 		}
+	}
+	
+	Link.prototype.getId = function(){
+		return this.json.attributes.id;
 	}
 	
 	return Link;

@@ -6,7 +6,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, listDialogue, ContextMenu) {
+define (["jquery", "drag", "listDialogue", "contextMenu"], 
+(function($, Drag, listDialogue, ContextMenu, Resource, Feature) {
 
 	var Node = function(json,position,network){
 		console.log('creating node');
@@ -22,6 +23,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, li
 	}
 	
 	Node.prototype.setAttributes = function(json){
+		this.json.attributes = json.attributes || {};
 		this.json.attributes.alias = json.attributes.alias || "";
 		this.json.attributes.console_interface_id = json.attributes.console_interface_id || "";
 		this.json.attributes.graph_label_id = json.attributesgraph_label_idalias || this.network.getNetworkId();
@@ -48,7 +50,10 @@ define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, li
 	Node.prototype.setContextMenu = function() {
 		var _this = this;
 		var menu = new ContextMenu();
-		menu.addButton('Delete', function(e) { _this.removeSvgTag() });
+		menu.addButton('Delete', function(e) { _this.removeNode() });
+		menu.addButton('Properties -> Resources', function(e) {new listDialogue("resources", _this.getJson()) });
+		menu.addButton('Properties -> Features', function(e) {new listDialogue("features", _this.getJson()) });
+		menu.addButton('Properties -> NetworkInterfaces', function(e) {new listDialogue("network_interfaces", _this.getJson()) });
 		return menu;
 	}	
 
@@ -70,7 +75,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, li
 		}
 	}
 	
-	Node.prototype.getJson = function(){
+	Node.prototype.getJson = function(){	
 		return this.json;
 	}
 	
@@ -91,18 +96,15 @@ define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, li
 		node.setAttribute("height", 50);
 		node.setAttribute("xlink:href", this.getPathToSvg());
 		
+		
 		this.element = node;
 		
 		// TODO remove this
 		this.appendMoveEvent();
 
 		var _this = this;
-		$(node).on ('click', function() {
-			console.log(_this.getJson());
-			new listDialogue("resources", _this.getJson());
-		});
 		$(node).on('contextmenu', function(e) {
-			_this.contextMenu.show(_this.position.x, _this.position.y);
+			_this.contextMenu.show(e.clientX-32,e.clientY-32);
 			return false;
 		});
 
@@ -114,11 +116,14 @@ define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, li
 		$(_this.element).on('drag', function(event){
 			$(_this.element).attr('x', event.offsetX-32);
 			$(_this.element).attr('y', event.offsetY-32);
+		}).on('dragend',function(event){
+			_this.position.x = event.offsetX-32;
+			_this.position.y = event.offsetY-32;
 		});
 	}
 	
 	Node.prototype.removeMoveEvent = function(){
-		$(this.element).off('drag');
+		$(this.element).off('drag').off('dragend');
 	}
 	
 	Node.prototype.removeSvgTag = function(){
@@ -130,6 +135,16 @@ define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, li
 		console.log('appanding svg-tags for this node to the svgRoot');
 		document.getElementById('nodes').appendChild(this.element);
 	}
+	
+	Node.prototype.removeNode = function(){
+		this.removeSvgTag();
+		this.network.removeNodeById(this.getJson().attributes.id);
+	}
+	
+	Node.prototype.getId = function(){
+		this.json.attributes.id;
+	}
+	
 	
 	return Node;
 })); //define

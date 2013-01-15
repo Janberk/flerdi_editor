@@ -64,7 +64,7 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 
 		
 	};
-	
+
 	Network.prototype.setAttributes = function(json){
 		this.elements['--- !Flerdit,2012'] = json['--- !Flerdit,2012'] || {};
 		this.elements['--- !yaml.org,2002'] = json['--- !yaml.org,2002'] || {};
@@ -125,6 +125,7 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 			for(var k=0; k<this.nodes[j].getJson().network_interfaces.length;k++){
 				if(parseInt(this.nodes[j].getJson().network_interfaces[k].attributes.id) == id){
 					return this.nodes[j];
+					break;
 				}
 			}
 		}
@@ -135,6 +136,7 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 		for(var i=0;i<this.nodeslength; i++){
 			if(parseInt(this.nodes[i].getjson().attribues.id) == parseInt(id)){
 				return this.nodes[i];
+				break;
 			}
 		}
 		return null;
@@ -166,6 +168,15 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 			this.elements['--- !Flerdit,2012'].push(this.nodes[i].getPositionJson());
 		}
 		return this.elements;
+	}
+	
+	Network.prototype.removeNodeById = function(id){		
+		for(var i=0;i<this.nodes.length;i++){
+			if(this.nodes[i].getJson().attributes.id == id){
+				this.nodes.splice(i,1);
+				break;
+			}
+		}
 	}
 	
 	return Network;
