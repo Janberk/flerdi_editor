@@ -51,7 +51,9 @@ define (["jquery", "drag", "listDialogue", "contextMenu"],
 		var _this = this;
 		var menu = new ContextMenu();
 		menu.addButton('Delete', function(e) { _this.removeNode() });
-		menu.addButton('Properties', function(e) {new listDialogue("resources", _this.getJson()) });
+		menu.addButton('Properties -> Resources', function(e) {new listDialogue("resources", _this.getJson()) });
+		menu.addButton('Properties -> Features', function(e) {new listDialogue("features", _this.getJson()) });
+		menu.addButton('Properties -> NetworkInterfaces', function(e) {new listDialogue("network_interfaces", _this.getJson()) });
 		return menu;
 	}	
 
