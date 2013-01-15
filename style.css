@@ -190,11 +190,10 @@ div.line{
 /* context Menu */
 .context_menu {
 	width: 150px;
-	display: none;
 	position: absolute;
 	z-index: 10;
 	border: 1px solid #aaaaaa;
-	background-color: #dddddd;
+	background-color: #cccccc;
 	cursor: default;
 }
 .context_menu div {
@@ -203,7 +202,7 @@ div.line{
 	padding-left: 10px;
 }
 .context_menu div:hover {
-	background-color: #cccccc;
+	background-color: #dddddd;
 }
 .context_menu .seperator {
 	max-width: 100%;
@@ -215,5 +214,5 @@ div.line{
 	color: #aaaaaa;
 }
 .context_menu .selection_specific:hover {
-	background-color: #dddddd;
+	background-color: #cccccc;
 }

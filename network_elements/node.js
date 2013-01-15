@@ -6,7 +6,7 @@
  * RequireJS module definition
  */ 
 
-define (["jquery", "drag", "listDialogue"], (function($, Drag, listDialogue) {
+define (["jquery", "drag", "listDialogue", "contextMenu"], (function($, Drag, listDialogue, ContextMenu) {
 
 	var Node = function(json,position,network){
 		console.log('creating node');
@@ -18,6 +18,7 @@ define (["jquery", "drag", "listDialogue"], (function($, Drag, listDialogue) {
 			
 		this.setAttributes(json);
 		this.setPositionValues(position);
+		this.contextMenu = this.setContextMenu();
 	}
 	
 	Node.prototype.setAttributes = function(json){
@@ -44,6 +45,13 @@ define (["jquery", "drag", "listDialogue"], (function($, Drag, listDialogue) {
 		this.position.attributes_cache = json.attributes_cache || [];
 	}
 	
+	Node.prototype.setContextMenu = function() {
+		var _this = this;
+		var menu = new ContextMenu();
+		menu.addButton('Delete', function(e) { _this.removeSvgTag() });
+		return menu;
+	}	
+
 	Node.prototype.getPathToSvg = function(){
 		var path =' /assets/img/network_elements/';
 		switch (this.json.attributes.ne_type) {
@@ -92,6 +100,10 @@ define (["jquery", "drag", "listDialogue"], (function($, Drag, listDialogue) {
 		$(node).on ('click', function() {
 			console.log(_this.getJson());
 			new listDialogue("resources", _this.getJson());
+		});
+		$(node).on('contextmenu', function(e) {
+			_this.contextMenu.show(_this.position.x, _this.position.y);
+			return false;
 		});
 
 	}
