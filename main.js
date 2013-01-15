@@ -13,14 +13,17 @@ requirejs.config({
 	paths: {
 		"jquery": "lib/jquery-1.8.2.min",
 		"drag": "lib/jquery.event.drag-1.5.min",
-		"environment": "environment",
-		"network": "network_elements/network",
-		"node": "network_elements/node",
-		"link": "network_elements/link",
-		"parser": "backend/parser",
-		"element_key" : "gui/element_key",
 		"json2yaml" : "lib/json2yaml",
 		"spinner":"lib/spinner.min",
+		
+		"parser": "backend/parser",
+		
+		"environment": "environment",
+		
+		"dialogue":"gui/dialogue",
+		"listDialogue":"gui/listDialogue",
+		"contextMenu":"gui/contextMenu",
+		"element_key" : "gui/element_key",
 		"loadingWindow":"gui/loadingWindow",
 		"toolbar":"gui/toolbar",
 		"toolbarButton":"gui/toolbarButton",
@@ -30,10 +33,11 @@ requirejs.config({
 		"drawArea":"gui/drawArea",
 		"move":"gui/States/move",
 		"newNode":"gui/States/newNode",
+		
+		"network": "network_elements/network",
+		"node": "network_elements/node",
+		"link": "network_elements/link",
 		"networkOrganisation":"network_elements/network_organisation",
-		"dialogue":"gui/dialogue",
-		"listDialogue":"gui/listDialogue",
-		"contextMenu":"gui/contextMenu",
 	} //paths
 }); //config
 
@@ -48,7 +52,7 @@ define(["jquery", "environment"], (function($, Environment) {
 	$(document).ready( (function() {
 		console.log("document loaded - starting program");
 		
-		var environment = new Environment("body_element");
+		var environment = new Environment();
 	})); //&(document).ready()
 	
 })); //define
