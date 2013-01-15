@@ -42,7 +42,7 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.menubar.addSubMenu("File", "New", (function() { _this.networks.newNetwork({}); }));
 		this.menubar.addSubMenu("File", "Open...", (function() {document.getElementById('yaml_datei').click()}));
 		this.menubar.addSubSeperator("File");
-		this.menubar.addSubMenu("File", "Save", (function() { alert("Save File - Comming Soon") }));
+		this.menubar.addSubMenu("File", "Save", (function() {  _this.saveNetwork({}); }));
 		this.menubar.addMenu("Edit");
 		this.menubar.addSubMenu("Edit", "Undo", (function() { alert("Undo - Comming Soon") }));
 		this.menubar.addMenu("View");
@@ -84,12 +84,15 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 	/* saves the network as a yaml file per php */
 	Environment.prototype.saveNetwork = function() {
 		$.ajax({
-			url: 'http://localhost/flerdi/saveNetwork.php',
+			url: 'backend/saveNetwork.php',
 			type: 'POST',
 			datatype: 'json',
 			data: {
-				fileName: this.network.getName() + ".yaml",
-				content: this.network.getYaml()				
+				fileName: "exported.yaml",
+				content: this.networks.getNetwork().getJson()		
+			}, 
+			success: function(data) {
+				console.log(data);
 			}
 		});
 	} //saveNetwork	

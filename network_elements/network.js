@@ -156,16 +156,16 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 	Network.prototype.getJson = function(){
 		this.elements.network_elements = [];
 		this.elements['--- !Flerdit,2012'] = [];
-		console.log(this.elements);
+		//console.log(this.elements);
 		for(var i=0; i<this.links.length; i++){
 			this.elements.network_elements.push(this.links[i].getJson());
 		}
-		
 		
 		for(var i=0; i<this.nodes.length; i++){
 			this.elements.network_elements.push(this.nodes[i].getJson());
 			this.elements['--- !Flerdit,2012'].push(this.nodes[i].getPositionJson());
 		}
+		return this.elements;
 	}
 	
 	return Network;
