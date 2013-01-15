@@ -33,6 +33,7 @@ requirejs.config({
 		"networkOrganisation":"network_elements/network_organisation",
 		"dialogue":"gui/dialogue",
 		"listDialogue":"gui/listDialogue",
+		"contextMenu":"gui/contextMenu",
 	} //paths
 }); //config
 

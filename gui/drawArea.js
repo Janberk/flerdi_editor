@@ -5,12 +5,14 @@
  /* 
  *  This class handles the appearance of the menubar
  */
-define (['jquery', 'move', 'newNode'],function($, Move, NewNode) {
+define (['jquery', 'move', 'newNode', 'contextMenu'],function($, Move, NewNode, ContextMenu) {
 	var State = new Move();
+	var ContextMenu = new ContextMenu();
 	var DrawArea = function() {
-		$('#drawarea').on('click', function(e) {
-			if(canDo('onClick')) State.onClick(e);
-		});
+		$('#drawarea')
+			.on('click', function(e) {
+				if(canDo('onClick')) State.onClick(e);
+			});				
 	};
 	var canDo = function(method) {
 		return typeof State[method] == 'function';
