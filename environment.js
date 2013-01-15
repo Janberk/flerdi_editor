@@ -83,13 +83,18 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 	
 	/* saves the network as a yaml file per php */
 	Environment.prototype.saveNetwork = function() {
+		var temp = this.networks.getNetwork().getJson();
+		var exportJson = {};
+		exportJson['--- !yaml.org,2002'] = temp['--- !yaml.org,2002'];
+		exportJson.network_elements = temp.network_elements;
+		exportJson['--- !Flerdit,2012'] = temp['--- !Flerdit,2012'];
 		$.ajax({
 			url: 'backend/saveNetwork.php',
 			type: 'POST',
 			datatype: 'json',
 			data: {
 				fileName: "exported.yaml",
-				content: this.networks.getNetwork().getJson()		
+				content: exportJson
 			}, 
 			success: function(data) {
 				console.log(data);
