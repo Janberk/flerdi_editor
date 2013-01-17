@@ -6,8 +6,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery", "drag", "listDialogue", "contextMenu"], 
-(function($, Drag, listDialogue, ContextMenu, Resource, Feature) {
+define (["jquery", "drag", "listDialogue", "contextMenu", "link"], 
+(function($, Drag, listDialogue, ContextMenu, Resource, Feature, Link) {
 
 	var Node = function(json,position,network){
 		console.log('creating node');
@@ -16,6 +16,8 @@ define (["jquery", "drag", "listDialogue", "contextMenu"],
 		this.element; // element representing the node
 			
 		this.network = network;
+		
+		this.links = []; // all links that connect this node
 			
 		this.setAttributes(json);
 		this.setPositionValues(position);
@@ -96,7 +98,6 @@ define (["jquery", "drag", "listDialogue", "contextMenu"],
 		node.setAttribute("height", 50);
 		node.setAttribute("xlink:href", this.getPathToSvg());
 		
-		
 		this.element = node;
 		
 		// TODO remove this
@@ -112,13 +113,35 @@ define (["jquery", "drag", "listDialogue", "contextMenu"],
 	
 	Node.prototype.appendMoveEvent = function (){
 		var _this = this;
-	
-		$(_this.element).on('drag', function(event){
+		
+		var dummy; // this dummy shows where the node was
+		
+		$(_this.element).on('dragstart', function(event){
+			// create dummy
+			dummy = document.createElementNS("http://www.w3.org/2000/svg", "image");
+			dummy.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', ''); 
+			dummy.setAttribute('opacity', '0.5');
+			
+			// TODO replace standart width and height values
+			dummy.setAttribute("x", _this.position.x);
+			dummy.setAttribute("y", _this.position.y);
+			dummy.setAttribute("width", 50);
+			dummy.setAttribute("height", 50);
+			dummy.setAttribute("xlink:href", _this.getPathToSvg());
+			
+			// add dummy to document
+			document.getElementById('nodes').appendChild(dummy);
+		}).on('drag', function(event){
 			$(_this.element).attr('x', event.offsetX-32);
 			$(_this.element).attr('y', event.offsetY-32);
 		}).on('dragend',function(event){
 			_this.position.x = event.offsetX-32;
 			_this.position.y = event.offsetY-32;
+			
+			// remove dummy from document
+			document.getElementById('nodes').removeChild(dummy);
+			
+			_this.updateLinks();
 		});
 	}
 	
@@ -145,6 +168,17 @@ define (["jquery", "drag", "listDialogue", "contextMenu"],
 		this.json.attributes.id;
 	}
 	
+	/* this function is called by links, to notify the node that its connected by this link */
+	Node.prototype.addLink = function(link){
+		this.links.push(link);
+	}
+		
+	/* updates all connected links, called when a node is moved */
+	Node.prototype.updateLinks = function(){
+		for(var i = 0; i < this.links.length; i++){
+			this.links[i].update();
+		}
+	}
 	
 	return Node;
 })); //define

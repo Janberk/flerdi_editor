@@ -65,18 +65,23 @@ define (["jquery"], (function($) {
 		console.log('creating svg-tags for this link');
 		/*this loop determinate all nodes connected to this link*/
 		for(var i=0;i<this.json.network_interfaces.length;i++){
-			this.nodes.push(this.network.getNodeByInterfaceId(parseInt(this.json.network_interfaces[i].attributes.network_interface_id)));
+			var node = this.network.getNodeByInterfaceId(parseInt(this.json.network_interfaces[i].attributes.network_interface_id));
+			
+			this.nodes.push(node); //add the node to the array of connected nodes
+			
+			node.addLink(this); //tell the node that its connected by this link
 		}
 		
-		var node_length = 50;
+		// TODO replace standart width and height values
+		var node_width = 50;
 		var node_height = 50;
 		
 		var svg_lines = [];
 		
 		// create the first line
-		var x1 = this.nodes[0].getPositionJson().x + node_length/2;
+		var x1 = this.nodes[0].getPositionJson().x + node_width/2;
 		var y1 = this.nodes[0].getPositionJson().y + node_height/2;
-		var x2 = this.nodes[1].getPositionJson().x + node_length/2;
+		var x2 = this.nodes[1].getPositionJson().x + node_width/2;
 		var y2 = this.nodes[1].getPositionJson().y + node_height/2;
 		
 		var i = svg_lines.push(document.createElementNS("http://www.w3.org/2000/svg", "line")) - 1;
@@ -87,25 +92,29 @@ define (["jquery"], (function($) {
 		svg_lines[i].setAttribute("y2", y2);
 		svg_lines[i].setAttribute("style", this.getLinkStyle());
 		
-		// create an anchor point for additional lines
-		var anchor_x = Math.min(x1, x2) + ((Math.max(x1, x2) - Math.min(x1, x2)) / 2);
-		var anchor_y = Math.min(y1, y2) + ((Math.max(y1, y2) - Math.min(y1, y2)) / 2);
-		var anchor = [anchor_x, anchor_y];
-		
 		// if there are more than 2 nodes connected, add more lines
-		for(var j = 2; j < this.nodes.length; j++) {
-			x1 = anchor[0];
-			y1 = anchor[1];
-			x2 = this.nodes[j].getPositionJson().x + node_length/2;
-			y2 = this.nodes[j].getPositionJson().y + node_height/2;
+		if(this.nodes.length > 2)
+		{
+			// create an anchor point for additional lines
+			var anchor_x = Math.min(x1, x2) + ((Math.max(x1, x2) - Math.min(x1, x2)) / 2);
+			var anchor_y = Math.min(y1, y2) + ((Math.max(y1, y2) - Math.min(y1, y2)) / 2);
+			var anchor = [anchor_x, anchor_y];
 			
-			i = svg_lines.push(document.createElementNS("http://www.w3.org/2000/svg", "line")) - 1;
+			// draw additional nodes
+			for(var j = 2; j < this.nodes.length; j++) {
+				x1 = anchor[0];
+				y1 = anchor[1];
+				x2 = this.nodes[j].getPositionJson().x + node_width/2;
+				y2 = this.nodes[j].getPositionJson().y + node_height/2;
+				
+				i = svg_lines.push(document.createElementNS("http://www.w3.org/2000/svg", "line")) - 1;
 
-			svg_lines[i].setAttribute("x1", x1);
-			svg_lines[i].setAttribute("y1", y1);
-			svg_lines[i].setAttribute("x2", x2);
-			svg_lines[i].setAttribute("y2", y2);
-			svg_lines[i].setAttribute("style", this.getLinkStyle());
+				svg_lines[i].setAttribute("x1", x1);
+				svg_lines[i].setAttribute("y1", y1);
+				svg_lines[i].setAttribute("x2", x2);
+				svg_lines[i].setAttribute("y2", y2);
+				svg_lines[i].setAttribute("style", this.getLinkStyle());
+			}
 		}
 		this.lines = svg_lines;
 	}
@@ -126,6 +135,45 @@ define (["jquery"], (function($) {
 	
 	Link.prototype.getId = function(){
 		return this.json.attributes.id;
+	}
+	
+	Link.prototype.update = function(){
+		// TODO replace standart width and height values
+		var node_width = 50;
+		var node_height = 50;
+	
+		// update the first line
+		var x1 = this.nodes[0].getPositionJson().x + node_width/2;
+		var y1 = this.nodes[0].getPositionJson().y + node_height/2;
+		var x2 = this.nodes[1].getPositionJson().x + node_width/2;
+		var y2 = this.nodes[1].getPositionJson().y + node_height/2;
+		
+		this.lines[0].setAttribute("x1", x1);
+		this.lines[0].setAttribute("y1", y1);
+		this.lines[0].setAttribute("x2", x2);
+		this.lines[0].setAttribute("y2", y2);
+		
+		// if there are more than 2 nodes connected, update more lines
+		if(this.nodes.length > 2)
+		{
+			// create an anchor point for additional lines
+			var anchor_x = Math.min(x1, x2) + ((Math.max(x1, x2) - Math.min(x1, x2)) / 2);
+			var anchor_y = Math.min(y1, y2) + ((Math.max(y1, y2) - Math.min(y1, y2)) / 2);
+			var anchor = [anchor_x, anchor_y];
+			
+			// update additional nodes
+			for(var i = 2; i < this.nodes.length; i++) {
+				x1 = anchor[0];
+				y1 = anchor[1];
+				x2 = this.nodes[i].getPositionJson().x + node_width/2;
+				y2 = this.nodes[i].getPositionJson().y + node_height/2;
+
+				this.lines[i-1].setAttribute("x1", x1);
+				this.lines[i-1].setAttribute("y1", y1);
+				this.lines[i-1].setAttribute("x2", x2);
+				this.lines[i-1].setAttribute("y2", y2);
+			}
+		}
 	}
 	
 	return Link;
