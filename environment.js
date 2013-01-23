@@ -33,6 +33,11 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.toolbar.addButton("network_elements/cisco_switch",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/cisco'))});		
 		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/tunnelbridge') )});	
 		this.toolbar.addButton("network_elements/pip_switch",function(e) { drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/pip'))});
+		this.toolbar.addSeperator();
+		this.toolbar.addButton("network_elements/generic_halfduplex",function(e) { });
+		this.toolbar.addButton("network_elements/generic_fullduplex",function(e) { });
+		this.toolbar.addButton("network_elements/transit_halfduplex",function(e) { });
+		this.toolbar.addButton("network_elements/transit_fullduplex",function(e) { });
 		// add additional Buttons here
 
 
