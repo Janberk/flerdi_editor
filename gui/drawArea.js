@@ -5,8 +5,7 @@
  /* 
  *  This class handles the appearance of the menubar
  */
-define (['jquery', 'move', 'newNode', 'contextMenu'],function($, Move, NewNode) {
-	var State = new Move();
+define (['jquery'],function($) {
 	var DrawArea = function() {
 		$('#drawarea')
 			.on('click', function(e) {

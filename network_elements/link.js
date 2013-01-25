@@ -52,6 +52,7 @@ define (["jquery"], (function($) {
 				link_style = "stroke:rgb(0,0,0);"; break; //#000000
 		}
 		
+		//TODO change this if condition, works atm for generic links only
 		if(this.json.resources[0].attributes.avp_attribute == "/link/generic/symmetric/bandwidth") {
 			link_style = link_style + "stroke-width:2"; //half-duplex-link
 		}

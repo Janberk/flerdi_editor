@@ -6,12 +6,13 @@
  *  This class handles the appearance of the menubar
  */
 define (['jquery',"networkOrganisation"],function($, Network) {
-	var Move = function(network) {
+	var NewLink = function(network,src) {
 		this.network = network;
+		this.type = src;
 		
-		this.appendMoveEvents();
+		this.removeMoveEvents();
 	};
-	Move.prototype.appendMoveEvents = function() {
+	NewLink.prototype.removeMoveEvents = function() {
 		//abort if this network is undefined
 		if(this.network === undefined) return;
 	
@@ -22,11 +23,11 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 		for(var i = 0; i < nodes.length; i++) {
 			var node = nodes[i];
 			
-			node.appendMoveEvent();
+			node.removeMoveEvent();
 		}
 	};
-	Move.prototype.onClick = function() {
-		//do nothing, this sets only node listeners
+	NewLink.prototype.onClick = function(e) {
+		//TODO maybe delete this and add a onDrag method instead
 	};
-	return Move;
+	return NewLink;
 });	

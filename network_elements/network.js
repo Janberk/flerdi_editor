@@ -12,7 +12,6 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 		this.elements = json;
 		this.name = name || "Unknown network" ;
 		console.log('creating new Network "'+name+'"');
-		
 			
 		this.nodes = [];
 		
