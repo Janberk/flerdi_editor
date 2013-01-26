@@ -5,7 +5,7 @@
 /*
  * This class is specifically for dialogues concerning Resources, Features and NetworkInterfaces
  */ 
-define (["jquery","dialogue"], (function($,dialogue) {
+define (["jquery","window"], (function($,dialogue) {
 
 	var ListDialogue = function(type, json){
 		console.log('filling dialogue window');

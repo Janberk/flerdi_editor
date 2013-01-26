@@ -7,7 +7,7 @@
  */ 
 define (["jquery","drag"], (function($,drag) {
 
-	var Dialogue = function(){
+	var Window = function(){
 		console.log('creating dialogue window');
 		this.win = document.createElement('div');
 		this.statusbar = document.createElement('div');
@@ -19,7 +19,7 @@ define (["jquery","drag"], (function($,drag) {
 		this.createWindow();
 	}
 	
-	Dialogue.prototype.createWindow = function() {
+	Window.prototype.createWindow = function() {
 		var wHeight = 300; //height of the new window
 		var wWidth = 300; //width of the new window
 		var t = $(document).height()/2 - wHeight/2;
@@ -68,14 +68,18 @@ define (["jquery","drag"], (function($,drag) {
 		
 		$(this.closeButton).on('click', function() {
 		if (_this.win != null) {
-			console.log("close button was clicked");
-			document.body.removeChild(_this.win);
-			_this.win = null;
+			_this.close();
 		}
 		});
 		
 		return this.win;
 	}
 
-	return Dialogue;
+	Window.prototype.close = function(){
+		console.log('the window is closed');
+		document.body.removeChild(this.win);
+		this.win=null;
+	}
+	
+	return Window;
 })); //define

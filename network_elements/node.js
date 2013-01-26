@@ -1,8 +1,5 @@
 /*
  * Author: Flerdi Team
- */
- 
-/*
  * RequireJS module definition
  */ 
 
@@ -44,8 +41,8 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 	
 	Node.prototype.setPositionValues = function(json){
 		this.position.id = json.id || this.network.getNextPositionId();	
-		this.position.x = json.x || Math.floor(Math.random() * 501);
-		this.position.y = json.y || Math.floor(Math.random() * 501);
+		this.position.x = json.x || Math.floor(Math.random() * $('#drawarea').width());
+		this.position.y = json.y || Math.floor(Math.random() * $('#drawarea').height());
 		this.position.network_element_id = json.network_element_id || this.json.attributes.id;
 		this.position.attributes_cache = json.attributes_cache || [];
 	}

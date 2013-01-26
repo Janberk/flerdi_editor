@@ -1,9 +1,6 @@
 /*
  * Module main: handles requireJS and starts the program
- * Author: Flerdi Team, Kai Müller
- * 
- * ---
- * added new libs : Stefan Boitschuk
+ * Author: Flerdi Team
  */
 
 /*
@@ -20,8 +17,10 @@ requirejs.config({
 		
 		"environment": "environment",
 		
-		"dialogue":"gui/dialogue",
-		"listDialogue":"gui/listDialogue",
+		"window":"gui/dialogues/window",
+		"listDialogue":"gui/dialogues/listDialogue",
+		"openDialogue":"gui/dialogues/openDialogue",
+		
 		"contextMenu":"gui/contextMenu",
 		"element_key" : "gui/element_key",
 		"loadingWindow":"gui/loadingWindow",
