@@ -81,7 +81,7 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 		this.elements.network_elements = json.network_elements || {};
 	}
 	
-	Network.prototype.importNode = function(json,position, show){
+	Network.prototype.importNode = function(json,position,show){
 		var s = show || false;
 		
 		var id = this.nodes.push(new Node(json,position,this))-1;

@@ -11,7 +11,6 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 		this.json = json;
 		this.position = position;
 		this.element; // element representing the node
-		this.dummy; // this dummy shows the original position while moving
 			
 		this.network = network;
 		
@@ -109,21 +108,23 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 	Node.prototype.appendMoveEvent = function (){
 		var _this = this;
 		
+		// this dummy shows the original position while moving
+		var dummy;
+		
 		$(_this.element).on('dragstart', function(event){
-			// create dummy
-			_this.dummy = document.createElementNS("http://www.w3.org/2000/svg", "image");
-			_this.dummy.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', ''); 
-			_this.dummy.setAttribute('opacity', '0.5');
+			dummy = document.createElementNS("http://www.w3.org/2000/svg", "image");
+			dummy.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', ''); 
+			dummy.setAttribute('opacity', '0.5');
 			
 			// TODO replace standart width and height values
-			_this.dummy.setAttribute("x", _this.position.x);
-			_this.dummy.setAttribute("y", _this.position.y);
-			_this.dummy.setAttribute("width", 50);
-			_this.dummy.setAttribute("height", 50);
-			_this.dummy.setAttribute("xlink:href", _this.getPathToSvg());
+			dummy.setAttribute("x", _this.position.x);
+			dummy.setAttribute("y", _this.position.y);
+			dummy.setAttribute("width", 50);
+			dummy.setAttribute("height", 50);
+			dummy.setAttribute("xlink:href", _this.getPathToSvg());
 			
 			// add dummy to document
-			document.getElementById('nodes').appendChild(_this.dummy);
+			document.getElementById('nodes').appendChild(dummy);
 		}).on('drag', function(event){
 			$(_this.element).attr('x', event.offsetX-32);
 			$(_this.element).attr('y', event.offsetY-32);
@@ -132,7 +133,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 			_this.position.y = event.offsetY-32;
 			
 			// remove dummy from document
-			document.getElementById('nodes').removeChild(_this.dummy);
+			document.getElementById('nodes').removeChild(dummy);
 			
 			_this.updateLinks();
 		});
@@ -140,6 +141,25 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 	
 	Node.prototype.removeMoveEvent = function(){
 		$(this.element).off('dragstart').off('drag').off('dragend');
+	}
+	
+	Node.prototype.appendConnectEvent = function(linkState){
+		var _this = this;
+
+		$(_this.element).on('dragstart', function(event){
+			// save this element in the new_link state
+			linkState.setFirstElement(_this);
+		}).on('drag', function(event){
+			// draw a line in the new_link state
+			linkState.drawDummyLine(_this);
+		}).on('mouseup',function(event){
+			// try to connect in the new_link state
+			linkState.setSecondElement(_this);
+		});
+	}
+
+	Node.prototype.removeConnectEvent = function(){
+		$(this.element).off('dragstart').off('drag').off('mouseup');
 	}
 	
 	Node.prototype.removeSvgTag = function(){
