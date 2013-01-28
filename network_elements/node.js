@@ -3,8 +3,10 @@
  * RequireJS module definition
  */ 
 
-define (["jquery", "drag", "listDialogue", "contextMenu", "link"], 
-(function($, Drag, listDialogue, ContextMenu, Resource, Feature, Link) {
+define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"], 
+(function($, Drag, listDialogue, ContextMenu, Link, Statusbar) {
+
+	var NodeTypes = ["/node/host/generic", "/node/host/pip", "/node/switch/cisco", "/node/switch/tunnelbridge", "/node/switch/pip"];
 
 	var Node = function(json,position,network){
 		console.log('creating node');
@@ -20,6 +22,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 		this.setAttributes(json);
 		this.setPositionValues(position);
 		this.contextMenu = this.setContextMenu();
+		this.statusbar = this.setStatusbar();
 	}
 	
 	Node.prototype.setAttributes = function(json){
@@ -55,7 +58,27 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 		menu.addButton('Properties -> Features', function(e) {new listDialogue("features", _this.getJson()) });
 		menu.addButton('Properties -> NetworkInterfaces', function(e) {new listDialogue("network_interfaces", _this.getJson()) });
 		return menu;
-	}	
+	}
+	
+	Node.prototype.setStatusbar = function() {
+		var sb = new Statusbar(this);
+		sb.addTextfield('ne_identifier', this.json.attributes.id);
+		sb.addTextfield('alias', this.json.attributes.alias);
+		sb.addDropdown('ne_type', this.json.attributes.ne_type, NodeTypes);
+		return sb;
+	}
+	Node.prototype.set = function(target, v) {
+		switch(target) {
+			case 'ne_identifier': this.json.attributes.id = v;
+			case 'alias': this.json.attributes.alias = v;
+			case 'ne_type': {
+				this.json.attributes.ne_type = v;
+				this.removeSvgTag();
+				this.createSvgTag();
+				this.appendSvgTag();
+			}
+		}
+	}
 
 	Node.prototype.getPathToSvg = function(){
 		var path =' /assets/img/network_elements/';
@@ -102,6 +125,17 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link"],
 		$(node).on('contextmenu', function(e) {
 			_this.contextMenu.show(e.clientX-32,e.clientY-32);
 			return false;
+			})
+			.hover(function(e) {
+				_this.statusbar.show(true);
+			}, function(e) {
+				_this.statusbar.show(false);
+			})
+			.on('click', function(e) {
+				_this.statusbar.edit(true);
+			});
+		$('#drawarea').on('click', function(e) {
+			if($(e.target).closest('image').length == 0) _this.statusbar.edit(false);
 		});
 
 	}

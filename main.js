@@ -29,6 +29,7 @@ requirejs.config({
 		"menubar":"gui/menubar",
 		"menubarMenu":"gui/menubarMenu",
 		"menubarButton":"gui/menubarButton",
+		"statusbar":"gui/statusbar",
 		"drawArea":"gui/drawArea",
 		"move":"gui/States/move",
 		"newNode":"gui/States/new_node",

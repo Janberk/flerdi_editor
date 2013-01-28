@@ -216,3 +216,13 @@ div.line{
 .context_menu .selection_specific:hover {
 	background-color: #cccccc;
 }
+/* statusbar */
+#statusbar label {
+	margin: 10px 10px;
+}
+#statusbar div, #statusbar input {
+	color: #777777;
+}
+#statusbar .sb_edit, #statusbar .sb_edit input {
+	color: #000000;
+}
