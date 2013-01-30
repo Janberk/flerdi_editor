@@ -35,7 +35,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 		this.json.attributes_cache = json.attributes_cache || [];
 		this.json.constraint_groups_network_elements = json.constraint_groups_network_elements || [];
 		this.json.features = json.features || [];
-		this.json.hosted_network_element_mappings = json.hosted_network_element_mappings || [];
+		this.json.hosted_network_elements_mappings = json.hosted_network_elements_mappings || [];
 		this.json.mgmt_flags = json.mgmt_flags || [];
 		this.json.network_interfaces = json.network_interfaces || [];
 		this.json.resources = json.resources || [];
