@@ -5,81 +5,28 @@
 /*
  * This class creates an empty dialogue window
  */ 
-define (["jquery","drag"], (function($,drag) {
+define (["jquery","jquery_ui","drag"], (function($,ui,drag) {
 
-	var Window = function(){
+	var Window = function(title, size){
 		console.log('creating dialogue window');
+		this.title = title; //title of the window
+		this.size = size || [];
+		this.height = this.size[0] || 'auto'; //height of the new window
+		this.width = this.size[1] || 'auto'; //width of the new window
+		
 		this.win = document.createElement('div');
-		this.statusbar = document.createElement('div');
-		this.closeButton = document.createElement('div');
+		$(this.win).dialog({ title: this.title, height: this.height, width: this.width });
 		
-		this.statusbar.appendChild(this.closeButton);
-		this.win.appendChild(this.statusbar);
-		document.body.appendChild(this.win);
-		this.createWindow();
 	}
 	
-	Window.prototype.createWindow = function() {
-		var wHeight = 300; //height of the new window
-		var wWidth = 300; //width of the new window
-		var t = $(document).height()/2 - wHeight/2;
-		var l = $(document).width()/2 - wWidth/2;
-		$(this.win).css({
-			height:wHeight,
-			width:wWidth,
-			'background-color':'#eeeeee',
-			position:'fixed',
-			top:t,
-			left:l,
-			'border-width':'1px',
-			'border-color':'#000000',
-			'border-style':'solid',
-		});
-		
-		$(this.statusbar).css({
-			height:21,
-			'background-color':'#cccccc',
-			cursor: 'move',
-		});
-		
-		$(this.closeButton).css({
-			height:15,
-			width:15,
-			'background-color':'#a80000',
-			'background-image':'url(/assets/icons/closed.png)',
-			position: 'absolute',
-			top:3,
-			right:3,
-			cursor: 'pointer',
-		});
-				
-		var _this = this;
-		 
-		$(this.win)
-			.on('dragstart', function(e) {
-				return $(e.target).is(_this.statusbar);
-			})
-			.on('drag',function(e){
-                $( this ).css({
-                    top: e.offsetY,
-                    left: e.offsetX
-                });
-            });
-		
-		$(this.closeButton).on('click', function() {
-		if (_this.win != null) {
-			_this.close();
-		}
-		});
-		
-		return this.win;
-	}
-
-	Window.prototype.close = function(){
-		console.log('the window is closed');
-		document.body.removeChild(this.win);
-		this.win=null;
+	Window.prototype.setContent = function(content) {
+		$(this.win).html('');
+		this.win.appendChild(content);
 	}
 	
+	Window.prototype.close = function() {
+		$(this.win).dialog( "close" );
+	}
+		
 	return Window;
 })); //define

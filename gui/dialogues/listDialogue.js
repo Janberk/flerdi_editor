@@ -5,47 +5,32 @@
 /*
  * This class is specifically for dialogues concerning Resources, Features and NetworkInterfaces
  */ 
-define (["jquery","window"], (function($,dialogue) {
+define (["jquery","window"], (function($,window) {
 
-	var ListDialogue = function(type, json){
+	var ListDialogue = function(json){
 		console.log('filling dialogue window');
-		this.type = type; //which kind: Resources, Features, NetworkInterfaces?
 		this.json = json;
-		this.win = new dialogue();
-		this.windiv = this.win.createWindow(); //the dialogue window that has been created
-		this.textfield = document.createElement('div');
-		this.windiv.appendChild(this.textfield);
+		this.win = new window('General',[450,450]);
+		this.tabs = document.createElement('div');
+		$(this.tabs).html('<ul> <li><a href="#tabs-1">General</a></li> <li><a href="#tabs-2">Resources</a></li> <li><a href="#tabs-3">Features</a></li> <li><a href="#tabs-4">Interfaces</a></li> </ul> <div id="tabs-1"> </div> <div id="tabs-2"></div> <div id="tabs-3"> </div> <div id="tabs-4"> </div>');
+		$(this.tabs).tabs();
+		this.win.setContent(this.tabs);
+		
 		this.fillWindow();
 	}
 	
-	ListDialogue.prototype.fillWindow = function() {
-		var wHeight = $(this.windiv).height() - 41;
-		$(this.textfield).css({
-			height:wHeight,
-			'background-color':'#ffffff',
-			margin:10,
-			'overflow-y':'scroll',
-			'font-size':10,
-		});
-		
+	ListDialogue.prototype.fillWindow = function() {			
 		var information = [];
-		switch(this.type) {
-			case "resources":
-				information = this.json.resources;
-				break;
-			case "features":
-				information = this.json.features;
-				break;
-			case "network_interfaces":
-				information = this.json.network_interfaces;
-				break;
-			default:
-				console.log("Error with window filling. Type '"+this.type+"' is unknown.");
-				break;
-		}
-		console.log("Test: "+this.type+" = "+information);
+		information [0] = this.json.attributes;
+		information [1] = this.json.resources;
+		information [2] = this.json.features;
+		information [3] = this.json.network_interfaces;
 		
-		$(this.textfield).html(this.type+":<br>"+dump(information));
+		alert(information[0].id);
+		$('#tabs-1').html(dump(information[0]));
+		$('#tabs-2').html(dump(information[1]));
+		$('#tabs-3').html(dump(information[2]));
+		$('#tabs-4').html(dump(information[3]));
 	}
 
 	return ListDialogue;
