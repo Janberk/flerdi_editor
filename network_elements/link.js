@@ -16,7 +16,6 @@ define (["jquery"], (function($) {
 		this.nodes = []; //references to nodes, connected to this link
 				
 		this.lines = []; 
-		
 	}
 	
 	Link.prototype.setAttributes = function(json){

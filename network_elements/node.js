@@ -212,7 +212,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 	}
 	
 	Node.prototype.getId = function(){
-		this.json.attributes.id;
+		return this.json.attributes.id;
 	}
 	
 	/* this function is called by links, to notify the node that its connected by this link */
