@@ -26,7 +26,6 @@ define (["jquery","window"], (function($,window) {
 		information [2] = this.json.features;
 		information [3] = this.json.network_interfaces;
 		
-		alert(information[0].id);
 		$('#tabs-1').html(dump(information[0]));
 		$('#tabs-2').html(dump(information[1]));
 		$('#tabs-3').html(dump(information[2]));
