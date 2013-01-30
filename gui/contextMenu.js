@@ -29,6 +29,7 @@ define (['jquery'],function($) {
 		this.html.append($(document.createElement('div')).attr('class', 'seperator'));
 	};
 	ContextMenu.prototype.show = function(x, y) {
+		$('.context_menu').remove();
 		$('#drawarea').append(this.html);
 		this.html.css({
 			'left': x,
