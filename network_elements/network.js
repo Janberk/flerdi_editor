@@ -92,8 +92,15 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		}
 	};
 	
-	Network.prototype.importLink = function(json){
-		this.links.push(new Link(json,this));
+	Network.prototype.importLink = function(json,show){
+		var s = show || false;
+		
+		var id = this.links.push(new Link(json,this))-1;
+		
+		if(s){
+			this.links[id].createSvgTag();
+			this.links[id].appendSvgTag();
+		}
 	};
 	
 	Network.prototype.getPositionById = function(id){
@@ -112,11 +119,13 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 	};
 	
 	Network.prototype.getNextElementId = function(){
-		return ++this.element_id;
+		++this.element_id;
+		return this.element_id.toString();
 	};
 	
 	Network.prototype.getNextPositionId = function(){
-		return ++this.position_id;
+		++this.position_id;
+		return this.position_id.toString();
 	};
 	
 	Network.prototype.getNodeByInterfaceId = function(id){

@@ -42,32 +42,58 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 		// elements can't get connected to nothing or themselves
 		if(this.firstElement !== undefined && this.firstElement !== secondElement)
 		{
-			var json;
+			// get the first element
+			var firstElement = this.firstElement;
+			
+			// get an ID for the new link
+			var linkId = this.network.getNextElementId().toString();
+			
+			// get IDs for the interfaces of the new link
+			var linkIfId1 = this.network.getNextElementId().toString();
+			var linkIfId2 = this.network.getNextElementId().toString();
+			
+			// get IDs for the new interfaces of the two connected elements
+			var elemIfId1 = this.network.getNextElementId().toString();
+			var elemIfId2 = this.network.getNextElementId().toString();
+			
+			// add new interfaces to the elements that get connected
+			firstElement.json.network_interfaces.push(
+				{attributes:{'id': elemIfId1,
+					'network_element_id': firstElement.getId(),
+					'network_interface_id': linkIfId1}});
+							
+			secondElement.json.network_interfaces.push(
+				{attributes:{'id': elemIfId2,
+					'network_element_id': secondElement.getId(),
+					'network_interface_id': linkIfId2}});
+			
+			// create a json for the new link
+			var json = {
+				attributes:{'ne_type':this.type}, 
+
+				network_interfaces: [
+					{attributes:{'id': linkIfId1,
+								'netwok_element_id': linkId,
+								'network_interface_id': elemIfId1}},
+					{attributes:{'id': linkIfId2,
+								'netwok_element_id': linkId,
+								'network_interface_id': elemIfId2}}
+					],
+					
+				resources: []
+			}
 			
 			// if this is half duplex
 			if(this.symmetric) {
-				json = {
-					attributes:{'ne_type':this.type}, 
-
-					resources: [
-						{attributes:{'avp_attribute': '/symmetric/bandwidth'}}
-					]
-				};
+				json.resources.push({attributes:{'avp_attribute': this.type+'/symmetric/bandwidth'}});
 			}
-			
 			// if this is full duplex
 			else {
-				json = {
-					attributes:{'ne_type':this.type}, 
-
-					resources: [
-						{attributes:{'avp_attribute': '/upstream/bandwidth'}},
-						{attributes:{'avp_attribute': '/downstream/bandwidth'}}
-					]
-				};
+				json.resources.push({attributes:{'avp_attribute': this.type+'/upstream/bandwidth'}});
+				json.resources.push({attributes:{'avp_attribute': this.type+'/downstream/bandwidth'}});
 			}
-				
-			this.network.importLink(json);
+			
+			this.network.importLink(json,true);
 		}
 			
 		// set the first element back to normal
