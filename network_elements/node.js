@@ -183,9 +183,14 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 		$(_this.element).on('dragstart', function(event){
 			// save this element in the new_link state
 			linkState.setFirstElement(_this);
+			// create a dummy line
+			linkState.createDummyLine(_this, event);
 		}).on('drag', function(event){
-			// draw a line in the new_link state
-			linkState.drawDummyLine(_this);
+			// update the dummy line
+			linkState.updateDummyLine(_this, event);
+		}).on('dragend', function(event){
+			// delete the dummy link
+			linkState.deleteDummyLine();;
 		}).on('mouseup',function(event){
 			// try to connect in the new_link state
 			linkState.setSecondElement(_this);
@@ -193,7 +198,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 	}
 
 	Node.prototype.removeConnectEvent = function(){
-		$(this.element).off('dragstart').off('drag').off('mouseup');
+		$(this.element).off('dragstart').off('drag').off('dragend').off('mouseup');
 	}
 	
 	Node.prototype.removeSvgTag = function(){

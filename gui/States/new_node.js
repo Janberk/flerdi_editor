@@ -11,7 +11,8 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 		this.type = src;
 		
 		this.changeListeners();
-	};
+	}
+	
 	NewNode.prototype.changeListeners = function() {
 		//abort if this network is undefined
 		if(this.network === undefined) return;
@@ -26,15 +27,17 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 			node.removeMoveEvent();
 			node.removeConnectEvent();
 		}
-	};
+	}
+	
 	NewNode.prototype.onClick = function(e) {
 		//TODO replace 25 and 25 by node-width/2 and node-height/2
 		var pos = {x:e.pageX-31-25, y:e.pageY-31-25}
-		var id = this.network.getNextElementId().toString();
+		var id = this.network.getNextElementId();
 		
 		var json = {attributes:{'id': id, 'ne_type': this.type}};
 		
 		this.network.importNode(json,pos,true);
-	};
+	}
+	
 	return NewNode;
 });	
