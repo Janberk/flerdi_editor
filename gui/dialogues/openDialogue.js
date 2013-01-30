@@ -17,8 +17,7 @@ function($,Window,Parser) {
 		console.log('Open Open-Dialouge');
 		this.env = environment;
 
-		this.win = new Window();
-		this.windiv = this.win.createWindow(); //the dialogue window that has been created
+		this.win = new Window('Open');
 		// creating the file input tag
 		this.text = document.createElement('p');
 		this.input = document.createElement('input');
@@ -59,8 +58,8 @@ function($,Window,Parser) {
 	OpenDialogue.prototype.fillWindow = function() {
 		//var wHeight = $(this.windiv).height() - 41;
 		
-		this.windiv.appendChild(this.text);
-		this.windiv.appendChild(this.input);
+		//this.windiv.appendChild(this.text);
+		this.win.setContent(this.input);
 	}
 
 	return OpenDialogue;

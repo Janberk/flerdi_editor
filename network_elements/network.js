@@ -6,7 +6,7 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery", "node", "link"], (function($, Node, Link) {
+define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2yaml) {
 
 	var Network = function(json, name){
 		this.elements = json;
@@ -81,7 +81,7 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 		this.elements.network_elements = json.network_elements || {};
 	}
 	
-	Network.prototype.importNode = function(json,position, show){
+	Network.prototype.importNode = function(json,position,show){
 		var s = show || false;
 		
 		var id = this.nodes.push(new Node(json,position,this))-1;
@@ -92,8 +92,15 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 		}
 	};
 	
-	Network.prototype.importLink = function(json){
-		this.links.push(new Link(json,this));
+	Network.prototype.importLink = function(json,show){
+		var s = show || false;
+		
+		var id = this.links.push(new Link(json,this))-1;
+		
+		if(s){
+			this.links[id].createSvgTag();
+			this.links[id].appendSvgTag();
+		}
 	};
 	
 	Network.prototype.getPositionById = function(id){
@@ -112,11 +119,13 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 	};
 	
 	Network.prototype.getNextElementId = function(){
-		return ++this.element_id;
+		++this.element_id;
+		return this.element_id.toString();
 	};
 	
 	Network.prototype.getNextPositionId = function(){
-		return ++this.position_id;
+		++this.position_id;
+		return this.position_id.toString();
 	};
 	
 	Network.prototype.getNodeByInterfaceId = function(id){
@@ -177,6 +186,184 @@ define (["jquery", "node", "link"], (function($, Node, Link) {
 			}
 		}
 	}
+	
+	Network.prototype.getYaml = function() {
+		var json = this.getJson();
+		
+		//+++++++++++++++++++++++++++++++++++++	network_attributes +++++++++++++++++++++++++++++++++++++
+		var yaml = '--- !yaml.org,2002:GraphLabel \n';
+		var yaml_attr = json2yaml(json['--- !yaml.org,2002']);
+		yaml_attr += '\n';
+		yaml += yaml_attr;
+		
+		//+++++++++++++++++++++++++++++++++++++ network_elements +++++++++++++++++++++++++++++++++++++
+		yaml += '\nnetwork_elements: \n'
+		for (var i = 0; i < json.network_elements.length; i++) {
+			var spaces = '  ';
+			var temp = '';
+			var netEle = '- !yaml.org,2002:NetworkElement \n';
+			
+			netEle += 'attributes: \n';
+			temp = json2yaml(json.network_elements[i].attributes);
+			temp = spaces + temp.replace(/\n/g,'\n' + spaces);
+			netEle += temp;
+
+			netEle += '\nattributes_cache: \n';
+			temp = json2yaml(json.network_elements[i].attributes_cache);
+			if (temp != '') {
+				temp += '\n';
+				temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002: \n' + spaces + '$1'); 
+			} else {
+				temp = spaces + temp.replace(/\n/g,'\n' + spaces);			
+			}
+			netEle += temp;	
+
+			netEle += '\nconstraint_groups_network_elements: \n';
+			temp = json2yaml(json.network_elements[i].constraint_groups_network_elements);
+			if (temp != '') {
+				temp += '\n';
+				temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002: \n' + spaces + '$1'); 
+			} else {
+				temp = spaces + temp.replace(/\n/g,'\n' + spaces);			
+			}
+			netEle += temp;			
+			
+			netEle += '\nfeatures: \n';
+			temp = json2yaml(json.network_elements[i].features);
+			if (temp != '') {
+				temp += '\n';
+				temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002:Feature \n' + spaces + '$1'); 
+				temp = temp.replace(/(attributes_cache: \n)(\s*-)/g,'$1\n$2');
+			} else {
+				temp = spaces + temp.replace(/\n/g,'\n' + spaces);			
+			}
+			netEle += temp;
+			
+			netEle += '\nhosted_network_elements_mappings: \n';
+			temp = json2yaml(json.network_elements[i].hosted_network_elements_mappings);
+			if (temp != '') {
+				temp += '\n';
+				temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002: \n' + spaces + '$1');
+			} else {
+				temp = spaces + temp.replace(/\n/g,'\n' + spaces);		
+			}
+			netEle += temp;						
+			
+			netEle += '\nmgmt_flags: \n';
+			temp = json2yaml(json.network_elements[i].mgmt_flags);
+			if (temp != '') {
+				temp += '\n';
+				temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002: \n' + spaces + '$1');
+			} else {
+				temp = spaces + temp.replace(/\n/g,'\n' + spaces);		
+			}
+			netEle += temp;				
+			
+			netEle += '\nnetwork_interfaces: \n';
+			temp = json2yaml(json.network_elements[i].network_interfaces);
+			if (temp != '') {
+				for (var j = 0; j < json.network_elements[i].network_interfaces.length; j++) {
+					var netInt = '- !yaml.org,2002:NetworkInterface \n';
+					netInt += 'attributes: \n';
+					temp = json2yaml(json.network_elements[i].network_interfaces[j].attributes);
+					temp = spaces + temp.replace(/\n/g,'\n' + spaces);
+					netInt += temp;
+					
+					netInt += '\nattributes_cache: \n';
+					temp = json2yaml(json.network_elements[i].network_interfaces[j].attributes_cache);
+					if (temp != '') {
+						temp += '\n';
+						temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002: \n' + spaces + '$1'); 
+					} else {
+						temp = spaces + temp.replace(/\n/g,'\n' + spaces);			
+					}
+					netInt += temp;	
+					
+					netInt += '\nfeatures: \n';
+					temp = json2yaml(json.network_elements[i].network_interfaces[j].features);
+					if (temp != '') {
+						temp += '\n';
+						temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002:Feature \n' + spaces + '$1'); 
+						temp = temp.replace(/(attributes_cache: \n)(\s*-)/g,'$1\n$2');
+					} else {
+						temp = spaces + temp.replace(/\n/g,'\n' + spaces);			
+					}
+					netInt += temp;
+					
+					netInt += '\nresources: \n';
+					temp = json2yaml(json.network_elements[i].network_interfaces[j].resources);
+					if (temp != '') {
+						temp += '\n';
+						temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002:Resource \n' + spaces + '$1');
+						temp = temp.replace(/(attributes_cache: \n)(\s*-)/g,'$1\n$2');
+					} else {
+						temp = spaces + temp.replace(/\n/g,'\n' + spaces);		
+					}
+					netInt += temp;				
+					
+					//format
+					netInt = netInt.replace(/\n/g,'\n' + spaces);
+					netInt = netInt.replace(/\n(\s*)$/g,'\n');
+					
+					netEle += netInt;
+				}
+			}
+			
+			netEle += '\nresources: \n';
+			temp = json2yaml(json.network_elements[i].resources);
+			if (temp != '') {
+				temp += '\n';
+				temp = temp.replace(/- (attributes:)/g,'- !yaml.org,2002:Resource \n' + spaces + '$1');
+				temp = temp.replace(/(attributes_cache: \n)(\s*-)/g,'$1\n$2');
+			} else {
+				temp = spaces + temp.replace(/\n/g,'\n' + spaces);		
+			}
+			netEle += temp;
+			
+			//format
+			netEle = netEle.replace(/\n/g,'\n' + spaces);
+			netEle = netEle.replace(/\n(\s*)$/g,'\n');
+			
+			yaml += netEle;
+		}
+		
+		//clear unnessesary whitespaces
+		yaml = yaml.replace(/\n(\s*)\n/g,'\n\n');
+		
+		//+++++++++++++++++++++++++++++++++++++ positions +++++++++++++++++++++++++++++++++++++
+		yaml += '\n\n\n# Example position objects (used by Flerdit and ignored by the prototype)\n';
+		yaml += '\n--- !Flerdit,2012:Position\n';
+		var pos = json2yaml(json['--- !Flerdit,2012']);
+		pos = pos.replace(/- /g,' -\n  ');
+		pos = pos.replace(/ ( attributes_cache: \n)/g,'$1\n');
+		pos += '\n\n';
+		yaml += pos;
+		
+		//+++++++++++++++++++++++++++++++++++++ format +++++++++++++++++++++++++++++++++++++
+		//add empty lines
+		yaml = yaml.replace(/(\n\s*- !yaml.org,2002:NetworkInterface )/g,'\n$1');
+		yaml = yaml.replace(/(network_interfaces: )\n(\n\s*- !yaml.org,2002:NetworkInterface )/g,'$1$2');
+		yaml = yaml.replace(/(\n\s*- !yaml.org,2002:NetworkElement )/g,'\n$1');
+		yaml = yaml.replace(/(network_elements: )\n(\n\s*- !yaml.org,2002:NetworkElement )/g,'$1$2');		
+		
+		//add empty arrays/objects symbols
+		yaml = yaml.replace(/(attributes_cache:) \n\n/g,'$1 {}\n\n');
+		yaml = yaml.replace(/(constraint_groups_network_elements:) \n\n/g,'$1 []\n\n');
+		yaml = yaml.replace(/(features:) \n\n/g,'$1 []\n\n');
+		yaml = yaml.replace(/(hosted_network_elements_mappings:) \n\n/g,'$1 []\n\n');		
+		yaml = yaml.replace(/(mgmt_flags:) \n\n/g,'$1 []\n\n');
+		yaml = yaml.replace(/(network_interfaces:) \n\n/g,'$1 []\n\n');
+		yaml = yaml.replace(/(resources:) \n\n/g,'$1 []\n\n');
+				
+		//clear shitty "
+		yaml = yaml.replace(/\"/g,'');
+		//numers in ""
+		yaml = yaml.replace(/(\:\ )(\d+)/g,': "$2"');
+		yaml = yaml.replace(/(\ x:\ )"(\d+)"\n/g,'$1$2\n');
+		yaml = yaml.replace(/(\ y:\ )"(\d+)"\n/g,'$1$2\n');
+		
+		return yaml;
+	} //getYaml	
 	
 	return Network;
 })); //define

@@ -16,7 +16,6 @@ define (["jquery"], (function($) {
 		this.nodes = []; //references to nodes, connected to this link
 				
 		this.lines = []; 
-		
 	}
 	
 	Link.prototype.setAttributes = function(json){
@@ -29,7 +28,7 @@ define (["jquery"], (function($) {
 		this.json.attributes_cache = json.attributes_cache || [];
 		this.json.constraint_groups_network_elements = json.constraint_groups_network_elements || [];
 		this.json.features = json.features || [];
-		this.json.hosted_network_element_mappings = json.hosted_network_element_mappings || [];
+		this.json.hosted_network_elements_mappings = json.hosted_network_elements_mappings || [];
 		this.json.mgmt_flags = json.mgmt_flags || [];
 		this.json.network_interfaces = json.network_interfaces || [];
 		this.json.resources = json.resources || [];
@@ -51,9 +50,12 @@ define (["jquery"], (function($) {
 			default:
 				link_style = "stroke:rgb(0,0,0);"; break; //#000000
 		}
-		
-		//TODO change this if condition, works atm for generic links only
-		if(this.json.resources[0].attributes.avp_attribute == "/link/generic/symmetric/bandwidth") {
+
+		// if the avp attribute ends with "/symmetric/bandwidth", its half-duplex
+		var avp = this.json.resources[0].attributes.avp_attribute;
+		var suffix = "/symmetric/bandwidth";
+
+		if(avp.indexOf(suffix, avp.length - suffix.length) !== -1) {
 			link_style = link_style + "stroke-width:2"; //half-duplex-link
 		}
 		else {

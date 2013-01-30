@@ -36,10 +36,10 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/tunnelbridge')); });	
 		this.toolbar.addButton("network_elements/pip_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/pip')); });
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/generic_halfduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/generic')); });
-		this.toolbar.addButton("network_elements/generic_fullduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/generic')); });
-		this.toolbar.addButton("network_elements/transit_halfduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/transit')); });
-		this.toolbar.addButton("network_elements/transit_fullduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/transit')); });
+		this.toolbar.addButton("network_elements/generic_halfduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/generic', true)); });
+		this.toolbar.addButton("network_elements/generic_fullduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/generic', false)); });
+		this.toolbar.addButton("network_elements/transit_halfduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/transit', true)); });
+		this.toolbar.addButton("network_elements/transit_fullduplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(),'/link/transit', false)); });
 		// add additional Buttons here
 
 
@@ -52,6 +52,7 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 			}));
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Save", (function() {  _this.saveNetwork({}); }));
+		this.menubar.addSubMenu("File", "Download", (function() {  _this.downloadFile({}); }));
 		this.menubar.addMenu("Edit");
 		this.menubar.addSubMenu("Edit", "Undo", (function() { alert("Undo - Comming Soon") }));
 		this.menubar.addMenu("View");
@@ -102,24 +103,23 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 	
 	/* saves the network as a yaml file per php */
 	Environment.prototype.saveNetwork = function() {
-		var temp = this.networks.getNetwork().getJson();
-		var exportJson = {};
-		exportJson['--- !yaml.org,2002'] = temp['--- !yaml.org,2002'];
-		exportJson.network_elements = temp.network_elements;
-		exportJson['--- !Flerdit,2012'] = temp['--- !Flerdit,2012'];
+		var yaml = this.networks.getNetwork().getYaml();
 		$.ajax({
 			url: 'backend/saveNetwork.php',
 			type: 'POST',
-			datatype: 'json',
 			data: {
 				fileName: "exported.yaml",
-				content: exportJson
+				content: yaml
 			}, 
 			success: function(data) {
 				console.log(data);
 			}
 		});
 	} //saveNetwork	
+	
+	Environment.prototype.downloadFile = function() {
+		document.location.href = "backend/downloadFile.php";
+	} //downloadFile	
 	
 	return Environment;
 })); //define

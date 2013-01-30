@@ -9,9 +9,9 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 	var Move = function(network) {
 		this.network = network;
 		
-		this.appendMoveEvents();
+		this.changeListeners();
 	};
-	Move.prototype.appendMoveEvents = function() {
+	Move.prototype.changeListeners = function() {
 		//abort if this network is undefined
 		if(this.network === undefined) return;
 	
@@ -22,6 +22,7 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 		for(var i = 0; i < nodes.length; i++) {
 			var node = nodes[i];
 			
+			node.removeConnectEvent();
 			node.appendMoveEvent();
 		}
 	};
