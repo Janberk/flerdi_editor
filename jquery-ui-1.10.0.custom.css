@@ -468,7 +468,7 @@ button.ui-button::-moz-focus-inner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: .2em;
+	/*padding: .2em;*/
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
@@ -764,7 +764,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tabs .ui-tabs-panel {
 	display: block;
-	border-width: 0;
+	/*border-width: 0;*/
 	padding: 1em 1.4em;
 	background: none;
 }
@@ -783,8 +783,8 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
-	font-size: 1.1em;
+	/*font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+	font-size: 1.1em;*/
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -798,15 +798,23 @@ body .ui-tooltip {
 }
 .ui-widget-content {
 	border: 1px solid #dddddd;
-	background: #eeeeee url(assets/ui/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x;
+	background: #eeeeee;
 	color: #333333;
 }
 .ui-widget-content a {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid #e78f08;
-	background: #f6a828 url(assets/ui/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x;
+	/*border: 1px solid #e78f08;
+	background: #f6a828 url(assets/ui/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x;*/
+	background: #1062a5; /* Old browsers */
+	background: -moz-linear-gradient(top,  #2d7fe2 0%, #1062a5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2d7fe2), color-stop(100%,#1062a5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #2d7fe2 0%,#1062a5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #2d7fe2 0%,#1062a5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #2d7fe2 0%,#1062a5 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #2d7fe2 0%,#1062a5 100%); /* W3C */
+
 	color: #ffffff;
 	font-weight: bold;
 }
@@ -1171,4 +1179,20 @@ body .ui-tooltip {
 	opacity: .2;
 	filter: Alpha(Opacity=20);
 	border-radius: 5px;
+}
+
+.ui-tabs-nav{
+	background: none;			
+	padding: 0px;
+	margin: 0px;
+
+}
+.ui-tabs-panel{
+	background-color: green;
+	border-left: 1px solid rgb(221, 221, 221);
+	border-right: 1px solid rgb(221, 221, 221);
+	border-bottom: 1px solid rgb(221, 221, 221);
+}
+.ui-tabs{
+	border: none;
 }

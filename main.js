@@ -9,7 +9,7 @@
 requirejs.config({
 	paths: {
 		"jquery": "lib/jquery-1.8.2.min",
-		"jquery_ui": "lib/jquery-ui-1.10.0.custom.min",
+		"jquery_ui": "lib/jquery-ui-1.10.0.custom",
 		"drag": "lib/jquery.event.drag-1.5.min",
 		"json2yaml" : "lib/json2yaml",
 		"spinner":"lib/spinner.min",
