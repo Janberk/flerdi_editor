@@ -5,7 +5,7 @@
 /*
  * This class is specifically for dialogues concerning Resources, Features and NetworkInterfaces
  */ 
-define (["jquery","window"], (function($,window) {
+define (["jquery","window","jsonViewer"], (function($,window,JsonViewer) {
 
 	var ListDialogue = function(json){
 		console.log('filling dialogue window');
@@ -26,7 +26,7 @@ define (["jquery","window"], (function($,window) {
 		information [2] = this.json.features;
 		information [3] = this.json.network_interfaces;
 		
-		$('#tabs-1').html(dump(information[0]));
+		$('#tabs-1').html(new JsonViewer(this.json.attributes).getElement());
 		$('#tabs-2').html(dump(information[1]));
 		$('#tabs-3').html(dump(information[2]));
 		$('#tabs-4').html(dump(information[3]));

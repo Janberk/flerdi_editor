@@ -226,3 +226,31 @@ div.line{
 #statusbar .sb_edit, #statusbar .sb_edit input {
 	color: #000000;
 }
+
+.ui-widget-jsonviewer{
+	overflow: hidden;
+	border-collapse:collapse;
+	line-height: 25px;
+	border: 1px solid #dddddd;
+}
+.ui-widget-jsonviewer tr td{
+	overflow: hidden;
+	padding: 0px 5px 0px 5px;
+}
+.ui-widget-jsonviewer .ui-widget-jsonviewer-head{
+	background: #f7f7f7; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f7f7f7 0%, #dddddd 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#dddddd)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f7f7f7 0%,#dddddd 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f7f7f7 0%,#dddddd 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f7f7f7 0%,#dddddd 100%); /* IE10+ */
+}
+.ui-widget-jsonviewer-attributes:after{
+	content: " :";
+}
+.ui-widget-jsonviewer-values{
+	text-align: left;
+}
+.ui-widget-jsonviewer-content{
+	border-top: 1px solid rgb(211, 211, 211);
+}

@@ -732,7 +732,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tabs .ui-tabs-nav {
 	margin: 0;
-	padding: .2em .2em 0;
+	/*padding: .2em .2em 0;*/
 }
 .ui-tabs .ui-tabs-nav li {
 	list-style: none;
@@ -1195,4 +1195,7 @@ body .ui-tooltip {
 }
 .ui-tabs{
 	border: none;
+}
+..ui-tabs-nav {
+	border-color: rgb(221, 221, 221);
 }

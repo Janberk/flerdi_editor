@@ -32,6 +32,7 @@ requirejs.config({
 		"menubarButton":"gui/menubarButton",
 		"statusbar":"gui/statusbar",
 		"drawArea":"gui/drawArea",
+		"jsonViewer":"gui/jsonViewer",
 		"move":"gui/States/move",
 		"newNode":"gui/States/new_node",
 		"newLink":"gui/States/new_link",
