@@ -27,9 +27,9 @@ define (["jquery","window","jsonViewer"], (function($,window,JsonViewer) {
 		information [3] = this.json.network_interfaces;
 		
 		$('#tabs-1').html(new JsonViewer(this.json.attributes).getElement());
-		$('#tabs-2').html(dump(information[1]));
-		$('#tabs-3').html(dump(information[2]));
-		$('#tabs-4').html(dump(information[3]));
+		$('#tabs-2').html(new JsonViewer(this.json.resources).getElement());
+		$('#tabs-3').html(new JsonViewer(this.json.features).getElement());
+		$('#tabs-4').html(new JsonViewer(this.json.network_interfaces).getElement());
 	}
 
 	return ListDialogue;
