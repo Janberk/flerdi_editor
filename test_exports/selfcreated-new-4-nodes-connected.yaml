@@ -1,0 +1,416 @@
+--- !yaml.org,2002:GraphLabel 
+attributes: 
+  graph_nr: "0"
+  graph_tag: 
+  graph_type: OL
+  id: "1"
+  role_identifier: PIP91
+  v_net_identifier: Unknown network
+attributes_cache: {}
+
+network_elements: 
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    ne_type: /link/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    id: "10"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "6"
+      netwok_element_id: "5"
+      network_interface_id: "8"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "7"
+      netwok_element_id: "5"
+      network_interface_id: "9"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: 
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/upstream/bandwidth
+
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/downstream/bandwidth
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    ne_type: /link/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    id: "16"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "12"
+      netwok_element_id: "11"
+      network_interface_id: "14"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "13"
+      netwok_element_id: "11"
+      network_interface_id: "15"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: 
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/upstream/bandwidth
+
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/downstream/bandwidth
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    ne_type: /link/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    id: "22"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "18"
+      netwok_element_id: "17"
+      network_interface_id: "20"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "19"
+      netwok_element_id: "17"
+      network_interface_id: "21"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: 
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/upstream/bandwidth
+
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/downstream/bandwidth
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    ne_type: /link/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    id: "28"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "24"
+      netwok_element_id: "23"
+      network_interface_id: "26"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "25"
+      netwok_element_id: "23"
+      network_interface_id: "27"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: 
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/upstream/bandwidth
+
+  - !yaml.org,2002:Resource 
+    attributes: 
+      avp_attribute: /link/generic/downstream/bandwidth
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "1"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "8"
+      network_element_id: "1"
+      network_interface_id: "6"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "14"
+      network_element_id: "1"
+      network_interface_id: "12"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "2"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "15"
+      network_element_id: "2"
+      network_interface_id: "13"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "20"
+      network_element_id: "2"
+      network_interface_id: "18"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "3"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "9"
+      network_element_id: "3"
+      network_interface_id: "7"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "27"
+      network_element_id: "3"
+      network_interface_id: "25"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "4"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: 
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "21"
+      network_element_id: "4"
+      network_interface_id: "19"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "26"
+      network_element_id: "4"
+      network_interface_id: "24"
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  resources: []
+
+
+
+# Example position objects (used by Flerdit and ignored by the prototype)
+
+--- !Flerdit,2012:Position
+ -
+  x: 304
+  y: 252
+  id: "1"
+  network_element_id: "1"
+ attributes_cache: {}
+
+ -
+  x: 759
+  y: 253
+  id: "2"
+  network_element_id: "2"
+ attributes_cache: {}
+
+ -
+  x: 407
+  y: 500
+  id: "3"
+  network_element_id: "3"
+ attributes_cache: {}
+
+ -
+  x: 812
+  y: 542
+  id: "4"
+  network_element_id: "4"
+  attributes_cache: {}
+
