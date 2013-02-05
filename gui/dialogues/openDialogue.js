@@ -16,15 +16,18 @@
 		var OpenDialogue = function(environment){
 			console.log('Open Open-Dialouge');
 			this.env = environment;
-
-			this.win = new Window('Open',[150,500]);
+			
 			// creating the file input tag
-			this.text = document.createElement('p');
+			this.win = new Window('Open',[150,500]);
 			this.input = document.createElement('input');
-			$(this.input).attr('size','55')
+			
+			$(this.input).attr({type:'file',size:55}).css({margin:'10px 0px 10px 0px'});
+			
+			
 			this.progress = document.createElement('div');
 			$(this.progress).progressbar();
 			var _this = this;
+			
 			$(this.input).on('change',function(e){
 				if (this.files !== 'undefined' && typeof FileReader !== 'undefined') {
 					
@@ -50,7 +53,8 @@
 						
 						reader.onload = function(e){
 							$(_this.progress).progressbar( "value", 100 );					
-							setTimeout(function(){_this.win.close();Parser.loadFromText(e.target.result,file.name,function(json){_this.env.importJson(json,file.name);})}, 50);
+							
+							setTimeout(function(){_this.win.close();;Parser.loadFromText(e.target.result,file.name,function(json){_this.env.importJson(json,file.name);})},50);
 							
 							};
 						reader.readAsText(file);
@@ -62,20 +66,14 @@
 				    alert('Your browser does not support the HTML5 File-API');
 				}
 				});
-				
-			$(this.text).html('Please searche a YAML-File').css({	padding:	0,
-										margin:		5});
-
-			$(this.input).attr({	type:		'file'})
-				     .css({	display:	'block',
-						margin:		5});
-						
-			
 			this.fillWindow();
 		}
 		
-		OpenDialogue.prototype.fillWindow = function() {
-			this.win.setContent(this.input);
+		OpenDialogue.prototype.fillWindow = function(){
+			var p = document.createElement('p');
+			$(p).html('please select a .yaml File').css({padding:0,margin:0});
+			this.win.setContent(p);
+			this.win.appendContent(this.input);
 		}
 
 		return OpenDialogue;
