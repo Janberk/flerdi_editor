@@ -24,6 +24,10 @@ define (["jquery","jquery_ui","drag"], (function($,ui,drag) {
 		this.win.appendChild(content);
 	}
 	
+	Window.prototype.appendContent = function(content){
+		this.win.appendChild(content);
+	}
+	
 	Window.prototype.close = function() {
 		$(this.win).dialog( "close" );
 	}
