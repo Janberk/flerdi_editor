@@ -9,4 +9,5 @@ $fileName = $root.'/test_files/lastSave.yaml';
 $file_handle = fopen($fileName, 'w');
 fwrite($file_handle, $content);
 fclose($file_handle);
+header('Content-Type: text/plain');
 ?>
