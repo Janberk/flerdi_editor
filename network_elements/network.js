@@ -348,7 +348,8 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		yaml = yaml.replace(/(network_interfaces: )\n(\n\s*- !yaml.org,2002:NetworkInterface )/g,'$1$2');
 		yaml = yaml.replace(/(\n\s*- !yaml.org,2002:NetworkElement )/g,'\n$1');
 		yaml = yaml.replace(/(network_elements: )\n(\n\s*- !yaml.org,2002:NetworkElement )/g,'$1$2');
-		yaml = yaml.replace(/(avp_attribute.+)(\n\s*- !yaml.org,2002:Resource)/g,'$1\n$2');		
+		yaml = yaml.replace(/(avp_attribute.+)(\n\s*- !yaml.org,2002:Resource)/g,'$1\n$2');	
+		yaml = yaml.replace(/(interval.+)(\n\s*- !yaml.org,2002:Resource)/g,'$1\n$2');		
 		
 		//add empty arrays/objects symbols
 		yaml = yaml.replace(/(attributes_cache:) \n\n/g,'$1 {}\n\n');
