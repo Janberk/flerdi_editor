@@ -51,8 +51,7 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 			var win = new OpenDialogue(_this);
 			}));
 		this.menubar.addSubSeperator("File");
-		this.menubar.addSubMenu("File", "Save", (function() {  _this.saveNetwork({}); }));
-		this.menubar.addSubMenu("File", "Download", (function() {  _this.downloadFile({}); }));
+		this.menubar.addSubMenu("File", "Download", (function() {  _this.downloadYaml({}); }));
 		this.menubar.addMenu("Edit");
 		this.menubar.addSubMenu("Edit", "Undo", (function() { alert("Undo - Comming Soon") }));
 		this.menubar.addMenu("View");
@@ -101,21 +100,23 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
 	} //importJson
 	
-	/* saves the network as a yaml file per php */
-	Environment.prototype.saveNetwork = function() {
+	/* saves the network as lastSave.yaml and offers a downloadlink on success */
+	Environment.prototype.downloadYaml = function() {
 		var yaml = this.networks.getNetwork().getYaml();
+		var exportName = this.networks.getNetwork().getName();
+		exportName = exportName.replace(/ /g,'_');
+		exportName = exportName.replace(/.yaml/g,'');
 		$.ajax({
 			url: 'backend/saveNetwork.php',
 			type: 'POST',
 			data: {
-				fileName: "exported.yaml",
 				content: yaml
 			}, 
 			success: function(data) {
-				console.log(data);
+				document.location.href = "backend/downloadFile.php?exportName=" + exportName;
 			}
 		});
-	} //saveNetwork	
+	} //downloadYaml	
 	
 	Environment.prototype.downloadFile = function() {
 		document.location.href = "backend/downloadFile.php";

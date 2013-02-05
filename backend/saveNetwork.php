@@ -1,12 +1,12 @@
 <?php 
 //error catch
-if (empty($_POST['fileName']) || empty($_POST['content'])) {
+if (empty($_POST['content'])) {
 	exit;
 }
 $root = $_SERVER['DOCUMENT_ROOT'];
-$yaml = $_POST['content'];
-$fileName = $root.'/test_files/'.$_POST['fileName'];
+$content = $_POST['content'];
+$fileName = $root.'/test_files/lastSave.yaml';
 $file_handle = fopen($fileName, 'w');
-fwrite($file_handle, $yaml);
+fwrite($file_handle, $content);
 fclose($file_handle);
 ?>
