@@ -6,10 +6,10 @@
  *  This class handles the appearance of the menubar
  */
 define (['jquery',"networkOrganisation"],function($, Network) {
-	var NewLink = function(network,src,symmetric) {
+	var NewLink = function(network,symmetric) {
 		this.network = network;
-		this.type = src;
 		this.symmetric = symmetric;
+		this.type;
 		
 		// save the first element(node or link) in order to connect it to the second element
 		this.firstElement;
@@ -49,16 +49,38 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 			// get the first element
 			var firstElement = this.firstElement;
 			
+			// TODO this.type = '/link/transit' || '/link/generic'
+			
+			// get the types of the elements
+			var elementType1 = firstElement.json.attributes.ne_type;
+			var elementType2 = secondElement.json.attributes.ne_type;
+			
+			// get the type of the network
+			var networkType = this.network.elements['--- !yaml.org,2002'].attributes.graph_type;
+			
+			// in OL graphs, connections with '/node/host/pip' nodes must be '/link/transit' + '/link/generic' links
+			if(networkType == 'OL' && (elementType1 == '/node/host/pip' || elementType2 == '/node/host/pip')) {
+				this.type = '/link/transit';
+			}
+			// in UL graphs, connections between '/node/host/tunnelbridge' and '/node/host/pip' nodes must be '/link/transit' links
+			else if(networkType == 'UL' && ((elementType1 == '/node/host/tunnelbridge' && elementType2 == '/node/host/pip') || (elementType1 == '/node/host/pip' && elementType2 == '/node/host/tunnelbridge'))) {
+				this.type = '/link/transit';
+			}
+			// in any other case, connections must be '/link/generic' links
+			else {
+				this.type = '/link/generic';
+			}
+			
 			// get an ID for the new link
-			var linkId = this.network.getNextElementId().toString();
+			var linkId = this.network.getNextElementId();
 			
 			// get IDs for the interfaces of the new link
-			var linkIfId1 = this.network.getNextElementId().toString();
-			var linkIfId2 = this.network.getNextElementId().toString();
+			var linkIfId1 = this.network.getNextElementId();
+			var linkIfId2 = this.network.getNextElementId();
 			
 			// get IDs for the new interfaces of the two connected elements
-			var elemIfId1 = this.network.getNextElementId().toString();
-			var elemIfId2 = this.network.getNextElementId().toString();
+			var elemIfId1 = this.network.getNextElementId();
+			var elemIfId2 = this.network.getNextElementId();
 			
 			// add new interfaces to the elements that get connected
 			firstElement.json.network_interfaces.push(
@@ -89,12 +111,58 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 			
 			// if this is half duplex
 			if(this.symmetric) {
-				json.resources.push({attributes:{'avp_attribute': this.type+'/symmetric/bandwidth'}});
+				json.resources.push(
+				{attributes:{
+							'timestamp': '',
+							'time_unit': '',
+							'value_type': '',
+							'the_parent_record_id': '',
+							'resource_unit': '',
+							'confidence': '',
+							'composing_operation': '',
+							'id': '',
+							'value': '',
+							'avp_attribute': this.type+'/symmetric/bandwidth',
+							'is_request': '',
+							'alias': '',
+							'identifier': '',
+							'interval': ''}});
 			}
 			// if this is full duplex
 			else {
-				json.resources.push({attributes:{'avp_attribute': this.type+'/upstream/bandwidth'}});
-				json.resources.push({attributes:{'avp_attribute': this.type+'/downstream/bandwidth'}});
+				json.resources.push(
+				{attributes:{
+							'timestamp': '',
+							'time_unit': '',
+							'value_type': '',
+							'the_parent_record_id': '',
+							'resource_unit': '',
+							'confidence': '',
+							'composing_operation': '',
+							'id': '',
+							'value': '',
+							'avp_attribute': this.type+'/upstream/bandwidth',
+							'is_request': '',
+							'alias': '',
+							'identifier': '',
+							'interval': ''}});
+							
+				json.resources.push(
+				{attributes:{
+							'timestamp': '',
+							'time_unit': '',
+							'value_type': '',
+							'the_parent_record_id': '',
+							'resource_unit': '',
+							'confidence': '',
+							'composing_operation': '',
+							'id': '',
+							'value': '',
+							'avp_attribute': this.type+'/downstream/bandwidth',
+							'is_request': '',
+							'alias': '',
+							'identifier': '',
+							'interval': ''}});
 			}
 			
 			this.network.importLink(json,true);

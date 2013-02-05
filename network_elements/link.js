@@ -32,7 +32,9 @@ define (["jquery"], (function($) {
 		this.json.mgmt_flags = json.mgmt_flags || [];
 		this.json.network_interfaces = json.network_interfaces || [];
 		this.json.resources = json.resources || [];
-
+		this.json.resources.attributes_cache = json.resources.attributes_cache || [];
+		
+		console.log(this.json);
 	}
 	
 	Link.prototype.getJson = function(){

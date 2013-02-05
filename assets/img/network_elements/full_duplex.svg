@@ -6,5 +6,5 @@
 	 viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve">
 <g id="layer1">
 </g>
-<line fill="none" stroke="#733E91" stroke-width="10" stroke-miterlimit="10" x1="12.25" y1="115.75" x2="115.75" y2="12.25"/>
+<line fill="none" stroke="#333333" stroke-width="20" stroke-miterlimit="10" x1="12.25" y1="115.75" x2="115.75" y2="12.25"/>
 </svg>
