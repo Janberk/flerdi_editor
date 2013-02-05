@@ -118,9 +118,5 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		});
 	} //downloadYaml	
 	
-	Environment.prototype.downloadFile = function() {
-		document.location.href = "backend/downloadFile.php";
-	} //downloadFile	
-	
 	return Environment;
 })); //define
