@@ -10,7 +10,7 @@ define (["jquery","window","jsonViewer"], (function($,window,JsonViewer) {
 	var ListDialogue = function(json){
 		console.log('filling dialogue window');
 		this.json = json;
-		this.win = new window('General',[450,450]);
+		this.win = new window('General',[450,600]);
 		this.tabs = document.createElement('div');
 		$(this.tabs).html('<ul> <li><a href="#tabs-1">General</a></li> <li><a href="#tabs-2">Resources</a></li> <li><a href="#tabs-3">Features</a></li> <li><a href="#tabs-4">Interfaces</a></li> </ul> <div id="tabs-1"> </div> <div id="tabs-2"></div> <div id="tabs-3"> </div> <div id="tabs-4"> </div>');
 		$(this.tabs).tabs();

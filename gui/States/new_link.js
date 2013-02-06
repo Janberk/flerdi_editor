@@ -168,8 +168,9 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 			this.network.importLink(json,true);
 		}
 			
-		// set the first element back to normal
+		// set the attributes back to normal
 		this.firstElement = undefined;
+		this.type = undefined;
 	}
 	
 	// create a dummy line

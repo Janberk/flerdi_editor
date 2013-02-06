@@ -233,7 +233,7 @@ div.line{
 	line-height: 25px;
 	border: 1px solid #dddddd;
 }
-.ui-widget-jsonviewer tr td{
+.ui-widget-jsonviewer tr td th{
 	overflow: hidden;
 	padding: 0px 5px 0px 5px;
 }
@@ -247,6 +247,10 @@ div.line{
 }
 .ui-widget-jsonviewer-attributes:after{
 	content: " :";
+}
+.ui-widget-jsonviewer-segment{
+	text-align: left;
+	background-color: white;
 }
 .ui-widget-jsonviewer-values{
 	text-align: left;
