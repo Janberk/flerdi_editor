@@ -143,7 +143,14 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 		// this dummy shows the original position while moving
 		var dummy;
 		
+		var hasChanged = _this.network.getHasChanged();
+		
 		$(_this.element).on('dragstart', function(event){
+			// set hasChanged true to capture changes
+			console.log("Action: appendMoveEvent");
+			_this.network.setHasChanged(true);
+			console.log("Value of hasChanged: " + hasChanged);
+			
 			dummy = document.createElementNS("http://www.w3.org/2000/svg", "image");
 			dummy.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', ''); 
 			dummy.setAttribute('opacity', '0.5');

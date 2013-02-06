@@ -10,8 +10,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "menubar", "drawArea", "move", "newNode", "newLink","openDialogue"], 
-		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink, OpenDialogue) {
+define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "menubar", "drawArea", "move", "newNode", "newLink","openDialogue", "alertDialogue"], 
+		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink, OpenDialogue, AlertDialogue) {
 
 
 	/* constructor */
@@ -22,31 +22,74 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.networks.newNetwork({});
 			
 		var _this = this;
+		
+		var hasChanged = _this.networks.getNetwork().getHasChanged();
+		console.log("Value of hasChanged: " + hasChanged);
 			
 		this.drawArea = new DrawArea();
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
 		
 		//this.elementKey = new ElementKey(10, 10);
 		this.toolbar = new Toolbar("assets/img/");
-		this.toolbar.addButton("arrow",function() { _this.drawArea.setState(new Move(_this.networks.getNetwork())); });
+		this.toolbar.addButton("arrow",function() { _this.drawArea.setState(new Move(_this.networks.getNetwork())); }, 'Selector');
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/generic_host",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/host/generic')); });
-		this.toolbar.addButton("network_elements/pip_host",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/host/pip')); });
-		this.toolbar.addButton("network_elements/cisco_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/cisco')); });		
-		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/tunnelbridge')); });	
-		this.toolbar.addButton("network_elements/pip_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/pip')); });
+		this.toolbar.addButton("network_elements/generic_host",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/host/generic')); }, 'Generic Host');
+		this.toolbar.addButton("network_elements/pip_host",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/host/pip')); }, 'PIP Host');
+		this.toolbar.addButton("network_elements/cisco_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/cisco')); }, 'Cisco Switch');		
+		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/tunnelbridge')); }, 'Tunnelbridge Switch');	
+		this.toolbar.addButton("network_elements/pip_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/pip')); }, 'PIP Switch');
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/half_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), true)); });
-		this.toolbar.addButton("network_elements/full_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), false)); });
+		this.toolbar.addButton("network_elements/half_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), true)); }, 'Half-Dublex Link');
+		this.toolbar.addButton("network_elements/full_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), false)); }, 'Full-Dublex Link');
 		// add additional Buttons here
 
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
-		this.menubar.addSubMenu("File", "New", (function() { _this.networks.newNetwork({}); }));
-		this.menubar.addSubMenu("File", "Open...", (function() { 
-			//document.getElementById('yaml_datei').click(); 
-			var win = new OpenDialogue(_this);
+		
+		this.menubar.addSubMenu("File", "New", (function() {
+			var hasChanged = _this.networks.getNetwork().getHasChanged();
+			console.log("Value of hasChanged (addSubMenu New): " + hasChanged);
+
+			if(_this.networks != 'undefined' && hasChanged) {
+				var win = new AlertDialogue(_this);
+
+				$('#ok').on('click', function() {
+					_this.networks.newNetwork({});					
+					$(this).parent().parent().remove();
+					});
+				$('#cancel').on('click', function() {
+					$(this).parent().parent().remove();
+					});
+			} else {
+				_this.networks.newNetwork({});
+			}
 			}));
+			
+			// $(window).unload( function () {
+				// var win = new AlertDialogue(_this);
+				// });
+				
+		this.menubar.addSubMenu("File", "Open...", (function() {
+			var hasChanged = _this.networks.getNetwork().getHasChanged();
+			console.log("Value of hasChanged (addSubMenu Open): " + hasChanged);
+
+			if(_this.networks != 'undefined' && hasChanged) {
+				var win = new AlertDialogue(_this);
+
+				$('#ok').on('click', function() {
+					var win = new OpenDialogue(_this);
+					$(this).parent().parent().remove();
+					_this.networks.getNetwork().setHasChanged(false);
+					console.log("wert in open after: " + hasChanged);
+					});
+				$('#cancel').on('click', function() {
+					$(this).parent().parent().remove();
+					});
+			} else {
+				var win = new OpenDialogue(_this);
+			}
+			}));
+			
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Download", (function() {  _this.downloadYaml({}); }));
 		this.menubar.addMenu("Edit");
@@ -73,13 +116,13 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 			});
 		 });
 		 
-		 $('#save_button').on('click', function() {
-			if (_this.network == undefined) {
-				alert("Load a network first.");
-			} else {
-				_this.saveNetwork();
-			}
-		 });
+		 // $('#save_button').on('click', function() {
+			// if (_this.network == undefined) {
+				// alert("Load a network first.");
+			// } else {
+				// _this.saveNetwork();
+			// }
+		 // });
 		
 		//this.importJson(this.createTestJson());
 	}
@@ -113,7 +156,24 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 				document.location.href = "backend/downloadFile.php?exportName=" + exportName;
 			}
 		});
-	} //downloadYaml	
+		// set hasChanged false
+		var _this = this;
+		_this.networks.getNetwork().setHasChanged(false);
+		var hasChanged = _this.networks.getNetwork().getHasChanged();
+		console.log("wert in download: " + hasChanged);
+	} //downloadYaml
+	
+	$(function() {
+		$( document ).tooltip({
+		  items: "img",
+		  content: function() {
+			var element = $( this );
+			if ( element.is( "img" ) ) {
+			  return element.attr( "name" );
+			}
+		  }
+		});
+	});
 	
 	return Environment;
 })); //define

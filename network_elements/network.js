@@ -22,6 +22,9 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		
 		this.setAttributes(json);
 		
+		// boolean to determine, whether objectstate has changed
+		this.hasChanged = false;
+		
 		/*This loop searches the biggest positin id, only if there is an id*/
 		if(this.elements['--- !Flerdit,2012'] !== undefined){
 			for(j=0; j<  this.elements['--- !Flerdit,2012'].length; j++){				
@@ -59,10 +62,18 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		for(i=0;i<this.links.length;i++){
 			this.links[i].createSvgTag();
 			this.links[i].appendSvgTag();
-		}
-
-		
+		}		
 	};
+	
+	// getter
+	Network.prototype.getHasChanged = function() {
+		return this.hasChanged;
+	}
+		
+	// setter
+	Network.prototype.setHasChanged = function(val) {
+		this.hasChanged = val;
+	}
 
 	Network.prototype.setAttributes = function(json){
 		this.elements['--- !Flerdit,2012'] = json['--- !Flerdit,2012'] || {};
@@ -82,6 +93,11 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 	}
 	
 	Network.prototype.importNode = function(json,position,show){
+		// set hasChanged true to capture changes
+		console.log("Action: importNode");
+		this.hasChanged = true;
+		console.log("Value of hasChanged: " + this.hasChanged);
+		
 		var s = show || false;
 		
 		var id = this.nodes.push(new Node(json,position,this))-1;
@@ -93,6 +109,11 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 	};
 	
 	Network.prototype.importLink = function(json,show){
+		// set hasChanged true to capture changes
+		console.log("Action: importLink");
+		this.hasChanged = true;
+		console.log("Value of hasChanged: " + this.hasChanged);
+		
 		var s = show || false;
 		
 		var id = this.links.push(new Link(json,this))-1;
@@ -151,7 +172,11 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 	}
 	
 	Network.prototype.remove = function(){
-		console.log('remove every element  of this network');
+		// set hasChanged true to capture changes
+		console.log("Action: remove; remove every element of this network!");
+		this.hasChanged = false;
+		console.log("Value of hasChanged (remove): " + this.hasChanged);
+		
 		for(var i=0; i<this.nodes.length; i++){
 			this.nodes[i].removeSvgTag();
 		}

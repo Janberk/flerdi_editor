@@ -15,7 +15,10 @@ define (["jquery"], (function($) {
 
 		this.nodes = []; //references to nodes, connected to this link
 				
-		this.lines = []; 
+		this.lines = [];		
+		// set hasChanged true to capture changes
+		console.log("Action: link constructor");
+		this.network.setHasChanged(true);
 	}
 	
 	Link.prototype.setAttributes = function(json){
