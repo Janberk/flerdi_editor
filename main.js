@@ -41,7 +41,8 @@ requirejs.config({
 		"network": "network_elements/network",
 		"node": "network_elements/node",
 		"link": "network_elements/link",
-		"networkOrganisation":"network_elements/network_organisation",
+		"networkOrganisation": "network_elements/network_organisation",
+		"jsonBuilder": "network_elements/json_builder"
 	} //paths
 }); //config
 

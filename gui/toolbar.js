@@ -11,8 +11,8 @@ define (['jquery', 'toolbarButton'],function($, ToolbarButton) {
 	var Toolbar = function(src) {
 		imageSrc = src || '';
 	};
-	Toolbar.prototype.addButton = function(img, funct, name) {
-		var btn = new ToolbarButton(imageSrc, img, funct, name);
+	Toolbar.prototype.addButton = function(img, funct, title) {
+		var btn = new ToolbarButton(imageSrc, img, funct, title);
 		$('#toolbar').append(btn.html);
 		if($('#toolbar').children().length == 1) {
 			checked = btn.html;

@@ -1,11 +1,13 @@
 /*
  * Author: Flerdi Team
+ *
+ *  This class handles the appearance of the menubar.
  */
  
- /* 
- *  This class handles the appearance of the menubar
- */
-define (['jquery',"networkOrganisation"],function($, Network) {
+ /*
+ * RequireJS module definition
+ */ 
+define (["jquery","networkOrganisation", "jsonBuilder"],function($, Network, JsonBuilder) {
 	var NewLink = function(network,symmetric) {
 		this.network = network;
 		this.symmetric = symmetric;
@@ -49,121 +51,8 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 			// get the first element
 			var firstElement = this.firstElement;
 			
-			// TODO this.type = '/link/transit' || '/link/generic'
-			
-			// get the types of the elements
-			var elementType1 = firstElement.json.attributes.ne_type;
-			var elementType2 = secondElement.json.attributes.ne_type;
-			
-			// get the type of the network
-			var networkType = this.network.elements['--- !yaml.org,2002'].attributes.graph_type;
-			
-			// in OL graphs, connections with '/node/host/pip' nodes must be '/link/transit' + '/link/generic' links
-			if(networkType == 'OL' && (elementType1 == '/node/host/pip' || elementType2 == '/node/host/pip')) {
-				this.type = '/link/transit';
-			}
-			// in UL graphs, connections between '/node/host/tunnelbridge' and '/node/host/pip' nodes must be '/link/transit' links
-			else if(networkType == 'UL' && ((elementType1 == '/node/host/tunnelbridge' && elementType2 == '/node/host/pip') || (elementType1 == '/node/host/pip' && elementType2 == '/node/host/tunnelbridge'))) {
-				this.type = '/link/transit';
-			}
-			// in any other case, connections must be '/link/generic' links
-			else {
-				this.type = '/link/generic';
-			}
-			
-			// get an ID for the new link
-			var linkId = this.network.getNextElementId();
-			
-			// get IDs for the interfaces of the new link
-			var linkIfId1 = this.network.getNextElementId();
-			var linkIfId2 = this.network.getNextElementId();
-			
-			// get IDs for the new interfaces of the two connected elements
-			var elemIfId1 = this.network.getNextElementId();
-			var elemIfId2 = this.network.getNextElementId();
-			
-			// add new interfaces to the elements that get connected
-			firstElement.json.network_interfaces.push(
-				{attributes:{'id': elemIfId1,
-					'network_element_id': firstElement.getId(),
-					'network_interface_id': linkIfId1}});
-							
-			secondElement.json.network_interfaces.push(
-				{attributes:{'id': elemIfId2,
-					'network_element_id': secondElement.getId(),
-					'network_interface_id': linkIfId2}});
-			
-			// create a json for the new link
-			var json = {
-				attributes:{'ne_type':this.type}, 
-
-				network_interfaces: [
-					{attributes:{'id': linkIfId1,
-								'netwok_element_id': linkId,
-								'network_interface_id': elemIfId1}},
-					{attributes:{'id': linkIfId2,
-								'netwok_element_id': linkId,
-								'network_interface_id': elemIfId2}}
-					],
-
-				resources: []
-			}
-			
-			// if this is half duplex
-			if(this.symmetric) {
-				json.resources.push(
-				{attributes:{
-							'timestamp': '',
-							'time_unit': '',
-							'value_type': '',
-							'the_parent_record_id': '',
-							'resource_unit': '',
-							'confidence': '',
-							'composing_operation': '',
-							'id': '',
-							'value': '',
-							'avp_attribute': this.type+'/symmetric/bandwidth',
-							'is_request': '',
-							'alias': '',
-							'identifier': '',
-							'interval': ''}});
-			}
-			// if this is full duplex
-			else {
-				json.resources.push(
-				{attributes:{
-							'timestamp': '',
-							'time_unit': '',
-							'value_type': '',
-							'the_parent_record_id': '',
-							'resource_unit': '',
-							'confidence': '',
-							'composing_operation': '',
-							'id': '',
-							'value': '',
-							'avp_attribute': this.type+'/upstream/bandwidth',
-							'is_request': '',
-							'alias': '',
-							'identifier': '',
-							'interval': ''}});
-							
-				json.resources.push(
-				{attributes:{
-							'timestamp': '',
-							'time_unit': '',
-							'value_type': '',
-							'the_parent_record_id': '',
-							'resource_unit': '',
-							'confidence': '',
-							'composing_operation': '',
-							'id': '',
-							'value': '',
-							'avp_attribute': this.type+'/downstream/bandwidth',
-							'is_request': '',
-							'alias': '',
-							'identifier': '',
-							'interval': ''}});
-			}
+			var jsonBuilder = new JsonBuilder();
+			var json = jsonBuilder.buildLinkJson(firstElement, secondElement, this.network, this.symmetric);
 			
 			this.network.importLink(json,true);
 		}

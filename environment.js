@@ -39,8 +39,8 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.toolbar.addButton("network_elements/tunnelbridge_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/tunnelbridge')); }, 'Tunnelbridge Switch');	
 		this.toolbar.addButton("network_elements/pip_switch",function(e) { _this.drawArea.setState(new NewNode(_this.networks.getNetwork(),'/node/switch/pip')); }, 'PIP Switch');
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/half_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), true)); }, 'Half-Dublex Link');
-		this.toolbar.addButton("network_elements/full_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), false)); }, 'Full-Dublex Link');
+		this.toolbar.addButton("network_elements/half_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), true)); }, 'Half-Duplex Link');
+		this.toolbar.addButton("network_elements/full_duplex",function(e) { _this.drawArea.setState(new NewLink(_this.networks.getNetwork(), false)); }, 'Full-Duplex Link');
 		// add additional Buttons here
 
 		this.menubar = new Menubar();
@@ -169,7 +169,7 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		  content: function() {
 			var element = $( this );
 			if ( element.is( "img" ) ) {
-			  return element.attr( "name" );
+			  return element.attr( "title" );
 			}
 		  }
 		});
