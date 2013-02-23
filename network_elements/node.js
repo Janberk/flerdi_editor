@@ -3,8 +3,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"], 
-(function($, Drag, listDialogue, ContextMenu, Link, Statusbar) {
+define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "resources", "features", "network_interfaces"], 
+(function($, Drag, listDialogue, ContextMenu, Link, Statusbar, Resources, Features, Network_Interfaces) {
 
 	var NodeTypes = ["/node/host/generic", "/node/host/pip", "/node/switch/cisco", "/node/switch/tunnelbridge", "/node/switch/pip"];
 
@@ -17,7 +17,10 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 		this.network = network;
 		
 		this.links = []; // all links that connect this node
-			
+		this.resources = []
+		this.features = []
+		this.network_interfaces = []
+		
 		this.setAttributes(json);
 		this.setPositionValues(position);
 		this.contextMenu = this.setContextMenu();
@@ -34,11 +37,27 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 		this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id || "";
 		this.json.attributes_cache = json.attributes_cache || [];
 		this.json.constraint_groups_network_elements = json.constraint_groups_network_elements || [];
+			
 		this.json.features = json.features || [];
+		for(var i = 0; i<this.json.features.length; i++){
+			this.features.push(new Features(this.json.features[i]))
+		}	
+		this.json.features = [];
+		
 		this.json.hosted_network_elements_mappings = json.hosted_network_elements_mappings || [];
 		this.json.mgmt_flags = json.mgmt_flags || [];
+		
 		this.json.network_interfaces = json.network_interfaces || [];
+		for(var i=0; i<this.json.network_interfaces.length; i++){
+			this.network_interfaces.push(new Network_Interfaces(this.json.network_interfaces[i]))
+		}
+		this.json.network_interfaces = [];
+			
 		this.json.resources = json.resources || [];
+		for(var i = 0; i<this.json.resources.length; i++){
+			this.resources.push(new Resources(this.json.resources[i]))
+		}
+		this.json.resources = []
 	}
 	
 	Node.prototype.setPositionValues = function(json){
@@ -95,10 +114,48 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar"],
 		}
 	}
 	
-	Node.prototype.getJson = function(){	
+	Node.prototype.getJson = function(){
+		this.json.resources = this.getResources()
+		this.json.features = this.getFeatures()
+		this.json.network_interfaces = this.getNetworkInterfaces()
 		return this.json;
 	}
-	
+	/**
+	* This function returns a array of all resources this node have
+	*
+	* @return Array of all resources
+	*/
+	Node.prototype.getResources = function(){
+		var res = []
+		for(var i=0;i<this.resources.length; i++){
+			res.push(this.resources[i].getJson())
+		}
+		return res;
+	}
+	/**
+	* This function returns a array of all resources this node have
+	*
+	* @return Array of all features
+	*/
+	Node.prototype.getFeatures = function(){
+		var fet = []
+		for(var i=0;i<this.features.length; i++){
+			fet.push(this.features[i].getJson())
+		}
+		return fet;
+	}
+	/**
+	* This function returns a array of all resources this node have
+	*
+	* @return Array of all features
+	*/
+	Node.prototype.getNetworkInterfaces = function(){
+		var nis = []
+		for(var i=0;i<this.network_interfaces.length; i++){
+			nis.push(this.network_interfaces[i].getJson())
+		}
+		return nis;
+	}
 	Node.prototype.getPositionJson = function(){
 		return this.position;
 	}

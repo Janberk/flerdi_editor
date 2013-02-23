@@ -41,6 +41,9 @@ requirejs.config({
 		"network": "network_elements/network",
 		"node": "network_elements/node",
 		"link": "network_elements/link",
+		"resources": "network_elements/resources",
+		"features": "network_elements/features",
+		"network_interfaces": "network_elements/network_interfaces",
 		"networkOrganisation": "network_elements/network_organisation",
 		"jsonBuilder": "network_elements/json_builder"
 	} //paths
