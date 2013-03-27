@@ -1,0 +1,596 @@
+--- !yaml.org,2002:GraphLabel 
+attributes: 
+  graph_nr: "0"
+  graph_tag: 
+  graph_type: OL
+  id: "1"
+  role_identifier: PIP91
+  v_net_identifier: Unknown network
+attributes_cache: {}
+
+network_elements: 
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "1"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "2"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "3"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "4"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "5"
+    ne_type: /node/host/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "6"
+    ne_type: /node/host/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "7"
+    ne_type: /node/host/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "8"
+    ne_type: /node/host/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "9"
+    ne_type: /node/switch/cisco
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "10"
+    ne_type: /node/switch/cisco
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "11"
+    ne_type: /node/switch/cisco
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "12"
+    ne_type: /node/switch/cisco
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "13"
+    ne_type: /node/switch/tunnelbridge
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "14"
+    ne_type: /node/switch/tunnelbridge
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "15"
+    ne_type: /node/switch/tunnelbridge
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "16"
+    ne_type: /node/switch/tunnelbridge
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "17"
+    ne_type: /node/switch/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "18"
+    ne_type: /node/switch/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "19"
+    ne_type: /node/switch/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "20"
+    ne_type: /node/switch/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+
+
+# Example position objects (used by Flerdit and ignored by the prototype)
+
+--- !Flerdit,2012:Position
+ -
+  x: 360
+  y: 209
+  id: "1"
+  network_element_id: "1"
+ attributes_cache: {}
+
+ -
+  x: 508
+  y: 124
+  id: "2"
+  network_element_id: "2"
+ attributes_cache: {}
+
+ -
+  x: 724
+  y: 301
+  id: "3"
+  network_element_id: "3"
+ attributes_cache: {}
+
+ -
+  x: 979
+  y: 202
+  id: "4"
+  network_element_id: "4"
+ attributes_cache: {}
+
+ -
+  x: 135
+  y: 153
+  id: "5"
+  network_element_id: "5"
+ attributes_cache: {}
+
+ -
+  x: 236
+  y: 357
+  id: "6"
+  network_element_id: "6"
+ attributes_cache: {}
+
+ -
+  x: 488
+  y: 348
+  id: "7"
+  network_element_id: "7"
+ attributes_cache: {}
+
+ -
+  x: 598
+  y: 221
+  id: "8"
+  network_element_id: "8"
+ attributes_cache: {}
+
+ -
+  x: 181
+  y: 42
+  id: "9"
+  network_element_id: "9"
+ attributes_cache: {}
+
+ -
+  x: 372
+  y: 72
+  id: "10"
+  network_element_id: "10"
+ attributes_cache: {}
+
+ -
+  x: 611
+  y: 56
+  id: "11"
+  network_element_id: "11"
+ attributes_cache: {}
+
+ -
+  x: 790
+  y: 75
+  id: "12"
+  network_element_id: "12"
+ attributes_cache: {}
+
+ -
+  x: 776
+  y: 405
+  id: "13"
+  network_element_id: "13"
+ attributes_cache: {}
+
+ -
+  x: 580
+  y: 459
+  id: "14"
+  network_element_id: "14"
+ attributes_cache: {}
+
+ -
+  x: 363
+  y: 467
+  id: "15"
+  network_element_id: "15"
+ attributes_cache: {}
+
+ -
+  x: 151
+  y: 431
+  id: "16"
+  network_element_id: "16"
+ attributes_cache: {}
+
+ -
+  x: 1039
+  y: 426
+  id: "17"
+  network_element_id: "17"
+ attributes_cache: {}
+
+ -
+  x: 1142
+  y: 296
+  id: "18"
+  network_element_id: "18"
+ attributes_cache: {}
+
+ -
+  x: 1263
+  y: 216
+  id: "19"
+  network_element_id: "19"
+ attributes_cache: {}
+
+ -
+  x: 1109
+  y: 139
+  id: "20"
+  network_element_id: "20"
+  attributes_cache: {}
+

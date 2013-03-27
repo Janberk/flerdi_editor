@@ -1,0 +1,45 @@
+--- !yaml.org,2002:GraphLabel 
+attributes: 
+  graph_nr: "0"
+  graph_tag: 
+  graph_type: OL
+  id: "1"
+  role_identifier: PIP91
+  v_net_identifier: Unknown network
+attributes_cache: {}
+
+network_elements: 
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "1"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+
+
+# Example position objects (used by Flerdit and ignored by the prototype)
+
+--- !Flerdit,2012:Position
+ -
+  x: 152
+  y: 67
+  id: "1"
+  network_element_id: "1"
+  attributes_cache: {}
+
