@@ -14,7 +14,7 @@ requirejs.config({
 		"json2yaml" : "lib/json2yaml",
 		"spinner":"lib/spinner.min",
 		
-		"parser": "backend/parser",
+		"parser": "backend/YAML_parser",
 		
 		"environment": "environment",
 		

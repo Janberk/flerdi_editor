@@ -13,8 +13,8 @@ define (["jquery",'loadingWindow'],
 		$('#yaml_datei').prop('disabled',true);
 		this.loadingScreen = new LoadingWindow('\''+path+'\' wird geladen...');
 		var _this = this;
-		$.post("/backend/parser.php", { file: path}, function(json) {
-								//console.log(json);
+		$.post("/backend/YAML_parser.php", { source: path, type: 'file'}, function(json) {
+								console.log(json);
 								_this.loadingScreen.close();
 								$('#yaml_datei').prop('disabled',false);
 								callback(json);
@@ -30,8 +30,8 @@ define (["jquery",'loadingWindow'],
 	Parser.loadFromText = function(_text,name, callback){
 		var loadingWindow = new LoadingWindow('\''+name+'\' wird geladen...');
 		var _this = this;
-		$.post("/backend/parseFromText.php", { text: _text}, function(json) {
-								//console.log(json);
+		$.post("/backend/YAML_parser.php", { source: _text, type : 'text'}, function(json) {
+								console.log(json);
 								loadingWindow.close();
 								callback(json);
 							},'json');
