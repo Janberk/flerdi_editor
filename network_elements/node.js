@@ -3,8 +3,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "resources", "features", "network_interfaces"], 
-(function($, Drag, listDialogue, ContextMenu, Link, Statusbar, Resources, Features, Network_Interfaces) {
+define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "resources", "features", "network_interfaces", "moveNodeCommand"], 
+(function($, Drag, listDialogue, ContextMenu, Link, Statusbar, Resources, Features, Network_Interfaces, MoveNodeCommand) {
 
 	var NodeTypes = ["/node/host/generic", "/node/host/pip", "/node/switch/cisco", "/node/switch/tunnelbridge", "/node/switch/pip"];
 
@@ -194,6 +194,13 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 
 	}
 	
+	Node.prototype.move = function(pos){
+		this.position.x = pos.x;
+		this.position.y = pos.y
+		$(this.element).attr('x', pos.x);
+		$(this.element).attr('y', pos.y);
+	}
+	
 	Node.prototype.appendMoveEvent = function (){
 		var _this = this;
 		
@@ -225,8 +232,13 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 			$(_this.element).attr('x', event.offsetX-32);
 			$(_this.element).attr('y', event.offsetY-32);
 		}).on('dragend',function(event){
-			_this.position.x = event.offsetX-32;
+			/*_this.position.x = event.offsetX-32;
 			_this.position.y = event.offsetY-32;
+			*/
+					
+			//_this.move({x:event.offsetX-32,y:event.offsetY-32});
+			
+			_this.network.getCommandManager().newCommand(new MoveNodeCommand(_this,{x:parseInt(_this.position.x), y:parseInt(_this.position.y)},{x:event.offsetX-32,y:event.offsetY-32}));
 			
 			// remove dummy from document
 			document.getElementById('nodes').removeChild(dummy);

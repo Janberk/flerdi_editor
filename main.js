@@ -45,7 +45,10 @@ requirejs.config({
 		"features": "network_elements/features",
 		"network_interfaces": "network_elements/network_interfaces",
 		"networkOrganisation": "network_elements/network_organisation",
-		"jsonBuilder": "network_elements/json_builder"
+		"jsonBuilder": "network_elements/json_builder",
+		
+		"commandManager":	"network_elements/command_manager",
+		"moveNodeCommand":	"network_elements/commands/move_node_command"
 	} //paths
 }); //config
 

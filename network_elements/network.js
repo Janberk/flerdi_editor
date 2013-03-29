@@ -6,12 +6,15 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2yaml) {
+define (["jquery", "node", "link", "json2yaml", "commandManager"],
+		(function($, Node, Link, Json2yaml, CommandManager) {
 
 	var Network = function(json, name){
 		this.elements = json;
 		this.name = name || "Unknown network" ;
 		console.log('creating new Network "'+name+'"');
+		
+		this.commandManager = new CommandManager(this);
 			
 		this.nodes = [];
 		
@@ -212,6 +215,11 @@ define (["jquery", "node", "link", "json2yaml"], (function($, Node, Link, Json2y
 		}
 	}
 	
+	Network.prototype.getCommandManager = function(){
+		return this.commandManager;
+	}
+	
+
 	Network.prototype.getYaml = function() {
 		var json = this.getJson();
 		

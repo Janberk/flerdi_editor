@@ -93,7 +93,7 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Download", (function() {  _this.downloadYaml({}); }));
 		this.menubar.addMenu("Edit");
-		this.menubar.addSubMenu("Edit", "Undo", (function() { alert("Undo - Comming Soon") }));
+		this.menubar.addSubMenu("Edit", "Undo", (function() { _this.networks.getNetwork().getCommandManager().undo(); }));
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
 
