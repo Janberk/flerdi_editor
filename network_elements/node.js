@@ -199,6 +199,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 		this.position.y = pos.y
 		$(this.element).attr('x', pos.x);
 		$(this.element).attr('y', pos.y);
+		this.updateLinks();
 	}
 	
 	Node.prototype.appendMoveEvent = function (){
@@ -242,8 +243,6 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 			
 			// remove dummy from document
 			document.getElementById('nodes').removeChild(dummy);
-			
-			_this.updateLinks();
 		});
 	}
 	
