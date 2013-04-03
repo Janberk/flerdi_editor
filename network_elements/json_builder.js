@@ -42,12 +42,12 @@ define (["jquery"], (function($) {
 		var linkId = network.getNextElementId();
 		
 		// get IDs for the interfaces of the new link
-		var linkIfId1 = network.getNextElementId();
-		var linkIfId2 = network.getNextElementId();
+		var linkIfId1 = network.getNextInterfaceId();
+		var linkIfId2 = network.getNextInterfaceId();
 			
 		// get IDs for the new interfaces of the two connected elements
-		var elemIfId1 = network.getNextElementId();
-		var elemIfId2 = network.getNextElementId();
+		var elemIfId1 = network.getNextInterfaceId();
+		var elemIfId2 = network.getNextInterfaceId();
 		
 		// add new interfaces to the elements that get connected
 		elem1.addNetworkInterfaceByJSON({attributes:{'id': elemIfId1,

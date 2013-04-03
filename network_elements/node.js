@@ -52,7 +52,8 @@ define(
 
 				this.json.features = json.features || [];
 				for ( var i = 0; i < this.json.features.length; i++) {
-					this.features.push(new Features(this.json.features[i]))
+					this.features
+							.push(new Features(this, this.json.features[i]))
 				}
 				this.json.features = [];
 
@@ -62,14 +63,15 @@ define(
 
 				this.json.network_interfaces = json.network_interfaces || [];
 				for ( var i = 0; i < this.json.network_interfaces.length; i++) {
-					this.network_interfaces.push(new Network_Interfaces(
+					this.network_interfaces.push(new Network_Interfaces(this,
 							this.json.network_interfaces[i]))
 				}
 				this.json.network_interfaces = [];
 
 				this.json.resources = json.resources || [];
 				for ( var i = 0; i < this.json.resources.length; i++) {
-					this.resources.push(new Resources(this.json.resources[i]))
+					this.resources.push(new Resources(this,
+							this.json.resources[i]))
 				}
 				this.json.resources = []
 			}
@@ -183,14 +185,15 @@ define(
 			Node.prototype.getPositionJson = function() {
 				return this.position;
 			}
-			
+
 			/**
 			 * This function adds a new NetworkInterfac to this Node
 			 * 
-			 * @param json JSON-representation of this NetworkInterface
+			 * @param json
+			 *            JSON-representation of this NetworkInterface
 			 */
-			Node.prototype.addNetworkInterfaceByJSON = function(json){
-				this.network_interfaces.push(new Network_Interfaces(json));
+			Node.prototype.addNetworkInterfaceByJSON = function(json) {
+				this.network_interfaces.push(new Network_Interfaces(this,json));
 			}
 
 			Node.prototype.createSvgTag = function() {
@@ -370,6 +373,15 @@ define(
 				for ( var i = 0; i < this.links.length; i++) {
 					this.links[i].update();
 				}
+			}
+
+			/**
+			 * This function returns the network object, this node is applied to
+			 * 
+			 * @return network element, this node is applied to
+			 */
+			Node.prototype.getNetwork = function() {
+				return this.network;
 			}
 
 			return Node;

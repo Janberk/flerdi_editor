@@ -182,5 +182,14 @@ define (["jquery"], (function($) {
 		}
 	}
 	
+	/**
+	 * This function returns the network object, this Link is applied to
+	 * 
+	 * @return network element, this Link is applied to
+	 */
+	Link.prototype.getNetwork = function(){
+		return this.network;
+	}
+	
 	return Link;
 })); //define
