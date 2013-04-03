@@ -50,15 +50,14 @@ define (["jquery"], (function($) {
 		var elemIfId2 = network.getNextElementId();
 		
 		// add new interfaces to the elements that get connected
-		elem1.json.network_interfaces.push(
-			{attributes:{'id': elemIfId1,
-				'network_element_id': elem1.getId(),
-				'network_interface_id': linkIfId1}});
-						
-		elem2.json.network_interfaces.push(
-			{attributes:{'id': elemIfId2,
-				'network_element_id': elem2.getId(),
-				'network_interface_id': linkIfId2}});
+		elem1.addNetworkInterfaceByJSON({attributes:{'id': elemIfId1,
+			'network_element_id': elem1.getId(),
+			'network_interface_id': linkIfId1}});
+					
+		elem2.addNetworkInterfaceByJSON({attributes:{'id': elemIfId2,
+			'network_element_id': elem2.getId(),
+			'network_interface_id': linkIfId2}});
+		
 		
 		// create a json for the new link
 		var json = {

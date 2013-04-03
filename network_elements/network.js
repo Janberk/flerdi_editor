@@ -22,6 +22,9 @@ define (["jquery", "node", "link", "json2yaml", "commandManager"],
 		
 		this.element_id = 0;
 		this.position_id = 0;
+		this.interface_id = 0;
+		this.resource_id = 0;
+		this.feature_id = 0;
 		
 		this.setAttributes(json);
 		
@@ -152,10 +155,27 @@ define (["jquery", "node", "link", "json2yaml", "commandManager"],
 		return this.position_id.toString();
 	};
 	
+	Network.prototype.getNextInterfaceId = function(){
+		++this.interface_id;
+		return this.interface_id.toString();
+	};
+	
+	Network.prototype.getNextFeatureId = function(){
+		++this.feature_id;
+		return this.feature_id.toString();
+	};
+	
+	Network.prototype.getNextResourceId = function(){
+		++this.resource_id;
+		return this.resource_id.toString();
+	};
+	
 	Network.prototype.getNodeByInterfaceId = function(id){
 		for(var j=0;j<this.nodes.length;j++){
-			for(var k=0; k<this.nodes[j].getJson().network_interfaces.length;k++){
-				if(parseInt(this.nodes[j].getJson().network_interfaces[k].attributes.id) == id){
+			var interfaces = this.nodes[j].getNetworkInterfaces();
+
+			for(var k=0; k<interfaces.length;k++){
+				if(parseInt(interfaces[k].attributes.id) == id){
 					return this.nodes[j];
 					break;
 				}

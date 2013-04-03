@@ -42,7 +42,7 @@ define (["jquery"],
 	* @return JSON-Object representing this feature
 	*/
 	Features.prototype.getJson = function(){
-		return this.json
+		return this.json;
 	}
 	return Features;
 })); //define

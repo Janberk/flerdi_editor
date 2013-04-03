@@ -38,7 +38,7 @@ define (["jquery"],
 		this.json.attributes.timestamp = json.attributes.timestamp || "";
 		this.json.attributes.value = json.attributes.value || "";
 		this.json.attributes.value_type = json.attributes.value_type || "";
-		this.json.attributes_cache = json.attributes_cache || []
+		this.json.attributes_cache = json.attributes_cache || [];
 	}
 	
 	/**
@@ -47,7 +47,7 @@ define (["jquery"],
 	* @return JSON-Object representing this resource
 	*/
 	Resources.prototype.getJson = function(){
-		return this.json
+		return this.json;
 	}
 	return Resources;
 })); //define
