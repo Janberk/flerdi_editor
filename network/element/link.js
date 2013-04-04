@@ -25,7 +25,7 @@ define (["jquery"], (function($) {
 		this.json.attributes.alias = json.attributes.alias || "";
 		this.json.attributes.console_interface_id = json.attributes.console_interface_id || "";
 		this.json.attributes.graph_label_id = json.attributesgraph_label_idalias || this.network.getNetworkId();
-		this.json.attributes.id = json.attributes.id || this.network.getNextElementId();
+		this.json.attributes.id = json.attributes.id || this.network.getIdHandler().getNextElementId();
 		this.json.attributes.ne_type = json.attributes.ne_type || "/node/host/generic";
 		this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id || "";
 		this.json.attributes_cache = json.attributes_cache || [];

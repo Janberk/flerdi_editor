@@ -41,7 +41,7 @@ define(
 				this.json.attributes.graph_label_id = json.attributesgraph_label_idalias
 						|| this.network.getNetworkId();
 				this.json.attributes.id = json.attributes.id
-						|| this.network.getNextElementId();
+						|| this.network.getIdHandler().getNextElementId();
 				this.json.attributes.ne_type = json.attributes.ne_type
 						|| "/node/host/generic";
 				this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id
@@ -77,7 +77,7 @@ define(
 			}
 
 			Node.prototype.setPositionValues = function(json) {
-				this.position.id = json.id || this.network.getNextPositionId();
+				this.position.id = json.id || this.network.getIdHandler().getNextPositionId();
 				this.position.x = json.x
 						|| Math.floor(Math.random() * $('#drawarea').width());
 				this.position.y = json.y

@@ -32,7 +32,7 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 	NewNode.prototype.onClick = function(e) {
 		//TODO replace 25 and 25 by node-width/2 and node-height/2
 		var pos = {x:e.pageX-31-25, y:e.pageY-31-25}
-		var id = this.network.getNextElementId();
+		var id = this.network.getIdHandler().getNextElementId();
 		
 		var json = {attributes:{'id': id, 'ne_type': this.type}};
 		

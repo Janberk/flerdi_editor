@@ -7,8 +7,8 @@
  * RequireJS module definition
  */
 define(
-		[ "jquery", "node", "link", "json2yaml", "commandManager" ],
-		(function($, Node, Link, Json2yaml, CommandManager) {
+		[ "jquery", "node", "link", "json2yaml", "commandManager", "idHandler" ],
+		(function($, Node, Link, Json2yaml, CommandManager, IdHandler) {
 
 			var Network = function(json, name) {
 				this.elements = json;
@@ -17,74 +17,22 @@ define(
 
 				this.commandManager = new CommandManager(this);
 
+				this.idHandler = new IdHandler(this);
+
 				this.nodes = [];
 
 				this.links = [];
-
-				this.element_id = 0;
-				this.position_id = 0;
-				this.interface_id = 0;
-				this.resource_id = 0;
-				this.feature_id = 0;
 
 				this.setAttributes(json);
 
 				// boolean to determine, whether objectstate has changed
 				this.hasChanged = false;
 
-				/*
-				 * This loop searches the biggest position id, only if there is
-				 * an id
-				 */
-				if (this.elements['--- !Flerdit,2012'] !== undefined) {
-					for (j = 0; j < this.elements['--- !Flerdit,2012'].length; j++) {
-						if (this.elements['--- !Flerdit,2012'][j].id > this.position_id) {
-							this.position_id = this.elements['--- !Flerdit,2012'][j].id;
-						}
-					}
-				}
-
 				for ( var i = 0; i < this.elements.network_elements.length; i++) {
 					var type = this.elements.network_elements[i].attributes.ne_type
 							.split('/')[1];
 					var position = this
 							.getPositionById(this.elements.network_elements[i].attributes.id);
-
-					/* this if searches the biggest id, only if there is an id */
-					if (this.elements.network_elements[i].attributes.id !== undefined) {
-						if (parseInt(this.elements.network_elements[i].attributes.id) > this.element_id) {
-							this.element_id = parseInt(this.elements.network_elements[i].attributes.id);
-						}
-					}
-					/* search the biggest resource id */
-					for ( var j = 0; j < this.elements.network_elements[i].resources.length; j++) {
-						if (parseInt(this.elements.network_elements[i].resources[j].attributes.id) > this.resource_id) {
-							this.resource_id = parseInt(this.elements.network_elements[i].resources[j].attributes.id);
-						}
-					}
-					/* search the biggest features id */
-					for ( var j = 0; j < this.elements.network_elements[i].features.length; j++) {
-						if (parseInt(this.elements.network_elements[i].features[j].attributes.id) > this.feature_id) {
-							this.feature_id = parseInt(this.elements.network_elements[i].features[j].attributes.id);
-						}
-					}
-					for ( var j = 0; j < this.elements.network_elements[i].network_interfaces.length; j++) {
-						if (parseInt(this.elements.network_elements[i].network_interfaces[j].attributes.id) > this.interface_id) {
-							this.interface_id = parseInt(this.elements.network_elements[i].network_interfaces[j].attributes.id);
-						}
-						for ( var k = 0; k < this.elements.network_elements[i].network_interfaces[j].resources.length; k++) {
-							var id = parseInt(this.elements.network_elements[i].network_interfaces[j].resources[k].attributes.id);
-							if (id > this.resource_id) {
-								this.resource_id = id;
-							}
-						}
-						for ( var k = 0; k < this.elements.network_elements[i].network_interfaces[j].features.length; k++) {
-							var id = parseInt(this.elements.network_elements[i].network_interfaces[j].features[k].attributes.id);
-							if (id > this.feature_id) {
-								this.feature_id = id;
-							}
-						}
-					}
 
 					switch (type) {
 					case 'link':
@@ -106,7 +54,8 @@ define(
 					this.links[i].createSvgTag();
 					this.links[i].appendSvgTag();
 				}
-				console.log(this.resource_id);
+
+				this.idHandler.analyseNetwork();
 			};
 
 			// getter
@@ -192,30 +141,15 @@ define(
 				return output;
 			};
 
-			Network.prototype.getNextElementId = function() {
-				++this.element_id;
-				return this.element_id.toString();
-			};
-
-			Network.prototype.getNextPositionId = function() {
-				++this.position_id;
-				return this.position_id.toString();
-			};
-
-			Network.prototype.getNextInterfaceId = function() {
-				++this.interface_id;
-				return this.interface_id.toString();
-			};
-
-			Network.prototype.getNextFeatureId = function() {
-				++this.feature_id;
-				return this.feature_id.toString();
-			};
-
-			Network.prototype.getNextResourceId = function() {
-				++this.resource_id;
-				return this.resource_id.toString();
-			};
+			/**
+			 * This function returns a reference to the IdHandler of this
+			 * Network
+			 * 
+			 * @return reference to IdHandler of this Network
+			 */
+			Network.prototype.getIdHandler = function() {
+				return this.idHandler;
+			}
 
 			Network.prototype.getNodeByInterfaceId = function(id) {
 				for ( var j = 0; j < this.nodes.length; j++) {

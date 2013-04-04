@@ -28,7 +28,7 @@ define (["jquery"],
 	Features.prototype.setAttributes = function(json){
 		this.json.attributes = json.attributes || {};
 		this.json.attributes.avp_attribute = json.attributes.avp_attribute || "";
-		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getNextFeatureId();
+		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextFeatureId();
 		this.json.attributes.identifier = json.attributes.identifier || "";
 		this.json.attributes.is_request = json.attributes.is_request || "1";
 		this.json.attributes.network_element_id = json.attributes.network_element_id || "";

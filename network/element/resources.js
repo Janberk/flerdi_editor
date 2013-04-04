@@ -31,7 +31,7 @@ define (["jquery"],
 		this.json.attributes.avp_attribute = json.attributes.avp_attribute || "";
 		this.json.attributes.composing_operation = json.attributes.composing_operation || "";
 		this.json.attributes.confidence = json.attributes.confidence || "";
-		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getNextResourceId();
+		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextResourceId();
 		this.json.attributes.identifier = json.attributes.identifier || "";
 		this.json.attributes.is_request = json.attributes.is_request || "1";
 		this.json.attributes.resource_unit = json.attributes.resource_unit || "";
