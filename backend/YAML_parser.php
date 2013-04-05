@@ -48,6 +48,8 @@ function parse($network, $type) {
 	$yaml = implode("", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
-	return json_encode(spyc_load($yaml));
+	return $yaml;
+
+	//return json_encode(spyc_load($yaml));
 }
 ?>
