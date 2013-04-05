@@ -30,6 +30,7 @@ define (["jquery",'loadingWindow'],
 	Parser.loadFromText = function(_text,name, callback){
 		var loadingWindow = new LoadingWindow('\''+name+'\' wird geladen...');
 		var _this = this;
+		console.log(_text);
 		$.post("/backend/YAML_parser.php", { source: _text, type : 'text'}, function(json) {
 								console.log(json);
 								loadingWindow.close();
