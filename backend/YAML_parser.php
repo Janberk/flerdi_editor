@@ -11,8 +11,6 @@ if( ! $type or ! $source) {
 	exit ;
 }
 
-print_r(parse($source, $type));
-
 /**
  * This function parse a text representation of a Network to a JSON-representation of the Network
  *
@@ -52,4 +50,8 @@ function parse($network, $type) {
 	return $yaml;
 	return json_encode(Spyc::YAMLLoadString($yaml));
 }
+
+echo parse($source, $type);
+
+
 ?>
