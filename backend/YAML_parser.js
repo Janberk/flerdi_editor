@@ -34,7 +34,7 @@ define (["jquery",'loadingWindow'],
 								console.log(json);
 								loadingWindow.close();
 								callback(json);
-							},'text');
+							},'json');
 	}
 
 return Parser;

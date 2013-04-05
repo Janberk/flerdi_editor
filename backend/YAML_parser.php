@@ -1,6 +1,7 @@
 <?php
+define ('DS', DIRECTORY_SEPARATOR);
 
-require_once "../lib/spyc.php";
+require_once "..".DS."lib".DS."spyc.php";
 
 $type = isset($_POST['type']) ? $_POST['type'] : false;
 $source = isset($_POST['source']) ? $_POST['source'] : false;
@@ -26,7 +27,7 @@ function parse($network, $type) {
 		$lines = file($name);
 		unlink($name);
 	} else {
-		$lines = file('../'.$network);
+		$lines = file('..'.DS.$network);
 	}
 
 	for($i = 0; $i < count($lines); $i++) {
@@ -47,6 +48,6 @@ function parse($network, $type) {
 	$yaml = implode("", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
-	return spyc_load($yaml);
+	return json_encode(Spyc::YAMLLoadString($yaml));
 }
 ?>
