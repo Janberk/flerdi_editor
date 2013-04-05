@@ -9,8 +9,7 @@ if( ! $type or ! $source) {
 	echo json_encode(array('succes' => 'fail'));
 	exit ;
 }
-echo $source;
-//echo parse($source, $type);
+echo parse($source, $type);
 
 /**
  * This function parse a text representation of a Network to a JSON-representation of the Network
