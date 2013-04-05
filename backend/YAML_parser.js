@@ -18,14 +18,14 @@ define (["jquery",'loadingWindow'],
 								_this.loadingScreen.close();
 								$('#yaml_datei').prop('disabled',false);
 								callback(json);
-							},'text');
+							},'json');
 	}
 	/**
 	* This function parses a String to a JSON.
 	*
 	* @param _text text that should be parsed
 	* @param name name of the network
-	* @param callback fucntion that should be called after parsing the file, the parsed JSON si the parameter of this function
+	* @param callback function that should be called after parsing the file, the parsed JSON si the parameter of this function
 	*/
 	Parser.loadFromText = function(_text,name, callback){
 		var loadingWindow = new LoadingWindow('\''+name+'\' wird geladen...');
@@ -34,7 +34,7 @@ define (["jquery",'loadingWindow'],
 								console.log(json);
 								loadingWindow.close();
 								callback(json);
-							},'text');
+							},'json');
 	}
 
 return Parser;
