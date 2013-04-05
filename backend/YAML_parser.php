@@ -24,7 +24,7 @@ function parse($network, $type) {
 		$name = time();
 		file_put_contents($name, $network);
 		$lines = file($name);
-		unlink($name);
+
 	} else {
 		$lines = file('..'.DS.$network);
 	}
