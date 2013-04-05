@@ -10,9 +10,8 @@ if( ! $type or ! $source) {
 	echo json_encode(array('succes' => 'fail'));
 	exit ;
 }
-echo file_exists("..".DS."lib".DS."spyc.php");
-exit;
-echo parse($source, $type);
+
+print_r(parse($source, $type));
 
 /**
  * This function parse a text representation of a Network to a JSON-representation of the Network
@@ -50,6 +49,7 @@ function parse($network, $type) {
 	$yaml = implode("", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
+	return Spyc::YAMLLoadString($yaml);
 	return json_encode(Spyc::YAMLLoadString($yaml));
 }
 ?>
