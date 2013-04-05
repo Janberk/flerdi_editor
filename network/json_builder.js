@@ -65,10 +65,10 @@ define (["jquery"], (function($) {
 
 			network_interfaces: [
 				{attributes:{'id': linkIfId1,
-							'netwok_element_id': linkId,
+							'network_element_id': linkId,
 							'network_interface_id': elemIfId1}},
 				{attributes:{'id': linkIfId2,
-							'netwok_element_id': linkId,
+							'network_element_id': linkId,
 							'network_interface_id': elemIfId2}}
 				],
 

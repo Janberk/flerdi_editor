@@ -30,12 +30,14 @@ define (["jquery","features", "resources"],
 	*/
 	Network_Interfaces.prototype.setAttributes = function(json){
 		this.json.attributes = json.attributes || {};
+		
 		this.json.attributes.alias = json.attributes.alias || "";
 		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextInterfaceId();
 		this.json.attributes.identifier = json.attributes.identifier || "";
 		this.json.attributes.network_element_id = json.attributes.network_element_id || "";
 		this.json.attributes.network_interface_id = json.attributes.network_interface_id || "";
 		this.json.attributes.ni_type = json.attributes.ni_type || "";
+		
 		this.json.attributes_cache = json.attributes_cache || [];
 			
 		this.json.features = json.features || [];

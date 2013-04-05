@@ -181,6 +181,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	 * 
 	 */
 	Environment.prototype.downloadYaml = function() {
+
 		var yaml = this.networks.getNetwork().getYaml();
 		var exportName = this.networks.getNetwork().getName();
 		exportName = exportName.replace(/ /g, '_');

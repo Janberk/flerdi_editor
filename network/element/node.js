@@ -23,9 +23,9 @@ define(
 				this.network = network;
 
 				this.links = []; // all links that connect this node
-				this.resources = []
-				this.features = []
-				this.network_interfaces = []
+				this.resources = [];
+				this.features = [];
+				this.network_interfaces = [];
 
 				this.setAttributes(json);
 				this.setPositionValues(position);
@@ -46,6 +46,8 @@ define(
 						|| "/node/host/generic";
 				this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id
 						|| "";
+				this.json.attributes.identifier = json.attributes.identifier || "";
+				this.json.attributes.customer_console_interface = json.attributes.customer_console_interface || "";
 				this.json.attributes_cache = json.attributes_cache || [];
 				this.json.constraint_groups_network_elements = json.constraint_groups_network_elements
 						|| [];
@@ -53,7 +55,7 @@ define(
 				this.json.features = json.features || [];
 				for ( var i = 0; i < this.json.features.length; i++) {
 					this.features
-							.push(new Features(this, this.json.features[i]))
+							.push(new Features(this, this.json.features[i]));
 				}
 				this.json.features = [];
 
@@ -64,14 +66,14 @@ define(
 				this.json.network_interfaces = json.network_interfaces || [];
 				for ( var i = 0; i < this.json.network_interfaces.length; i++) {
 					this.network_interfaces.push(new Network_Interfaces(this,
-							this.json.network_interfaces[i]))
+							this.json.network_interfaces[i]));
 				}
 				this.json.network_interfaces = [];
 
 				this.json.resources = json.resources || [];
 				for ( var i = 0; i < this.json.resources.length; i++) {
 					this.resources.push(new Resources(this,
-							this.json.resources[i]))
+							this.json.resources[i]));
 				}
 				this.json.resources = []
 			}
