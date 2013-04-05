@@ -9,7 +9,7 @@ if( ! $type or ! $source) {
 	echo json_encode(array('succes' => 'fail'));
 	exit ;
 }
-echo parse($source, $type);
+print_r(parse($source, $type));
 
 /**
  * This function parse a text representation of a Network to a JSON-representation of the Network
@@ -47,6 +47,6 @@ function parse($network, $type) {
 	$yaml = implode("", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
-	return json_encode(spyc_load($yaml));
+	return spyc_load($yaml);
 }
 ?>
