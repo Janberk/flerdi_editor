@@ -43,11 +43,11 @@ function parse($network, $type) {
 			$lines[$i] = " ".$lines[$i]."\n";
 		}
 	}
-
+return $yaml;
 	$yaml = implode("", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
-	return $yaml;
+	
 	return json_encode(Spyc::YAMLLoadString($yaml));
 }
 
