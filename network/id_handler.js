@@ -20,7 +20,7 @@ define([ "jquery" ], (function($) {
 			networkInterface : 0,
 			resource : 0,
 			feature : 0,
-			position : 0
+			position : 0,
 		};
 	};
 
@@ -130,7 +130,7 @@ define([ "jquery" ], (function($) {
 	 * @return next available Position Id
 	 */
 	IdHandler.prototype.getNextPositionId = function(){
-		return ++this.id.prosition;
+		return ++this.id.position;
 	}
 
 	return IdHandler;

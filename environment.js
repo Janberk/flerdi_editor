@@ -176,24 +176,37 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
 	} // importJson
 
-	/* saves the network as lastSave.yaml and offers a downloadlink on success */
+	/**
+	 * This function calls a download of the active Network
+	 * 
+	 */
 	Environment.prototype.downloadYaml = function() {
 		var yaml = this.networks.getNetwork().getYaml();
 		var exportName = this.networks.getNetwork().getName();
 		exportName = exportName.replace(/ /g, '_');
 		exportName = exportName.replace(/.yaml/g, '');
 
-		$.ajax({
-			url : 'backend/saveNetwork.php',
-			type : 'POST',
-			data : {
-				content : yaml
-			},
-			success : function(data) {
-				document.location.href = "backend/downloadFile.php?exportName="
-						+ exportName;
-			}
-		});
+		var temp = document.createElement("form");
+		temp.action="backend/download_YAML.php";
+		temp.method="POST";
+		temp.style.display = "none";
+		var t = document.createElement("textarea");
+		t.name = "content";
+		t.value= yaml;
+		var i = document.createElement("input");
+		i.type = "text";
+		i.name = "name";
+		i.value = exportName;
+		temp.appendChild(t);
+		temp.appendChild(i);
+		document.body.appendChild(temp);
+		temp.submit();
+		document.body.removeChild(temp);
+		temp.removeChild(i);
+		temp.removeChild(t);
+		t = "";
+		i = "";
+		temp = "";
 
 		// set hasChanged false
 		var _this = this;
