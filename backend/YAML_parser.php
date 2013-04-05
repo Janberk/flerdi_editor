@@ -21,10 +21,7 @@ if( ! $type or ! $source) {
 function parse($network, $type) {
 	$lines = "";
 	if($type == 'text') {
-		$name = time();
-		file_put_contents($name, $network);
-		$lines = file($name);
-
+		$lines = explode("\n", $network);
 	} else {
 		$lines = file('..'.DS.$network);
 	}
@@ -43,7 +40,7 @@ function parse($network, $type) {
 			$lines[$i] = " ".$lines[$i]."\n";
 		}
 	}
-return $yaml;
+return print_r($lines);
 	$yaml = implode("", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
