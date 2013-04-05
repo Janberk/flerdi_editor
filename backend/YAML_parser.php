@@ -21,7 +21,7 @@ if( ! $type or ! $source) {
 function parse($network, $type) {
 	$lines = "";
 	if($type == 'text') {
-		$lines = explode("\n", $network);
+		$lines = explode("\r\n", $network);
 	} else {
 		$lines = file('..'.DS.$network);
 	}
@@ -40,11 +40,9 @@ function parse($network, $type) {
 			$lines[$i] = " ".$lines[$i]."\n";
 		}
 	}
-return print_r($lines);
-	$yaml = implode("", $lines);
+	$yaml = implode("\n", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
-	
 	return json_encode(Spyc::YAMLLoadString($yaml));
 }
 
