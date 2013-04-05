@@ -1,7 +1,7 @@
 <?php
 define ('DS', DIRECTORY_SEPARATOR);
 
-require_once "..".DS."lib".DS."spyc.php";
+include("..".DS."lib".DS."spyc.php");
 
 $type = isset($_POST['type']) ? $_POST['type'] : false;
 $source = isset($_POST['source']) ? $_POST['source'] : false;
