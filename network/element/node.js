@@ -6,9 +6,9 @@
 define(
 		[ "jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar",
 				"resources", "features", "network_interfaces",
-				"moveNodeCommand" ],
+				"moveNodeCommand", "deleteNodeCommand" ],
 		(function($, Drag, listDialogue, ContextMenu, Link, Statusbar,
-				Resources, Features, Network_Interfaces, MoveNodeCommand) {
+				Resources, Features, Network_Interfaces, MoveNodeCommand, DeleteNodeCommand) {
 
 			var NodeTypes = [ "/node/host/generic", "/node/host/pip",
 					"/node/switch/cisco", "/node/switch/tunnelbridge",
@@ -93,7 +93,8 @@ define(
 				var _this = this;
 				var menu = new ContextMenu();
 				menu.addButton('Delete', function(e) {
-					_this.removeNode()
+					//create command for undo
+					_this.network.getCommandManager().newCommand(new DeleteNodeCommand(_this.network, _this));
 				});
 				menu.addButton('Properties', function(e) {
 					new listDialogue(_this.getJson())
@@ -372,7 +373,7 @@ define(
 
 			/* updates all connected links, called when a node is moved */
 			Node.prototype.updateLinks = function() {
-				for ( var i = 0; i < this.links.length; i++) {
+				for (var i = 0; i < this.links.length; i++) {
 					this.links[i].update();
 				}
 			}
