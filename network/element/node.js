@@ -355,7 +355,7 @@ define(
 
 			Node.prototype.removeNode = function() {
 				this.removeSvgTag();
-				this.network.removeNodeById(this.getJson().attributes.id);
+				this.network.removeNodeById(this.getId());
 			}
 
 			Node.prototype.getId = function() {

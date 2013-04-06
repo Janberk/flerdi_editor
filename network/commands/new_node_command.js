@@ -29,7 +29,7 @@ define([ "jquery" ],
 	}
 	
 	/**
-	 * This functions removes the node
+	 * This function removes the node
 	 */
 	NewNodeCommand.prototype.undo = function(){
 		this.node.removeNode();

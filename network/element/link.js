@@ -228,6 +228,11 @@ define(
 					document.getElementById('links').appendChild(this.lines[i]);
 				}
 			}
+			
+			Link.prototype.removeLink = function() {
+				this.removeSvgTag();
+				this.network.removeLinkById(this.getId());
+			}
 
 			Link.prototype.getId = function() {
 				return this.json.attributes.id;

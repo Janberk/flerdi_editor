@@ -228,6 +228,15 @@ define(
 				}
 			}
 
+			Network.prototype.removeLinkById = function(id) {
+				for ( var i = 0; i < this.links.length; i++) {
+					if (this.links[i].getJson().attributes.id == id) {
+						this.links.splice(i, 1);
+						break;
+					}
+				}
+			}
+
 			Network.prototype.getCommandManager = function() {
 				return this.commandManager;
 			}

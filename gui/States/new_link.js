@@ -7,7 +7,7 @@
  /*
  * RequireJS module definition
  */ 
-define (["jquery","networkOrganisation", "jsonBuilder"],function($, Network, JsonBuilder) {
+define (["jquery", "networkOrganisation", "jsonBuilder", "newLinkCommand"],function($, Network, JsonBuilder, NewLinkCommand) {
 	var NewLink = function(network,symmetric) {
 		this.network = network;
 		this.symmetric = symmetric;
@@ -54,7 +54,8 @@ define (["jquery","networkOrganisation", "jsonBuilder"],function($, Network, Jso
 			var jsonBuilder = new JsonBuilder();
 			var json = jsonBuilder.buildLinkJson(firstElement, secondElement, this.network, this.symmetric);
 			
-			this.network.importLink(json,true);
+			//create command for undo
+			this.network.getCommandManager().newCommand(new NewLinkCommand(this.network, json));
 		}
 			
 		// set the attributes back to normal
