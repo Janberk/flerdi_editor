@@ -19,7 +19,6 @@ network_elements:
     alias: 
     identifier: vnodes-all
     customer_console_interface_id: 
-    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -153,7 +152,6 @@ network_elements:
     alias: alias1-B1
     identifier: B1
     customer_console_interface_id: 
-    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -168,7 +166,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "33"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
@@ -180,7 +177,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "33"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   hosted_network_elements_mappings: []
@@ -266,7 +262,6 @@ network_elements:
     alias: alias1-B2
     identifier: B2
     customer_console_interface_id: 
-    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -281,7 +276,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "34"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
@@ -293,7 +287,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "34"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   hosted_network_elements_mappings: []
@@ -379,7 +372,6 @@ network_elements:
     alias: alias1-B3
     identifier: B3
     customer_console_interface_id: 
-    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -394,7 +386,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "35"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
@@ -406,7 +397,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "35"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   hosted_network_elements_mappings: []
@@ -489,22 +479,22 @@ network_elements:
 --- !Flerdit,2012:Position
  -
   id: "1"
-  x: 284
-  y: 553
+  x: 457
+  y: 516
   network_element_id: "33"
  attributes_cache: {}
 
  -
   id: "2"
-  x: 228
-  y: 131
+  x: 601
+  y: 408
   network_element_id: "34"
  attributes_cache: {}
 
  -
   id: "3"
-  x: 563
-  y: 432
+  x: 15
+  y: 172
   network_element_id: "35"
   attributes_cache: {}
 

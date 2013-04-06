@@ -19,7 +19,6 @@ network_elements:
     alias: 
     identifier: c1eth0_c2eth0
     customer_console_interface_id: 
-    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -176,7 +175,6 @@ network_elements:
     alias: alias1-C1
     identifier: C1
     customer_console_interface_id: 
-    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -191,7 +189,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "37"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
@@ -203,7 +200,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "37"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   hosted_network_elements_mappings: []
@@ -307,7 +303,6 @@ network_elements:
     alias: alias1-C2
     identifier: C2
     customer_console_interface_id: 
-    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -322,7 +317,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "38"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   - !yaml.org,2002:Feature 
@@ -334,7 +328,6 @@ network_elements:
       network_interface_id: 
       network_element_id: "38"
       is_request: "1"
-      identifier: 
     attributes_cache: {}
 
   hosted_network_elements_mappings: []
@@ -435,15 +428,15 @@ network_elements:
 --- !Flerdit,2012:Position
  -
   id: "1"
-  x: 667
-  y: 283
+  x: 66
+  y: 14
   network_element_id: "37"
  attributes_cache: {}
 
  -
   id: "2"
-  x: 38
-  y: 271
+  x: 479
+  y: 166
   network_element_id: "38"
   attributes_cache: {}
 
