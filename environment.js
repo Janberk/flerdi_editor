@@ -10,8 +10,8 @@
  * RequireJS module definition
  */ 
 
-define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "menubar", "drawArea", "move", "newNode", "newLink","openDialogue", "alertDialogue"], 
-		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink, OpenDialogue, AlertDialogue) {
+define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "menubar", "drawArea", "move", "newNode", "newLink","openDialogue", "alertDialogue", "statusbar"], 
+		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink, OpenDialogue, AlertDialogue, Statusbar) {
 
 
 	/* constructor */
@@ -96,6 +96,8 @@ define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "me
 		this.menubar.addSubMenu("Edit", "Undo", (function() { _this.networks.getNetwork().getCommandManager().undo(); }));
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
+
+		this.statusbar = new Statusbar();
 
 		this.creating = false;
 		this.test = 0;	

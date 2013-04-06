@@ -10,6 +10,7 @@ requirejs.config({
 	paths: {
 		"jquery": "lib/jquery-1.8.2.min",
 		"jquery_ui": "lib/jquery-ui-1.10.0.custom",
+		"bootstrap": "lib/bootstrap.min.js",
 		"drag": "lib/jquery.event.drag-1.5.min",
 		"json2yaml" : "lib/json2yaml",
 		"spinner":"lib/spinner.min",
@@ -27,10 +28,7 @@ requirejs.config({
 		"element_key" : "gui/element_key",
 		"loadingWindow":"gui/loadingWindow",
 		"toolbar":"gui/toolbar",
-		"toolbarButton":"gui/toolbarButton",
 		"menubar":"gui/menubar",
-		"menubarMenu":"gui/menubarMenu",
-		"menubarButton":"gui/menubarButton",
 		"statusbar":"gui/statusbar",
 		"drawArea":"gui/drawArea",
 		"jsonViewer":"gui/jsonViewer",

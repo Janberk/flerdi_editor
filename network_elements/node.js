@@ -24,7 +24,6 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 		this.setAttributes(json);
 		this.setPositionValues(position);
 		this.contextMenu = this.setContextMenu();
-		this.statusbar = this.setStatusbar();
 	}
 	
 	Node.prototype.setAttributes = function(json){
@@ -85,8 +84,8 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 	}
 	Node.prototype.set = function(target, v) {
 		switch(target) {
-			case 'ne_identifier': this.json.attributes.id = v;
-			case 'alias': this.json.attributes.alias = v;
+			case 'ne_identifier': this.json.attributes.id = v;break;
+			case 'alias': this.json.attributes.alias = v;break;
 			case 'ne_type': {
 				this.json.attributes.ne_type = v;
 				this.removeSvgTag();
@@ -166,7 +165,7 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 		var node = document.createElementNS("http://www.w3.org/2000/svg", "image");
 		node.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', ''); 
 		
-		// TODO replace standart width and height values
+		// TODO replace standard width and height values
 		node.setAttribute("x", this.position.x);
 		node.setAttribute("y", this.position.y);
 		node.setAttribute("width", 50);
@@ -181,15 +180,15 @@ define (["jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar", "
 			return false;
 			})
 			.hover(function(e) {
-				_this.statusbar.show(true);
+				if(!$('#statusbar').hasClass('sb_edit')) _this.setStatusbar().show(true);
 			}, function(e) {
-				_this.statusbar.show(false);
+				if(!$('#statusbar').hasClass('sb_edit')) _this.setStatusbar().show(false);
 			})
 			.on('click', function(e) {
-				_this.statusbar.edit(true);
+				_this.setStatusbar().edit(true);
 			});
 		$('#drawarea').on('click', function(e) {
-			if($(e.target).closest('image').length == 0) _this.statusbar.edit(false);
+			if($(e.target).closest('image').length == 0) _this.setStatusbar().edit(false);
 		});
 
 	}

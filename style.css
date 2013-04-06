@@ -80,23 +80,18 @@ div.line {
 	width: 110px;
 }
 
-#menubar, #statusbar, #toolbar {
+#statusbar, #toolbar {
 	position: absolute;
-	background-color: #cccccc;
 }
-#menubar, #statusbar {
+#statusbar {
 	height: 32px;
 	left: 0;
 	right: 0;
 }
-#menubar {
-	border-bottom: 1px solid #aaaaaa;
-	height: 31px;
-}
 #toolbar {
-	width: 32px;
-	top: 32px;
-	bottom: 32px;
+	width: 34px;
+	top: 42px;
+	bottom: 34px;
 }
 #statusbar {
 	bottom: 0;
@@ -104,11 +99,11 @@ div.line {
 }
 #drawarea {
 	position: absolute;
-	top: 32px;
+	top: 41px;
 	bottom: 32px;
-	left: 32px;
+	left: 34px;
 	right: 0;
-	background-color: #eeeeee;
+	background-color: #FFFFFF;
 	overflow: scroll;
 }
 #image {
@@ -125,19 +120,34 @@ div.line {
 	display: block;
 }
 
-.tb_button {
-	width: 30px;
-	height: 30px;
-	background-color: #cccccc;
-	margin: 1px 0;
-	border: 1px solid #cccccc;
-}
-.tb_button img {
-	margin: 3px;
+.tb_img {
 	width: 24px;
 	height: 24px;
 }
-.tb_seperator, .mb_seperator {
+#toolbar .navbar-inner, #menubar .navbar-inner {
+	padding: 0;
+}
+#toolbar .navbar-inner {
+	height: 100%;
+}
+#toolbar.navbar {
+	margin-bottom: 0;
+}
+#statusbar .navbar-inner {
+	min-height: 31px;
+}
+.btn.tb_btn {
+	padding: 3px;
+}
+
+.nav-list.tb_list {
+	padding: 0;
+}
+#toolbar ul.nav li a {
+	margin: 0 1px;
+	padding: 3px;
+}/*
+.mb_seperator {
 	width: 100%;
 	background-color: #aaaaaa;
 	height: 1px;
@@ -149,10 +159,9 @@ div.line {
 	font-family: Verdana;
 	background-color: #cccccc;
 	cursor: default;
-}
+}*/
 .tb_button:hover {
 	background-color: #dddddd;
-	border: 1px outset;
 }
 .mb_sub {
 	position: absolute;
@@ -207,7 +216,7 @@ div.line {
 }
 /* statusbar */
 #statusbar label {
-	margin: 10px 10px;
+	margin: 1px 10px;
 }
 #statusbar div, #statusbar input {
 	color: #777777;

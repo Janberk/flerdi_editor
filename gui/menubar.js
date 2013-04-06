@@ -5,38 +5,59 @@
  /* 
  *  This class handles the appearance of the menubar
  */
-define (['jquery', 'menubarMenu', 'menubarButton'],function($, Menu, MenuButton) {
+define (['jquery'],function($) {
 	var active = false;
 	var activeMenu = '';
 	var Menubar = function() {
+		$('#menubar').addClass('navbar navbar-fixed-top')
+			.append($(document.createElement('div'))
+				.addClass('navbar-inner')
+				.append($(document.createElement('div'))
+					.addClass('container pull-left')
+					.append($(document.createElement('ul'))
+						.addClass('nav')))
+				.append($(document.createElement('div'))
+					.addClass('pull-right')
+					.append($(document.createElement('div'))
+						.addClass('brand')
+						.append('Flerdi'))));
 		this.menus = new Array();
-		$(document).on('click', function(e) {
-			if($(e.target).closest('.mb_menu').length == 0 ||
-					$(e.target).closest('.mb_button').length > 0) {
-				active = false;
-				setActive();
-			}
-		});
 	};
 	Menubar.prototype.addMenu = function(title) {
-		var menu = new Menu(title);
-		this.menus[title] = menu;
-		$('#menubar').append(menu.html);
-		$(menu.html).hover(function() {
-				setActive(menu);
-			})
-			.on('click', function() {
-				active = !active;
-				setActive(menu);
-			})
-			.children('.mb_sub')
-				.css('left', $(menu.html).offset().left);
+		$('#menubar .nav').append($(document.createElement('li'))
+			.attr('name', title)
+			.addClass('dropdown')
+				.append($(document.createElement('button'))
+					.addClass('btn btn-link')
+					.append(title)
+				)
+			)
 	};
 	Menubar.prototype.addSubMenu = function(menu, subtitle, funct) {
-		this.menus[menu].addMenubutton(subtitle, funct);
+		if($('#menubar .nav li[name=' + menu + '] ul').length == 0) {
+			$('#menubar .nav li[name=' + menu + ']')
+				.append($(document.createElement('ul'))
+					.attr({
+						'class': 'dropdown-menu',
+						'role': 'menu'
+					}));
+			$('#menubar .nav li[name=' + menu + '] button').attr({
+				'data-toggle': 'dropdown',
+				'role': 'button'
+				}).addClass('btn dropdown-toggle')
+		}
+		$('#menubar .nav li[name=' + menu + '] ul')
+			.append($(document.createElement('li'))
+				.append($(document.createElement('button'))
+					.addClass('btn btn-link')
+					.append(subtitle)
+					.on('click', funct || function() { alert('No function yet') }))
+		);
 	};
 	Menubar.prototype.addSubSeperator = function(menu) {
-		this.menus[menu].addSeperator();
+		$('#menubar .nav li[name=' + menu + '] ul')
+			.append($(document.createElement('li'))
+			.addClass('divider'))
 	};
 	var setActive = function(menu) {
 		if(activeMenu) activeMenu.removeClass('active_menu');
