@@ -5,7 +5,7 @@
  /* 
  *  This class handles the appearance of the menubar
  */
-define (['jquery',"networkOrganisation"],function($, Network) {
+define (['jquery', "networkOrganisation", "newNodeCommand"],function($, Network, NewNodeCommand) {
 	var NewNode = function(network,src) {
 		this.network = network;
 		this.type = src;
@@ -36,7 +36,8 @@ define (['jquery',"networkOrganisation"],function($, Network) {
 		
 		var json = {attributes:{'id': id, 'ne_type': this.type}};
 		
-		this.network.importNode(json,pos,true);
+		//create command for undo
+		this.network.getCommandManager().newCommand(new NewNodeCommand(this.network, json, pos));
 	}
 	
 	return NewNode;

@@ -101,13 +101,17 @@ define(
 				console.log("Value of hasChanged: " + this.hasChanged);
 
 				var s = show || false;
-
-				var id = this.nodes.push(new Node(json, position, this)) - 1;
+				
+				var node = new Node(json, position, this);
+				
+				var id = this.nodes.push(node) - 1;
 
 				if (s) {
 					this.nodes[id].createSvgTag();
 					this.nodes[id].appendSvgTag();
 				}
+				
+				return node;
 			};
 
 			Network.prototype.importLink = function(json, show) {
@@ -118,12 +122,16 @@ define(
 
 				var s = show || false;
 
-				var id = this.links.push(new Link(json, this)) - 1;
+				var link = new Link(json, this);
+
+				var id = this.links.push(link) - 1;
 
 				if (s) {
 					this.links[id].createSvgTag();
 					this.links[id].appendSvgTag();
 				}
+				
+				return link;
 			};
 
 			Network.prototype.getPositionById = function(id) {
