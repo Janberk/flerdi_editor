@@ -47,7 +47,7 @@ define(
 				this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id
 						|| "";
 				this.json.attributes.identifier = json.attributes.identifier || "";
-				this.json.attributes.customer_console_interface = json.attributes.customer_console_interface || "";
+				this.json.attributes.customer_console_interface_id = json.attributes.customer_console_interface_id || "";
 				this.json.attributes_cache = json.attributes_cache || [];
 				this.json.constraint_groups_network_elements = json.constraint_groups_network_elements
 						|| [];
