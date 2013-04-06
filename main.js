@@ -36,17 +36,21 @@ requirejs.config({
 		"newNode":"gui/States/new_node",
 		"newLink":"gui/States/new_link",
 		
-		"network": "network_elements/network",
-		"node": "network_elements/node",
-		"link": "network_elements/link",
-		"resources": "network_elements/resources",
-		"features": "network_elements/features",
-		"network_interfaces": "network_elements/network_interfaces",
-		"networkOrganisation": "network_elements/network_organisation",
-		"jsonBuilder": "network_elements/json_builder",
+		"network": "network/network",
+		"node": "network/element/node",
+		"link": "network/element/link",
+		"resources": "network/element/resources",
+		"features": "network/element/features",
+		"network_interfaces": "network/element/network_interfaces",
+		"networkOrganisation": "network/network_organisation",
+		"jsonBuilder": "network/json_builder",
+		"idHandler": "network/id_handler",
 		
-		"commandManager":	"network_elements/command_manager",
-		"moveNodeCommand":	"network_elements/commands/move_node_command"
+		"commandManager":	"network/command_manager",
+		"moveNodeCommand":	"network/commands/move_node_command",
+		"newNodeCommand":	"network/commands/new_node_command",
+		"newLinkCommand":	"network/commands/new_link_command",
+		"deleteNodeCommand":	"network/commands/delete_node_command"
 	} //paths
 }); //config
 

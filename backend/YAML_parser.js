@@ -25,7 +25,7 @@ define (["jquery",'loadingWindow'],
 	*
 	* @param _text text that should be parsed
 	* @param name name of the network
-	* @param callback fucntion that should be called after parsing the file, the parsed JSON si the parameter of this function
+	* @param callback function that should be called after parsing the file, the parsed JSON si the parameter of this function
 	*/
 	Parser.loadFromText = function(_text,name, callback){
 		var loadingWindow = new LoadingWindow('\''+name+'\' wird geladen...');

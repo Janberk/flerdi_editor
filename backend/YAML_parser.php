@@ -1,6 +1,7 @@
 <?php
+define ('DS', DIRECTORY_SEPARATOR);
 
-require_once "../lib/spyc.php";
+include("..".DS."lib".DS."spyc.php");
 
 $type = isset($_POST['type']) ? $_POST['type'] : false;
 $source = isset($_POST['source']) ? $_POST['source'] : false;
@@ -9,8 +10,6 @@ if( ! $type or ! $source) {
 	echo json_encode(array('succes' => 'fail'));
 	exit ;
 }
-
-echo parse($source, $type);
 
 /**
  * This function parse a text representation of a Network to a JSON-representation of the Network
@@ -22,12 +21,9 @@ echo parse($source, $type);
 function parse($network, $type) {
 	$lines = "";
 	if($type == 'text') {
-		$name = time();
-		file_put_contents($name, $network);
-		$lines = file($name);
-		unlink($name);
+		$lines = explode("\r\n", $network);
 	} else {
-		$lines = file('../'.$network);
+		$lines = file('..'.DS.$network);
 	}
 
 	for($i = 0; $i < count($lines); $i++) {
@@ -44,10 +40,13 @@ function parse($network, $type) {
 			$lines[$i] = " ".$lines[$i]."\n";
 		}
 	}
-
-	$yaml = implode("", $lines);
+	$yaml = implode("\n", $lines);
 	$yaml = str_replace("attributes", " attributes", $yaml);
 
-	return json_encode(spyc_load($yaml));
+	return json_encode(Spyc::YAMLLoadString($yaml));
 }
+
+echo parse($source, $type);
+
+
 ?>

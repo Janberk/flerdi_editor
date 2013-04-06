@@ -428,15 +428,15 @@ network_elements:
 --- !Flerdit,2012:Position
  -
   id: "1"
-  x: 1440
-  y: 31
+  x: 66
+  y: 14
   network_element_id: "37"
  attributes_cache: {}
 
  -
   id: "2"
-  x: 1782
-  y: 168
+  x: 479
+  y: 166
   network_element_id: "38"
   attributes_cache: {}
 

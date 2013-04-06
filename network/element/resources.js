@@ -9,10 +9,12 @@ define (["jquery"],
 	/**
 	* This is the constructor, sherlock
 	*
+	* @param element NetworkElement, or NetworkInterface this Resource is applied to
 	* @param json JSON-Object representing all informations, this resource should have
 	*/
-	var Resources = function(json){
+	var Resources = function(element, json){
 		console.log('creating Resources');
+		this.element = element;
 		this.json = {};
 			
 		this.setAttributes(json);
@@ -29,7 +31,7 @@ define (["jquery"],
 		this.json.attributes.avp_attribute = json.attributes.avp_attribute || "";
 		this.json.attributes.composing_operation = json.attributes.composing_operation || "";
 		this.json.attributes.confidence = json.attributes.confidence || "";
-		this.json.attributes.id = json.attributes.id || "";
+		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextResourceId();
 		this.json.attributes.identifier = json.attributes.identifier || "";
 		this.json.attributes.is_request = json.attributes.is_request || "1";
 		this.json.attributes.resource_unit = json.attributes.resource_unit || "";
@@ -38,7 +40,7 @@ define (["jquery"],
 		this.json.attributes.timestamp = json.attributes.timestamp || "";
 		this.json.attributes.value = json.attributes.value || "";
 		this.json.attributes.value_type = json.attributes.value_type || "";
-		this.json.attributes_cache = json.attributes_cache || []
+		this.json.attributes_cache = json.attributes_cache || [];
 	}
 	
 	/**
@@ -47,7 +49,7 @@ define (["jquery"],
 	* @return JSON-Object representing this resource
 	*/
 	Resources.prototype.getJson = function(){
-		return this.json
+		return this.json;
 	}
 	return Resources;
 })); //define

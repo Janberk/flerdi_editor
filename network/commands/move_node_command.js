@@ -1,6 +1,8 @@
 /*
  * Author: Flerdi Team
  * RequireJS module definition
+ * 
+ * interfaces : IUndoableCommand
  */
 
 define([ "jquery" ], 

@@ -8,6 +8,7 @@
 
 define (["jquery","window"], (
 function($,Window) {
+	
 
 	/**
 	* This function creates a new AlertDialogue Window

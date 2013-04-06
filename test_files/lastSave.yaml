@@ -31,15 +31,102 @@ network_elements:
 
   resources: []
 
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "2"
+    ne_type: /node/host/generic
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "3"
+    ne_type: /node/switch/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
+- !yaml.org,2002:NetworkElement 
+  attributes: 
+    id: "4"
+    ne_type: /node/switch/pip
+    alias: 
+    console_interface_id: 
+    graph_label_id: "1"
+    provisioning_interface_id: 
+  attributes_cache: {}
+
+  constraint_groups_network_elements: []
+
+  features: []
+
+  hosted_network_elements_mappings: []
+
+  mgmt_flags: []
+
+  network_interfaces: []
+
+  resources: []
+
 
 
 # Example position objects (used by Flerdit and ignored by the prototype)
 
 --- !Flerdit,2012:Position
  -
-  x: 152
-  y: 67
+  x: 118
+  y: 180
   id: "1"
   network_element_id: "1"
+ attributes_cache: {}
+
+ -
+  x: 269
+  y: 153
+  id: "2"
+  network_element_id: "2"
+ attributes_cache: {}
+
+ -
+  x: 206
+  y: 361
+  id: "3"
+  network_element_id: "3"
+ attributes_cache: {}
+
+ -
+  x: 533
+  y: 293
+  id: "4"
+  network_element_id: "4"
   attributes_cache: {}
 

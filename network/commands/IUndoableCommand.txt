@@ -1,0 +1,6 @@
+
+IUndoableCommand.prototype.execute = function(){
+}
+
+IUndoableCommand.prototype.undo = function(){
+}
