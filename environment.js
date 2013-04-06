@@ -11,17 +11,11 @@
 <<<<<<< HEAD
  */ 
 
-define (["jquery","networkOrganisation", "element_key", "parser", "toolbar", "menubar", "drawArea", "move", "newNode", "newLink","openDialogue", "alertDialogue", "statusbar"], 
-		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink, OpenDialogue, AlertDialogue, Statusbar) {
-=======
- */
->>>>>>> dc4ce9ac39926f59d26ac9ac39d185752267921f
-
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		"menubar", "drawArea", "move", "newNode", "newLink", "openDialogue",
-		"alertDialogue" ], (function($, NetworkOrganisation, ElementKey,
+		"alertDialogue", "statusbar"], (function($, NetworkOrganisation, ElementKey,
 		Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
-		OpenDialogue, AlertDialogue) {
+		OpenDialogue, AlertDialogue, Statusbar) {
 
 	/* constructor */
 	var Environment = function() {
