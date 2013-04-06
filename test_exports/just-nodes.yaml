@@ -12,11 +12,13 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "1"
-    ne_type: /node/host/generic
+    ne_type: /node/switch/tunnelbridge
     alias: 
     console_interface_id: 
     graph_label_id: "1"
     provisioning_interface_id: 
+    identifier: 
+    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -34,11 +36,13 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "2"
-    ne_type: /node/host/generic
+    ne_type: /node/switch/tunnelbridge
     alias: 
     console_interface_id: 
     graph_label_id: "1"
     provisioning_interface_id: 
+    identifier: 
+    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -56,55 +60,13 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "3"
-    ne_type: /node/host/generic
+    ne_type: /node/switch/tunnelbridge
     alias: 
     console_interface_id: 
     graph_label_id: "1"
     provisioning_interface_id: 
-  attributes_cache: {}
-
-  constraint_groups_network_elements: []
-
-  features: []
-
-  hosted_network_elements_mappings: []
-
-  mgmt_flags: []
-
-  network_interfaces: []
-
-  resources: []
-
-- !yaml.org,2002:NetworkElement 
-  attributes: 
-    id: "4"
-    ne_type: /node/host/generic
-    alias: 
-    console_interface_id: 
-    graph_label_id: "1"
-    provisioning_interface_id: 
-  attributes_cache: {}
-
-  constraint_groups_network_elements: []
-
-  features: []
-
-  hosted_network_elements_mappings: []
-
-  mgmt_flags: []
-
-  network_interfaces: []
-
-  resources: []
-
-- !yaml.org,2002:NetworkElement 
-  attributes: 
-    id: "5"
-    ne_type: /node/host/generic
-    alias: 
-    console_interface_id: 
-    graph_label_id: "1"
-    provisioning_interface_id: 
+    identifier: 
+    customer_console_interface: 
   attributes_cache: {}
 
   constraint_groups_network_elements: []
@@ -125,37 +87,23 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 271
-  y: 329
+  x: 71
+  y: 92
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 454
-  y: 288
+  x: 298
+  y: 167
   id: "2"
   network_element_id: "2"
  attributes_cache: {}
 
  -
-  x: 727
-  y: 571
+  x: 197
+  y: 259
   id: "3"
   network_element_id: "3"
- attributes_cache: {}
-
- -
-  x: 428
-  y: 556
-  id: "4"
-  network_element_id: "4"
- attributes_cache: {}
-
- -
-  x: 633
-  y: 400
-  id: "5"
-  network_element_id: "5"
   attributes_cache: {}
 
