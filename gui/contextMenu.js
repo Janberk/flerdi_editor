@@ -7,41 +7,42 @@
  */
 define (['jquery'],function($) {
 	var ContextMenu = function() {
-		var _this = this;
-		$('body').on('click', function() {
-				_this.hide();
-			});
-		this.buttons = new Array();
-		this.functs = new Array();
+		$('#contextmenu').remove();
+		$('body')
+			.append($(document.createElement('div'))
+				.addClass('dropdown')
+				.attr('id', 'contextmenu')
+				.append($(document.createElement('ul'))
+					.addClass('dropdown-menu')
+					.attr('role', 'menu')
+				)
+			);
 	};
 	ContextMenu.prototype.addButton = function(label, funct) {
-		var _this = this;
-		var sfunct = funct || function() {alert('comming soon')};
-		var button = $(document.createElement('div'))
-			.append(label);
-		this.buttons.push(button);
-		this.functs.push(sfunct);
+		$('#contextmenu ul')
+			.append($(document.createElement('li'))
+				.append($(document.createElement('button'))
+					.addClass('btn btn-link')
+					.append(label)
+					.on('click', funct || function() { alert('comming soon') })
+				)
+		);
 	};
 	ContextMenu.prototype.addSeperator = function() {
-		this.html.append($(document.createElement('div')).attr('class', 'seperator'));
+		$('#contextmenu ul')
+			.append($(document.createElement('li'))
+				.addClass('divider'))
 	};
-	ContextMenu.prototype.show = function(x, y) {
-		$('.context_menu').remove();
-		var _this = this;
-		this.html = $(document.createElement('div'))
-			.attr('class', 'context_menu');
-		$('#drawarea').append(this.html);
-		for(var i = 0; i < this.buttons.length; i++) {		
-			_this.html.append(this.buttons[i]
-				.on('click', this.functs[i]));
-		};
-		this.html.css({
-			'left': x,
-			'top': y
+	ContextMenu.prototype.show = function(e) {
+		$('#contextmenu').css({
+			'left': e.clientX,
+			'top': e.clientY
 		});
-	};
-	ContextMenu.prototype.hide = function() {
-		$('#drawarea').children('.context_menu').remove();
+		$('#contextmenu')
+			.addClass('open');
+		$('body').on('click', function() {
+			$('#contextmenu').removeClass('open')
+		})
 	};
 	return ContextMenu;
 });	

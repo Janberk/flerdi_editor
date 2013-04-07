@@ -29,7 +29,6 @@ define(
 
 				this.setAttributes(json);
 				this.setPositionValues(position);
-				this.contextMenu = this.setContextMenu();
 			}
 
 			Node.prototype.setAttributes = function(json) {
@@ -218,7 +217,8 @@ define(
 				var _this = this;
 				$(node)
 					.on('contextmenu', function(e) {
-						_this.contextMenu.show(e.clientX-32,e.clientY-32);
+						//_this.contextMenu.show(e.clientX-32,e.clientY-32);
+						_this.setContextMenu().show(e);
 						return false;
 					})
 					.hover(

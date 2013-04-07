@@ -85,17 +85,12 @@ div.line {
 }
 #statusbar {
 	height: 32px;
-	left: 0;
 	right: 0;
 }
 #toolbar {
 	width: 34px;
 	top: 42px;
 	bottom: 34px;
-}
-#statusbar {
-	bottom: 0;
-	border: none;
 }
 #drawarea {
 	position: absolute;
@@ -136,6 +131,13 @@ div.line {
 #statusbar .navbar-inner {
 	min-height: 31px;
 }
+#statusbar.navbar-fixed-bottom .navbar-inner {
+	padding: 0;
+}
+#contextmenu {
+	position: absolute;
+	z-index: 200;
+}
 .btn.tb_btn {
 	padding: 3px;
 }
@@ -144,85 +146,12 @@ div.line {
 	padding: 0;
 }
 #toolbar ul.nav li a {
-	margin: 0 1px;
+	margin: 0;
 	padding: 3px;
-}/*
-.mb_seperator {
-	width: 100%;
-	background-color: #aaaaaa;
-	height: 1px;
-	margin: 3px 0;
-}
-.mb_menu, .mb_button {
-	display: inline;
-	padding: 10px;
-	font-family: Verdana;
-	background-color: #cccccc;
-	cursor: default;
-}*/
-.tb_button:hover {
-	background-color: #dddddd;
-}
-.mb_sub {
-	position: absolute;
-	background-color: #cccccc;
-	display: none;
-	z-index: 10;
-	top: 25px;
-	border: 1px solid #aaaaaa;
-}
-.mb_sub div {
-	width: 150px;
-	display: block;
-}
-.checked, .checked:hover {
-	border: inset 1px;
-}
-.active_menu .mb_sub {
-	display: block;
-}
-.active_menu .mb_button:hover, .active_menu {
-	background-color: #dddddd;
-}
-
-/* context Menu */
-.context_menu {
-	width: 150px;
-	position: absolute;
-	z-index: 10;
-	border: 1px solid #aaaaaa;
-	background-color: #cccccc;
-	cursor: default;
-}
-.context_menu div {
-	max-width: 100%;
-	display: block;
-	padding-left: 10px;
-}
-.context_menu div:hover {
-	background-color: #dddddd;
-}
-.context_menu .seperator {
-	max-width: 100%;
-	background-color: #aaaaaa;
-	height: 1px;
-	margin: 3px 0;
-}
-.selection_specific {
-	color: #aaaaaa;
-}
-.context_menu .selection_specific:hover {
-	background-color: #cccccc;
 }
 /* statusbar */
 #statusbar label {
 	margin: 1px 10px;
-}
-#statusbar div, #statusbar input {
-	color: #777777;
-}
-#statusbar .sb_edit, #statusbar .sb_edit input {
-	color: #000000;
 }
 
 .ui-widget-jsonviewer {

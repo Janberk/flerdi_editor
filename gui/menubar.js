@@ -7,9 +7,9 @@
  */
 define (['jquery'],function($) {
 	var active = false;
-	var activeMenu = '';
 	var Menubar = function() {
-		$('#menubar').addClass('navbar navbar-fixed-top')
+		$('#menubar')
+			.addClass('navbar navbar-fixed-top')
 			.append($(document.createElement('div'))
 				.addClass('navbar-inner')
 				.append($(document.createElement('div'))
@@ -31,7 +31,9 @@ define (['jquery'],function($) {
 					.addClass('btn btn-link')
 					.append(title)
 				)
-			)
+			.on('click', function() { active = !active; })
+			.hover(function() { if(active) $(this).addClass('open') },
+				function() { $(this).removeClass('open')} ))
 	};
 	Menubar.prototype.addSubMenu = function(menu, subtitle, funct) {
 		if($('#menubar .nav li[name=' + menu + '] ul').length == 0) {
