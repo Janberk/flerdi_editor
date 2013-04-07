@@ -31,6 +31,10 @@ define (["jquery","jquery_ui","drag"], (function($,ui,drag) {
 	Window.prototype.close = function() {
 		$(this.win).dialog( "close" );
 	}
+	
+	Window.prototype.show = function() {
+		$(this.win).dialog({ title: this.title, height: this.height, width: this.width });
+	}
 		
 	return Window;
 })); //define
