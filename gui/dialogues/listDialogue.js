@@ -31,6 +31,15 @@ define (["jquery","window","jsonViewer"], (function($,window,JsonViewer) {
 		$('#tabs-3').html(new JsonViewer(this.json.features).getElement());
 		$('#tabs-4').html(new JsonViewer(this.json.network_interfaces).getElement());
 	}
+	
+	ListDialogue.prototype.update = function(json) {
+		this.json = json;
+		this.fillWindow();		
+	}
+	
+	ListDialogue.prototype.show = function() {
+		this.win.show();
+	}
 
 	return ListDialogue;
 })); //define
