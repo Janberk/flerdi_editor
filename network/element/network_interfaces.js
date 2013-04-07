@@ -33,7 +33,7 @@ define (["jquery","features", "resources"],
 		
 		this.json.attributes.alias = json.attributes.alias || "";
 		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextInterfaceId();
-		this.json.attributes.identifier = json.attributes.identifier || "";
+		this.json.attributes.identifier = json.attributes.identifier || this.element.getNetwork().getIdHandler().getNextIdentifierId();
 		this.json.attributes.network_element_id = json.attributes.network_element_id || "";
 		this.json.attributes.network_interface_id = json.attributes.network_interface_id || "";
 		this.json.attributes.ni_type = json.attributes.ni_type || "";

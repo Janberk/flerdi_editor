@@ -21,6 +21,7 @@ define([ "jquery" ], (function($) {
 			resource : 0,
 			feature : 0,
 			position : 0,
+			identifier: 0
 		};
 	};
 
@@ -40,6 +41,10 @@ define([ "jquery" ], (function($) {
 			if (eleId > this.id.networkElement) {
 				this.id.networkElement = eleId;
 			}
+			var eleFier = element.attributes.identifier;
+			if(typeof eleFier === "number" && eleFier > this.id.identifier){
+				this.id.identifier = eleFier;
+			}
 
 			for ( var j = 0; j < element.network_interfaces.length; j++) {
 				var netInterface = element.network_interfaces[j];
@@ -48,11 +53,19 @@ define([ "jquery" ], (function($) {
 				if (infId > this.id.networkInterface) {
 					this.id.networkInterface = infId
 				}
+				var infFier = netInterface.attributes.identifier;
+				if(typeof infFier === "number" && infFier > this.id.identifier){
+					this.id.identifier = infFier;
+				}
 
 				for ( var k = 0; k < netInterface.resources.length; k++) {
 					var infResId = parseInt(netInterface.resources[k].attributes.id);
 					if (infResId > this.id.resource) {
 						this.id.resource = infResId;
+					}
+					var infResFier = netInterface.resources[k].attributes.identifier;
+					if(typeof infResFier === "number" && infResFier > this.id.identifier){
+						this.id.identifier = infResFier;
 					}
 				}
 
@@ -60,6 +73,10 @@ define([ "jquery" ], (function($) {
 					var infFeatId = parseInt(netInterface.features[k].attributes.id);
 					if (infFeatId > this.id.feature) {
 						this.id.feature = infFeatId;
+					}
+					var infFeatFier = netInterface.features[k].attributes.identifier;
+					if(typeof infFeatFier === "number" && infFeatFier > this.id.identifier){
+						this.id.identifier = infFeatFier;
 					}
 				}
 			}
@@ -69,12 +86,20 @@ define([ "jquery" ], (function($) {
 				if(resId > this.id.resource){
 					this.id.resource = resId;
 				}
+				var resFier = element.resources[j].identifier;
+				if(typeof resFier === "number" && resFier > this.id.identifier){
+					this.id.identifier = resFier;
+				}
 			}
 			
 			for(var j=0;j<element.features.length;j++){
 				var featId = parseInt(element.features[j].attributes.id);
 				if(featId > this.id.feature){
 					this.id.feature = featId;
+				}
+				var featFier = element.features[j].identifier;
+				if(typeof featFier === "number" && featFier > this.id.identifier){
+					this.id.identifier = featFier;
 				}
 			}
 		}
@@ -86,6 +111,9 @@ define([ "jquery" ], (function($) {
 				this.id.position = posId;
 			}
 		}
+		
+		console.log(this.id);
+		
 	}
 
 	/**
@@ -131,6 +159,15 @@ define([ "jquery" ], (function($) {
 	 */
 	IdHandler.prototype.getNextPositionId = function(){
 		return ++this.id.position;
+	}
+	
+	/**
+	 * This function returns the next available identifier
+	 * 
+	 * @return next available Position Id
+	 */
+	IdHandler.prototype.getNextIdentifierId = function(){
+		return ++this.id.identifier;
 	}
 
 	return IdHandler;

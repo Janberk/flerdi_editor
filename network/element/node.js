@@ -37,7 +37,7 @@ define(
 				this.json.attributes.alias = json.attributes.alias || "";
 				this.json.attributes.console_interface_id = json.attributes.console_interface_id
 						|| "";
-				this.json.attributes.graph_label_id = json.attributesgraph_label_idalias
+				this.json.attributes.graph_label_id = json.attributes.graph_label_id
 						|| this.network.getNetworkId();
 				this.json.attributes.id = json.attributes.id
 						|| this.network.getIdHandler().getNextElementId();
@@ -45,7 +45,7 @@ define(
 						|| "/node/host/generic";
 				this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id
 						|| "";
-				this.json.attributes.identifier = json.attributes.identifier || "";
+				this.json.attributes.identifier = json.attributes.identifier || this.network.getIdHandler().getNextIdentifierId();
 				this.json.attributes.customer_console_interface_id = json.attributes.customer_console_interface_id || "";
 				this.json.attributes_cache = json.attributes_cache || [];
 				this.json.constraint_groups_network_elements = json.constraint_groups_network_elements
