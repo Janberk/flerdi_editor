@@ -8,7 +8,6 @@
 
 /*
  * RequireJS module definition
-<<<<<<< HEAD
  */ 
 
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",

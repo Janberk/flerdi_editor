@@ -17,12 +17,17 @@ define([ "jquery" ],
 	var DeleteNodeCommand = function(network, node){
 		this.network = network;
 		this.node = node;
+		this.links = this.node.getLinks();
 	}
 	
 	/**
 	 * This function creates the node
 	 */
 	DeleteNodeCommand.prototype.execute = function(){		
+		for(var i=0; i<this.links.length; i++){
+			this.links[i].removeLink();
+		}
+		
 		this.node.removeNode();
 	}
 	
@@ -32,6 +37,11 @@ define([ "jquery" ],
 	DeleteNodeCommand.prototype.undo = function(){
 		this.network.nodes.push(this.node);
 		this.node.appendSvgTag();
+		
+		for(var i=0; i<this.links.length; i++){
+			this.network.links.push(this.links[i]);
+			this.links[i].appendSvgTag();
+		}
 	}
 	
 	return DeleteNodeCommand;

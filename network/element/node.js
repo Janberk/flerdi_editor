@@ -361,6 +361,10 @@ define(
 				this.network.removeNodeById(this.getId());
 			}
 
+			Node.prototype.getLinks = function() {
+				return this.links;
+			}
+
 			Node.prototype.getId = function() {
 				return this.json.attributes.id;
 			}
