@@ -28,6 +28,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		var hasChanged = _this.networks.getNetwork().getHasChanged();
 		console.log("Value of hasChanged: " + hasChanged);
 
+		/* user interface */
 		this.drawArea = new DrawArea();
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
 
@@ -132,6 +133,23 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		this.statusbar = new Statusbar();
 
+		/* keyboard shortcuts */
+		var ctrl = false;
+		
+		$(document)
+		.keyup(function(e) {
+			if(e.which==17) ctrl = false;
+		})
+		.keydown(function(e) {
+			if(e.which==17) ctrl = true;
+			//ctrl+z shortcut
+			if(ctrl==true && e.which==90) {
+			    $('#btn-Undo').trigger('click');
+			 	return false;
+			}
+		});
+
+		/* yaml parsing */
 		this.creating = false;
 		this.test = 0;
 
