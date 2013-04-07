@@ -30,6 +30,7 @@ define(
 				this.setAttributes(json);
 				this.setPositionValues(position);
 				this.contextMenu = this.setContextMenu();
+				this.listDialogue;
 			}
 
 			Node.prototype.setAttributes = function(json) {
@@ -96,7 +97,13 @@ define(
 					_this.network.getCommandManager().newCommand(new DeleteNodeCommand(_this.network, _this));
 				});
 				menu.addButton('Properties', function(e) {
-					new listDialogue(_this.getJson())
+					if (_this.listDialogue == undefined) {
+						_this.listDialogue = new listDialogue(_this.getJson());
+					} else {
+						_this.listDialogue.update(_this.getJson());
+						_this.listDialogue.show();
+					}
+					
 				});
 				return menu;
 			}
