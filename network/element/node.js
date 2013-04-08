@@ -212,7 +212,7 @@ define(
 				node.setAttributeNS('http://www.w3.org/1999/xlink',
 						'xlink:href', '');
 
-				// TODO replace standart width and height values
+				// TODO replace standard width and height values
 				node.setAttribute("x", this.position.x);
 				node.setAttribute("y", this.position.y);
 				node.setAttribute("width", 50);
@@ -277,7 +277,7 @@ define(
 											'xlink:href', '');
 									dummy.setAttribute('opacity', '0.5');
 
-									// TODO replace standart width and height
+									// TODO replace standard width and height
 									// values
 									dummy.setAttribute("x", _this.position.x);
 									dummy.setAttribute("y", _this.position.y);

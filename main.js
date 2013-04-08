@@ -49,7 +49,8 @@ requirejs.config({
 		"moveNodeCommand":	"network/commands/move_node_command",
 		"newNodeCommand":	"network/commands/new_node_command",
 		"newLinkCommand":	"network/commands/new_link_command",
-		"deleteNodeCommand":	"network/commands/delete_node_command"
+		"deleteNodeCommand":	"network/commands/delete_node_command",
+		"changeNodeTypeCommand":	"network/commands/change_node_type_command"
 	} //paths
 }); //config
 
