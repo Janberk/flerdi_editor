@@ -32,7 +32,7 @@ define (["jquery"],
 		this.json.attributes.composing_operation = json.attributes.composing_operation || "";
 		this.json.attributes.confidence = json.attributes.confidence || "";
 		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextResourceId();
-		this.json.attributes.identifier = json.attributes.identifier || "";
+		this.json.attributes.identifier = json.attributes.identifier || this.element.getNetwork().getIdHandler().getNextIdentifierId();
 		this.json.attributes.is_request = json.attributes.is_request || "1";
 		this.json.attributes.resource_unit = json.attributes.resource_unit || "";
 		this.json.attributes.the_parent_record_id = json.attributes.the_parent_record_id || "";

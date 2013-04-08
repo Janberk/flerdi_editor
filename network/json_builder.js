@@ -91,7 +91,6 @@ define (["jquery"], (function($) {
 						'avp_attribute': type+'/symmetric/bandwidth',
 						'is_request': '',
 						'alias': '',
-						'identifier': '',
 						'interval': ''}});
 		}
 		// if this is full duplex
@@ -110,7 +109,6 @@ define (["jquery"], (function($) {
 						'avp_attribute': type+'/upstream/bandwidth',
 						'is_request': '',
 						'alias': '',
-						'identifier': '',
 						'interval': ''}});
 						
 			json.resources.push(
@@ -127,7 +125,6 @@ define (["jquery"], (function($) {
 						'avp_attribute': type+'/downstream/bandwidth',
 						'is_request': '',
 						'alias': '',
-						'identifier': '',
 						'interval': ''}});
 		}
 		
