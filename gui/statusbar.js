@@ -57,7 +57,6 @@ define (['jquery', 'changeNodeTypeCommand'],function($, ChangeNodeTypeCommand) {
 			.append($(document.createElement('select'))
 					.attr('id', label)
 					.on('change', function(e) {
-					//_this.target.set($(this).attr('id'), $(this).val());
 					_this.target.getNetwork().getCommandManager().newCommand(new ChangeNodeTypeCommand(_this.target, $(this).attr('value')));
 				}));
 		for(var i=0;i<vals.length;i++) {

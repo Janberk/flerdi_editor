@@ -117,16 +117,19 @@ define(
 			}
 			Node.prototype.set = function(target, v) {
 				switch (target) {
-				case 'ne_identifier':
-					this.json.attributes.id = v;break;
-				case 'alias':
-					this.json.attributes.alias = v;break;
-				case 'ne_type': {
-					this.json.attributes.ne_type = v;
-					this.removeSvgTag();
-					this.createSvgTag();
-					this.appendSvgTag();
-				}
+					case 'ne_identifier': {
+						this.json.attributes.id = v;
+						break;
+					}
+					case 'alias': {
+						this.json.attributes.alias = v;
+						break;
+					}
+					case 'ne_type': {
+						this.json.attributes.ne_type = v;
+						this.redrawSvgTag();
+						break;
+					}
 				}
 			}
 
@@ -224,7 +227,6 @@ define(
 				var _this = this;
 				$(node)
 					.on('contextmenu', function(e) {
-						//_this.contextMenu.show(e.clientX-32,e.clientY-32);
 						_this.setContextMenu().show(e);
 						return false;
 					})
@@ -361,6 +363,10 @@ define(
 			Node.prototype.appendSvgTag = function() {
 				console.log('appanding svg-tags for this node to the svgRoot');
 				document.getElementById('nodes').appendChild(this.element);
+			}
+			
+			Node.prototype.redrawSvgTag = function() {
+				this.element.setAttribute("xlink:href", this.getPathToSvg());
 			}
 
 			Node.prototype.removeNode = function() {
