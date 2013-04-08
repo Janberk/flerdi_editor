@@ -82,14 +82,12 @@ define (["jquery"], (function($) {
 						'timestamp': '',
 						'time_unit': '',
 						'value_type': '',
-						'the_parent_record_id': '',
 						'resource_unit': '',
 						'confidence': '',
 						'composing_operation': '',
 						'id': '',
 						'value': '',
 						'avp_attribute': type+'/symmetric/bandwidth',
-						'is_request': '',
 						'alias': '',
 						'interval': ''}});
 		}
@@ -100,14 +98,12 @@ define (["jquery"], (function($) {
 						'timestamp': '',
 						'time_unit': '',
 						'value_type': '',
-						'the_parent_record_id': '',
 						'resource_unit': '',
 						'confidence': '',
 						'composing_operation': '',
 						'id': '',
 						'value': '',
 						'avp_attribute': type+'/upstream/bandwidth',
-						'is_request': '',
 						'alias': '',
 						'interval': ''}});
 						
@@ -116,14 +112,12 @@ define (["jquery"], (function($) {
 						'timestamp': '',
 						'time_unit': '',
 						'value_type': '',
-						'the_parent_record_id': '',
 						'resource_unit': '',
 						'confidence': '',
 						'composing_operation': '',
 						'id': '',
 						'value': '',
 						'avp_attribute': type+'/downstream/bandwidth',
-						'is_request': '',
 						'alias': '',
 						'interval': ''}});
 		}
