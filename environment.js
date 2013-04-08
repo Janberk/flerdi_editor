@@ -72,7 +72,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
-
+		
 		this.menubar.addSubMenu("File", "New", (function() {
 			var hasChanged = _this.networks.getNetwork().getHasChanged();
 			console.log("Value of hasChanged (addSubMenu New): " + hasChanged);
@@ -91,10 +91,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 				_this.networks.newNetwork({});
 			}
 		}));
-
-		// $(window).unload( function () {
-		// var win = new AlertDialogue(_this);
-		// });
 
 		this.menubar.addSubMenu("File", "Open...",
 				(function() {
@@ -119,6 +115,14 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 						var win = new OpenDialogue(_this);
 					}
 				}));
+		
+		/* alert dialogue - window/tab closed or refresh*/	
+		$(window).bind('beforeunload', function(){
+			var hasChanged = _this.networks.getNetwork().getHasChanged();
+			if (_this.networks != 'undefined' && hasChanged) {
+				return "Window will close, unsaved changes will be lost!";
+			}			
+		});
 
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Download", (function() {
@@ -182,7 +186,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	}
 
 	/**
-	 * This functions creates a new Networkelement from ja given JSON
+	 * This functions creates a new Networkelement from a given JSON
 	 * 
 	 * @param json
 	 *            json that contains all informations to create a new Network
