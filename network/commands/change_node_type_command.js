@@ -11,30 +11,28 @@ define([ "jquery" ],
 	/**
 	 * This is the constructor
 	 * 
-	 * @param network the network
 	 * @param node the node whose type is changed
 	 * @param type the new node type 
 	 */
-	var NewNodeTypeCommand = function(node, type){
+	var ChangeNodeTypeCommand = function(node, type){
 		this.node = node;
 		this.type = type;
-		this.old_type = this.node.getJson().attributes.ne_type;
-		console.log("COMMAND ACTIVATED!");
+		this.oldType = this.node.getJson().attributes.ne_type;
 	}
 	
 	/**
 	 * This function changes the node type
 	 */
-	NewNodeTypeCommand.prototype.execute = function(){	
+	ChangeNodeTypeCommand.prototype.execute = function(){	
 		this.node.set('ne_type', this.type);
 	}
 	
 	/**
 	 * This function changes the node type back
 	 */
-	NewNodeTypeCommand.prototype.undo = function(){
-		this.node.set('ne_type', this.old_type);
+	ChangeNodeTypeCommand.prototype.undo = function(){
+		this.node.set('ne_type', this.oldType);
 	}
 	
-	return NewNodeTypeCommand;
+	return ChangeNodeTypeCommand;
 })); // define
