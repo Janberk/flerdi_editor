@@ -99,7 +99,6 @@ define(
 					if (_this.listDialogue == undefined) {
 						_this.listDialogue = new listDialogue(_this);
 					} else {
-						_this.listDialogue.update();
 						_this.listDialogue.show();
 					}
 					

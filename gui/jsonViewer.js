@@ -21,7 +21,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 	}
 	
 	/**
-	 * This function fills the General Tab for a given note
+	 * This function fills the General Tab for a given node
 	 * 
 	 * @return the table of the General Tab, including the possibility to edit attributes
 	 */
@@ -29,7 +29,6 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var table = document.createElement('table');
 		this.createHeader(table);
 		var contentJson = this.node.getJson().attributes;
-		console.log(contentJson);
 		var compareJson = this.listDialogueAttributes.getGeneralJson();
 
 		$(table).append(this.createTable(contentJson, compareJson));
@@ -39,7 +38,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 	}
 	
 	/**
-	 * This function fills the Resources Tab for a given note
+	 * This function fills the Resources Tab for a given node
 	 * 
 	 * @return the table of the Resources Tab, including the possibility to edit attributes
 	 */
@@ -61,7 +60,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 	}
 	
 	/**
-	 * This function fills the Features Tab for a given note
+	 * This function fills the Features Tab for a given node
 	 * 
 	 * @return the table of the Features Tab, including the possibility to edit attributes
 	 */
@@ -83,7 +82,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 	}
 
 	/**
-	 * This function fills the NetworkInterfaces Tab for a given note
+	 * This function fills the NetworkInterfaces Tab for a given node
 	 * 
 	 * @return the table of the NetworkInterfaces Tab, including the possibility to edit attributes
 	 */
@@ -101,7 +100,6 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		
 		$(table).append(elements);
 		this.appendCss(table);
-		console.log(elements);
 		return table;
 	}
 	
@@ -114,17 +112,40 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 	*/
 	JsonViewer.prototype.createTable = function(contentJson, compareJson){
 		var elements = "";
-		var keys = Object.keys(contentJson);
 		
-		for (var key in keys) {
-			compareJson[key].values = contentJson[key].values;
-			elements += '<tr><td>' + key +'</td><td>'+ compareJson[key] +'</td></tr>';
+		for (var attribute in compareJson) {
+			var content = contentJson[attribute];
+			
+			if(contentJson[attribute] === undefined) content = compareJson[attribute].standard;
+			
+			elements += '<tr><td>'+attribute+'</td>';
+			
+			if(compareJson[attribute].input == 'text') {
+				elements += '<td><input type="text" name="'+attribute+'" value="'+content+'"/></td>';
+			}
+			else if(compareJson[attribute].input == 'select') {
+				elements += '<td><select>';
+				
+				for (var i in compareJson[attribute].values) {
+					var option = compareJson[attribute].values[i];
+					elements += '<option value="'+option+'"';
+					
+					if(option == content) {
+						elements += 'selected="selected"';
+					}
+					
+					elements += '>'+option+'</option>';
+				}
+				
+				elements += '</select></td>';
+			}
+			else if(compareJson[attribute].input == 'none') {
+				elements += '<td>'+content+'</td>';
+			}
+			
+			elements += '</tr>';
 		}
-		/*for(var i=0; i < keys.length; i++){
-			
-			
-		}*/
-		
+
 		return elements;
 	}
 	

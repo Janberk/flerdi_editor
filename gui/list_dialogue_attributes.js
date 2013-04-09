@@ -20,27 +20,27 @@ define (["jquery"], (function($) {
 		var json = {
 			
 			'identifier': {
-				'input': 'none',
+				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 
 			'alias': {
-				'input': 'none',
+				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'ne_type': {
 				'input': 'select',
 				'values': ['/node/host/generic', '/node/host/pip', '/node/switch/cisco', '/node/switch/tunnelbridge', '/node/switch/pip'],
-				'default': '/node/host/generic'
+				'standard': '/node/host/generic'
 			},
 			
 			'v_net_identifier': {
-				'input': 'text',
+				'input': 'none',
 				'values': '',
-				'default': ''
+				'standard': ''
 			}
 		}
 		
@@ -57,79 +57,79 @@ define (["jquery"], (function($) {
 			'alias': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 
 			'avp_attribute': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'composing_operation': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'confidence': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'identifier': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'is_request': {
 				'input': 'text',
 				'values': '',
-				'default': 1
+				'standard': 1
 			},
 			
 			'resource_unit': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'the_parent_record_id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'time_unit': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'timestamp': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'value': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'value_type': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			}
 		}
 		
@@ -147,43 +147,43 @@ define (["jquery"], (function($) {
 			'avp_attribute': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'is_request': {
 				'input': 'text',
 				'values': '',
-				'default': 1
+				'standard': 1
 			},
 			
 			'network_element_id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'network_interface_id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'priority': {
 				'input': 'text',
 				'values': '',
-				'default': 1
+				'standard': 1
 			},
 			
 			'value': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			}
 		}
 		
@@ -200,37 +200,37 @@ define (["jquery"], (function($) {
 			'alias': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'identifier': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'network_element_id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'network_interface_id': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			},
 			
 			'ni_type': {
 				'input': 'text',
 				'values': '',
-				'default': ''
+				'standard': ''
 			}
 		}
 		
