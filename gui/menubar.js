@@ -6,10 +6,9 @@
  *  This class handles the appearance of the menubar
  */
 define (['jquery'],function($) {
-	var active = false;
 	var Menubar = function() {
 		$('#menubar')
-			.addClass('navbar navbar-fixed-top')
+			.addClass('navbar navbar-static-top')
 			.append($(document.createElement('div'))
 				.addClass('navbar-inner')
 				.append($(document.createElement('div'))
@@ -21,18 +20,19 @@ define (['jquery'],function($) {
 					.append($(document.createElement('div'))
 						.addClass('brand')
 						.append('Flerdi'))));
-		this.menus = new Array();
 	};
 	Menubar.prototype.addMenu = function(title) {
 		$('#menubar .nav').append($(document.createElement('li'))
+			.on('mouseout', function() {
+				if($('#menubar').find($(this)).length == 0) active = false;
+			})
 			.attr('name', title)
 			.addClass('dropdown')
 				.append($(document.createElement('button'))
 					.addClass('btn btn-link')
 					.append(title)
 				)
-			.on('click', function() { active = !active; })
-			.hover(function() { if(active) $(this).addClass('open') },
+			.hover(function() { $(this).addClass('open') },
 				function() { $(this).removeClass('open')} ))
 	};
 	Menubar.prototype.addSubMenu = function(menu, subtitle, funct) {
@@ -60,13 +60,6 @@ define (['jquery'],function($) {
 		$('#menubar .nav li[name=' + menu + '] ul')
 			.append($(document.createElement('li'))
 			.addClass('divider'))
-	};
-	var setActive = function(menu) {
-		if(activeMenu) activeMenu.removeClass('active_menu');
-		if(active && menu) {
-			activeMenu = menu.html;
-			activeMenu.addClass('active_menu');
-		}
 	};
 	return Menubar;
 });	
