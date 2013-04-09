@@ -200,7 +200,7 @@ define (["jquery","features", "resources"],
 	* 
 	* @param id the id of the Feature
 	*/
-	NetworkInterface.prototype.removeFeatureById = function(id) {
+	Network_Interfaces.prototype.removeFeatureById = function(id) {
 		for ( var i = 0; i < this.features.length; i++) {
 			if (this.features[i].get('id') == id) {
 				this.features.splice(i, 1);
@@ -215,7 +215,7 @@ define (["jquery","features", "resources"],
 	* 
 	* @param id the id of the Resource
 	*/
-	NetworkInterface.prototype.removeResourceById = function(id) {
+	Network_Interfaces.prototype.removeResourceById = function(id) {
 		for ( var i = 0; i < this.resources.length; i++) {
 			if (this.resources[i].get('id') == id) {
 				this.resources.splice(i, 1);
