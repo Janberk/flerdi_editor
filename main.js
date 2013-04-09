@@ -31,6 +31,7 @@ requirejs.config({
 		"statusbar":"gui/statusbar",
 		"drawArea":"gui/drawArea",
 		"jsonViewer":"gui/jsonViewer",
+		"listDialogueAttributes":"gui/list_dialogue_attributes",
 		"move":"gui/States/move",
 		"newNode":"gui/States/new_node",
 		"newLink":"gui/States/new_link",

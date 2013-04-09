@@ -76,55 +76,55 @@ define (["jquery"], (function($) {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'identifier': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'is_request': {
 				'input': 'text',
 				'values': '',
 				'default': 1
-			}
+			},
 			
 			'resource_unit': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'the_parent_record_id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'time_unit': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'timestamp': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'value': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'value_type': {
 				'input': 'text',
@@ -146,37 +146,37 @@ define (["jquery"], (function($) {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'is_request': {
 				'input': 'text',
 				'values': '',
 				'default': 1
-			}
+			},
 			
 			'network_element_id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'network_interface_id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'priority': {
 				'input': 'text',
 				'values': '',
 				'default': 1
-			}
+			},
 			
 			'value': {
 				'input': 'text',
@@ -199,31 +199,31 @@ define (["jquery"], (function($) {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'identifier': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'network_element_id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'network_interface_id': {
 				'input': 'text',
 				'values': '',
 				'default': ''
-			}
+			},
 			
 			'ni_type': {
 				'input': 'text',

@@ -40,11 +40,10 @@ define (["jquery","window","jsonViewer"], (function($,Window,JsonViewer) {
 	 */
 	ListDialogue.prototype.update = function() {			
 		console.log("updating listDialogue for node with id = " + this.nodeId);
-		this.json = this.node.getJson();
-		$('#general-tab-id-' + this.nodeId).html(new JsonViewer(this.json.attributes).getElement());
-		$('#resources-tab-id-' + this.nodeId).html(new JsonViewer(this.json.resources).getElement());
-		$('#features-tab-id-' + this.nodeId).html(new JsonViewer(this.json.features).getElement());
-		$('#interfaces-tab-id-' + this.nodeId).html(new JsonViewer(this.json.network_interfaces).getElement());
+		$('#general-tab-id-' + this.nodeId).append(new JsonViewer(this.node).generalTab());
+		$('#resources-tab-id-' + this.nodeId).append(new JsonViewer(this.node).resourcesTab());
+		$('#features-tab-id-' + this.nodeId).append(new JsonViewer(this.node).featuresTab());
+		$('#interfaces-tab-id-' + this.nodeId).append(new JsonViewer(this.node).networkInterfacesTab());
 	}
 	
 	/*

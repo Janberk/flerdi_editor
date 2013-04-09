@@ -4,27 +4,105 @@
 * This class creates a table, showing the content of a JSON
 *
 */ 
-define (["jquery"], (function($) {
+define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttributes) {
 
 	/**
-	* This class creates a table showing the content of a JSON element
+	* This class creates a table showing the content of a certain tab
 	*
-	* @param json json-object you want to show
-	* @param opt json containing styling information
+	* @param node the node from which the contents are taken
 	*/
-	var JsonViewer = function(json, opt){
-		this.json = json || {};
-		this.parent = parent || document.body;
-		this.opt = this.setAttributes(opt);
+	var JsonViewer = function(node){
+		this.node = node;
+		this.listDialogueAttributes = new ListDialogueAttributes();
 		
-		this.nodeProperties =
-		{"ne_type": ["select", ["/node/host/generic", "/node/host/pip", "/node/switch/cisco", "/node/switch/tunnelbridge","/node/switch/pip"]],
-		"id": ["input", ""]};
+		//je nach tab -> fkt aufrufen
+		//fkt -> sucht aus dem node die richtigen Infos + aus list_dialogue_attributes das richtige json -> neue fkt
+		//neue fkt -> bastelt aus beiden eine bearbeitbare Tabelle	
+	}
+	
+	/**
+	 * This function fills the General Tab for a given note
+	 * 
+	 * @return the table of the General Tab, including the possibility to edit attributes
+	 */
+	JsonViewer.prototype.generalTab = function(){
+		var table = document.createElement('table');
+		this.createHeader(table);
+		var contentJson = this.node.getJson().attributes;
+		console.log(contentJson);
+		var compareJson = this.listDialogueAttributes.getGeneralJson();
+
+		$(table).append(this.createTable(contentJson, compareJson));
 		
-		this.table = document.createElement('table');
-		$(this.table).attr('class','ui-widget-jsonviewer');
-		this.fillTable();
-		this.appendCss();
+		this.appendCss(table);
+		return table;
+	}
+	
+	/**
+	 * This function fills the Resources Tab for a given note
+	 * 
+	 * @return the table of the Resources Tab, including the possibility to edit attributes
+	 */
+	JsonViewer.prototype.resourcesTab = function(){
+		var table = document.createElement('table');
+		this.createHeader(table);
+		var array = this.node.getJson().resources;
+		var compareJson = this.listDialogueAttributes.getResourcesJson();
+		
+		var elements = '';
+		for (var i=0; i<array.length; i++) {
+			elements += '<tr><th colspan="2"> Resource ' + (i+1) + '</th></tr>';
+			elements += this.createTable(array[i].attributes, compareJson);
+		}
+		
+		$(table).append(elements);
+		this.appendCss(table);
+		return table;
+	}
+	
+	/**
+	 * This function fills the Features Tab for a given note
+	 * 
+	 * @return the table of the Features Tab, including the possibility to edit attributes
+	 */
+	JsonViewer.prototype.featuresTab = function(){
+		var table = document.createElement('table');
+		this.createHeader(table);
+		var array = this.node.getJson().features;
+		var compareJson = this.listDialogueAttributes.getFeaturesJson();
+		
+		var elements = '';
+		for (var i=0; i<array.length; i++) {
+			elements += '<tr><th colspan="2"> Feature ' + (i+1) + '</th></tr>';
+			elements += this.createTable(array[i].attributes, compareJson);
+		}
+		
+		$(table).append(elements);
+		this.appendCss(table);
+		return table;
+	}
+
+	/**
+	 * This function fills the NetworkInterfaces Tab for a given note
+	 * 
+	 * @return the table of the NetworkInterfaces Tab, including the possibility to edit attributes
+	 */
+	JsonViewer.prototype.networkInterfacesTab = function(){
+		var table = document.createElement('table');
+		this.createHeader(table);
+		var array = this.node.getJson().network_interfaces;
+		var compareJson = this.listDialogueAttributes.getInterfacesJson();
+		
+		var elements = '';
+		for (var i=0; i<array.length; i++) {
+			elements += '<tr><th colspan="2"> NetworkInterface ' + (i+1) + '</th></tr>';
+			elements += this.createTable(array[i].attributes, compareJson);
+		}
+		
+		$(table).append(elements);
+		this.appendCss(table);
+		console.log(elements);
+		return table;
 	}
 	
 	/**
@@ -34,18 +112,18 @@ define (["jquery"], (function($) {
 	*
 	* @return all necessary elements
 	*/
-	JsonViewer.prototype.createElements = function(json){
+	JsonViewer.prototype.createTable = function(contentJson, compareJson){
 		var elements = "";
-		var keys = Object.keys(json);
+		var keys = Object.keys(contentJson);
 		
-		for(var i=0; i < keys.length; i++){
-			if(typeof(json[keys[i]]) == 'object'){
-				elements += '<tr class="ui-widget-jsonviewer-segment ui-widget-jsonviewer-content"><th colspan="2">' + keys[i] + '</th></tr>';
-				elements += this.createElements(json[keys[i]]);
-			} else {
-				elements += '<tr class="ui-widget-jsonviewer-content"><td class="ui-widget-jsonviewer-attributes">' + keys[i] +'</td><td class="ui-widget-jsonviewer-values">'+ json[keys[i]] +'</td></tr>';
-			}
+		for (var key in keys) {
+			compareJson[key].values = contentJson[key].values;
+			elements += '<tr><td>' + key +'</td><td>'+ compareJson[key] +'</td></tr>';
 		}
+		/*for(var i=0; i < keys.length; i++){
+			
+			
+		}*/
 		
 		return elements;
 	}
@@ -54,35 +132,16 @@ define (["jquery"], (function($) {
 	* This function fills the information in the table
  	*
 	*/
-	JsonViewer.prototype.fillTable = function(){
-		$(this.table).html('<tr class="ui-widget-jsonviewer-head"><td>Attributes</td><td>Values</td></tr>');
-		
-		$(this.table).append(this.createElements(this.json));
+	JsonViewer.prototype.createHeader = function(table){
+		$(table).html('<tr><td>Attributes</td><td>Values</td></tr>');
 	}
 	/**
 	* This function appends all css values to the elements
 	*
 	*/
-	JsonViewer.prototype.appendCss = function(){
-		$(this.table).css({'width' : '100%'});
+	JsonViewer.prototype.appendCss = function(table){
+		$(table).css({'width' : '100%'});
 	}
 	
-	/**
-	* This function returns the table representing the json
-	*
-	* @return HTML-Table representing the json
-	*/
-	JsonViewer.prototype.getElement = function(){
-		return this.table;
-	}
-	
-	/**
-	* This functions sets the default Attributes for the styling options
-	*
-	* @param json representing the styling options
-	*/
-	JsonViewer.prototype.setAttributes = function(json){
-		this.opt = {};
-	}
 	return JsonViewer;
 })); //define
