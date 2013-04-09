@@ -10,6 +10,7 @@ define([ "jquery" ], (function($) {
 		this.commands = new Array(); // stack of all commands, done by this
 										// CommandManager
 		this.position = 0; // index of the last executed command
+		this.hasChanged = false; //boolean to see if anything has changed
 	}
 
 	/**
@@ -24,6 +25,7 @@ define([ "jquery" ], (function($) {
 		}
 		this.commands.unshift(command);
 		this.commands[0].execute();
+		this.hasChanged = true;
 	}
 
 	/**
@@ -36,6 +38,7 @@ define([ "jquery" ], (function($) {
 			this.position++;
 		} else {
 			console.log('nothing to undo');
+			this.hasChanged = false;
 		}
 	}
 
@@ -48,6 +51,14 @@ define([ "jquery" ], (function($) {
 			this.commands[this.position - 1].execute();
 			this.position--;
 		}
+	}
+	
+	CommandManager.prototype.isHasChanged = function() {
+		return this.hasChanged;
+	}
+	
+	CommandManager.prototype.setHasChanged = function(hasChanged) {
+		this.hasChanged = hasChanged;
 	}
 
 	return CommandManager;

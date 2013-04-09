@@ -25,9 +25,6 @@ define(
 
 				this.setAttributes(json);
 
-				// boolean to determine, whether objectstate has changed
-				this.hasChanged = false;
-
 				for ( var i = 0; i < this.elements.network_elements.length; i++) {
 					var type = this.elements.network_elements[i].attributes.ne_type
 							.split('/')[1];
@@ -58,16 +55,6 @@ define(
 				this.idHandler.analyseNetwork();
 			};
 
-			// getter
-			Network.prototype.getHasChanged = function() {
-				return this.hasChanged;
-			}
-
-			// setter
-			Network.prototype.setHasChanged = function(val) {
-				this.hasChanged = val;
-			}
-
 			Network.prototype.setAttributes = function(json) {
 				this.elements['--- !Flerdit,2012'] = json['--- !Flerdit,2012']
 						|| {};
@@ -95,11 +82,6 @@ define(
 			}
 
 			Network.prototype.importNode = function(json, position, show) {
-				// set hasChanged true to capture changes
-				console.log("Action: importNode");
-				this.hasChanged = true;
-				console.log("Value of hasChanged: " + this.hasChanged);
-
 				var s = show || false;
 				
 				var node = new Node(json, position, this);
@@ -115,10 +97,6 @@ define(
 			};
 
 			Network.prototype.importLink = function(json, show) {
-				// set hasChanged true to capture changes
-				console.log("Action: importLink");
-				this.hasChanged = true;
-				console.log("Value of hasChanged: " + this.hasChanged);
 
 				var s = show || false;
 
@@ -184,11 +162,6 @@ define(
 			}
 
 			Network.prototype.remove = function() {
-				// set hasChanged true to capture changes
-				console
-						.log("Action: remove; remove every element of this network!");
-				this.hasChanged = false;
-				console.log("Value of hasChanged (remove): " + this.hasChanged);
 
 				for ( var i = 0; i < this.nodes.length; i++) {
 					this.nodes[i].removeSvgTag();
@@ -204,7 +177,6 @@ define(
 			Network.prototype.getJson = function() {
 				this.elements.network_elements = [];
 				this.elements['--- !Flerdit,2012'] = [];
-				// console.log(this.elements);
 				for ( var i = 0; i < this.links.length; i++) {
 					this.elements.network_elements
 							.push(this.links[i].getJson());

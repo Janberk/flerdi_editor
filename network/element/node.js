@@ -15,7 +15,6 @@ define(
 					"/node/switch/pip" ];
 
 			var Node = function(json, position, network) {
-				console.log('creating node');
 				this.json = json;
 				this.position = position;
 				this.element; // element representing the node
@@ -296,7 +295,6 @@ define(
 			}
 
 			Node.prototype.createSvgTag = function() {
-				console.log('creating svg-tags for this node');
 
 				var node = document.createElementNS(
 						"http://www.w3.org/2000/svg", "image");
@@ -347,17 +345,10 @@ define(
 				// this dummy shows the original position while moving
 				var dummy;
 
-				var hasChanged = _this.network.getHasChanged();
-
 				$(_this.element)
 						.on(
 								'dragstart',
 								function(event) {
-									// set hasChanged true to capture changes
-									console.log("Action: appendMoveEvent");
-									_this.network.setHasChanged(true);
-									console.log("Value of hasChanged: "
-											+ hasChanged);
 
 									dummy = document.createElementNS(
 											"http://www.w3.org/2000/svg",
@@ -444,12 +435,10 @@ define(
 			}
 
 			Node.prototype.removeSvgTag = function() {
-				console.log('removing svg-tags for this node from the svgRoot');
 				document.getElementById('nodes').removeChild(this.element);
 			}
 
 			Node.prototype.appendSvgTag = function() {
-				console.log('appanding svg-tags for this node to the svgRoot');
 				document.getElementById('nodes').appendChild(this.element);
 			}
 			

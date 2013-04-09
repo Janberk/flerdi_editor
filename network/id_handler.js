@@ -112,7 +112,6 @@ define([ "jquery" ], (function($) {
 			}
 		}
 		
-		console.log(this.id);
 		
 	}
 

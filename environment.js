@@ -25,8 +25,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		var _this = this;
 
-		var hasChanged = _this.networks.getNetwork().getHasChanged();
-		console.log("Value of hasChanged: " + hasChanged);
+		var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
 
 		/* user interface */
 		this.drawArea = new DrawArea();
@@ -74,8 +73,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		this.menubar.addMenu("File");
 		
 		this.menubar.addSubMenu("File", "New", (function() {
-			var hasChanged = _this.networks.getNetwork().getHasChanged();
-			console.log("Value of hasChanged (addSubMenu New): " + hasChanged);
+			var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
 				var win = new AlertDialogue(_this);
@@ -94,19 +92,15 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		this.menubar.addSubMenu("File", "Open...",
 				(function() {
-					var hasChanged = _this.networks.getNetwork()
-							.getHasChanged();
-					console.log("Value of hasChanged (addSubMenu Open): "
-							+ hasChanged);
-
+					var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
+					
 					if (_this.networks != 'undefined' && hasChanged) {
 						var win = new AlertDialogue(_this);
 
 						$('#ok').on('click', function() {
 							var win = new OpenDialogue(_this);
 							$(this).parent().parent().remove();
-							_this.networks.getNetwork().setHasChanged(false);
-							console.log("wert in open after: " + hasChanged);
+							_this.networks.getNetwork().getCommandManager().setHasChanged(false);
 						});
 						$('#cancel').on('click', function() {
 							$(this).parent().parent().remove();
@@ -117,8 +111,8 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 				}));
 		
 		/* alert dialogue - window/tab closed or refresh*/	
-		$(window).bind('beforeunload', function(){
-			var hasChanged = _this.networks.getNetwork().getHasChanged();
+		$(window).on('beforeunload', function(){
+			var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
 			if (_this.networks != 'undefined' && hasChanged) {
 				return "Window will close, unsaved changes will be lost!";
 			}			
@@ -172,7 +166,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 			var environment = _this;
 			var name = $('#yaml_datei').val();
 			name = name.replace(/\..*/, '');
-			console.log(name);
 			Parser.load("test_files/" + $('#yaml_datei').val(), function(json) {
 				environment.importJson(json, name);
 
@@ -202,7 +195,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	 *            name of the ne Network
 	 */
 	Environment.prototype.importJson = function(json, name) {
-		console.log("importing network from json object");
 		this.networks.newNetwork(json, name);
 		var _this = this;
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
@@ -218,7 +210,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		// moved up to function start to fix bug "leave page alert"
 		var _this = this;
 		_this.networks.getNetwork().setHasChanged(false);
-		var hasChanged = _this.networks.getNetwork().getHasChanged();
+		var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
 
 		var yaml = this.networks.getNetwork().getYaml();
 		var exportName = this.networks.getNetwork().getName();
@@ -247,7 +239,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		i = "";
 		temp = "";
 
-		console.log("wert in download: " + hasChanged);
 	} // downloadYaml
 
 	$(function() {

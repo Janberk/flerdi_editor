@@ -24,10 +24,6 @@ define(
 				this.network_interfaces = [];
 
 				this.setAttributes(json);
-
-				// set hasChanged true to capture changes
-				console.log("Action: link constructor");
-				this.network.setHasChanged(true);
 			}
 
 			Link.prototype.setAttributes = function(json) {
