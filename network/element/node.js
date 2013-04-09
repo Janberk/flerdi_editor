@@ -253,6 +253,49 @@ define(
 				return resource;
 			}
 
+			/**
+			 * This function removes a NetworkInterface from this Node
+			 * 
+			 * @param id the id of the NetworkInterface
+			 */
+			Node.prototype.removeNetworkInterfaceById = function(id) {
+				for ( var i = 0; i < this.network_interfaces.length; i++) {
+					if (this.network_interfaces[i].get('id') == id) {
+						this.network_interfaces.splice(i, 1);
+						break;
+					}
+				}
+			}
+
+			/**
+			 * This function removes a Feature from this Node
+			 * 
+			 * @param id the id of the Feature
+			 */
+			Node.prototype.removeFeatureById = function(id) {
+				for ( var i = 0; i < this.features.length; i++) {
+					if (this.features[i].get('id') == id) {
+						this.features.splice(i, 1);
+						break;
+					}
+				}
+			}
+			
+			
+			/**
+			 * This function removes a Resource from this Node
+			 * 
+			 * @param id the id of the Resource
+			 */
+			Node.prototype.removeResourceById = function(id) {
+				for ( var i = 0; i < this.resources.length; i++) {
+					if (this.resources[i].get('id') == id) {
+						this.resources.splice(i, 1);
+						break;
+					}
+				}
+			}
+
 			Node.prototype.createSvgTag = function() {
 				console.log('creating svg-tags for this node');
 
