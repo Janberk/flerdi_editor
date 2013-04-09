@@ -9,6 +9,7 @@
 requirejs.config({
 	paths: {
 		"jquery": "lib/jquery-1.8.2.min",
+		"bootstrap": "lib/bootstrap",
 		"jquery_ui": "lib/jquery-ui-1.10.0.custom",
 		"drag": "lib/jquery.event.drag-1.5.min",
 		"json2yaml" : "lib/json2yaml",
@@ -56,7 +57,10 @@ requirejs.config({
 		"changeFeaturesAttributeCommand":	"network/commands/change_features_attribute_command",
 		"changeInterfacesAttributeCommand":	"network/commands/change_interfaces_attribute_command",
 		"changeResourcesAttributeCommand":	"network/commands/change_resources_attribute_command"
-	} //paths
+	}, 
+	shim: {
+		'bootstrap':{deps: ['jquery']}
+	}//paths
 }); //config
 
 /*

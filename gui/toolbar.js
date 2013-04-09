@@ -22,11 +22,16 @@ define (['jquery'],function($) {
 	Toolbar.prototype.addButton = function(img, funct, title) {
 		var b = $(document.createElement('li'))
 			.append($(document.createElement('a'))
+				.attr({
+					'title': title,
+					'href': '#'
+				})
 				.addClass('btn btn-link tb_btn')
 				.on('click', funct || function() { alert('No function yet') })
 				.append($(document.createElement('img'))
 					.attr({		'src': 		imageSrc + (img || 'dummy') + '.svg',
-								'class': 	'tb_img'})));
+								'class': 	'tb_img',
+								'title': 	title})));
 		$('#toolbar').find('ul').append(b);
 		if($('#toolbar').find('li').length == 1) {
 			checked = b;

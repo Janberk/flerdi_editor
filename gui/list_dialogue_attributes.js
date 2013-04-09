@@ -132,6 +132,8 @@ define (["jquery"], (function($) {
 				'default': ''
 			}
 		}
+		
+		return json;
 	}
 	
 	
@@ -231,6 +233,9 @@ define (["jquery"], (function($) {
 				'default': ''
 			}
 		}
+		
+		return json;
 	}
+	
 	return ListDialogueAttributes;
 })); //define
