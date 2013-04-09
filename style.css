@@ -115,6 +115,13 @@ div.line {
 	display: block;
 }
 
+
+#menubar ul.dropdown-menu:before, #menubar ul.dropdown-menu:after {
+	border: none;
+}
+#menubar .dropdown-menu {
+	top: 90%;
+}
 .tb_img {
 	width: 24px;
 	height: 24px;
