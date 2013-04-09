@@ -33,6 +33,8 @@ define (["jquery","window","jsonViewer"], (function($,Window,JsonViewer) {
 		$(this.tabs).tabs();
 		this.win.setContent(this.tabs);
 		this.update();
+		
+		this.setEventListeners();
 	}
 	
 	/*
@@ -52,6 +54,30 @@ define (["jquery","window","jsonViewer"], (function($,Window,JsonViewer) {
 	ListDialogue.prototype.show = function() {
 		console.log("showing listDialogue for node with id = " + this.nodeId);
 		this.win.show();
+	}
+
+	/*
+	 * sets event listener for all inputs in this dialoge
+	 */
+	ListDialogue.prototype.setEventListeners = function() {
+		var _this = this;
+		
+		//TODO using $(this).val() with select elements causes jquery warnings
+		$('.ui-general-attributes-input').change(function () {
+			_this.node.set($(this).attr('name'), $(this).val());
+		});
+		
+		$('.ui-resources-attributes-input').change(function () {
+			console.log("resources");
+		});
+
+		$('.ui-features-attributes-input').change(function () {
+			console.log("features");
+		});
+		
+		$('.ui-interfaces-attributes-input').change(function () {
+			console.log("interfaces");
+		});
 	}
 
 	return ListDialogue;

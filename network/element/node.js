@@ -120,6 +120,10 @@ define(
 						this.json.attributes.id = value;
 						break;
 					}
+					case 'identifier': {
+						this.json.attributes.identifier = value;
+						break;
+					}
 					case 'alias': {
 						this.json.attributes.alias = value;
 						break;
@@ -137,6 +141,9 @@ define(
 				switch (attribute) {
 					case 'ne_identifier': {
 						return this.json.attributes.id;
+					}
+					case 'identifier': {
+						return this.json.attributes.identifier;
 					}
 					case 'alias': {
 						return this.json.attributes.alias;
@@ -176,7 +183,7 @@ define(
 				return this.json;
 			}
 			/**
-			 * This function returns a array of all resources this node have
+			 * This function returns an array of all resources this node has
 			 * 
 			 * @return Array of all resources
 			 */
@@ -188,7 +195,7 @@ define(
 				return res;
 			}
 			/**
-			 * This function returns a array of all features this node have
+			 * This function returns an array of all features this node has
 			 * 
 			 * @return Array of all features
 			 */
@@ -200,7 +207,7 @@ define(
 				return fet;
 			}
 			/**
-			 * This function returns a array of all interfaces this node have
+			 * This function returns an array of all interfaces this node has
 			 * 
 			 * @return Array of all features
 			 */

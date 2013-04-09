@@ -31,8 +31,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var contentJson = this.node.getJson().attributes;
 		var compareJson = this.listDialogueAttributes.getGeneralJson();
 
-		$(table).append(this.createTable(contentJson, compareJson));
-		
+		$(table).append(this.createTable(contentJson, compareJson, "ui-general-attributes-input"));
 		this.appendCss(table);
 		return table;
 	}
@@ -51,7 +50,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var elements = '';
 		for (var i=0; i<array.length; i++) {
 			elements += '<tr><th colspan="2"> Resource ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson);
+			elements += this.createTable(array[i].attributes, compareJson, "ui-resources-attributes-input");
 		}
 		
 		$(table).append(elements);
@@ -73,7 +72,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var elements = '';
 		for (var i=0; i<array.length; i++) {
 			elements += '<tr><th colspan="2"> Feature ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson);
+			elements += this.createTable(array[i].attributes, compareJson, "ui-features-attributes-input");
 		}
 		
 		$(table).append(elements);
@@ -95,7 +94,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var elements = '';
 		for (var i=0; i<array.length; i++) {
 			elements += '<tr><th colspan="2"> NetworkInterface ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson);
+			elements += this.createTable(array[i].attributes, compareJson, "ui-interfaces-attributes-input");
 		}
 		
 		$(table).append(elements);
@@ -110,7 +109,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 	*
 	* @return all necessary elements
 	*/
-	JsonViewer.prototype.createTable = function(contentJson, compareJson){
+	JsonViewer.prototype.createTable = function(contentJson, compareJson, elementClass){
 		var elements = "";
 		
 		for (var attribute in compareJson) {
@@ -121,10 +120,10 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 			elements += '<tr><td>'+attribute+'</td>';
 			
 			if(compareJson[attribute].input == 'text') {
-				elements += '<td><input type="text" name="'+attribute+'" value="'+content+'"/></td>';
+				elements += '<td><input class="'+elementClass+'" type="text" name="'+attribute+'" value="'+content+'"/></td>';
 			}
 			else if(compareJson[attribute].input == 'select') {
-				elements += '<td><select>';
+				elements += '<td><select class="'+elementClass+'" name="'+attribute+'">';
 				
 				for (var i in compareJson[attribute].values) {
 					var option = compareJson[attribute].values[i];
