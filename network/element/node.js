@@ -218,13 +218,39 @@ define(
 			}
 
 			/**
-			 * This function adds a new NetworkInterfac to this Node
+			 * This function adds a new NetworkInterface to this Node
 			 * 
-			 * @param json
-			 *            JSON-representation of this NetworkInterface
+			 * @param json JSON-representation of this NetworkInterface
 			 */
 			Node.prototype.addNetworkInterfaceByJSON = function(json) {
-				this.network_interfaces.push(new Network_Interfaces(this,json));
+				var network_interface = new Network_Interfaces(this,json)
+				this.network_interfaces.push(network_interface);
+				
+				return network_interface;
+			}
+			
+			/**
+			 * This function adds a new Feature to this Node
+			 * 
+			 * @param json JSON-representation of this Feature
+			 */
+			Node.prototype.addFeatureByJSON = function(json) {
+				var feature = new Features(this, json);
+				this.features.push(feature);
+				
+				return feature;
+			}
+
+			/**
+			 * This function adds a new Resource to this Node
+			 * 
+			 * @param json JSON-representation of this Resource
+			 */
+			Node.prototype.addResourceByJSON = function(json) {
+				var resource = new Resources(this, json);
+				this.resources.push(resource);
+				
+				return resource;
 			}
 
 			Node.prototype.createSvgTag = function() {

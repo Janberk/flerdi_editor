@@ -171,5 +171,29 @@ define (["jquery","features", "resources"],
 		return this.element.getNetwork();
 	}
 	
+	/**
+		* This function adds a new Feature to this Interface
+		* 
+		* @param json JSON-representation of this Feature
+		*/
+	Network_Interfaces.prototype.addFeatureByJSON = function(json) {
+		var feature = new Features(this, json);
+		this.features.push(feature);
+				
+		return feature;
+	}
+
+	/**
+		* This function adds a new Resource to this Interface
+		* 
+		* @param json JSON-representation of this Resource
+		*/
+	Network_Interfaces.prototype.addResourceByJSON = function(json) {
+		var resource = new Resources(this, json);
+		this.resources.push(resource);
+				
+		return resource;
+	}
+	
 	return Network_Interfaces;
 })); //define
