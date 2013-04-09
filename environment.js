@@ -132,6 +132,9 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		this.menubar.addSubMenu("Edit", "Undo", (function() {
 			_this.networks.getNetwork().getCommandManager().undo();
 		}));
+		this.menubar.addSubMenu("Edit", "Redo", (function() {
+			_this.networks.getNetwork().getCommandManager().redo();
+		}));
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
 
@@ -149,6 +152,11 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 			//ctrl+z shortcut
 			if(ctrl==true && e.which==90) {
 			    $('#btn-Undo').trigger('click');
+			 	return false;
+			}
+			//ctrl+y shortcut
+			if(ctrl==true && e.which==89) {
+			    $('#btn-Redo').trigger('click');
 			 	return false;
 			}
 		});
