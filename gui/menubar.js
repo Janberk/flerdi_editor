@@ -52,6 +52,7 @@ define (['jquery'],function($) {
 			.append($(document.createElement('li'))
 				.append($(document.createElement('button'))
 					.addClass('btn btn-link')
+					.attr('id', 'btn-'+subtitle)
 					.append(subtitle)
 					.on('click', funct || function() { alert('No function yet') }))
 		);

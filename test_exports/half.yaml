@@ -64,41 +64,23 @@ network_elements:
       timestamp: 
       time_unit: 
       value_type: 
-      the_parent_record_id: 
       resource_unit: 
       confidence: 
       composing_operation: 
       id: "1"
       value: 
-      avp_attribute: /link/generic/upstream/bandwidth
-      is_request: "1"
+      avp_attribute: /link/generic/symmetric/bandwidth
       alias: 
       interval: 
       identifier: "8"
-    attributes_cache: {}
-
-  - !yaml.org,2002:Resource 
-    attributes: 
-      timestamp: 
-      time_unit: 
-      value_type: 
-      the_parent_record_id: 
-      resource_unit: 
-      confidence: 
-      composing_operation: 
-      id: "2"
-      value: 
-      avp_attribute: /link/generic/downstream/bandwidth
       is_request: "1"
-      alias: 
-      interval: 
-      identifier: "9"
+      the_parent_record_id: "4"
     attributes_cache: {}
 
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "1"
-    ne_type: /node/host/generic
+    ne_type: /node/switch/cisco
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -135,7 +117,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "2"
-    ne_type: /node/host/generic
+    ne_type: /node/switch/cisco
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -175,15 +157,15 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 90
-  y: 77
+  x: 119
+  y: 98
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 595
-  y: 190
+  x: 544
+  y: 78
   id: "2"
   network_element_id: "2"
   attributes_cache: {}

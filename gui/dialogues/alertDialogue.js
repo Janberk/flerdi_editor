@@ -22,7 +22,7 @@ function($,Window) {
 		this.win = new Window('WARNING!!!');
 		
 		this.div = document.createElement('div');
-		$(this.div).html('<p>Unsaved changes will be lost. Click OK to continue or cancel.</p></br>'
+		$(this.div).html('<p>Unsaved changes will be lost. Click OK to continue.</p></br>'
 						+'<button id="ok">OK</button>'
 						+'<button id="cancel">Cancel</button>');						
 		

@@ -5,7 +5,7 @@
  /* 
  *  This class handles the appearance of the statusbar
  */
-define (['jquery'],function($) {
+define (['jquery', 'changeNodeTypeCommand'],function($, ChangeNodeTypeCommand) {
 	var Statusbar = function(obj) {
 		this.target = obj;
 		if($('#statusbar').children().length == 0) {
@@ -56,8 +56,8 @@ define (['jquery'],function($) {
 				.attr('for', label))
 			.append($(document.createElement('select'))
 					.attr('id', label)
-					.on('click', function(e) {
-					_this.target.set($(this).attr('id'), $(this).val());
+					.on('change', function(e) {
+					_this.target.getNetwork().getCommandManager().newCommand(new ChangeNodeTypeCommand(_this.target, $(this).attr('value')));
 				}));
 		for(var i=0;i<vals.length;i++) {
 			var o = $(document.createElement('option'))

@@ -37,7 +37,7 @@ define(
 				this.json.attributes.alias = json.attributes.alias || "";
 				this.json.attributes.console_interface_id = json.attributes.console_interface_id
 						|| "";
-				this.json.attributes.graph_label_id = json.attributesgraph_label_idalias
+				this.json.attributes.graph_label_id = json.attributes.graph_label_id
 						|| this.network.getNetworkId();
 				this.json.attributes.id = json.attributes.id
 						|| this.network.getIdHandler().getNextElementId();
@@ -45,7 +45,7 @@ define(
 						|| "/node/host/generic";
 				this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id
 						|| "";
-				this.json.attributes.identifier = json.attributes.identifier || "";
+				this.json.attributes.identifier = json.attributes.identifier || this.network.getIdHandler().getNextIdentifierId();
 				this.json.attributes.customer_console_interface_id = json.attributes.customer_console_interface_id || "";
 				this.json.attributes_cache = json.attributes_cache || [];
 				this.json.constraint_groups_network_elements = json.constraint_groups_network_elements
@@ -97,9 +97,9 @@ define(
 				});
 				menu.addButton('Properties', function(e) {
 					if (_this.listDialogue == undefined) {
-						_this.listDialogue = new listDialogue(_this.getJson());
+						_this.listDialogue = new listDialogue(_this);
 					} else {
-						_this.listDialogue.update(_this.getJson());
+						_this.listDialogue.update();
 						_this.listDialogue.show();
 					}
 					
@@ -115,18 +115,41 @@ define(
 						NodeTypes);
 				return sb;
 			}
-			Node.prototype.set = function(target, v) {
-				switch (target) {
-				case 'ne_identifier':
-					this.json.attributes.id = v;break;
-				case 'alias':
-					this.json.attributes.alias = v;break;
-				case 'ne_type': {
-					this.json.attributes.ne_type = v;
-					this.removeSvgTag();
-					this.createSvgTag();
-					this.appendSvgTag();
+			
+			Node.prototype.set = function(attribute, value) {
+				switch (attribute) {
+					case 'ne_identifier': {
+						this.json.attributes.id = value;
+						break;
+					}
+					case 'alias': {
+						this.json.attributes.alias = value;
+						break;
+					}
+					case 'ne_type': {
+						this.json.attributes.ne_type = value;
+						this.redrawSvgTag();
+						break;
+					}
+					default: throw new Error("Attribute "+attribute+" not found.");
 				}
+			}
+
+			Node.prototype.get = function(attribute) {
+				switch (attribute) {
+					case 'ne_identifier': {
+						return this.json.attributes.id;
+					}
+					case 'alias': {
+						return this.json.attributes.alias;
+					}
+					case 'ne_type': {
+						return this.json.attributes.ne_type;
+					}
+					case 'v_net_identifier': {
+						return this.network.elements['--- !yaml.org,2002'].attributes.v_net_identifier;
+					}
+					default: throw new Error("Attribute "+attribute+" not found.");
 				}
 			}
 
@@ -195,13 +218,39 @@ define(
 			}
 
 			/**
-			 * This function adds a new NetworkInterfac to this Node
+			 * This function adds a new NetworkInterface to this Node
 			 * 
-			 * @param json
-			 *            JSON-representation of this NetworkInterface
+			 * @param json JSON-representation of this NetworkInterface
 			 */
 			Node.prototype.addNetworkInterfaceByJSON = function(json) {
-				this.network_interfaces.push(new Network_Interfaces(this,json));
+				var network_interface = new Network_Interfaces(this,json)
+				this.network_interfaces.push(network_interface);
+				
+				return network_interface;
+			}
+			
+			/**
+			 * This function adds a new Feature to this Node
+			 * 
+			 * @param json JSON-representation of this Feature
+			 */
+			Node.prototype.addFeatureByJSON = function(json) {
+				var feature = new Features(this, json);
+				this.features.push(feature);
+				
+				return feature;
+			}
+
+			/**
+			 * This function adds a new Resource to this Node
+			 * 
+			 * @param json JSON-representation of this Resource
+			 */
+			Node.prototype.addResourceByJSON = function(json) {
+				var resource = new Resources(this, json);
+				this.resources.push(resource);
+				
+				return resource;
 			}
 
 			Node.prototype.createSvgTag = function() {
@@ -212,7 +261,7 @@ define(
 				node.setAttributeNS('http://www.w3.org/1999/xlink',
 						'xlink:href', '');
 
-				// TODO replace standart width and height values
+				// TODO replace standard width and height values
 				node.setAttribute("x", this.position.x);
 				node.setAttribute("y", this.position.y);
 				node.setAttribute("width", 50);
@@ -224,7 +273,6 @@ define(
 				var _this = this;
 				$(node)
 					.on('contextmenu', function(e) {
-						//_this.contextMenu.show(e.clientX-32,e.clientY-32);
 						_this.setContextMenu().show(e);
 						return false;
 					})
@@ -277,7 +325,7 @@ define(
 											'xlink:href', '');
 									dummy.setAttribute('opacity', '0.5');
 
-									// TODO replace standart width and height
+									// TODO replace standard width and height
 									// values
 									dummy.setAttribute("x", _this.position.x);
 									dummy.setAttribute("y", _this.position.y);
@@ -361,6 +409,10 @@ define(
 			Node.prototype.appendSvgTag = function() {
 				console.log('appanding svg-tags for this node to the svgRoot');
 				document.getElementById('nodes').appendChild(this.element);
+			}
+			
+			Node.prototype.redrawSvgTag = function() {
+				this.element.setAttribute("xlink:href", this.getPathToSvg());
 			}
 
 			Node.prototype.removeNode = function() {

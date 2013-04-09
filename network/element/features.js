@@ -38,6 +38,85 @@ define (["jquery"],
 	}
 	
 	/**
+	* This function sets a specific value
+	*
+	* @param attribute the attribute name, given as string
+	* @param value the attibute's new value
+	*/
+	Features.prototype.set = function(attribute, value) {
+		switch (attribute) {
+			case 'avp_attribute': {
+				this.json.attributes.avp_attribute = value;
+				break;
+			}
+			case 'id': {
+				this.json.attributes.id = value;
+				break;
+			}
+			case 'is_request': {
+				this.json.attributes.is_request = value;
+				break;
+			}
+			case 'network_element_id': {
+				this.json.attributes.network_element_id = value;
+				break;
+			}
+			case 'network_interface_id': {
+				this.json.attributes.network_interface_id = value;
+				break;
+			}
+			case 'priority': {
+				this.json.attributes.priority = value;
+				break;
+			}
+			case 'value': {
+				this.json.attributes.value = value;
+				break;
+			}
+			case 'attributes_cache': {
+				this.json.attributes_cache = value;
+				break;
+			}
+			default: throw new Error("Attribute "+attribute+" not found.");
+		}
+	}
+	
+	/**
+	* This function returns a specific value
+	*
+	* @param attribute the attribute name, given as string
+	*/
+	Features.prototype.get = function(attribute) {
+		switch (attribute) {
+			case 'avp_attribute': {
+				return this.json.attributes.avp_attribute;
+			}
+			case 'id': {
+				return this.json.attributes.id;
+			}
+			case 'is_request': {
+				return this.json.attributes.is_request;
+			}
+			case 'network_element_id': {
+				return this.json.attributes.network_element_id;
+			}
+			case 'network_interface_id': {
+				return this.json.attributes.network_interface_id;
+			}
+			case 'priority': {
+				return this.json.attributes.priority;
+			}
+			case 'value': {
+				return this.json.attributes.value;
+			}
+			case 'attributes_cache': {
+				return this.json.attributes_cache;
+			}
+			default: throw new Error("Attribute "+attribute+" not found.");
+		}
+	}
+	
+	/**
 	* This function returns a JSON-Object, representing this feature
 	*
 	* @return JSON-Object representing this feature

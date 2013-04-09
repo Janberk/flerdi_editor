@@ -28,6 +28,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		var hasChanged = _this.networks.getNetwork().getHasChanged();
 		console.log("Value of hasChanged: " + hasChanged);
 
+		/* user interface */
 		this.drawArea = new DrawArea();
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
 
@@ -71,7 +72,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
-
+		
 		this.menubar.addSubMenu("File", "New", (function() {
 			var hasChanged = _this.networks.getNetwork().getHasChanged();
 			console.log("Value of hasChanged (addSubMenu New): " + hasChanged);
@@ -90,10 +91,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 				_this.networks.newNetwork({});
 			}
 		}));
-
-		// $(window).unload( function () {
-		// var win = new AlertDialogue(_this);
-		// });
 
 		this.menubar.addSubMenu("File", "Open...",
 				(function() {
@@ -118,6 +115,14 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 						var win = new OpenDialogue(_this);
 					}
 				}));
+		
+		/* alert dialogue - window/tab closed or refresh*/	
+		$(window).bind('beforeunload', function(){
+			var hasChanged = _this.networks.getNetwork().getHasChanged();
+			if (_this.networks != 'undefined' && hasChanged) {
+				return "Window will close, unsaved changes will be lost!";
+			}			
+		});
 
 		this.menubar.addSubSeperator("File");
 		this.menubar.addSubMenu("File", "Download", (function() {
@@ -127,11 +132,36 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		this.menubar.addSubMenu("Edit", "Undo", (function() {
 			_this.networks.getNetwork().getCommandManager().undo();
 		}));
+		this.menubar.addSubMenu("Edit", "Redo", (function() {
+			_this.networks.getNetwork().getCommandManager().redo();
+		}));
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
 
 		this.statusbar = new Statusbar();
 
+		/* keyboard shortcuts */
+		var ctrl = false;
+		
+		$(document)
+		.keyup(function(e) {
+			if(e.which==17) ctrl = false;
+		})
+		.keydown(function(e) {
+			if(e.which==17) ctrl = true;
+			//ctrl+z shortcut
+			if(ctrl==true && e.which==90) {
+			    $('#btn-Undo').trigger('click');
+			 	return false;
+			}
+			//ctrl+y shortcut
+			if(ctrl==true && e.which==89) {
+			    $('#btn-Redo').trigger('click');
+			 	return false;
+			}
+		});
+
+		/* yaml parsing */
 		this.creating = false;
 		this.test = 0;
 
@@ -164,7 +194,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	}
 
 	/**
-	 * This functions creates a new Networkelement from ja given JSON
+	 * This functions creates a new Networkelement from a given JSON
 	 * 
 	 * @param json
 	 *            json that contains all informations to create a new Network
@@ -183,6 +213,12 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	 * 
 	 */
 	Environment.prototype.downloadYaml = function() {
+		
+		// set hasChanged false,
+		// moved up to function start to fix bug "leave page alert"
+		var _this = this;
+		_this.networks.getNetwork().setHasChanged(false);
+		var hasChanged = _this.networks.getNetwork().getHasChanged();
 
 		var yaml = this.networks.getNetwork().getYaml();
 		var exportName = this.networks.getNetwork().getName();
@@ -211,10 +247,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		i = "";
 		temp = "";
 
-		// set hasChanged false
-		var _this = this;
-		_this.networks.getNetwork().setHasChanged(false);
-		var hasChanged = _this.networks.getNetwork().getHasChanged();
 		console.log("wert in download: " + hasChanged);
 	} // downloadYaml
 

@@ -50,7 +50,12 @@ requirejs.config({
 		"moveNodeCommand":	"network/commands/move_node_command",
 		"newNodeCommand":	"network/commands/new_node_command",
 		"newLinkCommand":	"network/commands/new_link_command",
-		"deleteNodeCommand":	"network/commands/delete_node_command"
+		"deleteNodeCommand":	"network/commands/delete_node_command",
+		"changeNodeTypeCommand":	"network/commands/change_node_type_command",
+		"changeNodeAttributeCommand":	"network/commands/change_node_attribute_command",
+		"changeFeaturesAttributeCommand":	"network/commands/change_features_attribute_command",
+		"changeInterfacesAttributeCommand":	"network/commands/change_interfaces_attribute_command",
+		"changeResourcesAttributeCommand":	"network/commands/change_resources_attribute_command"
 	}, 
 	shim: {
 		'bootstrap':{deps: ['jquery']}

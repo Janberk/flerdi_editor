@@ -23,7 +23,7 @@ define([ "jquery" ],
 	/**
 	 * This function creates the node
 	 */
-	DeleteNodeCommand.prototype.execute = function(){		
+	DeleteNodeCommand.prototype.execute = function(){
 		for(var i=0; i<this.links.length; i++){
 			this.links[i].removeLink();
 		}
