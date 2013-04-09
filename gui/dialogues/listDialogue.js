@@ -5,39 +5,53 @@
 /*
  * This class is specifically for dialogues concerning Resources, Features and NetworkInterfaces
  */ 
-define (["jquery","window","jsonViewer"], (function($,window,JsonViewer) {
+define (["jquery","window","jsonViewer"], (function($,Window,JsonViewer) {
 
-	var ListDialogue = function(json){
-		console.log('filling dialogue window');
-		this.json = json;
-		this.win = new window('General',[450,600]);
-		this.tabs = document.createElement('div');
-		$(this.tabs).html('<ul> <li><a href="#tabs-1">General</a></li> <li><a href="#tabs-2">Resources</a></li> <li><a href="#tabs-3">Features</a></li> <li><a href="#tabs-4">Interfaces</a></li> </ul> <div id="tabs-1"> </div> <div id="tabs-2"></div> <div id="tabs-3"> </div> <div id="tabs-4"> </div>');
+	/*
+	 * constructor: creates a new listDialogue for the given node,
+	 * fills the tabs with the data of the json and shows it immediately
+	 */
+	var ListDialogue = function(node){
+		console.log("creating listDialogue for selected node");
+		this.node = node;
+		this.json = node.getJson();
+		this.nodeId = this.json.attributes.id;
+		this.win = new Window('Node Properties', [450,600]);
+		this.tabs = document.createElement('div');	
+		$(this.tabs).html(
+		'<ul>' +
+		'<li><a href="#general-tab-id-' + this.nodeId + '">General</a></li>' +
+		'<li><a href="#resources-tab-id-' + this.nodeId + '">Resources</a></li>' +
+		'<li><a href="#features-tab-id-' + this.nodeId + '">Features</a></li>' +
+		'<li><a href="#interfaces-tab-id-' + this.nodeId + '">Interfaces</a></li>' +
+		'</ul>' +
+		'<div id="general-tab-id-' + this.nodeId + '"></div>' +
+		'<div id="resources-tab-id-' + this.nodeId + '"></div>' +
+		'<div id="features-tab-id-' + this.nodeId + '"></div>' +
+		'<div id="interfaces-tab-id-' + this.nodeId + '"></div>'
+		);
 		$(this.tabs).tabs();
 		this.win.setContent(this.tabs);
-		
-		this.fillWindow();
+		this.update();
 	}
 	
-	ListDialogue.prototype.fillWindow = function() {			
-		var information = [];
-		information [0] = this.json.attributes;
-		information [1] = this.json.resources;
-		information [2] = this.json.features;
-		information [3] = this.json.network_interfaces;
-		
-		$('#tabs-1').html(new JsonViewer(this.json.attributes).getElement());
-		$('#tabs-2').html(new JsonViewer(this.json.resources).getElement());
-		$('#tabs-3').html(new JsonViewer(this.json.features).getElement());
-		$('#tabs-4').html(new JsonViewer(this.json.network_interfaces).getElement());
+	/*
+	 * updates the tab contents to match the current json of the node
+	 */
+	ListDialogue.prototype.update = function() {			
+		console.log("updating listDialogue for node with id = " + this.nodeId);
+		this.json = this.node.getJson();
+		$('#general-tab-id-' + this.nodeId).html(new JsonViewer(this.json.attributes).getElement());
+		$('#resources-tab-id-' + this.nodeId).html(new JsonViewer(this.json.resources).getElement());
+		$('#features-tab-id-' + this.nodeId).html(new JsonViewer(this.json.features).getElement());
+		$('#interfaces-tab-id-' + this.nodeId).html(new JsonViewer(this.json.network_interfaces).getElement());
 	}
 	
-	ListDialogue.prototype.update = function(json) {
-		this.json = json;
-		this.fillWindow();		
-	}
-	
+	/*
+	 * opens the dialogue again after it was closed
+	 */
 	ListDialogue.prototype.show = function() {
+		console.log("showing listDialogue for node with id = " + this.nodeId);
 		this.win.show();
 	}
 
