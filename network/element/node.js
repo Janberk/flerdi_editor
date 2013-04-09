@@ -115,21 +115,41 @@ define(
 						NodeTypes);
 				return sb;
 			}
-			Node.prototype.set = function(target, v) {
-				switch (target) {
+			
+			Node.prototype.set = function(attribute, value) {
+				switch (attribute) {
 					case 'ne_identifier': {
-						this.json.attributes.id = v;
+						this.json.attributes.id = value;
 						break;
 					}
 					case 'alias': {
-						this.json.attributes.alias = v;
+						this.json.attributes.alias = value;
 						break;
 					}
 					case 'ne_type': {
-						this.json.attributes.ne_type = v;
+						this.json.attributes.ne_type = value;
 						this.redrawSvgTag();
 						break;
 					}
+					default: throw new Error("Attribute "+attribute+" not found.");
+				}
+			}
+
+			Node.prototype.get = function(attribute) {
+				switch (attribute) {
+					case 'ne_identifier': {
+						return this.json.attributes.id;
+					}
+					case 'alias': {
+						return this.json.attributes.alias;
+					}
+					case 'ne_type': {
+						return this.json.attributes.ne_type;
+					}
+					case 'v_net_identifier': {
+						return this.network.elements['--- !yaml.org,2002'].attributes.v_net_identifier;
+					}
+					default: throw new Error("Attribute "+attribute+" not found.");
 				}
 			}
 

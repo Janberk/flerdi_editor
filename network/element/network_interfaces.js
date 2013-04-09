@@ -54,6 +54,78 @@ define (["jquery","features", "resources"],
 	}
 	
 	/**
+	* This function sets a specific value
+	*
+	* @param attribute the attribute name, given as string
+	* @param value the attibute's new value
+	*/
+	Network_Interfaces.prototype.set = function(attribute, value) {
+		switch (attribute) {
+			case 'alias': {
+				this.json.attributes.alias = value;
+				break;
+			}
+			case 'id': {
+				this.json.attributes.id = value;
+				break;
+			}
+			case 'identifier': {
+				this.json.attributes.identifier = value;
+				break;
+			}
+			case 'network_element_id': {
+				this.json.attributes.network_element_id = value;
+				break;
+			}
+			case 'network_interface_id': {
+				this.json.attributes.network_interface_id = value;
+				break;
+			}
+			case 'ni_type': {
+				this.json.attributes.ni_type = value;
+				break;
+			}
+			case 'attributes_cache': {
+				this.json.attributes_cache = value;
+				break;
+			}
+			default: throw new Error("Attribute "+attribute+" not found.");
+		}
+	}
+	
+	/**
+	* This function gets a specific value
+	*
+	* @param attribute the attribute name, given as string
+	*/
+	Network_Interfaces.prototype.get = function(attribute) {
+		switch (attribute) {
+			case 'alias': {
+				return this.json.attributes.alias;
+			}
+			case 'id': {
+				return this.json.attributes.id;
+			}
+			case 'identifier': {
+				return this.json.attributes.identifier;
+			}
+			case 'network_element_id': {
+				return this.json.attributes.network_element_id;
+			}
+			case 'network_interface_id': {
+				return this.json.attributes.network_interface_id;
+			}
+			case 'ni_type': {
+				return this.json.attributes.ni_type;
+			}
+			case 'attributes_cache': {
+				return this.json.attributes_cache;
+			}
+			default: throw new Error("Attribute "+attribute+" not found.");
+		}
+	}
+	
+	/**
 	* This function returns a JSON-Object, representing this network interface
 	*
 	* @return JSON-Object representing this network interface
@@ -63,6 +135,7 @@ define (["jquery","features", "resources"],
 		this.json.features = this.getFeatures();
 		return this.json;
 	}
+	
 	/**
 	* This function returns a array of all resources this network interface have
 	*
@@ -75,6 +148,7 @@ define (["jquery","features", "resources"],
 		}
 		return res;
 	}
+	
 	/**
 	* This function returns a array of all resources this network interface have
 	*
