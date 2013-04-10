@@ -34,6 +34,10 @@ define (['jquery'],function($) {
 				.addClass('divider'))
 	};
 	ContextMenu.prototype.show = function(e) {
+		var context_active = false;
+		$(document).bind("contextmenu",function(e){
+			return context_active;
+		});
 		$('#contextmenu').css({
 			'left': e.clientX,
 			'top': e.clientY
@@ -42,6 +46,7 @@ define (['jquery'],function($) {
 			.addClass('open');
 		$('body').on('click', function() {
 			$('#contextmenu').removeClass('open')
+			context_active = true;
 		})
 	};
 	return ContextMenu;
