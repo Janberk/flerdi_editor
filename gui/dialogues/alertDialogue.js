@@ -9,7 +9,7 @@
 define (["jquery","window"], (
 function($,Window) {
 	
-
+	// test
 	/**
 	* This function creates a new AlertDialogue Window
 	*
