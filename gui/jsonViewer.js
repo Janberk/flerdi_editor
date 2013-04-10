@@ -50,7 +50,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var elements = '';
 		for (var i=0; i<array.length; i++) {
 			elements += '<tr><th colspan="2"> Resource ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson, "ui-resources-attributes-input");
+			elements += this.createTable(array[i].attributes, compareJson, "ui-resources-attributes-input "+i);
 		}
 		
 		$(table).append(elements);
@@ -72,7 +72,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var elements = '';
 		for (var i=0; i<array.length; i++) {
 			elements += '<tr><th colspan="2"> Feature ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson, "ui-features-attributes-input");
+			elements += this.createTable(array[i].attributes, compareJson, "ui-features-attributes-input "+i);
 		}
 		
 		$(table).append(elements);
@@ -94,7 +94,7 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		var elements = '';
 		for (var i=0; i<array.length; i++) {
 			elements += '<tr><th colspan="2"> NetworkInterface ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson, "ui-interfaces-attributes-input");
+			elements += this.createTable(array[i].attributes, compareJson, "ui-interfaces-attributes-input "+i);
 		}
 		
 		$(table).append(elements);

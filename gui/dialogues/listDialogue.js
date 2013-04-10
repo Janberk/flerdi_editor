@@ -5,7 +5,8 @@
 /*
  * This class is specifically for dialogues concerning Resources, Features and NetworkInterfaces
  */ 
-define (["jquery","window","jsonViewer"], (function($,Window,JsonViewer) {
+define (["jquery","window","jsonViewer", "changeNodeAttributeCommand", "changeFeaturesAttributeCommand", "changeInterfacesAttributeCommand", "changeResourcesAttributeCommand"], 
+	(function($,Window,JsonViewer, ChangeNodeAttributeCommand, ChangeFeaturesAttributeCommand, ChangeInterfacesAttributeCommand, ChangeResourcesAttributeCommand) {
 
 	/*
 	 * constructor: creates a new listDialogue for the given node,
@@ -64,19 +65,55 @@ define (["jquery","window","jsonViewer"], (function($,Window,JsonViewer) {
 		
 		//TODO using $(this).val() with select elements causes jquery warnings
 		$('.ui-general-attributes-input').change(function () {
-			_this.node.set($(this).attr('name'), $(this).val());
+			//get attribute and value
+			var attribute = $(this).attr('name');
+			var value = $(this).val();
+	
+			//create command for undo
+			var commandManager = _this.node.getNetwork().getCommandManager();
+			commandManager.newCommand(new ChangeNodeAttributeCommand(_this.node, attribute, value));
 		});
 		
 		$('.ui-resources-attributes-input').change(function () {
-			console.log("resources");
+			//get attribute and value
+			var attribute = $(this).attr('name');
+			var value = $(this).val();
+			
+			//identifiy which resource gets changed
+			var i = $(this).attr('class').split(' ')[1];
+			var resource = _this.node.getResource(i);
+			
+			//create command for undo
+			var commandManager = _this.node.getNetwork().getCommandManager();
+			commandManager.newCommand(new ChangeResourcesAttributeCommand(resource, attribute, value));
 		});
 
 		$('.ui-features-attributes-input').change(function () {
-			console.log("features");
+			//get attribute and value
+			var attribute = $(this).attr('name');
+			var value = $(this).val();
+			
+			//identifiy which feature gets changed
+			var i = $(this).attr('class').split(' ')[1];
+			var feature = _this.node.getFeature(i);
+			
+			//create command for undo
+			var commandManager = _this.node.getNetwork().getCommandManager();
+			commandManager.newCommand(new ChangeFeaturesAttributeCommand(feature, attribute, value));
 		});
 		
 		$('.ui-interfaces-attributes-input').change(function () {
-			console.log("interfaces");
+			//get attribute and value
+			var attribute = $(this).attr('name');
+			var value = $(this).val();
+			
+			//identifiy which interface gets changed
+			var i = $(this).attr('class').split(' ')[1];
+			var networkInterface = _this.node.getNetworkInterface(i);
+			
+			//create command for undo
+			var commandManager = _this.node.getNetwork().getCommandManager();
+			commandManager.newCommand(new ChangeInterfacesAttributeCommand(networkInterface, attribute, value));
 		});
 	}
 

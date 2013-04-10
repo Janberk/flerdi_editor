@@ -218,6 +218,19 @@ define(
 				}
 				return nis;
 			}
+
+			Node.prototype.getResource = function(i) {
+				return this.resources[i];
+			}
+
+			Node.prototype.getFeature = function(i) {
+				return this.features[i];
+			}
+			
+			Node.prototype.getNetworkInterface = function(i) {
+				return this.network_interfaces[i];
+			}
+
 			Node.prototype.getPositionJson = function() {
 				return this.position;
 			}
