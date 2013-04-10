@@ -205,10 +205,10 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	 */
 	Environment.prototype.downloadYaml = function() {
 		
-		// set hasChanged false,
-		// moved up to function start to fix bug "leave page alert"
+		// temporary setHasChanged = false, to fix leave alert bug at download
 		var _this = this;
 		var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
+		_this.networks.getNetwork().getCommandManager().setHasChanged(false);
 
 		var yaml = this.networks.getNetwork().getYaml();
 		var exportName = this.networks.getNetwork().getName();
@@ -236,6 +236,8 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		t = "";
 		i = "";
 		temp = "";
+		// setHasChanged back to origin		
+		_this.networks.getNetwork().getCommandManager().isHasChanged(hasChanged);
 
 	} // downloadYaml
 
