@@ -15,11 +15,12 @@ define([ "jquery" ],
 	 * @param attribute the attribute name, given as string
 	 * @param value the attibute's new value
 	 */
-	var ChangeResourcesAttributeCommand = function(resources, attribute, value){
+	var ChangeResourcesAttributeCommand = function(resources, attribute, value, inputElement){
 		this.resources = resources;
 		this.attribute = attribute;
 		this.value = value;
 		this.oldValue = this.resources.get(this.attribute);
+		this.inputElement = inputElement;
 	}
 	
 	/**
@@ -27,6 +28,7 @@ define([ "jquery" ],
 	 */
 	ChangeResourcesAttributeCommand.prototype.execute = function(){	
 		this.resources.set(this.attribute, this.value);
+		this.inputElement.val(this.value);
 	}
 	
 	/**
@@ -34,6 +36,7 @@ define([ "jquery" ],
 	 */
 	ChangeResourcesAttributeCommand.prototype.undo = function(){
 		this.resources.set(this.attribute, this.oldValue);
+		this.inputElement.val(this.oldValue);
 	}
 	
 	return ChangeResourcesAttributeCommand;

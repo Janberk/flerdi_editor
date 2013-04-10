@@ -71,7 +71,7 @@ define (["jquery","window","jsonViewer", "changeNodeAttributeCommand", "changeFe
 	
 			//create command for undo
 			var commandManager = _this.node.getNetwork().getCommandManager();
-			commandManager.newCommand(new ChangeNodeAttributeCommand(_this.node, attribute, value));
+			commandManager.newCommand(new ChangeNodeAttributeCommand(_this.node, attribute, value, $(this)));
 		});
 		
 		$('.ui-resources-attributes-input').change(function () {
@@ -85,7 +85,7 @@ define (["jquery","window","jsonViewer", "changeNodeAttributeCommand", "changeFe
 			
 			//create command for undo
 			var commandManager = _this.node.getNetwork().getCommandManager();
-			commandManager.newCommand(new ChangeResourcesAttributeCommand(resource, attribute, value));
+			commandManager.newCommand(new ChangeResourcesAttributeCommand(resource, attribute, value, $(this)));
 		});
 
 		$('.ui-features-attributes-input').change(function () {
@@ -99,7 +99,7 @@ define (["jquery","window","jsonViewer", "changeNodeAttributeCommand", "changeFe
 			
 			//create command for undo
 			var commandManager = _this.node.getNetwork().getCommandManager();
-			commandManager.newCommand(new ChangeFeaturesAttributeCommand(feature, attribute, value));
+			commandManager.newCommand(new ChangeFeaturesAttributeCommand(feature, attribute, value, $(this)));
 		});
 		
 		$('.ui-interfaces-attributes-input').change(function () {
@@ -113,7 +113,7 @@ define (["jquery","window","jsonViewer", "changeNodeAttributeCommand", "changeFe
 			
 			//create command for undo
 			var commandManager = _this.node.getNetwork().getCommandManager();
-			commandManager.newCommand(new ChangeInterfacesAttributeCommand(networkInterface, attribute, value));
+			commandManager.newCommand(new ChangeInterfacesAttributeCommand(networkInterface, attribute, value, $(this)));
 		});
 	}
 

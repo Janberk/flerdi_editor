@@ -15,11 +15,12 @@ define([ "jquery" ],
 	 * @param attribute the attribute name, given as string
 	 * @param value the attibute's new value
 	 */
-	var ChangeFeaturesAttributeCommand = function(features, attribute, value){
+	var ChangeFeaturesAttributeCommand = function(features, attribute, value, inputElement){
 		this.features = features;
 		this.attribute = attribute;
 		this.value = value;
 		this.oldValue = this.features.get(this.attribute);
+		this.inputElement = inputElement;
 	}
 	
 	/**
@@ -27,6 +28,7 @@ define([ "jquery" ],
 	 */
 	ChangeFeaturesAttributeCommand.prototype.execute = function(){	
 		this.features.set(this.attribute, this.value);
+		this.inputElement.val(this.value);
 	}
 	
 	/**
@@ -34,6 +36,7 @@ define([ "jquery" ],
 	 */
 	ChangeFeaturesAttributeCommand.prototype.undo = function(){
 		this.features.set(this.attribute, this.oldValue);
+		this.inputElement.val(this.oldValue);
 	}
 	
 	return ChangeFeaturesAttributeCommand;
