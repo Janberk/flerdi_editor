@@ -100,7 +100,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 						$('#ok').on('click', function() {
 							var win = new OpenDialogue(_this);
 							$(this).parent().parent().remove();
-							_this.networks.getNetwork().getCommandManager().setHasChanged(false);
 						});
 						$('#cancel').on('click', function() {
 							$(this).parent().parent().remove();
@@ -209,7 +208,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		// set hasChanged false,
 		// moved up to function start to fix bug "leave page alert"
 		var _this = this;
-		_this.networks.getNetwork().setHasChanged(false);
 		var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
 
 		var yaml = this.networks.getNetwork().getYaml();
