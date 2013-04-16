@@ -80,7 +80,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "1"
-    ne_type: /node/switch/pip
+    ne_type: /node/switch/cisco
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -117,7 +117,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "2"
-    ne_type: /node/switch/pip
+    ne_type: /node/switch/cisco
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -157,16 +157,16 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 104
-  y: 121
+  x: 187
+  y: 70
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 451
-  y: 82
+  x: 148
+  y: 355
   id: "2"
   network_element_id: "2"
-  attributes_cache: {}
+ attributes_cache: {}
 

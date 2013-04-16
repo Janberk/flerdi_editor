@@ -384,8 +384,8 @@ define(
 				yaml += '\n--- !Flerdit,2012:Position\n';
 				var pos = json2yaml(json['--- !Flerdit,2012']);
 				pos = pos.replace(/- /g, ' -\n  ');
-				pos = pos.replace(/ ( attributes_cache: \n)/g, '$1\n');
-				pos += '\n\n';
+				pos = pos.replace(/ ( attributes_cache: )/g, '$1\n');
+				pos += '\n';
 				yaml += pos;
 
 				// +++++++++++++++++++++++++++++++++++++ format

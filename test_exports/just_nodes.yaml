@@ -12,7 +12,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "1"
-    ne_type: /node/host/pip
+    ne_type: /node/host/generic
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -36,7 +36,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "2"
-    ne_type: /node/host/pip
+    ne_type: /node/host/generic
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -60,7 +60,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "3"
-    ne_type: /node/host/pip
+    ne_type: /node/host/generic
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -87,23 +87,23 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 70
-  y: 67
+  x: 99
+  y: 115
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 161
-  y: 206
+  x: 250
+  y: 382
   id: "2"
   network_element_id: "2"
  attributes_cache: {}
 
  -
-  x: 575
-  y: 138
+  x: 372
+  y: 127
   id: "3"
   network_element_id: "3"
-  attributes_cache: {}
+ attributes_cache: {}
 

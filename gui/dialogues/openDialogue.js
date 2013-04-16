@@ -54,7 +54,7 @@
 						reader.onload = function(e){
 							$(_this.progress).progressbar( "value", 100 );					
 							
-							setTimeout(function(){_this.win.close();;Parser.loadFromText(e.target.result,file.name,function(json){_this.env.importJson(json,file.name);})},50);
+							setTimeout(function(){_this.win.close();Parser.loadFromText(e.target.result,file.name,function(json){_this.env.importJson(json,file.name);})},50);
 							
 							};
 						reader.readAsText(file);
