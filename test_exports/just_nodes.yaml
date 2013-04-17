@@ -57,53 +57,22 @@ network_elements:
 
   resources: []
 
-- !yaml.org,2002:NetworkElement 
-  attributes: 
-    id: "3"
-    ne_type: /node/host/generic
-    alias: 
-    console_interface_id: 
-    graph_label_id: "1"
-    provisioning_interface_id: 
-    identifier: "3"
-    customer_console_interface_id: 
-  attributes_cache: {}
-
-  constraint_groups_network_elements: []
-
-  features: []
-
-  hosted_network_elements_mappings: []
-
-  mgmt_flags: []
-
-  network_interfaces: []
-
-  resources: []
-
 
 
 # Example position objects (used by Flerdit and ignored by the prototype)
 
 --- !Flerdit,2012:Position
  -
-  x: 99
-  y: 115
+  x: 76
+  y: 49
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 250
-  y: 382
+  x: 293
+  y: 66
   id: "2"
   network_element_id: "2"
- attributes_cache: {}
-
- -
-  x: 372
-  y: 127
-  id: "3"
-  network_element_id: "3"
  attributes_cache: {}
 

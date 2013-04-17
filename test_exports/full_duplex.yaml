@@ -63,12 +63,12 @@ network_elements:
     attributes: 
       timestamp: 
       time_unit: 
-      value_type: 
+      value_type: constant
       resource_unit: 
       confidence: 
       composing_operation: 
       id: "1"
-      value: 
+      value: "100"
       avp_attribute: /link/generic/upstream/bandwidth
       alias: 
       interval: 
@@ -80,7 +80,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "1"
-    ne_type: /node/switch/cisco
+    ne_type: /node/host/generic
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -117,7 +117,7 @@ network_elements:
 - !yaml.org,2002:NetworkElement 
   attributes: 
     id: "2"
-    ne_type: /node/switch/cisco
+    ne_type: /node/host/generic
     alias: 
     console_interface_id: 
     graph_label_id: "1"
@@ -157,15 +157,15 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 187
-  y: 70
+  x: 65
+  y: 34
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 148
-  y: 355
+  x: 334
+  y: 43
   id: "2"
   network_element_id: "2"
  attributes_cache: {}

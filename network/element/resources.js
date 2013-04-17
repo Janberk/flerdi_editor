@@ -28,7 +28,7 @@ define (["jquery"],
 	Resources.prototype.setAttributes = function(json){
 		this.json.attributes = json.attributes || {};
 		this.json.attributes.alias = json.attributes.alias || "";
-		this.json.attributes.avp_attribute = json.attributes.avp_attribute || "";
+		this.json.attributes.avp_attribute = json.attributes.avp_attribute || "/node/host/generic/RAM/real/amount";
 		this.json.attributes.composing_operation = json.attributes.composing_operation || "";
 		this.json.attributes.confidence = json.attributes.confidence || "";
 		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextResourceId();
@@ -38,8 +38,8 @@ define (["jquery"],
 		this.json.attributes.the_parent_record_id = json.attributes.the_parent_record_id || this.element.getJson().attributes.id;
 		this.json.attributes.time_unit = json.attributes.time_unit || "";
 		this.json.attributes.timestamp = json.attributes.timestamp || "";
-		this.json.attributes.value = json.attributes.value || "";
-		this.json.attributes.value_type = json.attributes.value_type || "";
+		this.json.attributes.value = json.attributes.value || "100";
+		this.json.attributes.value_type = json.attributes.value_type || "constant";
 		this.json.attributes_cache = json.attributes_cache || [];
 	}
 	

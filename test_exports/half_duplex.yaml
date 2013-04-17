@@ -15,9 +15,9 @@ network_elements:
     alias: 
     console_interface_id: 
     graph_label_id: "1"
-    id: "5"
+    id: "4"
     provisioning_interface_id: 
-    identifier: "6"
+    identifier: "5"
     customer_console_interface_id: 
   attributes_cache: {}
 
@@ -33,8 +33,22 @@ network_elements:
   - !yaml.org,2002:NetworkInterface 
     attributes: 
       id: "1"
-      network_element_id: "4"
+      network_element_id: "3"
       network_interface_id: "3"
+      alias: 
+      identifier: "6"
+      ni_type: 
+    attributes_cache: {}
+
+    features: []
+
+    resources: []
+
+  - !yaml.org,2002:NetworkInterface 
+    attributes: 
+      id: "2"
+      network_element_id: "3"
+      network_interface_id: "4"
       alias: 
       identifier: "7"
       ni_type: 
@@ -44,105 +58,23 @@ network_elements:
 
     resources: []
 
-  - !yaml.org,2002:NetworkInterface 
-    attributes: 
-      id: "2"
-      network_element_id: "4"
-      network_interface_id: "4"
-      alias: 
-      identifier: "8"
-      ni_type: 
-    attributes_cache: {}
-
-    features: []
-
-    resources: []
-
   resources: 
   - !yaml.org,2002:Resource 
     attributes: 
       timestamp: 
       time_unit: 
-      value_type: 
+      value_type: constant
       resource_unit: 
       confidence: 
       composing_operation: 
       id: "1"
-      value: 
+      value: "100"
       avp_attribute: /link/generic/symmetric/bandwidth
       alias: 
       interval: 
-      identifier: "9"
+      identifier: "8"
       is_request: "1"
-      the_parent_record_id: "5"
-    attributes_cache: {}
-
-- !yaml.org,2002:NetworkElement 
-  attributes: 
-    ne_type: /link/transit
-    alias: 
-    console_interface_id: 
-    graph_label_id: "1"
-    id: "7"
-    provisioning_interface_id: 
-    identifier: "12"
-    customer_console_interface_id: 
-  attributes_cache: {}
-
-  constraint_groups_network_elements: []
-
-  features: []
-
-  hosted_network_elements_mappings: []
-
-  mgmt_flags: []
-
-  network_interfaces: 
-  - !yaml.org,2002:NetworkInterface 
-    attributes: 
-      id: "5"
-      network_element_id: "6"
-      network_interface_id: "7"
-      alias: 
-      identifier: "13"
-      ni_type: 
-    attributes_cache: {}
-
-    features: []
-
-    resources: []
-
-  - !yaml.org,2002:NetworkInterface 
-    attributes: 
-      id: "6"
-      network_element_id: "6"
-      network_interface_id: "8"
-      alias: 
-      identifier: "14"
-      ni_type: 
-    attributes_cache: {}
-
-    features: []
-
-    resources: []
-
-  resources: 
-  - !yaml.org,2002:Resource 
-    attributes: 
-      timestamp: 
-      time_unit: 
-      value_type: 
-      resource_unit: 
-      confidence: 
-      composing_operation: 
-      id: "2"
-      value: 
-      avp_attribute: /link/transit/symmetric/bandwidth
-      alias: 
-      interval: 
-      identifier: "15"
-      is_request: "1"
-      the_parent_record_id: "7"
+      the_parent_record_id: "4"
     attributes_cache: {}
 
 - !yaml.org,2002:NetworkElement 
@@ -172,21 +104,7 @@ network_elements:
       network_element_id: "1"
       network_interface_id: "1"
       alias: 
-      identifier: "4"
-      ni_type: 
-    attributes_cache: {}
-
-    features: []
-
-    resources: []
-
-  - !yaml.org,2002:NetworkInterface 
-    attributes: 
-      id: "7"
-      network_element_id: "1"
-      network_interface_id: "5"
-      alias: 
-      identifier: "10"
+      identifier: "3"
       ni_type: 
     attributes_cache: {}
 
@@ -223,44 +141,7 @@ network_elements:
       network_element_id: "2"
       network_interface_id: "2"
       alias: 
-      identifier: "5"
-      ni_type: 
-    attributes_cache: {}
-
-    features: []
-
-    resources: []
-
-  resources: []
-
-- !yaml.org,2002:NetworkElement 
-  attributes: 
-    id: "3"
-    ne_type: /node/host/pip
-    alias: 
-    console_interface_id: 
-    graph_label_id: "1"
-    provisioning_interface_id: 
-    identifier: "3"
-    customer_console_interface_id: 
-  attributes_cache: {}
-
-  constraint_groups_network_elements: []
-
-  features: []
-
-  hosted_network_elements_mappings: []
-
-  mgmt_flags: []
-
-  network_interfaces: 
-  - !yaml.org,2002:NetworkInterface 
-    attributes: 
-      id: "8"
-      network_element_id: "3"
-      network_interface_id: "6"
-      alias: 
-      identifier: "11"
+      identifier: "4"
       ni_type: 
     attributes_cache: {}
 
@@ -276,23 +157,16 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 361
-  y: 180
+  x: 37
+  y: 21
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 194
-  y: 291
+  x: 246
+  y: 38
   id: "2"
   network_element_id: "2"
- attributes_cache: {}
-
- -
-  x: 219
-  y: 57
-  id: "3"
-  network_element_id: "3"
  attributes_cache: {}
 
