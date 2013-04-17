@@ -33,12 +33,12 @@ define (["jquery"],
 		this.json.attributes.confidence = json.attributes.confidence || "";
 		this.json.attributes.id = json.attributes.id || this.element.getNetwork().getIdHandler().getNextResourceId();
 		this.json.attributes.identifier = json.attributes.identifier || this.element.getNetwork().getIdHandler().getNextIdentifierId();
-		this.json.attributes.is_request = json.attributes.is_request || "1";
+		this.json.attributes.is_request = json.attributes.is_request || 1;
 		this.json.attributes.resource_unit = json.attributes.resource_unit || "";
 		this.json.attributes.the_parent_record_id = json.attributes.the_parent_record_id || this.element.getJson().attributes.id;
 		this.json.attributes.time_unit = json.attributes.time_unit || "";
 		this.json.attributes.timestamp = json.attributes.timestamp || "";
-		this.json.attributes.value = json.attributes.value || "100";
+		this.json.attributes.value = json.attributes.value || 100;
 		this.json.attributes.value_type = json.attributes.value_type || "constant";
 		this.json.attributes_cache = json.attributes_cache || [];
 	}

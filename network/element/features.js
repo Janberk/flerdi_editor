@@ -32,8 +32,8 @@ define (["jquery"],
 		this.json.attributes.is_request = json.attributes.is_request || "1";
 		this.json.attributes.network_element_id = json.attributes.network_element_id || "";
 		this.json.attributes.network_interface_id = json.attributes.network_interface_id || "";
-		this.json.attributes.priority = json.attributes.priority || "1";
-		this.json.attributes.value = json.attributes.value || "";
+		this.json.attributes.priority = json.attributes.priority || 1;
+		this.json.attributes.value = json.attributes.value || "100";
 		this.json.attributes_cache = json.attributes_cache || [];
 	}
 	

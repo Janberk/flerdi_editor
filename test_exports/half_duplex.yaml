@@ -157,15 +157,15 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 37
-  y: 21
+  x: 52
+  y: 51
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 246
-  y: 38
+  x: 231
+  y: 48
   id: "2"
   network_element_id: "2"
  attributes_cache: {}
