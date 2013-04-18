@@ -130,6 +130,9 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		}));
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
+		
+		$('#btn-Undo').addClass('disabled');
+		$('#btn-Redo').addClass('disabled');
 
 		this.statusbar = new Statusbar();
 

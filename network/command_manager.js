@@ -25,6 +25,7 @@ define([ "jquery" ], (function($) {
 		}
 		this.commands.unshift(command);
 		this.commands[0].execute();
+		this.greying();
 		this.hasChanged = true;
 	}
 
@@ -36,9 +37,23 @@ define([ "jquery" ], (function($) {
 		if (this.position < this.commands.length) {
 			this.commands[this.position].undo();
 			this.position++;
-		} else {
+			this.greying();
+		} 
+	}
+	
+	CommandManager.prototype.greying = function() {
+		if (this.position == this.commands.length || this.commands.length == 0) {
 			console.log('nothing to undo');
 			this.hasChanged = false;
+			$('#btn-Undo').addClass('disabled');
+		} else {
+			$('#btn-Undo').removeClass('disabled');
+		}
+		if (this.position == 0 && this.commands.length > 0) {
+			console.log('nothing to redo');
+			$('#btn-Redo').addClass('disabled');
+		} else {
+			$('#btn-Redo').removeClass('disabled');
 		}
 	}
 
@@ -50,6 +65,7 @@ define([ "jquery" ], (function($) {
 		if (this.position != 0) {
 			this.commands[this.position - 1].execute();
 			this.position--;
+			this.greying();
 		}
 	}
 	
