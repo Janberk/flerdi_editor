@@ -37,7 +37,7 @@ network_elements:
       network_interface_id: "3"
       alias: 
       identifier: "6"
-      ni_type: 
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -51,7 +51,7 @@ network_elements:
       network_interface_id: "4"
       alias: 
       identifier: "7"
-      ni_type: 
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -100,12 +100,12 @@ network_elements:
   network_interfaces: 
   - !yaml.org,2002:NetworkInterface 
     attributes: 
-      id: "3"
+      id: "4"
       network_element_id: "1"
-      network_interface_id: "1"
+      network_interface_id: "2"
       alias: 
-      identifier: "3"
-      ni_type: 
+      identifier: "4"
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -137,12 +137,12 @@ network_elements:
   network_interfaces: 
   - !yaml.org,2002:NetworkInterface 
     attributes: 
-      id: "4"
+      id: "3"
       network_element_id: "2"
-      network_interface_id: "2"
+      network_interface_id: "1"
       alias: 
-      identifier: "4"
-      ni_type: 
+      identifier: "3"
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -157,15 +157,15 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 52
-  y: 51
+  x: 368
+  y: 67
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 231
-  y: 48
+  x: 59
+  y: 103
   id: "2"
   network_element_id: "2"
  attributes_cache: {}

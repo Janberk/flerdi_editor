@@ -37,7 +37,7 @@ network_elements:
       network_interface_id: "3"
       alias: 
       identifier: "6"
-      ni_type: 
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -51,7 +51,7 @@ network_elements:
       network_interface_id: "4"
       alias: 
       identifier: "7"
-      ni_type: 
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -105,7 +105,7 @@ network_elements:
       network_interface_id: "1"
       alias: 
       identifier: "3"
-      ni_type: 
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -142,7 +142,7 @@ network_elements:
       network_interface_id: "2"
       alias: 
       identifier: "4"
-      ni_type: 
+      ni_type: /interface/generic
     attributes_cache: {}
 
     features: []
@@ -157,15 +157,15 @@ network_elements:
 
 --- !Flerdit,2012:Position
  -
-  x: 38
-  y: 37
+  x: 62
+  y: 47
   id: "1"
   network_element_id: "1"
  attributes_cache: {}
 
  -
-  x: 317
-  y: 41
+  x: 268
+  y: 49
   id: "2"
   network_element_id: "2"
  attributes_cache: {}

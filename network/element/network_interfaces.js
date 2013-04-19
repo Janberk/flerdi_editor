@@ -36,7 +36,7 @@ define (["jquery","features", "resources"],
 		this.json.attributes.identifier = json.attributes.identifier || this.element.getNetwork().getIdHandler().getNextIdentifierId();
 		this.json.attributes.network_element_id = json.attributes.network_element_id || this.element.getJson().attributes.id ;
 		this.json.attributes.network_interface_id = json.attributes.network_interface_id || "";
-		this.json.attributes.ni_type = json.attributes.ni_type || "";
+		this.json.attributes.ni_type = json.attributes.ni_type || "/interface/generic";
 		
 		this.json.attributes_cache = json.attributes_cache || [];
 			
