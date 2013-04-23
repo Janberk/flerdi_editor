@@ -53,6 +53,7 @@ define(
 				}
 
 				this.idHandler.analyseNetwork();
+				this.calcSizeOfSvg();
 			};
 
 			Network.prototype.setAttributes = function(json) {
