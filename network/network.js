@@ -83,16 +83,16 @@ define(
 
 			Network.prototype.importNode = function(json, position, show) {
 				var s = show || false;
-				
+
 				var node = new Node(json, position, this);
-				
+
 				var id = this.nodes.push(node) - 1;
 
 				if (s) {
 					this.nodes[id].createSvgTag();
 					this.nodes[id].appendSvgTag();
 				}
-				
+
 				return node;
 			};
 
@@ -108,7 +108,7 @@ define(
 					this.links[id].createSvgTag();
 					this.links[id].appendSvgTag();
 				}
-				
+
 				return link;
 			};
 
@@ -211,6 +211,39 @@ define(
 
 			Network.prototype.getCommandManager = function() {
 				return this.commandManager;
+			}
+
+			/**
+			 * This function calculates the new Size of the svg tag, where the
+			 * network is shown in.
+			 * 
+			 */
+			Network.prototype.calcSizeOfSvg = function() {
+				var maxX = 0;
+				var minX = 0;
+				var maxY = 0;
+				var minY = 0;
+
+				for ( var i = 0; i < this.nodes.length; i++) {
+					var json = this.nodes[i].getPositionJson();
+					console.log(json);
+					if (json.x > maxX) {
+						maxX = json.x
+					}
+					if (json.x < minX) {
+						minX = json.x
+					}
+					if (json.y > maxY) {
+						maxY = json.y
+					}
+					if (json.y < minY) {
+						minY = json.y
+					}
+				}
+				
+				$('#svg').attr('width', maxX+50).attr('height',maxY+50);
+				
+				console.log(maxX + " " + minX + " " + minY + " " + maxY);
 			}
 
 			Network.prototype.getYaml = function() {

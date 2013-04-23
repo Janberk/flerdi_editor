@@ -74,7 +74,9 @@ define(["jquery", "environment"], (function($, Environment) {
 	$(document).ready( (function() {
 		console.log("document loaded - starting program");
 		
-		var environment = new Environment();
+		environment = new Environment();
 	})); //&(document).ready()
 	
 })); //define
+
+var environment = "";

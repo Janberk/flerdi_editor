@@ -8,7 +8,8 @@ define(
 				"resources", "features", "network_interfaces",
 				"moveNodeCommand", "deleteNodeCommand" ],
 		(function($, Drag, listDialogue, ContextMenu, Link, Statusbar,
-				Resources, Features, Network_Interfaces, MoveNodeCommand, DeleteNodeCommand) {
+				Resources, Features, Network_Interfaces, MoveNodeCommand,
+				DeleteNodeCommand) {
 
 			var NodeTypes = [ "/node/host/generic", "/node/host/pip",
 					"/node/switch/cisco", "/node/switch/tunnelbridge",
@@ -44,8 +45,10 @@ define(
 						|| "/node/host/generic";
 				this.json.attributes.provisioning_interface_id = json.attributes.provisioning_interface_id
 						|| "";
-				this.json.attributes.identifier = json.attributes.identifier || this.network.getIdHandler().getNextIdentifierId();
-				this.json.attributes.customer_console_interface_id = json.attributes.customer_console_interface_id || "";
+				this.json.attributes.identifier = json.attributes.identifier
+						|| this.network.getIdHandler().getNextIdentifierId();
+				this.json.attributes.customer_console_interface_id = json.attributes.customer_console_interface_id
+						|| "";
 				this.json.attributes_cache = json.attributes_cache || [];
 				this.json.constraint_groups_network_elements = json.constraint_groups_network_elements
 						|| [];
@@ -77,7 +80,8 @@ define(
 			}
 
 			Node.prototype.setPositionValues = function(json) {
-				this.position.id = json.id || this.network.getIdHandler().getNextPositionId();
+				this.position.id = json.id
+						|| this.network.getIdHandler().getNextPositionId();
 				this.position.x = json.x
 						|| Math.floor(Math.random() * $('#drawarea').width());
 				this.position.y = json.y
@@ -91,8 +95,9 @@ define(
 				var _this = this;
 				var menu = new ContextMenu();
 				menu.addButton('Delete', function(e) {
-					//create command for undo
-					_this.network.getCommandManager().newCommand(new DeleteNodeCommand(_this.network, _this));
+					// create command for undo
+					_this.network.getCommandManager().newCommand(
+							new DeleteNodeCommand(_this.network, _this));
 				});
 				menu.addButton('Properties', function(e) {
 					if (_this.listDialogue == undefined) {
@@ -100,7 +105,7 @@ define(
 					} else {
 						_this.listDialogue.show();
 					}
-					
+
 				});
 				return menu;
 			}
@@ -113,48 +118,50 @@ define(
 						NodeTypes);
 				return sb;
 			}
-			
+
 			Node.prototype.set = function(attribute, value) {
 				switch (attribute) {
-					case 'ne_identifier': {
-						this.json.attributes.id = value;
-						break;
-					}
-					case 'identifier': {
-						this.json.attributes.identifier = value;
-						break;
-					}
-					case 'alias': {
-						this.json.attributes.alias = value;
-						break;
-					}
-					case 'ne_type': {
-						this.json.attributes.ne_type = value;
-						this.redrawSvgTag();
-						break;
-					}
-					default: throw new Error("Attribute "+attribute+" not found.");
+				case 'ne_identifier': {
+					this.json.attributes.id = value;
+					break;
+				}
+				case 'identifier': {
+					this.json.attributes.identifier = value;
+					break;
+				}
+				case 'alias': {
+					this.json.attributes.alias = value;
+					break;
+				}
+				case 'ne_type': {
+					this.json.attributes.ne_type = value;
+					this.redrawSvgTag();
+					break;
+				}
+				default:
+					throw new Error("Attribute " + attribute + " not found.");
 				}
 			}
 
 			Node.prototype.get = function(attribute) {
 				switch (attribute) {
-					case 'ne_identifier': {
-						return this.json.attributes.id;
-					}
-					case 'identifier': {
-						return this.json.attributes.identifier;
-					}
-					case 'alias': {
-						return this.json.attributes.alias;
-					}
-					case 'ne_type': {
-						return this.json.attributes.ne_type;
-					}
-					case 'v_net_identifier': {
-						return this.network.elements['--- !yaml.org,2002'].attributes.v_net_identifier;
-					}
-					default: throw new Error("Attribute "+attribute+" not found.");
+				case 'ne_identifier': {
+					return this.json.attributes.id;
+				}
+				case 'identifier': {
+					return this.json.attributes.identifier;
+				}
+				case 'alias': {
+					return this.json.attributes.alias;
+				}
+				case 'ne_type': {
+					return this.json.attributes.ne_type;
+				}
+				case 'v_net_identifier': {
+					return this.network.elements['--- !yaml.org,2002'].attributes.v_net_identifier;
+				}
+				default:
+					throw new Error("Attribute " + attribute + " not found.");
 				}
 			}
 
@@ -226,7 +233,7 @@ define(
 			Node.prototype.getFeature = function(i) {
 				return this.features[i];
 			}
-			
+
 			Node.prototype.getNetworkInterface = function(i) {
 				return this.network_interfaces[i];
 			}
@@ -238,43 +245,47 @@ define(
 			/**
 			 * This function adds a new NetworkInterface to this Node
 			 * 
-			 * @param json JSON-representation of this NetworkInterface
+			 * @param json
+			 *            JSON-representation of this NetworkInterface
 			 */
 			Node.prototype.addNetworkInterfaceByJSON = function(json) {
-				var network_interface = new Network_Interfaces(this,json)
+				var network_interface = new Network_Interfaces(this, json)
 				this.network_interfaces.push(network_interface);
-				
+
 				return network_interface;
 			}
-			
+
 			/**
 			 * This function adds a new Feature to this Node
 			 * 
-			 * @param json JSON-representation of this Feature
+			 * @param json
+			 *            JSON-representation of this Feature
 			 */
 			Node.prototype.addFeatureByJSON = function(json) {
 				var feature = new Features(this, json);
 				this.features.push(feature);
-				
+
 				return feature;
 			}
 
 			/**
 			 * This function adds a new Resource to this Node
 			 * 
-			 * @param json JSON-representation of this Resource
+			 * @param json
+			 *            JSON-representation of this Resource
 			 */
 			Node.prototype.addResourceByJSON = function(json) {
 				var resource = new Resources(this, json);
 				this.resources.push(resource);
-				
+
 				return resource;
 			}
 
 			/**
 			 * This function removes a NetworkInterface from this Node
 			 * 
-			 * @param id the id of the NetworkInterface
+			 * @param id
+			 *            the id of the NetworkInterface
 			 */
 			Node.prototype.removeNetworkInterfaceById = function(id) {
 				for ( var i = 0; i < this.network_interfaces.length; i++) {
@@ -288,7 +299,8 @@ define(
 			/**
 			 * This function removes a Feature from this Node
 			 * 
-			 * @param id the id of the Feature
+			 * @param id
+			 *            the id of the Feature
 			 */
 			Node.prototype.removeFeatureById = function(id) {
 				for ( var i = 0; i < this.features.length; i++) {
@@ -298,12 +310,12 @@ define(
 					}
 				}
 			}
-			
-			
+
 			/**
 			 * This function removes a Resource from this Node
 			 * 
-			 * @param id the id of the Resource
+			 * @param id
+			 *            the id of the Resource
 			 */
 			Node.prototype.removeResourceById = function(id) {
 				for ( var i = 0; i < this.resources.length; i++) {
@@ -331,22 +343,21 @@ define(
 				this.element = node;
 
 				var _this = this;
-				$(node)
-					.on('contextmenu', function(e) {
-						_this.setContextMenu().show(e);
-						return false;
-					})
-					.hover(
-						function(e) {
-							if(!$('#statusbar').hasClass('sb_edit')) _this.setStatusbar().show(true);
-						}, function(e) {
-							if(!$('#statusbar').hasClass('sb_edit')) _this.setStatusbar().show(false);
-					})
-					.on('click', function(e) {
-						_this.setStatusbar().edit(true);
-					});
+				$(node).on('contextmenu', function(e) {
+					_this.setContextMenu().show(e);
+					return false;
+				}).hover(function(e) {
+					if (!$('#statusbar').hasClass('sb_edit'))
+						_this.setStatusbar().show(true);
+				}, function(e) {
+					if (!$('#statusbar').hasClass('sb_edit'))
+						_this.setStatusbar().show(false);
+				}).on('click', function(e) {
+					_this.setStatusbar().edit(true);
+				});
 				$('#drawarea').on('click', function(e) {
-					if($(e.target).closest('image').length == 0) _this.setStatusbar().edit(false);
+					if ($(e.target).closest('image').length == 0)
+						_this.setStatusbar().edit(false);
 				});
 
 			}
@@ -357,6 +368,8 @@ define(
 				$(this.element).attr('x', pos.x);
 				$(this.element).attr('y', pos.y);
 				this.updateLinks();
+				environment.getNetworkOrganisation().getNetwork()
+						.calcSizeOfSvg();
 			}
 
 			Node.prototype.appendMoveEvent = function() {
@@ -365,10 +378,16 @@ define(
 				// this dummy shows the original position while moving
 				var dummy;
 
+				var drawAreaWidth = $('#svg').attr('width');
+				var drawAreaHeight = $('#svg').attr('height');
+
 				$(_this.element)
 						.on(
 								'dragstart',
 								function(event) {
+
+									drawAreaWidth = $('#svg').attr('width');
+									drawAreaHeight = $('#svg').attr('height');
 
 									dummy = document.createElementNS(
 											"http://www.w3.org/2000/svg",
@@ -391,10 +410,46 @@ define(
 									document.getElementById('nodes')
 											.appendChild(dummy);
 								})
-						.on('drag', function(event) {
-							$(_this.element).attr('x', event.offsetX - 32);
-							$(_this.element).attr('y', event.offsetY - 32);
-						})
+						.on(
+								'drag',
+								function(event) {
+									$(_this.element).attr(
+											'x',
+											event.offsetX
+													- 32
+													+ $('#drawarea')
+															.scrollLeft());
+									$(_this.element).attr(
+											'y',
+											event.offsetY
+													- 32
+													+ $('#drawarea')
+															.scrollTop());
+									if (event.offsetX - 32 + 50
+											+ $('#drawarea').scrollLeft() > drawAreaWidth) {
+										$('#svg').attr(
+												'width',
+												event.offsetX
+														- 32
+														+ 50
+														+ $('#drawarea')
+																.scrollLeft());
+
+									}
+									if (event.offsetY - 32 + 50
+											+ $('#drawarea').scrollTop() > drawAreaHeight) {
+										$('#svg').attr(
+												'height',
+												event.offsetY
+														- 32
+														+ 50
+														+ $('#drawarea')
+																.scrollTop());
+
+									}
+
+
+								})
 						.on(
 								'dragend',
 								function(event) {
@@ -414,8 +469,8 @@ define(
 																y : parseInt(_this.position.y)
 															},
 															{
-																x : event.offsetX - 32,
-																y : event.offsetY - 32
+																x : $(_this.element).attr('x') - 32,
+																y : $(_this.element).attr('y') - 32,
 															}));
 
 									// remove dummy from document
@@ -461,7 +516,7 @@ define(
 			Node.prototype.appendSvgTag = function() {
 				document.getElementById('nodes').appendChild(this.element);
 			}
-			
+
 			Node.prototype.redrawSvgTag = function() {
 				this.element.setAttribute("xlink:href", this.getPathToSvg());
 			}
@@ -489,7 +544,7 @@ define(
 
 			/* updates all connected links, called when a node is moved */
 			Node.prototype.updateLinks = function() {
-				for (var i = 0; i < this.links.length; i++) {
+				for ( var i = 0; i < this.links.length; i++) {
 					this.links[i].update();
 				}
 			}

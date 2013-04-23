@@ -26,6 +26,7 @@ define([ "jquery" ],
 	 */
 	NewNodeCommand.prototype.execute = function(){		
 		this.node = this.network.importNode(this.json, this.pos, true);
+		this.network.calcSizeOfSvg();
 	}
 	
 	/**
@@ -33,6 +34,7 @@ define([ "jquery" ],
 	 */
 	NewNodeCommand.prototype.undo = function(){
 		this.node.removeNode();
+		this.network.calcSizeOfSvg();
 	}
 	
 	return NewNodeCommand;

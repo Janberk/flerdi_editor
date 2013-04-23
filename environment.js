@@ -256,5 +256,12 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		});
 	});
 
+	/**
+	 * This function returns the NetworkOrganisation object
+	 * 
+	 */
+	Environment.prototype.getNetworkOrganisation = function(){
+		return this.networks;
+	}
 	return Environment;
 })); // define

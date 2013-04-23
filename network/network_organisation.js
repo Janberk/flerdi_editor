@@ -22,7 +22,7 @@ define (["jquery",'network'], (function($,Network) {
 		}
 	}
 	
-	/*in the futur you select a network by id*/
+	/*in the future you select a network by id*/
 	Network_Organisation.prototype.getNetwork = function(){
 		return this.networks;
 	}
