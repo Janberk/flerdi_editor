@@ -197,8 +197,3 @@ div.line {
 .ui-widget-jsonviewer-content {
 	border-top: 1px solid rgb(211, 211, 211);
 }
-
-.dropdown>.disabled {
-    color: #999;
-    cursor: default;
-}
