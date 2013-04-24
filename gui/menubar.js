@@ -51,7 +51,7 @@ define (['jquery'],function($) {
 		$('#menubar .nav li[name=' + menu + '] ul')
 			.append($(document.createElement('li'))
 				.append($(document.createElement('button'))
-					.addClass('btn btn-link')
+					.addClass('btn btn-link input-block-level')
 					.attr('id', 'btn-'+subtitle)
 					.append(subtitle)
 					.on('click', funct || function() { alert('No function yet') }))

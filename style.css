@@ -124,6 +124,9 @@ div.line {
 #menubar .dropdown-menu {
 	top: 90%;
 }
+#menubar .dropdown-menu .input-block-level {
+	text-align: left;
+}
 .tb_img {
 	width: 24px;
 	height: 24px;

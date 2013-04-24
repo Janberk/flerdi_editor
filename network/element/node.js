@@ -4,10 +4,10 @@
  */
 
 define(
-		[ "jquery", "drag", "listDialogue", "contextMenu", "link", "statusbar",
+		[ "jquery", "drag", "listDialog", "contextMenu", "link", "statusbar",
 				"resources", "features", "network_interfaces",
 				"moveNodeCommand", "deleteNodeCommand" ],
-		(function($, Drag, listDialogue, ContextMenu, Link, Statusbar,
+		(function($, Drag, ListDialog, ContextMenu, Link, Statusbar,
 				Resources, Features, Network_Interfaces, MoveNodeCommand,
 				DeleteNodeCommand) {
 
@@ -100,12 +100,12 @@ define(
 							new DeleteNodeCommand(_this.network, _this));
 				});
 				menu.addButton('Properties', function(e) {
-					if (_this.listDialogue == undefined) {
+					/*if (_this.listDialogue == undefined) {
 						_this.listDialogue = new listDialogue(_this);
 					} else {
 						_this.listDialogue.show();
-					}
-
+					}*/
+					new ListDialog(_this);
 				});
 				return menu;
 			}

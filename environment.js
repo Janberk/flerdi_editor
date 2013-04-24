@@ -11,10 +11,10 @@
  */ 
 
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
-		"menubar", "drawArea", "move", "newNode", "newLink", "openDialogue",
-		"alertDialogue", "statusbar"], (function($, NetworkOrganisation, ElementKey,
+		"menubar", "drawArea", "move", "newNode", "newLink", "openDialog",
+		"alertDialog", "statusbar"], (function($, NetworkOrganisation, ElementKey,
 		Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
-		OpenDialogue, AlertDialogue, Statusbar) {
+		OpenDialog, AlertDialog, Statusbar) {
 
 	/* constructor */
 	var Environment = function() {
@@ -76,15 +76,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 			var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
-				var win = new AlertDialogue(_this);
-
-				$('#ok').on('click', function() {
-					_this.networks.newNetwork({});
-					$(this).parent().parent().remove();
-				});
-				$('#cancel').on('click', function() {
-					$(this).parent().parent().remove();
-				});
+				var win = new AlertDialog(function() { _this.networks.newNetwork({}); });
 			} else {
 				_this.networks.newNetwork({});
 			}
@@ -95,17 +87,9 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 					var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
 					
 					if (_this.networks != 'undefined' && hasChanged) {
-						var win = new AlertDialogue(_this);
-
-						$('#ok').on('click', function() {
-							var win = new OpenDialogue(_this);
-							$(this).parent().parent().remove();
-						});
-						$('#cancel').on('click', function() {
-							$(this).parent().parent().remove();
-						});
+						new AlertDialog(function() { new OpenDialog(_this) });
 					} else {
-						var win = new OpenDialogue(_this);
+						var win = new OpenDialog(_this);
 					}
 				}));
 		

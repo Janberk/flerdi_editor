@@ -24,6 +24,11 @@ requirejs.config({
 		"openDialogue":"gui/dialogues/openDialogue",
 		"alertDialogue":"gui/dialogues/alertDialogue",
 		
+		"dialog": "gui/dialogues/dialog",
+		"alertDialog": "gui/dialogues/alertDialog",
+		"openDialog": "gui/dialogues/openDialog",
+		"listDialog": "gui/dialogues/listDialog",
+		
 		"contextMenu":"gui/contextMenu",
 		"element_key" : "gui/element_key",
 		"loadingWindow":"gui/loadingWindow",
