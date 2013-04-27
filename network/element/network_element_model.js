@@ -4,10 +4,10 @@
  */
 
 define(
-		[ "resources", "features", "network_interfaces" ],
+		["resources", "features", "network_interfaces"],
 		(function(Resources, Features, Network_Interfaces) {
 
-			var Node = function(id, x, y, graph_label, resources, features, network_interfaces, 
+			var NetworkElementModel = function(id, x, y, graph_label, resources, features, network_interfaces, 
 					ne_type, provisioning_interface, console_interface, alias, identifier, 
 					customer_console_interface) {
 				this.id = id || "";
@@ -26,18 +26,18 @@ define(
 				this.customer_console_interface = customer_console_interface || {};
 			}
 
-			Node.prototype.getJson = function() {
+			NetworkElementModel.prototype.getJson = function() {
 				this.json.resources = this.getResources();
 				this.json.features = this.getFeatures();
 				this.json.network_interfaces = this.getNetworkInterfaces();
 				return this.json;
 			}
 			/**
-			 * This function returns an array of all resources this node has
+			 * This function returns an array of all resources this NetworkElementModel has
 			 * 
 			 * @return Array of all resources
 			 */
-			Node.prototype.getResources = function() {
+			NetworkElementModel.prototype.getResources = function() {
 				var res = []
 				for ( var i = 0; i < this.resources.length; i++) {
 					res.push(this.resources[i].getJson());
@@ -45,11 +45,11 @@ define(
 				return res;
 			}
 			/**
-			 * This function returns an array of all features this node has
+			 * This function returns an array of all features this NetworkElementModel has
 			 * 
 			 * @return Array of all features
 			 */
-			Node.prototype.getFeatures = function() {
+			NetworkElementModel.prototype.getFeatures = function() {
 				var fet = []
 				for ( var i = 0; i < this.features.length; i++) {
 					fet.push(this.features[i].getJson());
@@ -57,11 +57,11 @@ define(
 				return fet;
 			}
 			/**
-			 * This function returns an array of all interfaces this node has
+			 * This function returns an array of all interfaces this NetworkElementModel has
 			 * 
 			 * @return Array of all features
 			 */
-			Node.prototype.getNetworkInterfaces = function() {
+			NetworkElementModel.prototype.getNetworkInterfaces = function() {
 				var nis = [];
 				for ( var i = 0; i < this.network_interfaces.length; i++) {
 					nis.push(this.network_interfaces[i].getJson());
@@ -70,12 +70,12 @@ define(
 			}
 
 			/**
-			 * This function adds a new NetworkInterface to this Node
+			 * This function adds a new NetworkInterface to this NetworkElementModel
 			 * 
 			 * @param json
 			 *            JSON-representation of this NetworkInterface
 			 */
-			Node.prototype.addNetworkInterfaceByJSON = function(json) {
+			NetworkElementModel.prototype.addNetworkInterfaceByJSON = function(json) {
 				var network_interface = new Network_Interfaces(this, json)
 				this.network_interfaces.push(network_interface);
 
@@ -83,12 +83,12 @@ define(
 			}
 
 			/**
-			 * This function adds a new Feature to this Node
+			 * This function adds a new Feature to this NetworkElementModel
 			 * 
 			 * @param json
 			 *            JSON-representation of this Feature
 			 */
-			Node.prototype.addFeatureByJSON = function(json) {
+			NetworkElementModel.prototype.addFeatureByJSON = function(json) {
 				var feature = new Features(this, json);
 				this.features.push(feature);
 
@@ -96,12 +96,12 @@ define(
 			}
 
 			/**
-			 * This function adds a new Resource to this Node
+			 * This function adds a new Resource to this NetworkElementModel
 			 * 
 			 * @param json
 			 *            JSON-representation of this Resource
 			 */
-			Node.prototype.addResourceByJSON = function(json) {
+			NetworkElementModel.prototype.addResourceByJSON = function(json) {
 				var resource = new Resources(this, json);
 				this.resources.push(resource);
 
@@ -109,12 +109,12 @@ define(
 			}
 
 			/**
-			 * This function removes a NetworkInterface from this Node
+			 * This function removes a NetworkInterface from this NetworkElementModel
 			 * 
 			 * @param id
 			 *            the id of the NetworkInterface
 			 */
-			Node.prototype.removeNetworkInterfaceById = function(id) {
+			NetworkElementModel.prototype.removeNetworkInterfaceById = function(id) {
 				for ( var i = 0; i < this.network_interfaces.length; i++) {
 					if (this.network_interfaces[i].get('id') == id) {
 						this.network_interfaces.splice(i, 1);
@@ -124,12 +124,12 @@ define(
 			}
 
 			/**
-			 * This function removes a Feature from this Node
+			 * This function removes a Feature from this NetworkElementModel
 			 * 
 			 * @param id
 			 *            the id of the Feature
 			 */
-			Node.prototype.removeFeatureById = function(id) {
+			NetworkElementModel.prototype.removeFeatureById = function(id) {
 				for ( var i = 0; i < this.features.length; i++) {
 					if (this.features[i].get('id') == id) {
 						this.features.splice(i, 1);
@@ -139,12 +139,12 @@ define(
 			}
 
 			/**
-			 * This function removes a Resource from this Node
+			 * This function removes a Resource from this NetworkElementModel
 			 * 
 			 * @param id
 			 *            the id of the Resource
 			 */
-			Node.prototype.removeResourceById = function(id) {
+			NetworkElementModel.prototype.removeResourceById = function(id) {
 				for ( var i = 0; i < this.resources.length; i++) {
 					if (this.resources[i].get('id') == id) {
 						this.resources.splice(i, 1);
@@ -153,5 +153,5 @@ define(
 				}
 			}
 			
-			return Node;
+			return NetworkElementModel;
 		})); // define
