@@ -16,6 +16,7 @@ define(
 					"/node/switch/pip" ];
 
 			var Node = function(json, position, network) {
+				console.log("S");
 				this.json = json;
 				this.position = position;
 				this.element; // element representing the node

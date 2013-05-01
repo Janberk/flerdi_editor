@@ -10,8 +10,10 @@ define(
 		return{
 			build: function(model, controller){
 				switch(controller){
-					case "draw_area": return new NetworkElementDrawController(model);
-					default: throw "controller type '" + controller + "' not supported";
+					case "draw_area": 
+						return new NetworkElementDrawController(model);
+					default: 
+						throw "controller type '" + controller + "' not supported";
 				}
 			}
 		}

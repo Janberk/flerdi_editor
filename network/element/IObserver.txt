@@ -1,0 +1,10 @@
+/**
+ * This function is called by every Observable.
+ *
+ * @param command string representing a commando see "Observable_Commandos.txt"
+ * @param data data associated with this command
+ */
+Iobserver.prototype.update = function(command,data){
+}
+
+

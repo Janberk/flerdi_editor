@@ -1,22 +1,27 @@
 /*
  * Author: Flerdi Team
  */
- 
- /* 
+
+/* 
  *  This class handles the appearance of the menubar
  */
-define (['jquery'],function($) {
+define([ 'jquery', 'observable' ], function($, Observable) {
 	var DrawArea = function() {
-		$('#drawarea')
-			.on('click', function(e) {
-				if(canDo('onClick')) State.onClick(e);
-			});				
+		this.observable = new Observable();
+		this.state;
+
 	};
-	var canDo = function(method) {
-		return typeof State[method] == 'function';
-	};
+
 	DrawArea.prototype.setState = function(state) {
-		State = state;
+		this.observable.notifyAll("changeState", state.name);
+		this.state = state;
+
+		$('#drawarea').off();
+		for ( var i = 0; i < this.state.events.length; i++) {
+			$('#drawarea').on(this.state.events[i].name,
+					this.state.events[i].callback);
+		}
+
 	};
 	return DrawArea;
-});	
+});

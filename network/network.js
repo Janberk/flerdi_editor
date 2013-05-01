@@ -227,7 +227,7 @@ define(
 
 				for ( var i = 0; i < this.nodes.length; i++) {
 					var json = this.nodes[i].getPositionJson();
-					console.log(json);
+
 					if (json.x > maxX) {
 						maxX = json.x
 					}
@@ -243,8 +243,7 @@ define(
 				}
 				
 				$('#svg').attr('width', maxX+50).attr('height',maxY+50);
-				
-				console.log(maxX + " " + minX + " " + minY + " " + maxY);
+
 			}
 
 			Network.prototype.getYaml = function() {

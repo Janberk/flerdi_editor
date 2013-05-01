@@ -5,8 +5,8 @@
  * interfaces : IUndoableCommand
  */
 
-define([ "jquery" ], 
-(function($) {
+define([ "jquery","networkElementModel","controllerFactory" ], 
+(function($,NetworkElementModel,ControllerFactory) {
 
 	/**
 	 * This is the constructor
@@ -19,14 +19,24 @@ define([ "jquery" ],
 		this.network = network;
 		this.json = json;
 		this.pos = pos;
+		this.node;
 	}
 	
 	/**
 	 * This function creates the node
 	 */
 	NewNodeCommand.prototype.execute = function(){		
-		this.node = this.network.importNode(this.json, this.pos, true);
-		this.network.calcSizeOfSvg();
+		this.node = new NetworkElementModel();
+		this.node.x = this.pos.x;
+		this.node.y = this.pos.y;
+		this.node.ne_type = this.json.attributes.ne_type;
+		console.log(this.json.attributes);
+		
+		
+		this.network.addNetworkElement(this.node);
+		ControllerFactory.build(this.node,"draw_area");
+		//this.node = this.network.importNode(this.json, this.pos, true);
+		//this.network.calcSizeOfSvg();
 	}
 	
 	/**
@@ -34,7 +44,6 @@ define([ "jquery" ],
 	 */
 	NewNodeCommand.prototype.undo = function(){
 		this.node.removeNode();
-		this.network.calcSizeOfSvg();
 	}
 	
 	return NewNodeCommand;

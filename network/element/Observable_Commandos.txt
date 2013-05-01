@@ -1,0 +1,6 @@
+Commando 		| Data
+-------------------
+update 			| no data needed, triggers the Controller to refresh the data of its View
+remove			| no data needed, triggers the Controller to remove its views
+
+changeState		| name of the state , is called by the DrawArea

@@ -8,12 +8,12 @@
 
 /*
  * RequireJS module definition
- */ 
+ */
 
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		"menubar", "drawArea", "move", "newNode", "newLink", "openDialog",
-		"alertDialog", "statusbar"], (function($, NetworkOrganisation, ElementKey,
-		Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
+		"alertDialog", "statusbar" ], (function($, NetworkOrganisation,
+		ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
 		OpenDialog, AlertDialog, Statusbar) {
 
 	/* constructor */
@@ -25,7 +25,8 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		var _this = this;
 
-		var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
+		// var hasChanged =
+		// _this.networks.getNetwork().getCommandManager().isHasChanged();
 
 		/* user interface */
 		this.drawArea = new DrawArea();
@@ -38,25 +39,21 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		}, 'Selector');
 		this.toolbar.addSeperator();
 		this.toolbar.addButton("network_elements/generic_host", function(e) {
-			_this.drawArea.setState(new NewNode(_this.networks.getNetwork(),
-					'/node/host/generic'));
+			_this.drawArea.setState(new NewNode('/node/host/generic'));
 		}, 'Generic Host');
 		this.toolbar.addButton("network_elements/pip_host", function(e) {
-			_this.drawArea.setState(new NewNode(_this.networks.getNetwork(),
-					'/node/host/pip'));
+			_this.drawArea.setState(new NewNode('/node/host/pip'));
 		}, 'PIP Host');
 		this.toolbar.addButton("network_elements/cisco_switch", function(e) {
-			_this.drawArea.setState(new NewNode(_this.networks.getNetwork(),
-					'/node/switch/cisco'));
+			_this.drawArea.setState(new NewNode('/node/switch/cisco'));
 		}, 'Cisco Switch');
 		this.toolbar.addButton("network_elements/tunnelbridge_switch",
 				function(e) {
-					_this.drawArea.setState(new NewNode(_this.networks
-							.getNetwork(), '/node/switch/tunnelbridge'));
+					_this.drawArea.setState(new NewNode(
+							'/node/switch/tunnelbridge'));
 				}, 'Tunnelbridge Switch');
 		this.toolbar.addButton("network_elements/pip_switch", function(e) {
-			_this.drawArea.setState(new NewNode(_this.networks.getNetwork(),
-					'/node/switch/pip'));
+			_this.drawArea.setState(new NewNode('/node/switch/pip'));
 		}, 'PIP Switch');
 		this.toolbar.addSeperator();
 		this.toolbar.addButton("network_elements/half_duplex", function(e) {
@@ -71,34 +68,40 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
-		
+
 		this.menubar.addSubMenu("File", "New", (function() {
-			var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
+			var hasChanged = _this.networks.getNetwork().getCommandManager()
+					.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
-				var win = new AlertDialog(function() { _this.networks.newNetwork({}); });
+				var win = new AlertDialog(function() {
+					_this.networks.newNetwork({});
+				});
 			} else {
 				_this.networks.newNetwork({});
 			}
 		}));
 
-		this.menubar.addSubMenu("File", "Open...",
-				(function() {
-					var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
-					
-					if (_this.networks != 'undefined' && hasChanged) {
-						new AlertDialog(function() { new OpenDialog(_this) });
-					} else {
-						var win = new OpenDialog(_this);
-					}
-				}));
-		
-		/* alert dialogue - window/tab closed or refresh*/	
-		$(window).on('beforeunload', function(){
-			var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
+		this.menubar.addSubMenu("File", "Open...", (function() {
+			var hasChanged = _this.networks.getNetwork().getCommandManager()
+					.isHasChanged();
+
+			if (_this.networks != 'undefined' && hasChanged) {
+				new AlertDialog(function() {
+					new OpenDialog(_this)
+				});
+			} else {
+				var win = new OpenDialog(_this);
+			}
+		}));
+
+		/* alert dialogue - window/tab closed or refresh */
+		$(window).on('beforeunload', function() {
+			// var hasChanged =
+			// _this.networks.getNetwork().getCommandManager().isHasChanged();
 			if (_this.networks != 'undefined' && hasChanged) {
 				return "Window will close, unsaved changes will be lost!";
-			}			
+			}
 		});
 
 		this.menubar.addSubSeperator("File");
@@ -114,7 +117,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		}));
 		this.menubar.addMenu("View");
 		this.menubar.addMenu("Help");
-		
+
 		$('#btn-Undo').addClass('disabled');
 		$('#btn-Redo').addClass('disabled');
 
@@ -122,22 +125,22 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		/* keyboard shortcuts */
 		var ctrl = false;
-		
-		$(document)
-		.keyup(function(e) {
-			if(e.which==17) ctrl = false;
-		})
-		.keydown(function(e) {
-			if(e.which==17) ctrl = true;
-			//ctrl+z shortcut
-			if(ctrl==true && e.which==90) {
-			    $('#btn-Undo').trigger('click');
-			 	return false;
+
+		$(document).keyup(function(e) {
+			if (e.which == 17)
+				ctrl = false;
+		}).keydown(function(e) {
+			if (e.which == 17)
+				ctrl = true;
+			// ctrl+z shortcut
+			if (ctrl == true && e.which == 90) {
+				$('#btn-Undo').trigger('click');
+				return false;
 			}
-			//ctrl+y shortcut
-			if(ctrl==true && e.which==89) {
-			    $('#btn-Redo').trigger('click');
-			 	return false;
+			// ctrl+y shortcut
+			if (ctrl == true && e.which == 89) {
+				$('#btn-Redo').trigger('click');
+				return false;
 			}
 		});
 
@@ -191,10 +194,11 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	 * 
 	 */
 	Environment.prototype.downloadYaml = function() {
-		
+
 		// temporary setHasChanged = false, to fix leave alert bug at download
 		var _this = this;
-		var hasChanged = _this.networks.getNetwork().getCommandManager().isHasChanged();
+		var hasChanged = _this.networks.getNetwork().getCommandManager()
+				.isHasChanged();
 		_this.networks.getNetwork().getCommandManager().setHasChanged(false);
 
 		var yaml = this.networks.getNetwork().getYaml();
@@ -203,12 +207,12 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		exportName = exportName.replace(/.yaml/g, '');
 
 		var temp = document.createElement("form");
-		temp.action="backend/download_YAML.php";
-		temp.method="POST";
+		temp.action = "backend/download_YAML.php";
+		temp.method = "POST";
 		temp.style.display = "none";
 		var t = document.createElement("textarea");
 		t.name = "content";
-		t.value= yaml;
+		t.value = yaml;
 		var i = document.createElement("input");
 		i.type = "text";
 		i.name = "name";
@@ -223,8 +227,9 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		t = "";
 		i = "";
 		temp = "";
-		// setHasChanged back to origin		
-		_this.networks.getNetwork().getCommandManager().isHasChanged(hasChanged);
+		// setHasChanged back to origin
+		_this.networks.getNetwork().getCommandManager()
+				.isHasChanged(hasChanged);
 
 	} // downloadYaml
 
@@ -244,7 +249,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 	 * This function returns the NetworkOrganisation object
 	 * 
 	 */
-	Environment.prototype.getNetworkOrganisation = function(){
+	Environment.prototype.getNetworkOrganisation = function() {
 		return this.networks;
 	}
 	return Environment;

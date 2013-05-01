@@ -42,7 +42,7 @@ requirejs.config({
 		"newNode":"gui/States/new_node",
 		"newLink":"gui/States/new_link",
 		
-		"network": "network/network",
+		"network": "network/element/model/network_model",
 		"node": "network/element/node",
 		"link": "network/element/link",
 		"resources": "network/element/resources",
@@ -51,6 +51,11 @@ requirejs.config({
 		"networkOrganisation": "network/network_organisation",
 		"jsonBuilder": "network/json_builder",
 		"idHandler": "network/id_handler",
+		
+		"controllerFactory" : "network/element/controller_factory",
+		"networkElementModel" :"network/element/network_element_model",
+		"networkElementDrawController" : "network/element/network_element_draw_controller",
+		"networkElementDrawView" : "network/element/network_element_draw_view",
 		
 		"commandManager":	"network/command_manager",
 		"moveNodeCommand":	"network/commands/move_node_command",
@@ -61,7 +66,9 @@ requirejs.config({
 		"changeNodeAttributeCommand":	"network/commands/change_node_attribute_command",
 		"changeFeaturesAttributeCommand":	"network/commands/change_features_attribute_command",
 		"changeInterfacesAttributeCommand":	"network/commands/change_interfaces_attribute_command",
-		"changeResourcesAttributeCommand":	"network/commands/change_resources_attribute_command"
+		"changeResourcesAttributeCommand":	"network/commands/change_resources_attribute_command",
+		
+		"observable" : "network/observable",
 	}, 
 	shim: {
 		'bootstrap':{deps: ['jquery']}

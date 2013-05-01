@@ -4,12 +4,13 @@
  */
 
 define(
-		["resources", "features", "network_interfaces"],
-		(function(Resources, Features, Network_Interfaces) {
+		[ "jquery", "resources", "features", "network_interfaces", "observable" ],
+		(function($, Resources, Features, Network_Interfaces, Observable) {
 
-			var NetworkElementModel = function(id, x, y, graph_label, resources, features, network_interfaces, 
-					ne_type, provisioning_interface, console_interface, alias, identifier, 
-					customer_console_interface) {
+			var NetworkElementModel = function(id, x, y, graph_label,
+					resources, features, network_interfaces, ne_type,
+					provisioning_interface, console_interface, alias,
+					identifier, customer_console_interface) {
 				this.id = id || "";
 				this.x = x || "";
 				this.y = y || "";
@@ -18,12 +19,19 @@ define(
 				this.alias = alias || "";
 				this.identifier = identifier || "";
 
-				this.graph_label = graph_label || {};
+				this.graph_label = graph_label || {}; // TODO das is jetzt die
+				// Netzwerkklasse, sollte aber
+				// eventuell gendert werden, das
+				// wir ein Model für GraphLaleb
+				// haben und Network der
+				// Behälter für alles ist.
 				this.resources = resources || {};
 				this.features = features || {};
 				this.network_interfaces = network_interfaces || {};
 				this.provisioning_interface = provisioning_interface || {};
-				this.customer_console_interface = customer_console_interface || {};
+				this.customer_console_interface = customer_console_interface
+						|| {};
+				this.observable = new Observable();
 			}
 
 			NetworkElementModel.prototype.getJson = function() {
@@ -33,7 +41,8 @@ define(
 				return this.json;
 			}
 			/**
-			 * This function returns an array of all resources this NetworkElementModel has
+			 * This function returns an array of all resources this
+			 * NetworkElementModel has
 			 * 
 			 * @return Array of all resources
 			 */
@@ -45,7 +54,8 @@ define(
 				return res;
 			}
 			/**
-			 * This function returns an array of all features this NetworkElementModel has
+			 * This function returns an array of all features this
+			 * NetworkElementModel has
 			 * 
 			 * @return Array of all features
 			 */
@@ -57,7 +67,8 @@ define(
 				return fet;
 			}
 			/**
-			 * This function returns an array of all interfaces this NetworkElementModel has
+			 * This function returns an array of all interfaces this
+			 * NetworkElementModel has
 			 * 
 			 * @return Array of all features
 			 */
@@ -70,12 +81,14 @@ define(
 			}
 
 			/**
-			 * This function adds a new NetworkInterface to this NetworkElementModel
+			 * This function adds a new NetworkInterface to this
+			 * NetworkElementModel
 			 * 
 			 * @param json
 			 *            JSON-representation of this NetworkInterface
 			 */
-			NetworkElementModel.prototype.addNetworkInterfaceByJSON = function(json) {
+			NetworkElementModel.prototype.addNetworkInterfaceByJSON = function(
+					json) {
 				var network_interface = new Network_Interfaces(this, json)
 				this.network_interfaces.push(network_interface);
 
@@ -109,12 +122,14 @@ define(
 			}
 
 			/**
-			 * This function removes a NetworkInterface from this NetworkElementModel
+			 * This function removes a NetworkInterface from this
+			 * NetworkElementModel
 			 * 
 			 * @param id
 			 *            the id of the NetworkInterface
 			 */
-			NetworkElementModel.prototype.removeNetworkInterfaceById = function(id) {
+			NetworkElementModel.prototype.removeNetworkInterfaceById = function(
+					id) {
 				for ( var i = 0; i < this.network_interfaces.length; i++) {
 					if (this.network_interfaces[i].get('id') == id) {
 						this.network_interfaces.splice(i, 1);
@@ -152,6 +167,16 @@ define(
 					}
 				}
 			}
-			
+
+			/**
+			 * This function removes this Element from its Network. And triggers
+			 * all connected Controller to remove the Views.
+			 * 
+			 */
+			NetworkElementModel.prototype.remove = function() {
+
+				this.graph_label.removeNetworkElement(this);
+			}
+
 			return NetworkElementModel;
 		})); // define
