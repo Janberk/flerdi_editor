@@ -104,9 +104,6 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		});
 
 		this.menubar.addSubSeperator("File");
-		this.menubar.addSubMenu('File','Graphlabel attributes',(function(){
-			ControllerFactory.build(_this.networks.getNetwork(),'graphlabelAttributesChange'	);
-		}))
 		this.menubar.addSubMenu("File", "Download", (function() {
 			_this.downloadYaml({});
 		}));
@@ -117,7 +114,10 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		this.menubar.addSubMenu("Edit", "Redo", (function() {
 			_this.networks.getNetwork().getCommandManager().redo();
 		}));
-		this.menubar.addMenu("View");
+		this.menubar.addMenu("Graph");
+		this.menubar.addSubMenu('Graph','Properties',(function(){
+			ControllerFactory.build(_this.networks.getNetwork(),'graphlabelAttributesChange'	);
+		}))
 		this.menubar.addMenu("Help");
 
 		$('#btn-Undo').addClass('disabled');
