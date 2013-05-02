@@ -12,21 +12,20 @@
 
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		"menubar", "drawArea", "move", "newNode", "newLink", "openDialog",
-		"alertDialog", "statusbar" ], (function($, NetworkOrganisation,
+		"alertDialog", "statusbar",'controllerFactory' ], (function($, NetworkOrganisation,
 		ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
-		OpenDialog, AlertDialog, Statusbar) {
+		OpenDialog, AlertDialog, Statusbar,ControllerFactory) {
 
 	/* constructor */
 	var Environment = function() {
 		console.log("creating environment");
 
 		this.networks = new NetworkOrganisation();
-		this.networks.newNetwork({});
+		this.networks.newNetwork({},"blub");
 
 		var _this = this;
 
-		// var hasChanged =
-		// _this.networks.getNetwork().getCommandManager().isHasChanged();
+		var hasChanged = _this.networks.getNetwork().commandManager.isHasChanged();
 
 		/* user interface */
 		this.drawArea = new DrawArea();
@@ -70,7 +69,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		this.menubar.addMenu("File");
 
 		this.menubar.addSubMenu("File", "New", (function() {
-			var hasChanged = _this.networks.getNetwork().getCommandManager()
+			var hasChanged = _this.networks.getNetwork().commandManager
 					.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
@@ -105,6 +104,9 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		});
 
 		this.menubar.addSubSeperator("File");
+		this.menubar.addSubMenu('File','Graphlabel attributes',(function(){
+			ControllerFactory.build(_this.networks.getNetwork(),'graphlabelAttributesChange'	);
+		}))
 		this.menubar.addSubMenu("File", "Download", (function() {
 			_this.downloadYaml({});
 		}));

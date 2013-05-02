@@ -3,17 +3,19 @@
  * RequireJS module definition
  */
 
-define(["commandManager"], (function(
-		CommandManager) {
+define(["commandManager",'observable'], (function(
+		CommandManager, Observable) {
 	var NetworkModel = function(id,graph_type,role_identifier,v_net_identifier,graph_tag,graph_nr) {
-		this.id = id || "";
-		this.graph_type = graph_type || "";
+		this.id = id || 1;
+		this.graph_type = graph_type || "OL";
 		this.role_identifier = role_identifier || "";
 		this.v_net_identifier = v_net_identifier || "";
 		this.graph_tag = graph_tag || "";
 		this.graph_nr = graph_nr || "";
 
 		this.networkElements = [];
+		
+		this.observable = new Observable();
 
 		//TODO der command manager gehört eich nicht in das model.
 		this.commandManager = new CommandManager();

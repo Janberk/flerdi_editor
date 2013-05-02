@@ -29,6 +29,8 @@ requirejs.config({
 		"openDialog": "gui/dialogues/openDialog",
 		"listDialog": "gui/dialogues/listDialog",
 		
+		"graphlabelAttributesView" : "gui/view/graphlabel_attributes_view",
+		
 		"contextMenu":"gui/contextMenu",
 		"element_key" : "gui/element_key",
 		"loadingWindow":"gui/loadingWindow",
@@ -56,6 +58,8 @@ requirejs.config({
 		"networkElementModel" :"network/element/network_element_model",
 		"networkElementDrawController" : "network/element/network_element_draw_controller",
 		"networkElementDrawView" : "network/element/network_element_draw_view",
+		
+		"graphLabelAttributesChangeController" : "network/element/controller/graphlabel_attributes_change_controller",
 		
 		"commandManager":	"network/command_manager",
 		"moveNodeCommand":	"network/commands/move_node_command",

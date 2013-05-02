@@ -13,6 +13,7 @@ define([ "networkElementDrawView" ], (function(NetworkElementDrawView) {
 		var _this = this;
 		this.view = new NetworkElementDrawView(this.model.x, this.model.y,
 				this.model.ne_type, function(data) {
+			//TODO das muss noch als Command ausgekapselt werden
 					_this.model.x = data.x;
 					_this.model.y = data.y;
 					_this.model.ne_type = data.ne_type;
