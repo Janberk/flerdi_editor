@@ -54,6 +54,8 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 										.getGraphLableJson(),
 								"ui-graphlabel-attributes-input")).css('width',
 						'100%');
+				$(this.table).find('[name="graph_type"]').prop('disabled',true);
+
 				this.dialog.setContent(this.table);
 
 			}
