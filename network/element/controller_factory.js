@@ -4,8 +4,8 @@
  */
 
 define(
-	["networkElementDrawController",'graphLabelAttributesChangeController'],
-	(function(NetworkElementDrawController,GraphLabelAttributesChangeController){
+	["networkElementDrawController", "graphLabelAttributesChangeController", "graphLabelAttributesCreateController"],
+	(function(NetworkElementDrawController, GraphLabelAttributesChangeController, GraphLabelAttributesCreateController){
 
 		return{
 			build: function(model, controller){
@@ -14,6 +14,8 @@ define(
 						return new NetworkElementDrawController(model);
 					case "graphlabelAttributesChange":
 						return new GraphLabelAttributesChangeController(model);
+					case "graphlabelAttributesCreate":
+						return new GraphLabelAttributesCreateController(model);
 					default: 
 						throw "controller type '" + controller + "' not supported";
 				}

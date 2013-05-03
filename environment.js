@@ -12,9 +12,9 @@
 
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		"menubar", "drawArea", "move", "newNode", "newLink", "openDialog",
-		"alertDialog", "statusbar", "controllerFactory", "graphLabelAttributesCreateController", "network"],
+		"alertDialog", "statusbar", "controllerFactory", "network"],
 		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
-		OpenDialog, AlertDialog, Statusbar, ControllerFactory, GraphLabelAttributesCreateController, Network) {
+		OpenDialog, AlertDialog, Statusbar, ControllerFactory, Network) {
 
 	/* constructor */
 	var Environment = function() {
@@ -74,10 +74,10 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 			if (_this.networks != 'undefined' && hasChanged) {
 				new AlertDialog(function() {
-					new GraphLabelAttributesCreateController(_this.networks);
+					ControllerFactory.build(undefined, 'graphlabelAttributesCreate');
 				});
 			} else {
-				new GraphLabelAttributesCreateController(_this.networks);
+				ControllerFactory.build(undefined, 'graphlabelAttributesCreate');
 			}
 		}));
 
@@ -116,7 +116,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		}));
 		this.menubar.addMenu("Graph");
 		this.menubar.addSubMenu('Graph','Properties',(function(){
-			ControllerFactory.build(_this.networks.getNetwork(),'graphlabelAttributesChange'	);
+			ControllerFactory.build(_this.networks.getNetwork(), 'graphlabelAttributesChange');
 		}))
 		this.menubar.addMenu("Help");
 

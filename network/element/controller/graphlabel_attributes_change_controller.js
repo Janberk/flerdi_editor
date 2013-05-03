@@ -20,15 +20,17 @@ define([ "graphlabelAttributesView" ], (function(GraphLabelAttribuesView) {
 			graph_tag : this.model.graph_tag,
 			graph_nr : this.model.graph_nr
 		}, function(data) {
-			// TODO das muss noch als Command ausgekapselt werden
-			_this.model.id = data.id;
-			_this.model.graph_type = data.graph_type;
-			_this.model.role_identifier = data.role_identifier;
-			_this.model.v_net_identifier = data.v_net_identifier;
-			_this.model.graph_tag = data.graph_tag;
-			_this.model.graph_nr = data.graph_nr;
-			_this.model.observable.notifyAll("update");
-			_this.update('remove', {});
+				// TODO das muss noch als Command ausgekapselt werden
+				_this.model.id = data.id;
+				_this.model.graph_type = data.graph_type;
+				_this.model.role_identifier = data.role_identifier;
+				_this.model.v_net_identifier = data.v_net_identifier;
+				_this.model.graph_tag = data.graph_tag;
+				_this.model.graph_nr = data.graph_nr;
+				_this.model.observable.notifyAll("update");
+				_this.update('remove', {});
+		}, function(data) {
+				_this.update("remove", {});
 		});
 		
 		$(this.view.table).find('[name="graph_type"]').prop('disabled',true);

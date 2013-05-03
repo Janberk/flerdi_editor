@@ -29,13 +29,14 @@ define([ "jquery", "bootstrap" ],
 			Dialog.prototype.setContent = function(content) {
 				this.dia.find('.modal-body').append(content);
 			}
-			Dialog.prototype.addCancel = function() {
+			Dialog.prototype.addCancel = function(funct) {
 				this.dia.find('.modal-footer').append(
 						$(document.createElement('button')).addClass(
 								'btn cancel').attr({
 							'data-dismiss' : 'modal',
 							'aria-hidden' : true
 						}).append('Cancel').on('click', function() {
+							funct();
 							$(this).parents('.modal').modal('hide');
 							$(this).parents('.modal').remove();
 						}))

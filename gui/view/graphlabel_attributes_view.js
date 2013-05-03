@@ -5,7 +5,7 @@
 
 define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
-			var GraphLabelAttribuesView = function(attributes, callback) {
+			var GraphLabelAttribuesView = function(attributes, callback, onDelete) {
 
 				attributes = attributes || {};
 				this.id = attributes.id || "";
@@ -20,9 +20,11 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				if (callback != undefined && typeof callback == 'function') {
 					this.callback = callback;
 				}
+				if (onDelete != undefined && typeof onDelete == 'function') {
+					this.onDelete = onDelete;
+				}				
 
 				this.drawView();
-
 			}
 
 			/**
@@ -37,7 +39,9 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 					_this.callback(_this.getValues());
 					
 				});
-				this.dialog.addCancel();
+				this.dialog.addCancel(function() {
+					_this.onDelete();
+				});
 
 				this.table = document.createElement('table');
 				new JsonViewer().createHeader(this.table);
