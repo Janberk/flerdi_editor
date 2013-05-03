@@ -12,16 +12,16 @@
 
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		"menubar", "drawArea", "move", "newNode", "newLink", "openDialog",
-		"alertDialog", "statusbar",'controllerFactory' ], (function($, NetworkOrganisation,
-		ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
-		OpenDialog, AlertDialog, Statusbar,ControllerFactory) {
+		"alertDialog", "statusbar", "controllerFactory", "graphLabelAttributesCreateController", "network"],
+		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
+		OpenDialog, AlertDialog, Statusbar, ControllerFactory, GraphLabelAttributesCreateController, Network) {
 
 	/* constructor */
 	var Environment = function() {
 		console.log("creating environment");
 
 		this.networks = new NetworkOrganisation();
-		this.networks.newNetwork({},"blub");
+		this.networks.newNetwork(new Network());
 
 		var _this = this;
 
@@ -73,11 +73,11 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 					.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
-				var win = new AlertDialog(function() {
-					_this.networks.newNetwork({});
+				new AlertDialog(function() {
+					new GraphLabelAttributesCreateController(_this.networks);
 				});
 			} else {
-				_this.networks.newNetwork({});
+				new GraphLabelAttributesCreateController(_this.networks);
 			}
 		}));
 
@@ -90,7 +90,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 					new OpenDialog(_this)
 				});
 			} else {
-				var win = new OpenDialog(_this);
+				new OpenDialog(_this);
 			}
 		}));
 

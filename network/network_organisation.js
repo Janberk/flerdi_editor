@@ -12,13 +12,13 @@ define (["jquery",'network'], (function($,Network) {
 		this.networks;
 	}
 	
-	Network_Organisation.prototype.newNetwork = function(json, name){
+	Network_Organisation.prototype.newNetwork = function(network){
 		/*for now, only one network can be handled*/
 		if(this.networks === undefined){
-			this.networks = new Network(undefined,undefined, name);
+			this.networks = network;
 		}else{
-			this.networks.remove();
-			this.networks = new Network(undefined,undefined, name);
+			//this.networks.remove();
+			this.networks = network;
 		}
 	}
 	

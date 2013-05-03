@@ -30,6 +30,8 @@ define([ "graphlabelAttributesView" ], (function(GraphLabelAttribuesView) {
 			_this.model.observable.notifyAll("update");
 			_this.update('remove', {});
 		});
+		
+		$(this.view.table).find('[name="graph_type"]').prop('disabled',true);
 	}
 
 	GraphLabelAttributesChangeController.prototype.update = function(command,

@@ -60,6 +60,7 @@ requirejs.config({
 		"networkElementDrawView" : "network/element/network_element_draw_view",
 		
 		"graphLabelAttributesChangeController" : "network/element/controller/graphlabel_attributes_change_controller",
+		"graphLabelAttributesCreateController" : "network/element/controller/graphlabel_attributes_create_controller",
 		
 		"commandManager":	"network/command_manager",
 		"moveNodeCommand":	"network/commands/move_node_command",
@@ -72,7 +73,7 @@ requirejs.config({
 		"changeInterfacesAttributeCommand":	"network/commands/change_interfaces_attribute_command",
 		"changeResourcesAttributeCommand":	"network/commands/change_resources_attribute_command",
 		
-		"observable" : "network/observable",
+		"observable" : "network/observable"
 	}, 
 	shim: {
 		'bootstrap':{deps: ['jquery']}
