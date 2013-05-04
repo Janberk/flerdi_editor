@@ -26,7 +26,7 @@ define(
 								'ne_type' : _this.type
 							}
 						}
-						environment.getNetworkOrganisation().getNetwork().commandManager
+						environment.networks.getNetwork().commandManager
 								.newCommand(new NewNodeCommand(environment
 										.getNetworkOrganisation().getNetwork(),
 										json, pos));

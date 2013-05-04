@@ -13,8 +13,8 @@ define([ 'jquery', 'observable' ], function($, Observable) {
 	};
 
 	DrawArea.prototype.setState = function(state) {
-		this.observable.notifyAll("changeState", state.name);
 		this.state = state;
+		this.observable.notifyAll("changeState", this.state.name);
 
 		$('#drawarea').off();
 		for ( var i = 0; i < this.state.events.length; i++) {

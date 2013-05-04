@@ -64,6 +64,11 @@ define(["commandManager",'observable', 'idHandler'], (function(
 			}
 		}
 	}
+	
+	NetworkModel.prototype.remove = function(){
+		this.observable.notifyAll("remove",{});
+		this.networkElements = [];
+	}
 
 	return NetworkModel;
 })); // define

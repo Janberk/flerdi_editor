@@ -19,7 +19,7 @@ define([ "jquery","networkElementModel" ],
 		this.network = network;
 		this.json = json;
 		this.pos = pos;
-		this.node = new NetworkElementModel();;
+		this.node = new NetworkElementModel(this.network);		
 	}
 	
 	/**
@@ -31,7 +31,6 @@ define([ "jquery","networkElementModel" ],
 		this.node.x = this.pos.x;
 		this.node.y = this.pos.y;
 		this.node.ne_type = this.json.attributes.ne_type;		
-		
 		this.network.addNetworkElement(this.node);
 		controllerFactory.build(this.node,"draw_area");
 

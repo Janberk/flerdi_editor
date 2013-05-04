@@ -18,7 +18,9 @@ define (["jquery",'network'], (function($,Network) {
 			this.networks = network;
 		}else{
 			//this.networks.remove();
+			this.networks.remove();
 			this.networks = network;
+			
 		}
 	}
 	

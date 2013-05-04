@@ -7,7 +7,7 @@ define(
 		[ "jquery", "resources", "features", "network_interfaces", "observable" ],
 		(function($, Resources, Features, Network_Interfaces, Observable) {
 
-			var NetworkElementModel = function(id, x, y, graph_label,
+			var NetworkElementModel = function(graph_label,id, x, y,
 					resources, features, network_interfaces, ne_type,
 					provisioning_interface, console_interface, alias,
 					identifier, customer_console_interface) {
@@ -32,7 +32,8 @@ define(
 				this.customer_console_interface = customer_console_interface
 						|| {};
 				this.observable = new Observable();
-				console.log(this);
+				
+				this.graph_label.observable.addObserver(this);
 			}
 
 			NetworkElementModel.prototype.getJson = function() {
@@ -168,15 +169,14 @@ define(
 					}
 				}
 			}
-
-			/**
-			 * This function removes this Element from its Network. And triggers
-			 * all connected Controller to remove the Views.
-			 * 
-			 */
-			NetworkElementModel.prototype.remove = function() {
-
-				this.graph_label.removeNetworkElement(this);
+			
+			NetworkElementModel.prototype.update = function(command, data){
+				switch(command){
+				case "remove":
+					this.graph_label.removeNetworkElementById(this.id);
+					this.observable.notifyAll("remove",{});
+					break;
+				}
 			}
 
 			return NetworkElementModel;
