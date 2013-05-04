@@ -30,30 +30,38 @@ define([ "jquery", "bootstrap" ],
 				this.getBody().append(content);
 			}
 			Dialog.prototype.addCancel = function(funct) {
+				_this = this;
+				_funct = funct || function() {};
+				
 				this.dia.find('.modal-footer').append(
 						$(document.createElement('button')).addClass(
 								'btn cancel').attr({
 							'data-dismiss' : 'modal',
 							'aria-hidden' : true
 						}).append('Cancel').on('click', function() {
-							funct();
-							$(this).parents('.modal').modal('hide');
-							$(this).parents('.modal').remove();
+							_funct();
+							_this.remove();
 						}))
 			}
 			Dialog.prototype.getBody = function(){
 				return this.dia.find('.modal-body');
 			}
 			Dialog.prototype.addOk = function(funct) {
+				_this = this;
+				_funct = funct || function() {};
+				
 				this.dia.find('.modal-footer').append(
 						$(document.createElement('a')).addClass(
 								'btn btn-primary ok').attr({
 							'aria-hidden' : true
 						}).append('OK').on('click', function() {
-							funct();
-							$(this).parents('.modal').modal('hide');
-							$(this).parents('.modal').remove();
+							_funct();
+							_this.remove();
 						}))
+			}
+			Dialog.prototype.remove = function() {
+				this.dia.modal('hide');
+				this.dia.remove();
 			}
 			return Dialog;
 		})

@@ -29,8 +29,8 @@ define([ "graphlabelAttributesView" ], (function(GraphLabelAttribuesView) {
 				_this.model.graph_nr = data.graph_nr;
 				_this.model.observable.notifyAll("update");
 				_this.update('remove', {});
-		}, function(data) {
-				_this.update("remove", {});
+		}, function() {
+				_this.update('remove', {});
 		});
 		
 		$(this.view.table).find('[name="graph_type"]').prop('disabled',true);
@@ -50,6 +50,7 @@ define([ "graphlabelAttributesView" ], (function(GraphLabelAttribuesView) {
 			break;
 		case "remove":
 			this.view.remove();
+			this.view = undefined;
 			this.model.observable.removeObserver(this);
 			break;
 		}

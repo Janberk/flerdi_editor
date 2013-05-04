@@ -81,7 +81,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			// allgmeiner aufbau der refresh funktion als auch dieser spezielle
 			// fall - Stefan
 			/**
-			 * This view refreshes the view
+			 * This function refreshes the view
 			 * 
 			 */
 			GraphLabelAttribuesView.prototype.refresh = function() {
@@ -111,7 +111,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			}
 
 			GraphLabelAttribuesView.prototype.remove = function() {
-				
+				this.dialog.remove();
 			}
 
 			return GraphLabelAttribuesView;
