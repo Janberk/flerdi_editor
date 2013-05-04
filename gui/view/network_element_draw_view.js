@@ -142,7 +142,7 @@ define([ "jquery" ], (function($) {
 	}
 
 	NetworkElementDrawView.prototype.removeEvents = function() {
-		$(this.svg).off();
+		$(this.svg).off('drag').off('dragend').off('dragstart');
 	}
 	// TODO diese funktion gehört eich in eine Öffentliche Bibliothek, muss
 	// später noch aisgelagert werden
@@ -168,6 +168,13 @@ define([ "jquery" ], (function($) {
 			throw "could not draw svg tag for undefined ne_type '"
 					+ this.ne_type + "'";
 		}
+	}
+	
+	NetworkElementDrawView.prototype.addContextMenue = function(contextMenue){
+		$(this.svg).on('contextmenu', function(e) {
+			contextMenue.show(e);
+			return false;
+		})
 	}
 
 	return NetworkElementDrawView;

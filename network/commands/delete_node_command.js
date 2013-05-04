@@ -17,31 +17,25 @@ define([ "jquery" ],
 	var DeleteNodeCommand = function(network, node){
 		this.network = network;
 		this.node = node;
-		this.links = this.node.getLinks();
+		console.log(this.node);
 	}
 	
 	/**
 	 * This function creates the node
 	 */
 	DeleteNodeCommand.prototype.execute = function(){
-		for(var i=0; i<this.links.length; i++){
-			this.links[i].removeLink();
-		}
-		
-		this.node.removeNode();
+		this.node.observable.notifyAll('remove',{});
+		this.network.removeNetworkElementById(this.node.id);
 	}
 	
 	/**
 	 * This function removes the node
 	 */
 	DeleteNodeCommand.prototype.undo = function(){
-		this.network.nodes.push(this.node);
-		this.node.appendSvgTag();
+		this.network.addNetworkElement(this.node);
+		ControllerFactory.build(this.node,"draw_area");
 		
-		for(var i=0; i<this.links.length; i++){
-			this.network.links.push(this.links[i]);
-			this.links[i].appendSvgTag();
-		}
+		console.log(this.network);
 	}
 	
 	return DeleteNodeCommand;

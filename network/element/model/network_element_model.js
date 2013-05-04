@@ -32,6 +32,7 @@ define(
 				this.customer_console_interface = customer_console_interface
 						|| {};
 				this.observable = new Observable();
+				console.log(this);
 			}
 
 			NetworkElementModel.prototype.getJson = function() {

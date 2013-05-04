@@ -5,8 +5,8 @@
  * interfaces : IUndoableCommand
  */
 
-define([ "jquery","networkElementModel","controllerFactory" ], 
-(function($,NetworkElementModel,ControllerFactory) {
+define([ "jquery","networkElementModel" ], 
+(function($,NetworkElementModel) {
 
 	/**
 	 * This is the constructor
@@ -19,22 +19,22 @@ define([ "jquery","networkElementModel","controllerFactory" ],
 		this.network = network;
 		this.json = json;
 		this.pos = pos;
-		this.node;
+		this.node = new NetworkElementModel();;
 	}
 	
 	/**
 	 * This function creates the node
 	 */
-	NewNodeCommand.prototype.execute = function(){		
-		this.node = new NetworkElementModel();
+	NewNodeCommand.prototype.execute = function(){
+		this.node.graph_label = this.network;
+		this.node.id = this.network.idHandler.getNextElementId();
 		this.node.x = this.pos.x;
 		this.node.y = this.pos.y;
-		this.node.ne_type = this.json.attributes.ne_type;
-		console.log(this.json.attributes);
-		
+		this.node.ne_type = this.json.attributes.ne_type;		
 		
 		this.network.addNetworkElement(this.node);
-		ControllerFactory.build(this.node,"draw_area");
+		controllerFactory.build(this.node,"draw_area");
+
 		//this.node = this.network.importNode(this.json, this.pos, true);
 		//this.network.calcSizeOfSvg();
 	}
@@ -43,7 +43,9 @@ define([ "jquery","networkElementModel","controllerFactory" ],
 	 * This function removes the node
 	 */
 	NewNodeCommand.prototype.undo = function(){
-		this.node.removeNode();
+		this.network.removeNetworkElementById(this.node.id);
+		this.node.observable.notifyAll('remove',{});
+
 	}
 	
 	return NewNodeCommand;

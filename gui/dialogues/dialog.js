@@ -27,7 +27,7 @@ define([ "jquery", "bootstrap" ],
 				$(this.dia).modal('show');
 			}
 			Dialog.prototype.setContent = function(content) {
-				this.dia.find('.modal-body').append(content);
+				this.getBody().append(content);
 			}
 			Dialog.prototype.addCancel = function(funct) {
 				this.dia.find('.modal-footer').append(
@@ -40,6 +40,9 @@ define([ "jquery", "bootstrap" ],
 							$(this).parents('.modal').modal('hide');
 							$(this).parents('.modal').remove();
 						}))
+			}
+			Dialog.prototype.getBody = function(){
+				return this.dia.find('.modal-body');
 			}
 			Dialog.prototype.addOk = function(funct) {
 				this.dia.find('.modal-footer').append(

@@ -3,8 +3,8 @@
  * RequireJS module definition
  */
 
-define(["commandManager",'observable'], (function(
-		CommandManager, Observable) {
+define(["commandManager",'observable', 'idHandler'], (function(
+		CommandManager, Observable, IdHandler) {
 	var NetworkModel = function(id,graph_type,role_identifier,v_net_identifier,graph_tag,graph_nr) {
 		this.id = id || 1;
 		this.graph_type = graph_type || "OL";
@@ -16,6 +16,8 @@ define(["commandManager",'observable'], (function(
 		this.networkElements = [];
 		
 		this.observable = new Observable();
+		
+		this.idHandler = new IdHandler();
 
 		//TODO der command manager gehört eich nicht in das model.
 		this.commandManager = new CommandManager();
@@ -40,9 +42,9 @@ define(["commandManager",'observable'], (function(
 	 *            reference to the NetworkElement you want to remove.
 	 * 
 	 */
-	NetworkModel.prototype.removeNetworkElement = function(element) {
+	NetworkModel.prototype.removeNetworkElementById = function(id) {
 		for ( var i = 0; i < this.networkElements.length; i++) {
-			if (this.networkElements[i] === element) {
+			if (parseInt(this.networkElements[i].id) == id) {
 				this.networkElements.splice(i, 1);
 				break;
 			}
@@ -58,7 +60,7 @@ define(["commandManager",'observable'], (function(
 	NetworkModel.prototype.getNetworkElementById = function(id){
 		for(var i=0;i<this.networkElements.length ; i++){
 			if(id == this.networkElements[i].id){
-				return this.networkElements[i].id;
+				return this.networkElements[i];
 			}
 		}
 	}

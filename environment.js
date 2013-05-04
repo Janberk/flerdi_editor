@@ -12,9 +12,9 @@
 
 define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		"menubar", "drawArea", "move", "newNode", "newLink", "openDialog",
-		"alertDialog", "statusbar", "controllerFactory", "network"],
+		"alertDialog", "statusbar", "network"],
 		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
-		OpenDialog, AlertDialog, Statusbar, ControllerFactory, Network) {
+		OpenDialog, AlertDialog, Statusbar, Network) {
 
 	/* constructor */
 	var Environment = function() {
@@ -74,10 +74,10 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 			if (_this.networks != 'undefined' && hasChanged) {
 				new AlertDialog(function() {
-					ControllerFactory.build(undefined, 'graphlabelAttributesCreate');
+					controllerFactory.build(undefined, 'graphlabelAttributesCreate');
 				});
 			} else {
-				ControllerFactory.build(undefined, 'graphlabelAttributesCreate');
+				controllerFactory.build(undefined, 'graphlabelAttributesCreate');
 			}
 		}));
 
@@ -109,14 +109,14 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		}));
 		this.menubar.addMenu("Edit");
 		this.menubar.addSubMenu("Edit", "Undo", (function() {
-			_this.networks.getNetwork().getCommandManager().undo();
+			_this.networks.networks.commandManager.undo();
 		}));
 		this.menubar.addSubMenu("Edit", "Redo", (function() {
-			_this.networks.getNetwork().getCommandManager().redo();
+			_this.networks.networks.commandManager.redo();
 		}));
 		this.menubar.addMenu("Graph");
 		this.menubar.addSubMenu('Graph','Properties',(function(){
-			ControllerFactory.build(_this.networks.getNetwork(), 'graphlabelAttributesChange');
+			controllerFactory.build(_this.networks.getNetwork(), 'graphlabelAttributesChange');
 		}))
 		this.menubar.addMenu("Help");
 
