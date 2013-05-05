@@ -78,6 +78,7 @@ requirejs
 				"changeFeaturesAttributeCommand" : "network/commands/change_features_attribute_command",
 				"changeInterfacesAttributeCommand" : "network/commands/change_interfaces_attribute_command",
 				"changeResourcesAttributeCommand" : "network/commands/change_resources_attribute_command",
+				"changeAttributesCommand" : "network/commands/change_attributes_command",
 
 				"observable" : "network/observable"
 			},

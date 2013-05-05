@@ -15,11 +15,12 @@ define(["commandManager",'observable', 'idHandler'], (function(
 
 		this.networkElements = [];
 		
+		// TODO einige sachen gehören hier nicht rein, und müssen ausgegliedert werden, damit es wirklcih ein model wird
+		
 		this.observable = new Observable();
 		
 		this.idHandler = new IdHandler();
 
-		//TODO der command manager gehört eich nicht in das model.
 		this.commandManager = new CommandManager();
 	}
 
@@ -42,9 +43,9 @@ define(["commandManager",'observable', 'idHandler'], (function(
 	 *            reference to the NetworkElement you want to remove.
 	 * 
 	 */
-	NetworkModel.prototype.removeNetworkElementById = function(id) {
+	NetworkModel.prototype.removeNetworkElement = function(element) {
 		for ( var i = 0; i < this.networkElements.length; i++) {
-			if (parseInt(this.networkElements[i].id) == id) {
+			if (element == this.networkElements[i]) {
 				this.networkElements.splice(i, 1);
 				break;
 			}
@@ -65,6 +66,10 @@ define(["commandManager",'observable', 'idHandler'], (function(
 		}
 	}
 	
+	/**
+	 * This function calls every observer to cancel  in order to cancel the whole network
+	 * 
+	 */
 	NetworkModel.prototype.remove = function(){
 		this.observable.notifyAll("remove",{});
 		this.networkElements = [];
