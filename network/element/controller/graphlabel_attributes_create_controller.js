@@ -18,8 +18,8 @@ define(["graphlabelAttributesView", "network"], (function(GraphLabelAttribuesVie
 				environment.networks.newNetwork(network);
 				
 				_this.update('remove', {});
-			}, function(data) {
-				_this.update("remove", {});
+			}, function() {
+				_this.update('remove', {});
 		});
 	}
 
@@ -27,6 +27,7 @@ define(["graphlabelAttributesView", "network"], (function(GraphLabelAttribuesVie
 		switch (command) {
 		case "remove":
 			this.view.remove();
+			this.view = undefined;
 			break;
 		}
 	}

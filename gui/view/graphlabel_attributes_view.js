@@ -8,6 +8,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			var GraphLabelAttribuesView = function(attributes, callback, onDelete) {
 
 				attributes = attributes || {};
+				
 				this.id = attributes.id || "";
 				this.graph_type = attributes.graph_type || "";
 				this.role_identifier = attributes.role_identifier || "";
@@ -22,7 +23,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				}
 				if (onDelete != undefined && typeof onDelete == 'function') {
 					this.onDelete = onDelete;
-				}				
+				}	
 
 				this.drawView();
 			}
@@ -81,7 +82,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			// allgmeiner aufbau der refresh funktion als auch dieser spezielle
 			// fall - Stefan
 			/**
-			 * This view refreshes the view
+			 * This function refreshes the view
 			 * 
 			 */
 			GraphLabelAttribuesView.prototype.refresh = function() {
@@ -111,7 +112,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			}
 
 			GraphLabelAttribuesView.prototype.remove = function() {
-				
+				this.dialog.remove();
 			}
 
 			return GraphLabelAttribuesView;
