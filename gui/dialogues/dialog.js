@@ -31,16 +31,17 @@ define([ "jquery", "bootstrap" ],
 			}
 			Dialog.prototype.addCancel = function(funct) {
 				_this = this;
-				_funct = funct || function() {
-				};
-
+				if(funct === undefined) {
+					funct = function() {};
+				}
+				
 				this.dia.find('.modal-footer').append(
 						$(document.createElement('button')).addClass(
 								'btn cancel').attr({
 							'data-dismiss' : 'modal',
 							'aria-hidden' : true
 						}).append('Cancel').on('click', function() {
-							_funct();
+							funct();
 							_this.remove();
 						}))
 			}
@@ -49,15 +50,16 @@ define([ "jquery", "bootstrap" ],
 			}
 			Dialog.prototype.addOk = function(funct) {
 				_this = this;
-				_funct = funct || function() {
-				};
-
+				if(funct === undefined) {
+					funct = function() {};
+				}
+				
 				this.dia.find('.modal-footer').append(
 						$(document.createElement('a')).addClass(
 								'btn btn-primary ok').attr({
 							'aria-hidden' : true
 						}).append('OK').on('click', function() {
-							_funct();
+							funct();
 							_this.remove();
 						}))
 			}
