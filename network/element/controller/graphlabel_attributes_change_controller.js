@@ -21,7 +21,6 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 			graph_tag : this.model.graph_tag,
 			graph_nr : this.model.graph_nr
 		}, function(data) {
-
 			_this.model.commandManager.newCommand(new ChangeAttributesCommand(
 					_this.model, {
 						id : data.id,
@@ -34,7 +33,6 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 			_this.update('remove', {});
 		}, function(data) {
 			_this.update("remove", {});
-
 		});
 
 		$(this.view.table).find('[name="graph_type"]').prop('disabled', true);

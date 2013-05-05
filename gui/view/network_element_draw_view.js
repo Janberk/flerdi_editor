@@ -80,7 +80,6 @@ define([ "jquery" ], (function($) {
 
 	NetworkElementDrawView.prototype.update = function(command, data) {
 		var _this = this;
-		console.log(data);
 		switch (command) {
 		case "changeState":
 			switch (data) {
