@@ -81,11 +81,11 @@ define([ "jquery" ], (function($) {
 				'standard' : ''
 			},
 
-			'id' : {
+/*			'id' : {
 				'input' : 'text',
 				'values' : '',
 				'standard' : ''
-			},
+			},*/
 
 			'identifier' : {
 				'input' : 'text',
@@ -105,11 +105,11 @@ define([ "jquery" ], (function($) {
 				'standard' : ''
 			},
 
-			'the_parent_record_id' : {
+/*			'the_parent_record_id' : {
 				'input' : 'text',
 				'values' : '',
 				'standard' : ''
-			},
+			},*/
 
 			'time_unit' : {
 				'input' : 'text',
@@ -153,28 +153,10 @@ define([ "jquery" ], (function($) {
 				'standard' : ''
 			},
 
-			'id' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : ''
-			},
-
 			'is_request' : {
 				'input' : 'text',
 				'values' : '',
 				'standard' : 1
-			},
-
-			'network_element_id' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : ''
-			},
-
-			'network_interface_id' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : ''
 			},
 
 			'priority' : {
@@ -207,25 +189,7 @@ define([ "jquery" ], (function($) {
 				'standard' : ''
 			},
 
-			'id' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : ''
-			},
-
 			'identifier' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : ''
-			},
-
-			'network_element_id' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : ''
-			},
-
-			'network_interface_id' : {
 				'input' : 'text',
 				'values' : '',
 				'standard' : ''
@@ -247,11 +211,6 @@ define([ "jquery" ], (function($) {
 				'input' : 'select',
 				'values' : [ 'OL', 'UL' ],
 				'standard' : 'OL'
-			},
-			'id' : {
-				input : 'text',
-				values : '',
-				standard : ''
 			},
 			'role_identifier' : {
 				input : 'text',

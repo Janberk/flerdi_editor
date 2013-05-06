@@ -89,9 +89,6 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				var elements = $.find('.ui-graphlabel-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
-					case 'id':
-						$(elements[i]).val(this.id);
-						break;
 					case 'graph_type':
 						$(elements[i]).val(this.graph_type);
 						break;

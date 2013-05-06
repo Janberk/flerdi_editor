@@ -14,7 +14,6 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 		var _this = this;
 
 		this.view = new GraphLabelAttribuesView({
-			id : this.model.id,
 			graph_type : this.model.graph_type,
 			role_identifier : this.model.role_identifier,
 			v_net_identifier : this.model.v_net_identifier,
@@ -23,7 +22,6 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 		}, function(data) {
 			_this.model.commandManager.newCommand(new ChangeAttributesCommand(
 					_this.model, {
-						id : data.id,
 						graph_type : data.graph_type,
 						role_identifier : data.role_identifier,
 						v_net_identifier : data.v_net_identifier,
@@ -42,7 +40,6 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 			data) {
 		switch (command) {
 		case "update":
-			this.view.id = this.model.id;
 			this.view.graph_type = this.model.graph_type;
 			this.view.role_identifier = this.model.role_identifier;
 			this.view.v_net_identifier = this.model.v_net_identifier;
