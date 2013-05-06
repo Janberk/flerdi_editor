@@ -25,8 +25,8 @@ define(
 				// wir ein Model für GraphLaleb
 				// haben und Network der
 				// Behälter für alles ist.
-				this.resources = resources || {};
-				this.features = features || {};
+				this.resources = resources || [];
+				this.features = features || [];
 				this.network_interfaces = network_interfaces || {};
 				this.provisioning_interface = provisioning_interface || {};
 				this.customer_console_interface = customer_console_interface
@@ -177,6 +177,36 @@ define(
 					this.observable.notifyAll("remove",{});
 					break;
 				}
+			}
+			
+			/**
+			 * This functions adds a resource to this network_element
+			 * 
+			 * @param resource resource_model you want to add
+			 * 
+			 */
+			NetworkElementModel.prototype.addResource = function(resource){
+				this.resources.push(resource);
+			}
+			
+			/**
+			 * This functions adds a feature to this network_element
+			 * 
+			 * @param feature feature_model you want to add
+			 * 
+			 */
+			NetworkElementModel.prototype.addFeature = function(feature){
+				this.features.push(feature);
+			}
+			
+			/**
+			 * This functions adds a network_interface to this network_element
+			 * 
+			 * @param interface network_interface you want to add
+			 * 
+			 */
+			NetworkElementModel.prototype.addNetworkInterface = function(interface){
+				this.features.push(feature);
 			}
 
 			return NetworkElementModel;

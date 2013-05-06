@@ -11,6 +11,7 @@ define (['observable'],
 	* @param values all values to build this model
 	*/
 	var ResourceModel = function(values){
+		values = values || {};
 		this.timestamp = values.timestamp || "";
 		this.time_unit = values.time_unit || "";
 		this.value_type = values.value_type || "";
@@ -30,12 +31,12 @@ define (['observable'],
 	}
 	
 	/**
-	* This function returns a JSON-Object, representing this feature
+	* This function returns a JSON-Object, representing this resource
 	*
-	* @return JSON-Object representing this feature
+	* @return JSON-Object representing this resource
 	*/
 	ResourceModel.prototype.getJson = function(){
 		return this.json;
 	}
-	return Features;
+	return ResourceModel;
 })); //define

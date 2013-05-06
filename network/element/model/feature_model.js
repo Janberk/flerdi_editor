@@ -11,6 +11,7 @@ define (['observable'],
 	* @param values all values to build this model
 	*/
 	var FeatureModel = function(values){
+		values = values || {};
 		this.avp_attributes = values.avp_attribute || '';
 		this.id = values.id || '';
 		this.is_request = values.is_request || '';
@@ -28,8 +29,8 @@ define (['observable'],
 	*
 	* @return JSON-Object representing this feature
 	*/
-	Features.prototype.getJson = function(){
+	FeatureModel.prototype.getJson = function(){
 		return this.json;
 	}
-	return Features;
+	return FeatureModel;
 })); //define

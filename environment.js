@@ -82,8 +82,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		}));
 
 		this.menubar.addSubMenu("File", "Open...", (function() {
-			var hasChanged = _this.networks.getNetwork().getCommandManager()
-					.isHasChanged();
+			var hasChanged = _this.networks.getNetwork().commandManager.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
 				new AlertDialog(function() {

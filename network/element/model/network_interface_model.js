@@ -11,17 +11,14 @@ define([ 'observable' ], (function(Observable) {
 	 *            all values to build this model
 	 */
 	var NetworkInterfaceModel = function(values) {
+		values = values || {};
 		this.ni_type = values.ni_type || "";
-		;
 		this.id = values.id || "";
 		this.network_interface_id = values.network_interface_id || {};
-		this.network_element_id = values.network_element_id || {}; // reference
-		// to the
-		// network_element,
-		// this
-		// model
-		// belongst
-		// to
+		// reference to then interface_model,"on the other side"
+		this.network_element_id = values.network_element_id || {};
+		// reference to the network element , this interface belongs to to the
+		// network_element, this model belongs to
 		this.alias = values.alias || "";
 		this.identifier = values.identifier || "";
 
@@ -39,7 +36,7 @@ define([ 'observable' ], (function(Observable) {
 		this.features.push(feature);
 	}
 
-	NetworkInterfaceMolde.prototype.removeResource = function(resource) {
+	NetworkInterfaceModel.prototype.removeResource = function(resource) {
 		for ( var i = 0; i < this.resources.length; i++) {
 			if (this.resources[i] === resource) {
 				this.resources.splice(i, 1);
@@ -48,7 +45,7 @@ define([ 'observable' ], (function(Observable) {
 		}
 	}
 
-	NetworkInterfaceMolde.prototype.removeFeature = function(feature) {
+	NetworkInterfaceModel.prototype.removeFeature = function(feature) {
 		for ( var i = 0; i < this.features.length; i++) {
 			if (this.features[i] === feature) {
 				this.features.splice(i, 1);
@@ -58,12 +55,12 @@ define([ 'observable' ], (function(Observable) {
 	}
 
 	/**
-	 * This function returns a JSON-Object, representing this feature
+	 * This function returns a JSON-Object, representing this network interface
 	 * 
-	 * @return JSON-Object representing this feature
+	 * @return JSON-Object representing this network interface
 	 */
 	NetworkInterfaceModel.prototype.getJson = function() {
 		return this.json;
 	}
-	return Features;
+	return NetworkInterfaceModel;
 })); // define

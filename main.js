@@ -57,6 +57,9 @@ requirejs
 
 				"controllerFactory" : "network/element/controller_factory",
 				"networkElementModel" : "network/element/model/network_element_model",
+				"resourceModel" : "network/element/model/resource_model",
+				"featureModel" : "network/element/model/feature_model",
+				"networkInterfaceModel" : "network/element/model/network_interface_model",
 
 				"networkElementDrawView" : "gui/view/network_element_draw_view",
 				"networkElementAtrributesMainview" : "gui/view/network_element_attributes_mainview",
