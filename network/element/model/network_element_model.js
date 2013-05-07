@@ -27,7 +27,7 @@ define(
 				// Behälter für alles ist.
 				this.resources = resources || [];
 				this.features = features || [];
-				this.network_interfaces = network_interfaces || {};
+				this.network_interfaces = network_interfaces || [];
 				this.provisioning_interface = provisioning_interface || {};
 				this.customer_console_interface = customer_console_interface
 						|| {};
@@ -173,7 +173,7 @@ define(
 			NetworkElementModel.prototype.update = function(command, data){
 				switch(command){
 				case "remove":
-					this.graph_label.removeNetworkElementById(this.id);
+					this.graph_label.removeNetworkElement(this);
 					this.observable.notifyAll("remove",{});
 					break;
 				}
@@ -206,7 +206,7 @@ define(
 			 * 
 			 */
 			NetworkElementModel.prototype.addNetworkInterface = function(interface){
-				this.features.push(feature);
+				this.network_interfaces.push(interface);
 			}
 
 			return NetworkElementModel;

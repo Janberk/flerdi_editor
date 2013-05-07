@@ -95,8 +95,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 		/* alert dialogue - window/tab closed or refresh */
 		$(window).on('beforeunload', function() {
-			// var hasChanged =
-			// _this.networks.getNetwork().getCommandManager().isHasChanged();
+			 var hasChanged =  _this.networks.getNetwork().commandManager.isHasChanged();
 			if (_this.networks != 'undefined' && hasChanged) {
 				return "Window will close, unsaved changes will be lost!";
 			}

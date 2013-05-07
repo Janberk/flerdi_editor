@@ -64,6 +64,8 @@ define(["commandManager",'observable', 'idHandler'], (function(
 				return this.networkElements[i];
 			}
 		}
+		return undefined;
+		
 	}
 	
 	/**
