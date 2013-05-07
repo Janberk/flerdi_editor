@@ -64,12 +64,14 @@ requirejs
 				"networkElementDrawView" : "gui/view/network_element_draw_view",
 				"networkElementAtrributesMainview" : "gui/view/network_element_attributes_mainview",
 				"networkElementGeneralAttributesView" : "gui/view/network_element_genral_attributes_view",
+				"linkDrawView" : "gui/view/link_draw_view",
 
 				"graphLabelAttributesChangeController" : "network/element/controller/graphlabel_attributes_change_controller",
 				"graphLabelAttributesCreateController" : "network/element/controller/graphlabel_attributes_create_controller",
 				"networkElementDrawController" : "network/element/controller/network_element_draw_controller",
 				"networkElementAttributesController" : "network/element/controller/network_element_attributes_controller",
 				"networkElementGeneralAttributesController" : "network/element/controller/network_element_general_attributes_controller",
+				"linkDrawController" : "network/element/controller/link_draw_controller",
 
 				"commandManager" : "network/command_manager",
 				"moveNodeCommand" : "network/commands/move_node_command",
@@ -96,7 +98,8 @@ requirejs
 /*
  * RequireJS module definition
  */
-define([ "jquery", "environment","controllerFactory" ], (function($, Environment,ControllerFactory) {
+define([ "jquery", "environment", "controllerFactory" ], (function($,
+		Environment, ControllerFactory) {
 
 	"use strict";
 

@@ -37,15 +37,13 @@ define(
 					this.networks = network;
 					if (drawOnDrawArea) {
 						for ( var i = 0; i < this.networks.networkElements.length; i++) {
-							// TODO hier wird der link einfach nciht gezeichnet,
-							// ÄNDERN !! ^^
-							if (this.networks.networkElements[i].ne_type
-									.split('/')[1] != 'link') {
-								controllerFactory.build(this.networks.networkElements[i],"draw_area");
-							}
+							controllerFactory.build(
+									this.networks.networkElements[i],
+									"draw_area");
 						}
-						
-						environment.drawArea.setState(environment.drawArea.state);
+
+						environment.drawArea
+								.setState(environment.drawArea.state);
 					}
 
 				}
