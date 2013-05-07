@@ -5,8 +5,8 @@
  * interfaces : IUndoableCommand
  */
 
-define([ "jquery" ], 
-(function($) {
+define([ "jquery","networkElementModel" ], 
+(function($,NetworkElementModel) {
 
 	/**
 	 * This is the constructor
@@ -17,20 +17,27 @@ define([ "jquery" ],
 	var NewLinkCommand = function(network, json){
 		this.network = network;
 		this.json = json;
+		this.link = new NetworkElementModel(this.network);
 	}
 	
 	/**
 	 * This function creates the link
 	 */
-	NewLinkCommand.prototype.execute = function(){		
-		this.link = this.network.importLink(this.json,true);
+	NewLinkCommand.prototype.execute = function(){
+		this.link.resources = this.json.resources;
+		this.link.network_interfaces = this.json.network_interfaces;
+		this.link.graph_label = this.network;
+		this.link.ne_type = this.json.attributes.ne_type;
+		this.network.addNetworkElement(this.link);
+		controllerFactory.build(this.link,"draw_area");
 	}
 	
 	/**
 	 * This function removes the link
 	 */
 	NewLinkCommand.prototype.undo = function(){
-		this.link.removeLink();
+		this.network.removeNetworkElement(this.link);
+		this.link.observable.notifyAll('remove',{});
 	}
 	
 	return NewLinkCommand;

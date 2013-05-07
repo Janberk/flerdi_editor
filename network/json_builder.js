@@ -7,20 +7,21 @@
 /*
  * RequireJS module definition
  */ 
-define (["jquery"], (function($) {
+define (["jquery", "networkInterfaceModel"], (function($, NetworkInterfaceModel) {
 
 	var JsonBuilder = function(){
 		// empty, functions of this class are 'static'
 	}
 	
 	// returns a json representation of a link that connects the two given network elements
-	JsonBuilder.prototype.buildLinkJson = function(elem1, elem2, network, symmetric){
+	JsonBuilder.prototype.buildLinkJson = function(elem1, elem2, symmetric){
 		// get the types of the elements
-		var elemType1 = elem1.json.attributes.ne_type;
-		var elemType2 = elem2.json.attributes.ne_type;
+		var elemType1 = elem1.ne_type;
+		var elemType2 = elem2.ne_type;
 		
-		// get the type of the network
-		var networkType = network.elements['--- !yaml.org,2002'].attributes.graph_type;
+		// get the type of the network TODO get this by ID
+		var network = environment.networks.getNetwork();
+		var networkType = network.graph_type;
 		
 		// determine the type of the new link
 		var type;
@@ -39,41 +40,43 @@ define (["jquery"], (function($) {
 		}
 		
 		// get an ID for the new link
-		var linkId = network.getIdHandler().getNextElementId();
+		var linkId = network.idHandler.getNextElementId();
 		
-		// get IDs for the interfaces of the new link
-		var linkIfId1 = network.getIdHandler().getNextInterfaceId();
-		var linkIfId2 = network.getIdHandler().getNextInterfaceId();
-			
-		// get IDs for the new interfaces of the two connected elements
-		var elemIfId1 = network.getIdHandler().getNextInterfaceId();
-		var elemIfId2 = network.getIdHandler().getNextInterfaceId();
+		// create network interfaces
+		var elemIf1 = new NetworkInterfaceModel({
+			id: network.idHandler.getNextInterfaceId(),
+			network_element_id: elem1
+		});
+		var elemIf2 = new NetworkInterfaceModel({
+			id: network.idHandler.getNextInterfaceId(),
+			network_element_id: elem2
+		});
+		
+		// connect the new interfaces
+		elemIf1.network_interface_id = elemIf2;
+		elemIf2.network_interface_id = elemIf1;
 		
 		// add new interfaces to the elements that get connected
-		elem1.addNetworkInterfaceByJSON({attributes:{'id': elemIfId1,
-			'network_element_id': elem1.getId(),
-			'network_interface_id': linkIfId1}});
-					
-		elem2.addNetworkInterfaceByJSON({attributes:{'id': elemIfId2,
-			'network_element_id': elem2.getId(),
-			'network_interface_id': linkIfId2}});
-		
+		elem1.addNetworkInterface(elemIf1);			
+		elem2.addNetworkInterface(elemIf2);
 		
 		// create a json for the new link
-		var json = {
-			attributes:{'ne_type':type}, 
-
-			network_interfaces: [
-				{attributes:{'id': linkIfId1,
-							'network_element_id': linkId,
-							'network_interface_id': elemIfId1}},
-				{attributes:{'id': linkIfId2,
-							'network_element_id': linkId,
-							'network_interface_id': elemIfId2}}
-				],
-
-			resources: []
-		}
+		var json = {};
+		
+		json.attributes = {'ne_type':type};
+		
+		json.network_interfaces = [
+		    {attributes:{
+			   'id': network.idHandler.getNextInterfaceId(),
+			   'network_element_id': linkId,
+			   'network_interface_id': elemIf1}},
+			{attributes:{
+				'id': network.idHandler.getNextInterfaceId(),
+				'network_element_id': linkId,
+				'network_interface_id': elemIf2}}
+		];
+		
+		json.resources = [];
 		
 		// if this is half duplex
 		if(symmetric) {

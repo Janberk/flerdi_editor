@@ -18,19 +18,26 @@ define([ "networkElementDrawController",
 			switch (controller) {
 			case "draw_area":
 				
-				switch (model.ne_type.split('/')[1]) {
+				var element = model.ne_type.split('/')[1];
+				
+				switch (element) {
 				case "node":
 					return new NetworkElementDrawController(model);
-				default:
+				case "link":
 					return new LinkDrawController(model);
+				default:
+					throw "element type '" + element + "' not supported";
 				}
 
 			case "graphlabelAttributesChange":
 				return new GraphLabelAttributesChangeController(model);
+				
 			case "graphlabelAttributesCreate":
 				return new GraphLabelAttributesCreateController(model);
+				
 			case "networkElementAttributes":
 				return new NetworkElementAttributesController(model);
+				
 			default:
 				throw "controller type '" + controller + "' not supported";
 			}

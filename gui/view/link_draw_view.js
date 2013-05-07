@@ -124,7 +124,7 @@ define([ "jquery" ], (function($) {
 	}
 
 	// TODO diese funktion gehört eich in eine Öffentliche Bibliothek, muss
-	// später noch aisgelagert werden
+	// später noch ausgelagert werden
 	/**
 	 * This functions calculates the
 	 * 

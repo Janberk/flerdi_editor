@@ -7,7 +7,7 @@ define(
 		[ "jquery", "resources", "features", "network_interfaces", "observable" ],
 		(function($, Resources, Features, Network_Interfaces, Observable) {
 
-			var NetworkElementModel = function(graph_label,id, x, y,
+			var NetworkElementModel = function(graph_label, id, x, y,
 					resources, features, network_interfaces, ne_type,
 					provisioning_interface, console_interface, alias,
 					identifier, customer_console_interface) {
@@ -29,8 +29,7 @@ define(
 				this.features = features || [];
 				this.network_interfaces = network_interfaces || [];
 				this.provisioning_interface = provisioning_interface || {};
-				this.customer_console_interface = customer_console_interface
-						|| {};
+				this.customer_console_interface = customer_console_interface || {};
 				this.observable = new Observable();
 				
 				this.graph_label.observable.addObserver(this);
@@ -205,8 +204,8 @@ define(
 			 * @param interface network_interface you want to add
 			 * 
 			 */
-			NetworkElementModel.prototype.addNetworkInterface = function(interface){
-				this.network_interfaces.push(interface);
+			NetworkElementModel.prototype.addNetworkInterface = function(network_interface){
+				this.network_interfaces.push(network_interface);
 			}
 
 			return NetworkElementModel;

@@ -56,12 +56,10 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		}, 'PIP Switch');
 		this.toolbar.addSeperator();
 		this.toolbar.addButton("network_elements/half_duplex", function(e) {
-			_this.drawArea.setState(new NewLink(_this.networks.getNetwork(),
-					true));
+			_this.drawArea.setState(new NewLink(true));
 		}, 'Half-Duplex Link');
 		this.toolbar.addButton("network_elements/full_duplex", function(e) {
-			_this.drawArea.setState(new NewLink(_this.networks.getNetwork(),
-					false));
+			_this.drawArea.setState(new NewLink(false));
 		}, 'Full-Duplex Link');
 		// add additional Buttons here
 

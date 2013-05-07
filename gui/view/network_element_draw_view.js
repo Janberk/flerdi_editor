@@ -15,7 +15,8 @@ define([ "jquery" ], (function($) {
 	 *            new Data for the Model
 	 * 
 	 */
-	var NetworkElementDrawView = function(x, y, ne_type, callback) {
+	var NetworkElementDrawView = function(controller, x, y, ne_type, callback) {
+		this.controller = controller;
 		this.x = x;
 		this.y = y;
 
@@ -80,7 +81,9 @@ define([ "jquery" ], (function($) {
 
 	NetworkElementDrawView.prototype.update = function(command, data) {
 		var _this = this;
+		
 		switch (command) {
+		
 		case "changeState":
 			switch (data) {
 			case "move":
@@ -89,50 +92,53 @@ define([ "jquery" ], (function($) {
 
 				var drawAreaWidth = $('#svg').attr('width');
 				var drawAreaHeight = $('#svg').attr('height');
+				
 				$(this.svg)
-						.on(
-								'dragstart',
-								function(event) {
+					.on('dragstart', function(event) {
+						drawAreaWidth = $('#svg').attr('width');
+						drawAreaHeight = $('#svg').attr('height');
 
-									drawAreaWidth = $('#svg').attr('width');
-									drawAreaHeight = $('#svg').attr('height');
+						dummy = document.createElementNS("http://www.w3.org/2000/svg", "image");
+						dummy.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '');
+						dummy.setAttribute('opacity', '0.5');
+								
+						// TODO replace standard width and height values
+						dummy.setAttribute("x", _this.x);
+						dummy.setAttribute("y", _this.y);
+						dummy.setAttribute("width", 50);
+						dummy.setAttribute("height", 50);
+						dummy.setAttribute("xlink:href", _this.getPathToSvg());
 
-									dummy = document.createElementNS(
-											"http://www.w3.org/2000/svg",
-											"image");
-									dummy.setAttributeNS(
-											'http://www.w3.org/1999/xlink',
-											'xlink:href', '');
-									dummy.setAttribute('opacity', '0.5');
+						// add dummy to document
+						document.getElementById('nodes').appendChild(dummy);
+					}).on('drag', function(event) {
+						$(_this.svg).attr('x', event.offsetX - 32);
+						$(_this.svg).attr('y', event.offsetY - 32);
+					}).on('dragend', function(event) {
+						_this.x = event.offsetX - 32;
+						_this.y = event.offsetY - 32;
 
-									// TODO replace standard width and height
-									// values
-									dummy.setAttribute("x", _this.x);
-									dummy.setAttribute("y", _this.y);
-									dummy.setAttribute("width", 50);
-									dummy.setAttribute("height", 50);
-									dummy.setAttribute("xlink:href", _this
-											.getPathToSvg());
-
-									// add dummy to document
-									document.getElementById('nodes')
-											.appendChild(dummy);
-								}).on('drag', function(event) {
-							$(_this.svg).attr('x', event.offsetX - 32);
-							$(_this.svg).attr('y', event.offsetY - 32);
-						}).on(
-								'dragend',
-								function(event) {
-
-									_this.x = event.offsetX - 32;
-									_this.y = event.offsetY - 32;
-
-									// remove dummy from document
-									document.getElementById('nodes')
-											.removeChild(dummy);
-									_this.callback({x:_this.x,y:_this.y,ne_type:_this.ne_type});
-								});
+						// remove dummy from document
+						document.getElementById('nodes').removeChild(dummy);
+						_this.callback({x:_this.x,y:_this.y,ne_type:_this.ne_type});
+					});
 				break;
+				
+			case "newLink":
+				this.removeEvents();
+				
+				$(this.svg)
+					.on('dragstart', function(event) {
+						environment.drawArea.state.onDragStart(event, _this);
+					}).on('drag', function(event) {
+						environment.drawArea.state.onDrag(event);
+					}).on('dragend', function(event) {
+						environment.drawArea.state.onDragEnd(event);
+					}).on('mouseup', function(event) {
+						environment.drawArea.state.onMouseUp(event, _this);
+					});
+				break;
+				
 			default:
 				this.removeEvents();
 			}
@@ -141,7 +147,7 @@ define([ "jquery" ], (function($) {
 	}
 
 	NetworkElementDrawView.prototype.removeEvents = function() {
-		$(this.svg).off('drag').off('dragend').off('dragstart');
+		$(this.svg).off('drag').off('dragend').off('dragstart').off('mouseup');
 	}
 	// TODO diese funktion gehört eich in eine Öffentliche Bibliothek, muss
 	// später noch aisgelagert werden

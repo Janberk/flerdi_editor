@@ -13,7 +13,7 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 		this.model = model;
 		this.model.observable.addObserver(this);
 		var _this = this;
-		this.view = new NetworkElementDrawView(this.model.x, this.model.y,
+		this.view = new NetworkElementDrawView(this, this.model.x, this.model.y,
 				this.model.ne_type, function(data) {
 					_this.model.graph_label.commandManager
 							.newCommand(new ChangeAttributesCommand(
