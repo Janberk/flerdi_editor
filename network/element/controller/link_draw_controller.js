@@ -26,8 +26,6 @@ define(
 							.addObserver(this);
 				}
 
-				console.log(this.points);
-
 				this.view = new LinkDrawView(this.model.id, this.model.ne_type,
 						this.model.resources[0].avp_attribute, this.points,
 						function(data) {
