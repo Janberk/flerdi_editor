@@ -15,7 +15,7 @@ requirejs
 				"drag" : "lib/jquery.event.drag-1.5.min",
 				"json2yaml" : "lib/json2yaml",
 				"spinner" : "lib/spinner.min",
-
+				"progressbar": "gui/progressbar",
 				"parser" : "backend/YAML_parser",
 
 				"environment" : "environment",
