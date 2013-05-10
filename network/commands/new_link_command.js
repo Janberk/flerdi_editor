@@ -37,7 +37,7 @@ define([ "jquery","networkElementModel" ],
 	 */
 	NewLinkCommand.prototype.undo = function(){
 		this.network.removeNetworkElement(this.link);
-		this.link.observable.notifyAll('remove',{});
+		this.link.notifyAll('remove',{});
 	}
 	
 	return NewLinkCommand;

@@ -11,7 +11,7 @@ define(
 
 			var LinkDrawController = function(model) {
 				this.model = model;
-				this.model.observable.addObserver(this);
+				this.model.addObserver(this);
 				var _this = this;
 
 				this.points = [];
@@ -22,8 +22,7 @@ define(
 								x : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.x,
 								y : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.y
 							});
-					this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable
-							.addObserver(this);
+					this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.addObserver(this);
 				}
 
 				this.view = new LinkDrawView(this.model.id, this.model.ne_type,
@@ -42,8 +41,8 @@ define(
 									x : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.x,
 									y : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.y
 								});
-						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable.removeObserver(this);
-						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable.addObserver(this);
+						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.removeObserver(this);
+						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.addObserver(this);
 					}
 					this.view.id = this.model.id;
 					this.view.ne_type = this.model.ne_type;
@@ -55,8 +54,7 @@ define(
 					this.view.remove();
 					this.model.observable.removeObserver(this);
 					for ( var i = 0; i < this.model.network_interfaces.length; i++) {
-						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable
-								.removeObserver(this);
+						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.removeObserver(this);
 					}
 					break;
 				}

@@ -39,7 +39,7 @@ define([ "jquery" ],
 		for(var key in this.newValues){
 			this.model[key] = this.newValues[key];
 		}
-		this.model.observable.notifyAll("update",{});
+		this.model.notifyAll("update",{});
 	}
 	
 	/**
@@ -49,7 +49,7 @@ define([ "jquery" ],
 		for(var key in this.newValues){
 			this.model[key] = this.oldValues[key];
 		}
-		this.model.observable.notifyAll("update",{});
+		this.model.notifyAll("update",{});
 	}
 	
 	return ChangeAttributesCommand;

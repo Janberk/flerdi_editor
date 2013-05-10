@@ -27,7 +27,7 @@ define([ "networkElementGeneralAttributesView", "network" , "observable"], (func
 		this.parentController = parentController;
 		this.parent = parentController.view.dialog.getBody().find('.'+ this.parentClass);
 		
-		this.model.observable.addObserver(this);
+		this.model.addObserver(this);
 		
 		this.view = new NetworkElementGeneralAttributesView({id : this.id, ne_type:this.ne_type},this.parent, function(data) {
 				this.update("save");
@@ -50,13 +50,13 @@ define([ "networkElementGeneralAttributesView", "network" , "observable"], (func
 			this.model.alias = data.alias;
 			this.model.identifier = data.identifier;
 			
-			this.model.observable.notifyAll("update");
+			this.model.notifyAll("update");
 			this.update('remove', {});
 			break;
 		case "remove":
 			this.view.remove();
-			this.model.observable.removeObserver(this);
-			this.parentController.observable.removeObserver(this);
+			this.model.removeObserver(this);
+			this.parentController.removeObserver(this);
 			break;
 		}
 	}

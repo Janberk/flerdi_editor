@@ -30,10 +30,13 @@ define(
 				this.network_interfaces = network_interfaces || [];
 				this.provisioning_interface = provisioning_interface || {};
 				this.customer_console_interface = customer_console_interface || {};
-				this.observable = new Observable();
 				
-				this.graph_label.observable.addObserver(this);
+				this.graph_label.addObserver(this);
 			}
+			
+			// star extends
+			NetworkElementModel.prototype = new Observable();
+			// end extends
 
 			NetworkElementModel.prototype.getJson = function() {
 				this.json.resources = this.getResources();

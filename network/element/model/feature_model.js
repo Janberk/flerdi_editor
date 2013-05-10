@@ -20,9 +20,11 @@ define (['observable'],
 		
 		this.network_element_id = values.network_element_id || {}; // reference to the network_element this feature belongs to
 		this.network_interface_id = values.network_interface_id || {};
-		
-		this.observable = new Observable();
 	}
+	
+	// star extends
+	FeatureModel.prototype = new Observable();
+	// end extends
 	
 	/**
 	* This function returns a JSON-Object, representing this feature

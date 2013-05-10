@@ -10,7 +10,7 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 
 	var GraphLabelAttributesChangeController = function(model) {
 		this.model = model;
-		this.model.observable.addObserver(this);
+		this.model.addObserver(this);
 		var _this = this;
 
 		this.view = new GraphLabelAttribuesView({
@@ -50,7 +50,7 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 		case "remove":
 			this.view.remove();
 			this.view = undefined;
-			this.model.observable.removeObserver(this);
+			this.model.removeObserver(this);
 			break;
 		}
 	}
