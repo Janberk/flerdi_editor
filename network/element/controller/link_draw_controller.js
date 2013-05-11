@@ -19,15 +19,15 @@ define(
 				for ( var i = 0; i < this.model.network_interfaces.length; i++) {
 					this.points
 							.push({
-								x : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.x,
-								y : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.y
+								x : this.model.network_interfaces[i].network_interface_id.network_element_id.x,
+								y : this.model.network_interfaces[i].network_interface_id.network_element_id.y
 							});
-					this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable
+					this.model.network_interfaces[i].network_interface_id.network_element_id.observable
 							.addObserver(this);
 				}
 
 				this.view = new LinkDrawView(this.model.id, this.model.ne_type,
-						this.model.resources[0].attributes.avp_attribute, this.points,
+						this.model.resources[0].avp_attribute, this.points,
 						function(data) {
 						});
 			}
@@ -39,15 +39,15 @@ define(
 					for ( var i = 0; i < this.model.network_interfaces.length; i++) {
 						this.points
 								.push({
-									x : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.x,
-									y : this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.y
+									x : this.model.network_interfaces[i].network_interface_id.network_element_id.x,
+									y : this.model.network_interfaces[i].network_interface_id.network_element_id.y
 								});
-						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable.removeObserver(this);
-						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable.addObserver(this);
+						this.model.network_interfaces[i].network_interface_id.network_element_id.observable.removeObserver(this);
+						this.model.network_interfaces[i].network_interface_id.network_element_id.observable.addObserver(this);
 					}
 					this.view.id = this.model.id;
 					this.view.ne_type = this.model.ne_type;
-					this.view.avp_attribute = this.model.resources[0].attributes.avp_attribute;
+					this.view.avp_attribute = this.model.resources[0].avp_attribute;
 					this.view.points = this.points;
 					this.view.refresh();
 					break;
@@ -55,7 +55,7 @@ define(
 					this.view.remove();
 					this.model.observable.removeObserver(this);
 					for ( var i = 0; i < this.model.network_interfaces.length; i++) {
-						this.model.network_interfaces[i].attributes.network_interface_id.network_element_id.observable
+						this.model.network_interfaces[i].network_interface_id.network_element_id.observable
 								.removeObserver(this);
 					}
 					break;

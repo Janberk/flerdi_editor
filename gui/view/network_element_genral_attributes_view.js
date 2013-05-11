@@ -21,9 +21,6 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				}
 
 				this.drawView();
-				
-				console.log("S");
-
 			}
 
 			/**

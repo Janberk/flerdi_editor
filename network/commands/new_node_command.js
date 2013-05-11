@@ -19,29 +19,32 @@ define([ "jquery","networkElementModel" ],
 		this.network = network;
 		this.json = json;
 		this.pos = pos;
-		this.node = new NetworkElementModel(this.network);		
+		
+		// create node
+		this.node = new NetworkElementModel(this.network);
+		
+		// set node attributes
+		this.node.graph_label = this.network;
+		this.node.id = this.network.idHandler.getNextElementId();
+		this.node.x = this.pos.x;
+		this.node.y = this.pos.y;
+		this.node.ne_type = this.json.attributes.ne_type;
 	}
 	
 	/**
 	 * This function creates the node
 	 */
 	NewNodeCommand.prototype.execute = function(){
-		this.node.graph_label = this.network;
-		this.node.id = this.network.idHandler.getNextElementId();
-		this.node.x = this.pos.x;
-		this.node.y = this.pos.y;
-		this.node.ne_type = this.json.attributes.ne_type;		
+		// add new node to the network
 		this.network.addNetworkElement(this.node);
 		controllerFactory.build(this.node,"draw_area");
-
-		//this.node = this.network.importNode(this.json, this.pos, true);
-		//this.network.calcSizeOfSvg();
 	}
 	
 	/**
 	 * This function removes the node
 	 */
 	NewNodeCommand.prototype.undo = function(){
+		// remove the node
 		this.network.removeNetworkElement(this.node);
 		this.node.observable.notifyAll('remove',{});
 	}

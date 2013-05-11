@@ -4,8 +4,8 @@
  */
 
 define(
-		[ "jquery", "resources", "features", "network_interfaces", "observable" ],
-		(function($, Resources, Features, Network_Interfaces, Observable) {
+		[ "jquery", "observable" ],
+		(function($, Observable) {
 
 			var NetworkElementModel = function(graph_label, id, x, y,
 					resources, features, network_interfaces, ne_type,
@@ -82,57 +82,15 @@ define(
 			}
 
 			/**
-			 * This function adds a new NetworkInterface to this
-			 * NetworkElementModel
-			 * 
-			 * @param json
-			 *            JSON-representation of this NetworkInterface
-			 */
-			NetworkElementModel.prototype.addNetworkInterfaceByJSON = function(
-					json) {
-				var network_interface = new Network_Interfaces(this, json)
-				this.network_interfaces.push(network_interface);
-
-				return network_interface;
-			}
-
-			/**
-			 * This function adds a new Feature to this NetworkElementModel
-			 * 
-			 * @param json
-			 *            JSON-representation of this Feature
-			 */
-			NetworkElementModel.prototype.addFeatureByJSON = function(json) {
-				var feature = new Features(this, json);
-				this.features.push(feature);
-
-				return feature;
-			}
-
-			/**
-			 * This function adds a new Resource to this NetworkElementModel
-			 * 
-			 * @param json
-			 *            JSON-representation of this Resource
-			 */
-			NetworkElementModel.prototype.addResourceByJSON = function(json) {
-				var resource = new Resources(this, json);
-				this.resources.push(resource);
-
-				return resource;
-			}
-
-			/**
 			 * This function removes a NetworkInterface from this
 			 * NetworkElementModel
 			 * 
 			 * @param id
 			 *            the id of the NetworkInterface
 			 */
-			NetworkElementModel.prototype.removeNetworkInterfaceById = function(
-					id) {
+			NetworkElementModel.prototype.removeNetworkInterfaceById = function(id) {
 				for ( var i = 0; i < this.network_interfaces.length; i++) {
-					if (this.network_interfaces[i].get('id') == id) {
+					if (this.network_interfaces[i].id == id) {
 						this.network_interfaces.splice(i, 1);
 						break;
 					}
@@ -147,7 +105,7 @@ define(
 			 */
 			NetworkElementModel.prototype.removeFeatureById = function(id) {
 				for ( var i = 0; i < this.features.length; i++) {
-					if (this.features[i].get('id') == id) {
+					if (this.features[i].id == id) {
 						this.features.splice(i, 1);
 						break;
 					}
@@ -162,7 +120,7 @@ define(
 			 */
 			NetworkElementModel.prototype.removeResourceById = function(id) {
 				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].get('id') == id) {
+					if (this.resources[i].id == id) {
 						this.resources.splice(i, 1);
 						break;
 					}

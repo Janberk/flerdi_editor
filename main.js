@@ -52,7 +52,6 @@ requirejs
 				"features" : "network/element/features",
 				"network_interfaces" : "network/element/network_interfaces",
 				"networkOrganisation" : "network/network_organisation",
-				"jsonBuilder" : "network/json_builder",
 				"idHandler" : "network/id_handler",
 
 				"controllerFactory" : "network/element/controller_factory",
