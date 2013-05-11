@@ -23,7 +23,7 @@ define([ "jquery" ],
 	 * This function creates the node
 	 */
 	DeleteNodeCommand.prototype.execute = function(){
-		this.model.observable.notifyAll('remove',{});
+		this.model.notifyAll('remove',{});
 		this.network.removeNetworkElement(this.model);
 	}
 	

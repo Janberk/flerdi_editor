@@ -19,7 +19,7 @@ define([ "jquery", "networkElementModel", "resourceModel", "networkInterfaceMode
 		this.json = json;
 		this.elem1 = elem1;
 		this.elem2 = elem2;
-		this.symmetric;
+		this.symmetric = symmetric;
 		
 		// create element interfaces
 		this.elemIf1 = new NetworkInterfaceModel({
@@ -38,7 +38,7 @@ define([ "jquery", "networkElementModel", "resourceModel", "networkInterfaceMode
 		this.link.graph_label = this.network;
 		this.link.id = this.json.attributes.id;
 		this.link.ne_type = this.json.attributes.ne_type;
-		
+
 		// create link resources
 		if(this.symmetric) {
 			this.link.addResource(new ResourceModel({
@@ -77,7 +77,7 @@ define([ "jquery", "networkElementModel", "resourceModel", "networkInterfaceMode
 	 */
 	NewLinkCommand.prototype.execute = function(){
 		// add new interfaces to the elements that get connected
-		this.elem1.addNetworkInterface(this.elemIf1);			
+		this.elem1.addNetworkInterface(this.elemIf1);
 		this.elem2.addNetworkInterface(this.elemIf2);
 
 		// add new link to the network
@@ -91,7 +91,7 @@ define([ "jquery", "networkElementModel", "resourceModel", "networkInterfaceMode
 	NewLinkCommand.prototype.undo = function(){
 		// remove the link
 		this.network.removeNetworkElement(this.link);
-		this.link.observable.notifyAll('remove',{});
+		this.link.notifyAll('remove',{});
 		
 		// remove the interfaces
 		this.elem1.removeNetworkInterfaceById(this.elemIf1.id);

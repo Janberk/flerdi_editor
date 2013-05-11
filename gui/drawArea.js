@@ -7,14 +7,17 @@
  */
 define([ 'jquery', 'observable' ], function($, Observable) {
 	var DrawArea = function() {
-		this.observable = new Observable();
 		this.state;
 
 	};
 
+	// star extends
+	DrawArea.prototype = new Observable();
+	// end extends
+
 	DrawArea.prototype.setState = function(state) {
 		this.state = state;
-		this.observable.notifyAll("changeState", this.state.name);
+		this.notifyAll("changeState", this.state.name);
 
 		$('#drawarea').off();
 		for ( var i = 0; i < this.state.events.length; i++) {
@@ -23,5 +26,6 @@ define([ 'jquery', 'observable' ], function($, Observable) {
 		}
 
 	};
+
 	return DrawArea;
 });

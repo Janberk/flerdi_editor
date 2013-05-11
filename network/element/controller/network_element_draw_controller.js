@@ -11,7 +11,7 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 
 	var NetworkElementDrawController = function(model) {
 		this.model = model;
-		this.model.observable.addObserver(this);
+		this.model.addObserver(this);
 		var _this = this;
 		this.view = new NetworkElementDrawView(this, this.model.x, this.model.y,
 				this.model.ne_type, function(data) {
@@ -48,7 +48,7 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 			break;
 		case "remove":
 			this.view.remove();
-			this.model.observable.removeObserver(this);
+			this.model.removeObserver(this);
 			break;
 		}
 	}

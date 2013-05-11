@@ -1,6 +1,6 @@
 define(
-		[ 'jquery', 'dialog', 'parser', 'jquery_ui' ],
-		function($, Dialog, Parser, JUI) {
+		[ 'jquery', 'dialog', 'parser', 'jquery_ui', 'progressbar' ],
+		function($, Dialog, Parser, JUI, Progressbar) {
 			var OpenDialog = function(environment) {
 				this.env = environment;
 				var dia = new Dialog('open', 'Open');
@@ -9,13 +9,11 @@ define(
 				dia.setContent($(document.createElement('input')).addClass(
 						'input-block-level').attr('type', 'file'));
 
-				var progress = $(document.createElement('div')).addClass(
-						'progress');
+				this.progress = new Progressbar({},dia.getBody());
 
 				var _this = this;
 				$('#open input')
-						.on(
-								'change',
+						.on('change',
 								function(e) {
 									if (this.files !== 'undefined'
 											&& typeof FileReader !== 'undefined') {
@@ -24,9 +22,18 @@ define(
 										if (file.name.split('\.')[file.name
 												.split('\.').length - 1] == 'yaml') {
 											var reader = new FileReader();
+											
+											
+											
+											reader.onprogress  = function(evt){
+												_this.progress.setValue(Math.round((evt.loaded / evt.total) * 100));
+											}
+											reader.onloadstart = function(){_this.progress.show()};
 											reader.onload = function(e) {
-												dia
-														.addOk(function() {
+												_this.progress.setValue(100);
+												_this.progress.type = 'success';
+												_this.progress.refresh();
+												dia.addOk(function() {
 															Parser.loadFromText(
 																			e.target.result,
 																			file.name,

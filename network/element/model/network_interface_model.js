@@ -24,9 +24,11 @@ define([ 'observable' ], (function(Observable) {
 
 		this.resources = [];
 		this.features = [];
-
-		this.observable = new Observable();
 	}
+	
+	// star extends
+	NetworkInterfaceModel.prototype = new Observable();
+	// end extends
 
 	NetworkInterfaceModel.prototype.addResource = function(resource) {
 		this.resources.push(resource);

@@ -30,7 +30,7 @@ define([ "jquery" ], (function($) {
 
 		this.svg;
 
-		environment.drawArea.observable.addObserver(this);
+		environment.drawArea.addObserver(this);
 
 		this.create();
 		this.drawView();

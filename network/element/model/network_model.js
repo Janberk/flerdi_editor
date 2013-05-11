@@ -17,12 +17,14 @@ define(["commandManager",'observable', 'idHandler'], (function(
 		
 		// TODO einige sachen gehören hier nicht rein, und müssen ausgegliedert werden, damit es wirklcih ein model wird
 		
-		this.observable = new Observable();
-		
 		this.idHandler = new IdHandler();
 
 		this.commandManager = new CommandManager();
 	}
+	
+	// star extends
+	NetworkModel.prototype = new Observable();
+	// end extends
 
 	/**
 	 * This functions adds a Network Element to this Network.

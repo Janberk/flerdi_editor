@@ -26,9 +26,11 @@ define (['observable'],
 		this.alias = values.alias || "";
 		this.identifier = values.identifier || "";
 		this.interval = values.interval || "";
-		
-		this.observable = new Observable();
-	}
+		}
+	
+	// star extends
+	ResourceModel.prototype = new Observable();
+	// end extends
 	
 	/**
 	* This function returns a JSON-Object, representing this resource

@@ -19,23 +19,26 @@ define([ "networkElementAtrributesMainview", "network" , "observable", "networkE
 		
 		
 		this.view = new NetworkElementAttributesMainview({},document.body, function(data) {
-			_this.observable.notifyAll("save",{});
+			_this.notifyAll("save",{});
 			_this.update('remove', {});
 		});
 		
-		this.model.observable.addObserver(this);
+		this.model.addObserver(this);
 		
-		this.observable = new Observable();
-		this.observable.addObserver(new NetworkElementGeneralAttributesController(this.model,this,'attributes-general'));
+		this.addObserver(new NetworkElementGeneralAttributesController(this.model,this,'attributes-general'));
 	}
+	
+	// star extends
+	NetworkElementAttributesController.prototype = new Observable();
+	// end extends
 
 	NetworkElementAttributesController.prototype.update = function(command,
 			data) {
 		switch (command) {
 		case "remove":
-			this.observable.notifyAll("remove", {});
+			this.notifyAll("remove", {});
 			this.view.remove();
-			this.model.observable.removeObserver(this);
+			this.model.removeObserver(this);
 			break;
 		}
 	}
