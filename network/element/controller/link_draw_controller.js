@@ -45,11 +45,11 @@ define(
 					this.view.refresh();
 					break;
 				case "remove":
+					this.view.remove();
+					this.model.removeObserver(this);
 					for ( var i = 0; i < this.model.network_interfaces.length; i++) {
 						this.model.network_interfaces[i].network_interface_id.network_element_id.removeObserver(this);
 					}
-					this.view.remove();
-					this.model.removeObserver(this);
 					break;
 				}
 			}
