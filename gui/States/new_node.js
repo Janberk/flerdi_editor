@@ -12,7 +12,9 @@ define(
 			var NewNode = function(type) {
 				this.name = "newNode";
 				this.type = type;
+				
 				var _this = this;
+				var network = environment.networks.getNetwork(); // TODO get network by ID
 				
 				this.events = [ {
 					name : 'click',
@@ -23,14 +25,13 @@ define(
 						}
 						var json = {
 							attributes : {
-								'id' : 5,
+								'id' : network.idHandler.getNextElementId(),
 								'ne_type' : _this.type
 							}
 						}
-						environment.networks.getNetwork().commandManager
-								.newCommand(new NewNodeCommand(environment
-										.getNetworkOrganisation().getNetwork(),
-										json, pos));
+						
+						// create command for undo						
+						network.commandManager.newCommand(new NewNodeCommand(network, json, pos));
 					}
 				}];
 			}

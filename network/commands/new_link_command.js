@@ -79,10 +79,10 @@ define([ "jquery", "networkElementModel", "resourceModel", "networkInterfaceMode
 		// add new interfaces to the elements that get connected
 		this.elem1.addNetworkInterface(this.elemIf1);
 		this.elem2.addNetworkInterface(this.elemIf2);
-
+		
 		// add new link to the network
 		this.network.addNetworkElement(this.link);
-		controllerFactory.build(this.link,"draw_area");
+		this.controller = controllerFactory.build(this.link,"draw_area");
 	}
 	
 	/**
@@ -91,8 +91,8 @@ define([ "jquery", "networkElementModel", "resourceModel", "networkInterfaceMode
 	NewLinkCommand.prototype.undo = function(){
 		// remove the link
 		this.network.removeNetworkElement(this.link);
-		this.link.notifyAll('remove',{});
-		
+		this.controller.update('remove',{});
+
 		// remove the interfaces
 		this.elem1.removeNetworkInterfaceById(this.elemIf1.id);
 		this.elem2.removeNetworkInterfaceById(this.elemIf2.id);

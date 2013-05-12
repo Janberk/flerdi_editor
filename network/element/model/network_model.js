@@ -75,7 +75,7 @@ define(["commandManager",'observable', 'idHandler'], (function(
 	 * 
 	 */
 	NetworkModel.prototype.remove = function(){
-		this.observable.notifyAll("remove",{});
+		this.notifyAll("remove",{});
 		this.networkElements = [];
 	}
 

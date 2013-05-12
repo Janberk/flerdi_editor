@@ -68,18 +68,20 @@ define (
 			}
 			
 			NewLink.prototype.onMouseUp = function(event, element) {
+				// catch double click on node
+				if(this.element === undefined) return;
+				
 				// get the element models
 				var elem1 = this.element.controller.model;
 				var elem2 = element.controller.model;
 				
 				// elements can't get connected to nothing or themselves
-				if(elem1 !== undefined && elem1 !== elem2)
-				{
+				if(elem1 !== undefined && elem1 !== elem2) {
 					// get the types of the elements
 					var elemType1 = elem1.ne_type;
 					var elemType2 = elem2.ne_type;
 					
-					// get the type of the network TODO get this by ID
+					// get the type of the network TODO get network by ID
 					var network = environment.networks.getNetwork();
 					var networkType = network.graph_type;
 					
@@ -100,8 +102,7 @@ define (
 						json.attribute.ne_type = '/link/transit';
 					}
 					
-					// create command for undo TODO get network by ID
-					var network = environment.networks.getNetwork();
+					// create command for undo
 					network.commandManager.newCommand(new NewLinkCommand(network, json, elem1, elem2, this.symmetric));
 				}
 					

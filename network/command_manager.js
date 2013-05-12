@@ -35,8 +35,7 @@ define([ "jquery" ], (function($) {
 	 */
 	CommandManager.prototype.undo = function() {
 		if (this.position < this.commands.length) {
-			this.commands[this.position].undo();
-			this.position++;
+			this.commands[this.position++].undo();
 			this.greying();
 		} 
 	}
@@ -63,8 +62,7 @@ define([ "jquery" ], (function($) {
 	 */
 	CommandManager.prototype.redo = function() {
 		if (this.position != 0) {
-			this.commands[this.position - 1].execute();
-			this.position--;
+			this.commands[--this.position].execute();
 			this.greying();
 		}
 	}

@@ -134,7 +134,7 @@ define(
 				switch(command){
 				case "remove":
 					this.graph_label.removeNetworkElement(this);
-					this.observable.notifyAll("remove",{});
+					this.notifyAll("remove",{});
 					break;
 				}
 			}

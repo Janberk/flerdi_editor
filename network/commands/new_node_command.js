@@ -25,10 +25,10 @@ define([ "jquery","networkElementModel" ],
 		
 		// set node attributes
 		this.node.graph_label = this.network;
-		this.node.id = this.network.idHandler.getNextElementId();
+		this.node.id = this.json.attributes.id;
+		this.node.ne_type = this.json.attributes.ne_type;
 		this.node.x = this.pos.x;
 		this.node.y = this.pos.y;
-		this.node.ne_type = this.json.attributes.ne_type;
 	}
 	
 	/**
@@ -37,7 +37,7 @@ define([ "jquery","networkElementModel" ],
 	NewNodeCommand.prototype.execute = function(){
 		// add new node to the network
 		this.network.addNetworkElement(this.node);
-		controllerFactory.build(this.node,"draw_area");
+		this.controller = controllerFactory.build(this.node,"draw_area");
 	}
 	
 	/**
@@ -46,7 +46,7 @@ define([ "jquery","networkElementModel" ],
 	NewNodeCommand.prototype.undo = function(){
 		// remove the node
 		this.network.removeNetworkElement(this.node);
-		this.node.notifyAll('remove',{});
+		this.controller.update('remove',{});
 	}
 	
 	return NewNodeCommand;
