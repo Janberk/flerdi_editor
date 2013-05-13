@@ -65,6 +65,8 @@ requirejs
 				"networkElementGeneralAttributesView" : "gui/view/network_element_genral_attributes_view",
 				"linkDrawView" : "gui/view/link_draw_view",
 
+				
+				"controller" : "network/element/controller/controller",
 				"graphLabelAttributesChangeController" : "network/element/controller/graphlabel_attributes_change_controller",
 				"graphLabelAttributesCreateController" : "network/element/controller/graphlabel_attributes_create_controller",
 				"networkElementDrawController" : "network/element/controller/network_element_draw_controller",
@@ -83,6 +85,7 @@ requirejs
 				"changeInterfacesAttributeCommand" : "network/commands/change_interfaces_attribute_command",
 				"changeResourcesAttributeCommand" : "network/commands/change_resources_attribute_command",
 				"changeAttributesCommand" : "network/commands/change_attributes_command",
+				"composedCommand":"network/commands/composed_command",
 
 				"observable" : "network/observable"
 			},

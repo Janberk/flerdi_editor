@@ -5,7 +5,7 @@
 
 define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
-			var NetworkElementAttributesMainview = function(attributes, parent,
+			var NetworkElementGeneralAttributesView = function(attributes, parent,
 					callback) {
 				this.parent = parent;
 				this.attributes = attributes || {};
@@ -27,7 +27,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * This functions draws the View.
 			 * 
 			 */
-			NetworkElementAttributesMainview.prototype.drawView = function() {
+			NetworkElementGeneralAttributesView.prototype.drawView = function() {
 				var _this = this;
 
 				this.table = document.createElement('table');
@@ -50,7 +50,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * Input and select fields, belonging to this Dialogue
 			 * 
 			 */
-			NetworkElementAttributesMainview.prototype.getValues = function() {
+			NetworkElementGeneralAttributesView.prototype.getValues = function() {
 				var elements = $.find('.ui-genral-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
@@ -64,8 +64,8 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * This view refreshes the view
 			 * 
 			 */
-			NetworkElementAttributesMainview.prototype.refresh = function() {
-				var elements = $.find('.ui-graphlabel-attributes-input');
+			NetworkElementGeneralAttributesView.prototype.refresh = function() {
+				var elements = $.find('.ui-genral-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
 					case 'ne_type':
@@ -81,9 +81,9 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				}
 			}
 
-			NetworkElementAttributesMainview.prototype.remove = function() {
+			NetworkElementGeneralAttributesView.prototype.remove = function() {
 
 			}
 
-			return NetworkElementAttributesMainview;
+			return NetworkElementGeneralAttributesView;
 		})); // define

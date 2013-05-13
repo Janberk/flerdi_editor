@@ -10,38 +10,59 @@
  *
  */
 
-define([ "networkElementAtrributesMainview", "network" , "observable", "networkElementGeneralAttributesController"], (function(
-		NetworkElementAttributesMainview, Network, Observable, NetworkElementGeneralAttributesController) {
+define(
+		[ "networkElementAtrributesMainview", "network", "observable",
+				"networkElementGeneralAttributesController", "composedCommand" ],
+		(function(NetworkElementAttributesMainview, Network, Observable,
+				NetworkElementGeneralAttributesController, ComposedCommand) {
 
-	var NetworkElementAttributesController = function(model) {
-		var _this = this;
-		this.model = model;
-		
-		
-		this.view = new NetworkElementAttributesMainview({},document.body, function(data) {
-			_this.notifyAll("save",{});
-			_this.update('remove', {});
-		});
-		
-		this.model.addObserver(this);
-		
-		this.addObserver(new NetworkElementGeneralAttributesController(this.model,this,'attributes-general'));
-	}
-	
-	// star extends
-	NetworkElementAttributesController.prototype = new Observable();
-	// end extends
+			var NetworkElementAttributesController = function(model, parentController, parentClass) {
+				this.model = model;
+				
+				this.parentController = parentController || undefined;
+				
+				this.parent = document.body;
+				
+				if(this.parentController !== undefined){
+					this.parentController.addObserver(this);
+				}else{
+					this.parentController = document.body;
+				}
+				
+				var _this = this;
+				this.view = new NetworkElementAttributesMainview({},this.parent, function(data) {						
+							environment.networks.getNetwork().commandManager.newCommand(_this.getCommand());
+							_this.update('remove', {});
+						}, function(){
+							_this.update('remove', {});
+						});
+				
+				this.addObserver(new NetworkElementGeneralAttributesController(this.model, this, 'attributes-general'));
+			}
 
-	NetworkElementAttributesController.prototype.update = function(command,
-			data) {
-		switch (command) {
-		case "remove":
-			this.notifyAll("remove", {});
-			this.view.remove();
-			this.model.removeObserver(this);
-			break;
-		}
-	}
+			// star extends
+			NetworkElementAttributesController.prototype = new Observable();
+			// end extends
 
-	return NetworkElementAttributesController;
-}));
+			NetworkElementAttributesController.prototype.getCommand = function() {
+				var commands = [];
+				for ( var i = 0; i < this.observer.length; i++) {
+					commands.push(this.observer[i].getCommand());
+				}
+
+				return new ComposedCommand(commands);
+			}
+
+			NetworkElementAttributesController.prototype.update = function(
+					command, data) {
+				switch (command) {
+				case "remove":
+					this.notifyAll("remove", {});
+					this.view.remove();
+					this.model.removeObserver(this);
+					break;
+				}
+			}
+
+			return NetworkElementAttributesController;
+		}));

@@ -6,13 +6,17 @@
 define(
 		[ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
-			var NetworkElementAttributesMainview = function(attributes, parent,
-					callback) {
+			var NetworkElementAttributesMainview = function(attributes, parent, callback, onDelete) {
 				this.dialog;
 				this.callback = function() {
 				};
 				if (callback != undefined && typeof callback == 'function') {
 					this.callback = callback;
+				}
+				this.onDelete = function() {
+				};
+				if (onDelete != undefined && typeof onDelete == 'function') {
+					this.onDelete = onDelete;
 				}
 
 				this.drawView();
@@ -30,7 +34,7 @@ define(
 					_this.callback(_this.getValues());
 
 				});
-				this.dialog.addCancel();
+				this.dialog.addCancel(function(){_this.onDelete()});
 
 				var tab_titles = [ 'General', 'Resources', 'Features',
 						'Interfaces' ];
