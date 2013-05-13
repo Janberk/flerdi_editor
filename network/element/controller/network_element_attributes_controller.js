@@ -10,59 +10,60 @@
  *
  */
 
-define(
-		[ "networkElementAtrributesMainview", "network", "observable",
-				"networkElementGeneralAttributesController", "composedCommand" ],
-		(function(NetworkElementAttributesMainview, Network, Observable,
-				NetworkElementGeneralAttributesController, ComposedCommand) {
+define([ "networkElementAtrributesMainview", "network", "controller",
+		"networkElementGeneralAttributesController", "composedCommand",
+		'observable' ], (function(NetworkElementAttributesMainview, Network,
+		Controller, NetworkElementGeneralAttributesController, ComposedCommand,
+		Observable) {
 
-			var NetworkElementAttributesController = function(model, parentController, parentClass) {
-				this.model = model;
-				
-				this.parentController = parentController || undefined;
-				
-				this.parent = document.body;
-				
-				if(this.parentController !== undefined){
-					this.parentController.addObserver(this);
-				}else{
-					this.parentController = document.body;
-				}
-				
-				var _this = this;
-				this.view = new NetworkElementAttributesMainview({},this.parent, function(data) {						
-							environment.networks.getNetwork().commandManager.newCommand(_this.getCommand());
-							_this.update('remove', {});
-						}, function(){
-							_this.update('remove', {});
-						});
-				
-				this.addObserver(new NetworkElementGeneralAttributesController(this.model, this, 'attributes-general'));
-			}
+	var NetworkElementAttributesController = function(model, parentController,
+			parentClass) {
+		this.base = Controller;
+		this.base(model, parentController, parentClass);
 
-			// star extends
-			NetworkElementAttributesController.prototype = new Observable();
-			// end extends
+		var _this = this;
 
-			NetworkElementAttributesController.prototype.getCommand = function() {
-				var commands = [];
-				for ( var i = 0; i < this.observer.length; i++) {
-					commands.push(this.observer[i].getCommand());
-				}
+		this.view = new NetworkElementAttributesMainview({}, this.parent,
+				function(evt, data) {
+					switch (evt) {
+					case 'ok':
+						console.log('ok');
+						environment.networks.getNetwork().commandManager
+								.newCommand(_this.getCommand());
+						break;
+					case 'close':
+						console.log('close');
+						_this.update('remove', {});
+						break;
+					}
+				});
 
-				return new ComposedCommand(commands);
-			}
+		// creating the views that should be shown inside this controllers view
+		this.addObserver(new NetworkElementGeneralAttributesController(
+				this.model, this, 'attributes-general'));
+	}
 
-			NetworkElementAttributesController.prototype.update = function(
-					command, data) {
-				switch (command) {
-				case "remove":
-					this.notifyAll("remove", {});
-					this.view.remove();
-					this.model.removeObserver(this);
-					break;
-				}
-			}
+	NetworkElementAttributesController.prototype = new Controller();
 
-			return NetworkElementAttributesController;
-		}));
+	NetworkElementAttributesController.prototype.getCommand = function() {
+		var commands = [];
+		for ( var i = 0; i < this.observer.length; i++) {
+			commands.push(this.observer[i].getCommand());
+		}
+
+		return new ComposedCommand(commands);
+	}
+
+	NetworkElementAttributesController.prototype.update = function(command,
+			data) {
+		switch (command) {
+		case "remove":
+			this.notifyAll("remove", {});
+			this.view.remove();
+			this.model.removeObserver(this);
+			break;
+		}
+	}
+
+	return NetworkElementAttributesController;
+}));

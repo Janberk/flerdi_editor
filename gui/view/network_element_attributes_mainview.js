@@ -6,17 +6,12 @@
 define(
 		[ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
-			var NetworkElementAttributesMainview = function(attributes, parent, callback, onDelete) {
+			var NetworkElementAttributesMainview = function(attributes, parent, callback) {
 				this.dialog;
 				this.callback = function() {
 				};
 				if (callback != undefined && typeof callback == 'function') {
 					this.callback = callback;
-				}
-				this.onDelete = function() {
-				};
-				if (onDelete != undefined && typeof onDelete == 'function') {
-					this.onDelete = onDelete;
 				}
 
 				this.drawView();
@@ -31,10 +26,10 @@ define(
 				var _this = this;
 				this.dialog = new Dialog("Node_Attributes", "Node Attributes");
 				this.dialog.addOk(function() {
-					_this.callback(_this.getValues());
+					_this.callback('ok',_this.getValues('close'));
 
 				});
-				this.dialog.addCancel(function(){_this.onDelete()});
+				this.dialog.addCancel(function(){_this.callback('')});
 
 				var tab_titles = [ 'General', 'Resources', 'Features',
 						'Interfaces' ];
@@ -73,6 +68,10 @@ define(
 				return {};
 			}
 
+			NetworkElementAttributesMainview.prototype.getBody = function() {
+				return this.dialog.getBody();
+			}
+			
 			/*
 			 * This view refreshes the view
 			 * 

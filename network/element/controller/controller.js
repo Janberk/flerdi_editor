@@ -18,7 +18,28 @@ define(
 			 * 
 			 */
 			var Controller = function(model, parentController, parentClass) {
+				this.base = Observable;
+				this.base();
 
+				this.model = model;
+				this.parent = document.body;
+				this.parentController = parentController || undefined;
+				
+				if(this.parentController !== undefined){
+					this.parentController.addObserver(this);
+				}else{
+					this.parentController = document.body;
+				}
+				
+				this.parentClass = parentClass || undefined;
+				
+				if(this.parentClass !== undefined){
+					if(this.parentController !== undefined){
+						this.parent = parentController.view.getBody().find('.' + this.parentClass);
+					}else{
+						this.parent = $(document.body).find('.' + this.parentClass);
+					}
+				}
 			}
 
 			Controller.prototype = new Observable();

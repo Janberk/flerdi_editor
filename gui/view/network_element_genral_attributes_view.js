@@ -81,6 +81,10 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				}
 			}
 
+			NetworkElementGeneralAttributesView.prototype.getBody = function(){
+				return this.table;
+			}
+			
 			NetworkElementGeneralAttributesView.prototype.remove = function() {
 
 			}

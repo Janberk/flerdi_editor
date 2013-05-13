@@ -11,39 +11,35 @@
  */
 
 define(
-		[ "networkElementGeneralAttributesView", "changeAttributesCommand" ],
-		(function(NetworkElementGeneralAttributesView, ChangeAttributesCommand) {
+		[ "networkElementGeneralAttributesView", "changeAttributesCommand" , 'controller'],
+		(function(NetworkElementGeneralAttributesView, ChangeAttributesCommand, Controller) {
 
-			var NetworkElementGeneralAttributesController = function(model,
-					parentController, parentClass) {
+			var NetworkElementGeneralAttributesController = function(model, parentController, parentClass) {
+				this.base = Controller;
+				this.base(model, parentController, parentClass);
+
+				this.model.addObserver(this);
+				
 				var _this = this;
-
-				this.model = model;
 
 				this.ne_type = this.model.ne_type;
 				this.alias = this.model.alias;
 				this.identifier = this.model.identifier;
-
-				this.parentClass = parentClass;
-				this.parentController = parentController;
-				this.parent = parentController.view.dialog.getBody().find(
-						'.' + this.parentClass);
-
-				this.model.addObserver(this);
-
+				
 				this.view = new NetworkElementGeneralAttributesView({
 					identifier : this.identifier,
 					ne_type : this.ne_type,
 					alias : this.alias
-				}, this.parent, function(data) {
+				}, this.parent, function(evt, data) {
 					this.update("save");
 				});
 
 			}
 
+			NetworkElementGeneralAttributesController.prototype = new Controller();
+			
 			NetworkElementGeneralAttributesController.prototype.getCommand = function() {
-				return new ChangeAttributesCommand(this.model, this.view
-						.getValues());
+				return new ChangeAttributesCommand(this.model, this.view.getValues());
 			}
 
 			NetworkElementGeneralAttributesController.prototype.update = function(
