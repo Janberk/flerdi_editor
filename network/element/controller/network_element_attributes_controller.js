@@ -27,12 +27,10 @@ define([ "networkElementAtrributesMainview", "network", "controller",
 				function(evt, data) {
 					switch (evt) {
 					case 'ok':
-						console.log('ok');
 						environment.networks.getNetwork().commandManager
 								.newCommand(_this.getCommand());
 						break;
 					case 'close':
-						console.log('close');
 						_this.update('remove', {});
 						break;
 					}

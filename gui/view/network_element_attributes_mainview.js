@@ -8,6 +8,7 @@ define(
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
 			var NetworkElementAttributesMainview = function(attributes, parent, callback) {
 				this.dialog;
+				this.parent = parent;
 				this.callback = function() {
 				};
 				if (callback != undefined && typeof callback == 'function') {
@@ -41,8 +42,8 @@ define(
 								.addClass('tab-content'));
 
 				$.each(tab_titles,function() {
-									content.find('.nav').append($(
-									document.createElement('li')).append($(document.createElement('a'))
+									content.find('.nav').append(
+											$(document.createElement('li')).append($(document.createElement('a'))
 												.attr({'href' : '#'+ this.toLowerCase(),'data-toggle' : 'tab'})
 												.append(String(this))));
 									content.find('.tab-content').append($(document.createElement('div'))
@@ -55,6 +56,35 @@ define(
 						$(document.createElement('div')).css({
 							display: 'block'
 						}).attr('class', 'attributes-general'));
+				
+				content.find('#resources').append(
+						$(document.createElement('div')).css({
+							display: 'block',
+							width: '50%',
+							float:'left',
+						}).attr('class', 'resources-overview').html('class : resources-overview'));
+				
+				content.find('#resources').append(
+						$(document.createElement('div')).css({
+							display: 'block',
+							width: '50%',
+							float:'left',
+						}).attr('class', 'resource-attributes').html('class : resource-attributes'));
+				
+				content.find('#features').append(
+						$(document.createElement('div')).css({
+							display: 'block',
+							width: '50%',
+							float:'left',
+						}).attr('class', 'features-overview').html('class : features-overview'));
+				
+				content.find('#features').append(
+						$(document.createElement('div')).css({
+							display: 'block',
+							width: '50%',
+							float:'left',
+						}).attr('class', 'feature-attributes').html('class : feature-attributes'));
+				
 				content.find('.nav a:first').tab('show');
 				this.dialog.setContent(content);
 			}

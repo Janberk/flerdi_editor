@@ -5,11 +5,14 @@
  * implements IObserver
  */
 
-define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
-		GraphLabelAttribuesView, ChangeAttributesCommand) {
+define([ "graphlabelAttributesView", 'changeAttributesCommand' ,'controller'], (function(
+		GraphLabelAttribuesView, ChangeAttributesCommand, Controller) {
 
-	var GraphLabelAttributesChangeController = function(model) {
-		this.model = model;
+	var GraphLabelAttributesChangeController = function(model,
+			parentController, parentClass) {
+		this.base = Controller;
+		this.base(model, parentController, parentClass);
+
 		this.model.addObserver(this);
 		var _this = this;
 
@@ -19,21 +22,32 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ], (function(
 			v_net_identifier : this.model.v_net_identifier,
 			graph_tag : this.model.graph_tag,
 			graph_nr : this.model.graph_nr
-		}, function(data) {
-			_this.model.commandManager.newCommand(new ChangeAttributesCommand(
-					_this.model, {
-						graph_type : data.graph_type,
-						role_identifier : data.role_identifier,
-						v_net_identifier : data.v_net_identifier,
-						graph_tag : data.graph_tag,
-						graph_nr : data.graph_nr
-					}));
-			_this.update('remove', {});
-		}, function(data) {
-			_this.update("remove", {});
+		},this.parent, function(evt, data) {
+			switch(evt){
+			case 'ok':
+				_this.model.commandManager.newCommand(_this.getCommand());
+				
+				break;
+			case 'close':
+				_this.update('remove', {});
+				break
+			}
 		});
 
 		$(this.view.table).find('[name="graph_type"]').prop('disabled', true);
+	}
+
+	GraphLabelAttributesChangeController.prototype = new Controller();
+
+	GraphLabelAttributesChangeController.prototype.getCommand = function() {
+		var attributes = this.view.getValues();
+		return new ChangeAttributesCommand(this.model, {
+			graph_type : attributes.graph_type,
+			role_identifier : attributes.role_identifier,
+			v_net_identifier : attributes.v_net_identifier,
+			graph_tag : attributes.graph_tag,
+			graph_nr : attributes.graph_nr
+		})
 	}
 
 	GraphLabelAttributesChangeController.prototype.update = function(command,

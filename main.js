@@ -64,6 +64,7 @@ requirejs
 				"networkElementAtrributesMainview" : "gui/view/network_element_attributes_mainview",
 				"networkElementGeneralAttributesView" : "gui/view/network_element_genral_attributes_view",
 				"linkDrawView" : "gui/view/link_draw_view",
+				"testView":"gui/view/test_view",
 
 				
 				"controller" : "network/element/controller/controller",
@@ -73,6 +74,7 @@ requirejs
 				"networkElementAttributesController" : "network/element/controller/network_element_attributes_controller",
 				"networkElementGeneralAttributesController" : "network/element/controller/network_element_general_attributes_controller",
 				"linkDrawController" : "network/element/controller/link_draw_controller",
+				"testController":"network/element/controller/test_controller",
 
 				"commandManager" : "network/command_manager",
 				"moveNodeCommand" : "network/commands/move_node_command",
@@ -87,7 +89,9 @@ requirejs
 				"changeAttributesCommand" : "network/commands/change_attributes_command",
 				"composedCommand":"network/commands/composed_command",
 
-				"observable" : "network/observable"
+				"observable" : "network/observable",
+				
+				
 			},
 			shim : {
 				'bootstrap' : {

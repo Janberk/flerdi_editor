@@ -5,7 +5,7 @@
 
 define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
-			var GraphLabelAttribuesView = function(attributes, callback, onDelete) {
+			var GraphLabelAttribuesView = function(attributes, parent, callback) {
 
 				attributes = attributes || {};
 				
@@ -21,9 +21,6 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				if (callback != undefined && typeof callback == 'function') {
 					this.callback = callback;
 				}
-				if (onDelete != undefined && typeof onDelete == 'function') {
-					this.onDelete = onDelete;
-				}	
 
 				this.drawView();
 			}
@@ -37,11 +34,11 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				this.dialog = new Dialog("changeGraphlabelAttributes",
 						"graph attributes");
 				this.dialog.addOk(function() {
-					_this.callback(_this.getValues());
+					_this.callback('ok',_this.getValues());
 					
 				});
 				this.dialog.addCancel(function() {
-					_this.onDelete();
+					_this.callback('close',{});
 				});
 
 				this.table = document.createElement('table');
@@ -63,6 +60,10 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				this.dialog.setContent(this.table);
 			}
 
+			GraphLabelAttribuesView.prototype.getBody = function(){
+				return this.dialog.getBody();
+			}
+			
 			/**
 			 * This function returns a JSON representing the content of all
 			 * Input and select fields, belonging to this Dialogue
@@ -77,10 +78,6 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 
 				return json;
 			}
-
-			// TODO ich bin noch nicht zufrieden mit dieser funktion, sowhl als
-			// allgmeiner aufbau der refresh funktion als auch dieser spezielle
-			// fall - Stefan
 			/**
 			 * This function refreshes the view
 			 * 
