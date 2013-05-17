@@ -8,7 +8,7 @@ define(
 
 				dia.setContent($(document.createElement('input')).addClass(
 						'input-block-level').attr('type', 'file'));
-
+				dia.show();
 				this.progress = new Progressbar({},dia.getBody());
 
 				var _this = this;
@@ -38,6 +38,7 @@ define(
 																			e.target.result,
 																			file.name,
 																			function(network) {
+																				console.log(network);
 																				environment.networks.newNetwork(network,true);
 																			})
 														});
@@ -49,6 +50,7 @@ define(
 									} else
 										alert('Your browser does not support the HTML5 File-API');
 								});
+				
 			}
 			return OpenDialog;
 		})

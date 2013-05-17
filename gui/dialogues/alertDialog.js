@@ -6,6 +6,7 @@ define(['jquery', 'dialog'], function($, Dialog) {
 		);
 		this.dia.addCancel();
 		this.dia.addOk(funct);
+		this.dia.show();
 	}
 	return AlertDialog;
 })

@@ -6,10 +6,12 @@
  */
 
 define(
-		[ "linkDrawView" ],
-		(function(LinkDrawView) {
+		[ "linkDrawView" ,"controller"],
+		(function(LinkDrawView, Controller) {
 
-			var LinkDrawController = function(model) {
+			var LinkDrawController = function(model,parentController, parentClass) {
+				this.base = Controller;
+				this.base(model,parentController,parentClass);
 				this.model = model;
 				this.model.addObserver(this);
 				var _this = this;
@@ -28,6 +30,12 @@ define(
 						function(data) {});
 			}
 
+			LinkDrawController.prototype = new Controller();
+			
+			LinkDrawController.prototype.getCommand = function(){
+				return undefined;
+			}
+			
 			LinkDrawController.prototype.update = function(command, data) {
 				switch (command) {
 				case "update":

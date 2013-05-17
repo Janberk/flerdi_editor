@@ -3,7 +3,7 @@
  * RequireJS module definition
  */
 
-define([ "jquery" ], (function($) {
+define([ "jquery", "drag" ], (function($, Drag) {
 
 	/**
 	 * This is the Constructor.
@@ -15,10 +15,12 @@ define([ "jquery" ], (function($) {
 	 *            new Data for the Model
 	 * 
 	 */
-	var NetworkElementDrawView = function(controller, x, y, ne_type, callback) {
+	var NetworkElementDrawView = function(controller, attributes, callback) {
 		this.controller = controller;
-		this.x = x;
-		this.y = y;
+		this.attributes = attributes || {};
+		this.x = attributes.x;
+		this.y = attributes.y;
+		this.ne_type = attributes.ne_type;
 
 		this.callback = function() {
 		};
@@ -26,15 +28,12 @@ define([ "jquery" ], (function($) {
 			this.callback = callback;
 		}
 
-		this.ne_type = ne_type;
-
 		this.svg;
 
 		environment.drawArea.addObserver(this);
 
 		this.create();
 		this.drawView();
-
 	}
 
 	/**
@@ -60,6 +59,7 @@ define([ "jquery" ], (function($) {
 	 * 
 	 */
 	NetworkElementDrawView.prototype.create = function() {
+		var _this = this;
 		this.svg = document.createElementNS("http://www.w3.org/2000/svg",
 				"image");
 		this.svg.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
@@ -68,6 +68,12 @@ define([ "jquery" ], (function($) {
 		// TODO replace standard width and height values
 		this.svg.setAttribute("width", 50);
 		this.svg.setAttribute("height", 50);
+
+		$(this.svg).on('contextmenu', function(e) {
+			_this.callback('context').show(e);
+			return false;
+		})
+
 		this.refresh();
 	}
 
@@ -81,9 +87,9 @@ define([ "jquery" ], (function($) {
 
 	NetworkElementDrawView.prototype.update = function(command, data) {
 		var _this = this;
-		
+
 		switch (command) {
-		
+
 		case "changeState":
 			switch (data) {
 			case "move":
@@ -92,58 +98,73 @@ define([ "jquery" ], (function($) {
 
 				var drawAreaWidth = $('#svg').attr('width');
 				var drawAreaHeight = $('#svg').attr('height');
-				
+
 				$(this.svg)
-					.on('dragstart', function(event) {
-						drawAreaWidth = $('#svg').attr('width');
-						drawAreaHeight = $('#svg').attr('height');
+						.on('dragstart', function(event) {
+									drawAreaWidth = $('#svg').attr('width');
+									drawAreaHeight = $('#svg').attr('height');
 
-						dummy = document.createElementNS("http://www.w3.org/2000/svg", "image");
-						dummy.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '');
-						dummy.setAttribute('opacity', '0.5');
-								
-						// TODO replace standard width and height values
-						dummy.setAttribute("x", _this.x);
-						dummy.setAttribute("y", _this.y);
-						dummy.setAttribute("width", 50);
-						dummy.setAttribute("height", 50);
-						dummy.setAttribute("xlink:href", _this.getPathToSvg());
+									dummy = document.createElementNS(
+											"http://www.w3.org/2000/svg",
+											"image");
+									dummy.setAttributeNS(
+											'http://www.w3.org/1999/xlink',
+											'xlink:href', '');
+									dummy.setAttribute('opacity', '0.5');
 
-						// add dummy to document
-						document.getElementById('nodes').appendChild(dummy);
-					}).on('drag', function(event) {
-						$(_this.svg).attr('x', event.offsetX - 32);
-						$(_this.svg).attr('y', event.offsetY - 32);
-					}).on('dragend', function(event) {
-						_this.x = event.offsetX - 32;
-						_this.y = event.offsetY - 32;
+									// TODO replace standard width and height
+									// values
+									dummy.setAttribute("x", _this.x);
+									dummy.setAttribute("y", _this.y);
+									dummy.setAttribute("width", 50);
+									dummy.setAttribute("height", 50);
+									dummy.setAttribute("xlink:href", _this
+											.getPathToSvg());
 
-						// remove dummy from document
-						document.getElementById('nodes').removeChild(dummy);
-						_this.callback({x:_this.x,y:_this.y,ne_type:_this.ne_type});
-					});
+									// add dummy to document
+									document.getElementById('nodes')
+											.appendChild(dummy);
+						}).on('drag', function(event) {
+							$(_this.svg).attr('x', event.offsetX - 32);
+							$(_this.svg).attr('y', event.offsetY - 32);
+						}).on('dragend', function(event) {
+									_this.x = event.offsetX - 32;
+									_this.y = event.offsetY - 32;
+
+									// remove dummy from document
+									document.getElementById('nodes')
+											.removeChild(dummy);
+									_this.callback('moved',{});
+						});
 				break;
-				
+
 			case "newLink":
 				this.removeEvents();
-				
-				$(this.svg)
-					.on('dragstart', function(event) {
-						environment.drawArea.state.onDragStart(event, _this);
-					}).on('drag', function(event) {
-						environment.drawArea.state.onDrag(event);
-					}).on('dragend', function(event) {
-						environment.drawArea.state.onDragEnd(event);
-					}).on('mouseup', function(event) {
-						environment.drawArea.state.onMouseUp(event, _this);
-					});
+
+				$(this.svg).on('dragstart', function(event) {
+					environment.drawArea.state.onDragStart(event, _this);
+				}).on('drag', function(event) {
+					environment.drawArea.state.onDrag(event);
+				}).on('dragend', function(event) {
+					environment.drawArea.state.onDragEnd(event);
+				}).on('mouseup', function(event) {
+					environment.drawArea.state.onMouseUp(event, _this);
+				});
 				break;
-				
+
 			default:
 				this.removeEvents();
 			}
 			break;
 		}
+	}
+
+	NetworkElementDrawView.prototype.getValues = function() {
+		return {
+			x : this.x,
+			y : this.y,
+			ne_type : this.ne_type
+		};
 	}
 
 	NetworkElementDrawView.prototype.removeEvents = function() {
@@ -174,13 +195,10 @@ define([ "jquery" ], (function($) {
 					+ this.ne_type + "'";
 		}
 	}
-	
-	NetworkElementDrawView.prototype.addContextMenue = function(contextMenue){
-		$(this.svg).on('contextmenu', function(e) {
-			contextMenue.show(e);
-			return false;
-		})
-	}
 
+	NetworkElementDrawView.prototype.getBody = function(){
+		return undefined;
+	}
+	
 	return NetworkElementDrawView;
 }));

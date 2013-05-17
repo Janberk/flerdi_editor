@@ -6,22 +6,26 @@
  */
 
 define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
-		"changeAttributesCommand" ], (function(NetworkElementDrawView,
-		ContextMenu, DeleteNodeCommand, ChangeAttributesCommand) {
+		"changeAttributesCommand","controller" ], (function(NetworkElementDrawView,
+		ContextMenu, DeleteNodeCommand, ChangeAttributesCommand, Controller) {
 
-	var NetworkElementDrawController = function(model) {
+	var NetworkElementDrawController = function(model,parentController,parentClass) {
+		this.base = Controller;
+		this.base(model,parentController,parentClass);
 		this.model = model;
 		this.model.addObserver(this);
 		var _this = this;
-		this.view = new NetworkElementDrawView(this, this.model.x, this.model.y,
-				this.model.ne_type, function(data) {
-					_this.model.graph_label.commandManager
-							.newCommand(new ChangeAttributesCommand(
-									_this.model, {
-										x : data.x,
-										y : data.y,
-										ne_type : data.ne_type
-									}));
+		
+		this.view = new NetworkElementDrawView(this, {x:this.model.x,y:this.model.y,ne_type:this.model.ne_type},
+				function(evt, data) {
+					switch (evt){
+					case 'context':
+						return _this.menu;
+						break;
+					case 'moved':
+						_this.model.graph_label.commandManager.newCommand(_this.getCommand());
+						break;
+					}
 				});
 
 		this.menu = new ContextMenu();
@@ -34,7 +38,13 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 		this.menu.addButton('Properties', function(e) {
 			controllerFactory.build(_this.model, "networkElementAttributes");
 		});
-		this.view.addContextMenue(this.menu);
+
+	}
+	
+	NetworkElementDrawController.prototype = new Controller();
+	
+	NetworkElementDrawController.prototype.getCommand = function(){
+		return new ChangeAttributesCommand(this.model, this.view.getValues());
 	}
 
 	NetworkElementDrawController.prototype.update = function(command, data) {
@@ -51,6 +61,7 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 			break;
 		}
 	}
+	
 
 	return NetworkElementDrawController;
 }));
