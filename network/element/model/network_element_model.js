@@ -4,8 +4,8 @@
  */
 
 define(
-		[ "jquery", "observable" ],
-		(function($, Observable) {
+		["observable" ],
+		(function(Observable) {
 
 			var NetworkElementModel = function(graph_label, id, x, y,
 					resources, features, network_interfaces, ne_type,

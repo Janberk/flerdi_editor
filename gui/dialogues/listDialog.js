@@ -1,5 +1,5 @@
-define(['jquery', 'dialog', "jsonViewer", "changeNodeAttributeCommand", "changeFeaturesAttributeCommand", "changeInterfacesAttributeCommand", "changeResourcesAttributeCommand"],
-function($, Dialog,JsonViewer, ChangeNodeAttributeCommand, ChangeFeaturesAttributeCommand, ChangeInterfacesAttributeCommand, ChangeResourcesAttributeCommand) {
+define(['jquery', 'dialog', "jsonViewer"],
+function($, Dialog,JsonViewer) {
 	var ListDialog = function(node) {
 		this.node = node;
 		this.json = node.getJson();

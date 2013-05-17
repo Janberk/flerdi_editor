@@ -23,9 +23,14 @@ define([ "jquery", "bootstrap" ],
 								$(document.createElement('div')).addClass(
 										'modal-footer'))
 
+				
+			}
+			
+			Dialog.prototype.show = function(){
 				$('body').append(this.dia);
 				$(this.dia).modal('show');
 			}
+			
 			Dialog.prototype.setContent = function(content) {
 				this.getBody().append(content);
 			}

@@ -5,8 +5,8 @@
 /*
  * This class is specifically for dialogues concerning Resources, Features and NetworkInterfaces
  */ 
-define (["jquery","window","jsonViewer", "changeNodeAttributeCommand", "changeFeaturesAttributeCommand", "changeInterfacesAttributeCommand", "changeResourcesAttributeCommand"], 
-	(function($,Window,JsonViewer, ChangeNodeAttributeCommand, ChangeFeaturesAttributeCommand, ChangeInterfacesAttributeCommand, ChangeResourcesAttributeCommand) {
+define (["jquery","window","jsonViewer"], 
+	(function($,Window,JsonViewer) {
 
 	/*
 	 * constructor: creates a new listDialogue for the given node,

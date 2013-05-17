@@ -7,7 +7,9 @@ define(
 		[ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
 			var NetworkElementAttributesMainview = function(attributes, parent, callback) {
-				this.dialog;
+				this.base = Dialog;
+				this.base('Node_Attributes','Node Attributes');
+				
 				this.parent = parent;
 				this.callback = function() {
 				};
@@ -16,21 +18,22 @@ define(
 				}
 
 				this.drawView();
-
+				this.show();
 			}
 
+			NetworkElementAttributesMainview.prototype = new Dialog();
+			
 			/**
 			 * This functions draws the View.
 			 * 
 			 */
 			NetworkElementAttributesMainview.prototype.drawView = function() {
 				var _this = this;
-				this.dialog = new Dialog("Node_Attributes", "Node Attributes");
-				this.dialog.addOk(function() {
+				this.addOk(function() {
 					_this.callback('ok',_this.getValues('close'));
 
 				});
-				this.dialog.addCancel(function(){_this.callback('')});
+				this.addCancel(function(){_this.callback('')});
 
 				var tab_titles = [ 'General', 'Resources', 'Features',
 						'Interfaces' ];
@@ -86,7 +89,7 @@ define(
 						}).attr('class', 'feature-attributes').html('class : feature-attributes'));
 				
 				content.find('.nav a:first').tab('show');
-				this.dialog.setContent(content);
+				this.setContent(content);
 			}
 
 			/**
@@ -98,19 +101,11 @@ define(
 				return {};
 			}
 
-			NetworkElementAttributesMainview.prototype.getBody = function() {
-				return this.dialog.getBody();
-			}
-			
 			/*
 			 * This view refreshes the view
 			 * 
 			 */
 			NetworkElementAttributesMainview.prototype.refresh = function() {
-
-			}
-
-			NetworkElementAttributesMainview.prototype.remove = function() {
 
 			}
 

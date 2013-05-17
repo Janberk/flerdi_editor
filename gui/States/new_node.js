@@ -29,9 +29,8 @@ define(
 								'ne_type' : _this.type
 							}
 						}
-						
 						// create command for undo						
-						network.commandManager.newCommand(new NewNodeCommand(network, json, pos));
+						network.commandManager.newCommand(new NewNodeCommand(network, json, pos, event.ctrlKey));
 					}
 				}];
 			}

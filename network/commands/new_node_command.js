@@ -14,11 +14,20 @@ define([ "jquery","networkElementModel" ],
 	 * @param network the network
 	 * @param json the json of the new node
 	 * @param pos the position of the new node
+	 * @param showInAtttributesView if true this node will be shown in a attributes view, to edit the attributes after edeting
 	 */
-	var NewNodeCommand = function(network, json, pos){
+	var NewNodeCommand = function(network, json, pos, showInAttributesView){
 		this.network = network;
 		this.json = json;
 		this.pos = pos;
+		
+		if(showInAttributesView === undefined){
+			this.showInAttributesView = false;
+		}else if(showInAttributesView == true){
+			this.showInAttributesView = true;
+		}else{
+			this.showInAttributesView = false;
+		}
 		
 		// create node
 		this.node = new NetworkElementModel(this.network);
@@ -38,6 +47,10 @@ define([ "jquery","networkElementModel" ],
 		// add new node to the network
 		this.network.addNetworkElement(this.node);
 		this.controller = controllerFactory.build(this.node,"draw_area");
+		if(this.showInAttributesView){
+			controllerFactory.build(this.node,"networkElementAttributes");
+			this.showInAttributesView = false;
+		}
 	}
 	
 	/**

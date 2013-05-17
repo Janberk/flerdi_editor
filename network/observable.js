@@ -7,8 +7,8 @@
  * RequireJS module definition
  */
 define(
-		[ "jquery", "node", "link", "json2yaml", "commandManager", "idHandler" ],
-		(function($, Node, Link, Json2yaml, CommandManager, IdHandler) {
+		[],
+		(function() {
 
 			var Observable = function() {
 				this.observer = []; // list of all registered observer

@@ -5,7 +5,7 @@
  /* 
  *  This class handles the appearance of the statusbar
  */
-define (['jquery', 'changeNodeTypeCommand'],function($, ChangeNodeTypeCommand) {
+define (['jquery'],function($) {
 	var Statusbar = function(obj) {
 		this.target = obj;
 		if($('#statusbar').children().length == 0) {

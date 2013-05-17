@@ -6,6 +6,8 @@
 define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
 			var GraphLabelAttribuesView = function(attributes, parent, callback) {
+				this.base = Dialog;
+				this.base('changeGraphlabelAttributes','graph attributes');
 
 				attributes = attributes || {};
 				
@@ -23,21 +25,23 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 				}
 
 				this.drawView();
+				this.show();
 			}
 
+			GraphLabelAttribuesView.prototype = new Dialog();
+			
 			/**
 			 * This functions draws the View.
 			 * 
 			 */
 			GraphLabelAttribuesView.prototype.drawView = function() {
 				var _this = this;
-				this.dialog = new Dialog("changeGraphlabelAttributes",
-						"graph attributes");
-				this.dialog.addOk(function() {
+
+				this.addOk(function() {
 					_this.callback('ok',_this.getValues());
 					
 				});
-				this.dialog.addCancel(function() {
+				this.addCancel(function() {
 					_this.callback('close',{});
 				});
 
@@ -57,11 +61,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 								"ui-graphlabel-attributes-input")).css('width',
 						'100%');
 
-				this.dialog.setContent(this.table);
-			}
-
-			GraphLabelAttribuesView.prototype.getBody = function(){
-				return this.dialog.getBody();
+				this.setContent(this.table);
 			}
 			
 			/**
@@ -103,10 +103,6 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 						break;
 					}
 				}
-			}
-
-			GraphLabelAttribuesView.prototype.remove = function() {
-				this.dialog.remove();
 			}
 
 			return GraphLabelAttribuesView;

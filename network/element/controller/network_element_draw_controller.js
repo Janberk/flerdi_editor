@@ -34,8 +34,6 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 		this.menu.addButton('Properties', function(e) {
 			controllerFactory.build(_this.model, "networkElementAttributes");
 		});
-		this.menu.addButton("testcontroller aufruft, yeah",function(e){controllerFactory.build(_this.model,"test");});
-
 		this.view.addContextMenue(this.menu);
 	}
 
