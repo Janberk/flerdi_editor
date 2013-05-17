@@ -12,9 +12,10 @@
 
 define([ "networkElementAtrributesMainview", "network", "controller",
 		"networkElementGeneralAttributesController", "composedCommand",
-		'observable' ], (function(NetworkElementAttributesMainview, Network,
-		Controller, NetworkElementGeneralAttributesController, ComposedCommand,
-		Observable) {
+		'observable', "networkElementResourcesOverviewController" ], (function(
+		NetworkElementAttributesMainview, Network, Controller,
+		NetworkElementGeneralAttributesController, ComposedCommand, Observable,
+		NetworkElementResourcesOverviewController) {
 
 	var NetworkElementAttributesController = function(model, parentController,
 			parentClass) {
@@ -39,6 +40,9 @@ define([ "networkElementAtrributesMainview", "network", "controller",
 		// creating the views that should be shown inside this controllers view
 		this.addObserver(new NetworkElementGeneralAttributesController(
 				this.model, this, 'attributes-general'));
+
+		this.addObserver(new NetworkElementResourcesOverviewController(
+				this.model, this, 'resources-overview'));
 	}
 
 	NetworkElementAttributesController.prototype = new Controller();
@@ -46,7 +50,9 @@ define([ "networkElementAtrributesMainview", "network", "controller",
 	NetworkElementAttributesController.prototype.getCommand = function() {
 		var commands = [];
 		for ( var i = 0; i < this.observer.length; i++) {
-			commands.push(this.observer[i].getCommand());
+			if (this.observer[i].getCommand() !== undefined) {
+				commands.push(this.observer[i].getCommand());
+			}
 		}
 
 		return new ComposedCommand(commands);

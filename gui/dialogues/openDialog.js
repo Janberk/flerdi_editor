@@ -23,8 +23,6 @@ define(
 												.split('\.').length - 1] == 'yaml') {
 											var reader = new FileReader();
 											
-											
-											
 											reader.onprogress  = function(evt){
 												_this.progress.setValue(Math.round((evt.loaded / evt.total) * 100));
 											}

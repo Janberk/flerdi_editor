@@ -65,7 +65,7 @@ define(
 							display: 'block',
 							width: '50%',
 							float:'left',
-						}).attr('class', 'resources-overview').html('class : resources-overview'));
+						}).attr('class', 'resources-overview'));
 				
 				content.find('#resources').append(
 						$(document.createElement('div')).css({
