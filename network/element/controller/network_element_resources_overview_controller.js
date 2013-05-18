@@ -24,11 +24,6 @@ define(
 				this.view = new NetworkElementResourcesOverviewView(this
 						.createAttributesForView(), this.parent, 
 				function(evt,data) {
-					switch(evt){
-					case 'remove':
-						console.log(data);
-						break;
-					}
 				});
 
 				// creating the views that should be shown inside this
