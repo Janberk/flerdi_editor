@@ -10,44 +10,64 @@
  *
  */
 
-define([ "networkElementResourcesOverviewView", "controller",
-		], (function(NetworkElementResourcesOverviewView, Controller) {
+define(
+		[ "networkElementResourcesOverviewView", "controller", ],
+		(function(NetworkElementResourcesOverviewView, Controller) {
 
-	var NetworkElementResourcesOverviewController = function(model, parentController,
-			parentClass) {
-		this.base = Controller;
-		this.base(model, parentController, parentClass);
+			var NetworkElementResourcesOverviewController = function(model,
+					parentController, parentClass) {
+				this.base = Controller;
+				this.base(model, parentController, parentClass);
 
-		var _this = this;
-		
-		this.view = new NetworkElementResourcesOverviewView(this.createAttributesForView(), this.parent,
-				function(evt, data) {
-			console.log(evt);
-		});
+				var _this = this;
 
-		// creating the views that should be shown inside this controllers view
-	}
+				this.view = new NetworkElementResourcesOverviewView(this
+						.createAttributesForView(), this.parent, 
+				function(evt,data) {
+					switch(evt){
+					case 'remove':
+						console.log(data);
+						break;
+					}
+				});
 
-	NetworkElementResourcesOverviewController.prototype = new Controller();
+				// creating the views that should be shown inside this
+				// controllers view
+			}
 
-	NetworkElementResourcesOverviewController.prototype.getCommand = function() {
-		return undefined;
-	}
+			NetworkElementResourcesOverviewController.prototype = new Controller();
 
-	NetworkElementResourcesOverviewController.prototype.update = function(command,
-			data) {
-		switch (command) {
-		case "remove":
-			this.notifyAll("remove", {});
-			this.view.remove();
-			this.model.removeObserver(this);
-			break;
-		}
-	}
-	
-	NetworkElementResourcesOverviewController.prototype.createAttributesForView = function(){
-		return {resources:[{id:1,name:"blub"}, {id:5,name:'kalimahr'}]};
-	}
+			NetworkElementResourcesOverviewController.prototype.getCommand = function() {
+				console.log(this.view.getValues());
+				return undefined;
+			}
 
-	return NetworkElementResourcesOverviewController;
-}));
+			NetworkElementResourcesOverviewController.prototype.update = function(
+					command, data) {
+				switch (command) {
+				case "remove":
+					this.notifyAll("remove", {});
+					this.view.remove();
+					this.model.removeObserver(this);
+					break;
+				}
+			}
+
+			NetworkElementResourcesOverviewController.prototype.createAttributesForView = function() {
+				return {
+					resources : [ {
+						id : 1,
+						name : "blub",
+						status : 'old',
+						removed : false,
+					}, {
+						id : 5,
+						name : 'kalimahr',
+						status : 'old',
+						removed : false,
+					} ]
+				};
+			}
+
+			return NetworkElementResourcesOverviewController;
+		}));

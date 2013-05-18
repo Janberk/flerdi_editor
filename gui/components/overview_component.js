@@ -15,7 +15,13 @@ define([ "jquery" , "button"],
 
 				this.id = attributes.id || "";
 				this.name = attributes.name || "";
+				this.active = false;
 				this.parent = parent;
+				
+				
+				if(attributes.active === true){
+					this.active = true;
+				}
 				
 				this.callback = function(){};
 				if (callback != undefined && typeof callback == 'function') {
@@ -41,6 +47,11 @@ define([ "jquery" , "button"],
 			}
 			
 			OverviewComponent.prototype.refresh = function(){
+				if(this.active){
+					$(this.container).addClass('active');
+				}else{
+					$(this.container).removeClass('active');
+				}
 				$(this.label).html(this.name);
 				this.remove.show();
 			}

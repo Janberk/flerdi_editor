@@ -199,3 +199,31 @@ div.line {
 .ui-widget-jsonviewer-content {
 	border-top: 1px solid rgb(211, 211, 211);
 }
+
+.flerdi-ui-overview{
+	display: block;
+	border: 1px solid rgb(221, 221, 221);
+	border-radius:6px;
+	overflow:hidden;
+}
+.flerdi-ui-overview>.flerdi-ui-overview-btnbar{
+	border-top: 1px solid rgb(221, 221, 221);
+}
+.flerdi-ui-overview>.flerdi-ui-overview-overviewcontainer{
+	overflow-y:auto;
+}
+.flerdi-ui-overview>.flerdi-ui-overview-overviewcontainer>*{
+	cursor:pointer;
+}
+.flerdi-ui-overview>.flerdi-ui-overview-overviewcontainer>*:hover,
+.flerdi-ui-overview>.flerdi-ui-overview-overviewcontainer>.active{
+	background-color: rgb(238, 238, 238);
+}
+.flerdi-ui-overview>.flerdi-ui-overview-overviewcontainer>.flerdi-ui-overview-overviewcontainer-empty{
+	position: relative;
+	top: 50%;
+	cursor: auto;
+}
+.flerdi-ui-overview>.flerdi-ui-overview-overviewcontainer>.flerdi-ui-overview-overviewcontainer-empty:hover{
+	background-color: transparent;
+}
