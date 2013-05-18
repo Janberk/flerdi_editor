@@ -4,14 +4,15 @@ define([ "jquery" ],
 			/**
 			 * This is the onstructor.
 			 * 
-			 * @param attributes initial attributes for this progress bar
+			 * @param attributes initial attributes for this button
 			 * 
 			 * {	type : default || primary || info || success || warning || danger || inverse || link, default = defaut
 			 * 		text : String
 			 * 		size : large || normal || small || mini, default normal;
+			 * 		block : true || false , default = false;
 			 * }
 			 * 
-			 * @param parent DOM-Object that should contain this progressbar, If undefined, documnet.body will be used
+			 * @param parent DOM-Object that should contain this button, If undefined, documnet.body will be used
 			 * 
 			 * 
 			 */
@@ -21,7 +22,13 @@ define([ "jquery" ],
 				this.type = attributes.type || "default";
 				this.size = attributes.size || "normal";
 				this.text = attributes.text || "";
-				this.parent = parent;
+				this.parent = parent || document.body;
+				this.block = false;
+				
+				if(attributes.block === true){
+					this.block = true;
+				}
+				
 				
 				this.clickEvent = function(){};
 				
@@ -61,11 +68,14 @@ define([ "jquery" ],
 				
 				var sizeClass = "";
 				if(this.type != "normal"){
-					typeClass = "btn-"+this.size;
+					sizeClass = "btn-"+this.size;
 				}
 				
 				$(this.button).removeClass();	
 				$(this.button).addClass('btn');
+				if(this.block){
+					$(this.button).addClass('btn-block');
+				}
 				$(this.button).addClass(typeClass);
 				$(this.button).addClass(sizeClass);
 				$(this.button).html(this.text);

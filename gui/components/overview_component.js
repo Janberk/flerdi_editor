@@ -31,7 +31,7 @@ define([ "jquery" , "button"],
 				$(this.container).css({padding: '0px 0px 0px 5px',margin: '0px 0px 5px 0px',textAlign:'right'});
 				$(this.label).css({float:'left'});
 				
-				this.remove = new Button({text:'delete',size:'mini'},this.container, function(evt){
+				this.remove = new Button({type:'link',text:'delete',size:'mini'},this.container, function(evt){
 					_this.callback('remove',{id:_this.id});
 				});
 				
