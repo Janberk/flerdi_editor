@@ -86,7 +86,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			}
 			
 			NetworkElementGeneralAttributesView.prototype.remove = function() {
-
+				$(this.parent).empty();
 			}
 
 			return NetworkElementGeneralAttributesView;

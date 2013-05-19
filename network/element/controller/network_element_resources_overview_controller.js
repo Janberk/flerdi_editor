@@ -11,8 +11,8 @@
  */
 
 define(
-		[ "networkElementResourcesOverviewView", "controller", ],
-		(function(NetworkElementResourcesOverviewView, Controller) {
+		[ "networkElementResourcesOverviewView", "resourceGeneralAttributesController","controller", ],
+		(function(NetworkElementResourcesOverviewView,ResourceGeneralAttributesController, Controller) {
 
 			var NetworkElementResourcesOverviewController = function(model,
 					parentController, parentClass) {
@@ -24,8 +24,17 @@ define(
 				this.view = new NetworkElementResourcesOverviewView(this
 						.createAttributesForView(), this.parent, 
 				function(evt,data) {
+					switch(evt){
+					case 'showAttributes':
+						if(_this.AttributesView != undefined){
+							_this.AttributesView.update('remove',{});
+						}
+						_this.AttributesView = new ResourceGeneralAttributesController(_this.model,_this.parentController,'resource-attributes');
+						break;
+					}
 				});
 
+				this.AttributesView = undefined;
 				// creating the views that should be shown inside this
 				// controllers view
 			}

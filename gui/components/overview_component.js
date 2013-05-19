@@ -59,7 +59,7 @@ define([ "jquery", "button" ], function($, Button) {
 				id : _this.id
 			});
 		});
-
+		this.remove.show();
 		$(this.container).append(this.label);
 		this.refresh();
 
@@ -72,7 +72,6 @@ define([ "jquery", "button" ], function($, Button) {
 			$(this.container).removeClass('active');
 		}
 		$(this.label).html(this.name);
-		this.remove.show();
 	}
 
 	OverviewComponent.prototype.show = function() {

@@ -13,7 +13,7 @@ define(
 
 				this.resources = attributes.resources || [];
 
-				this.overviewComponents = [];
+				this.components = [];
 
 				this.callback = function() {
 				};
@@ -54,6 +54,8 @@ define(
 					text : "New Resource",
 					size : 'mini'
 				}, this.buttonBar, function() {
+					// TODO : hier muss dann die neue resource erstellt werden
+					// bzw, die dummydatei
 					_this.resources.push({
 						id : 10,
 						name : 'neue resource',
@@ -68,6 +70,13 @@ define(
 				$(this.container).append(this.overViewContainer);
 				$(this.container).append(this.buttonBar);
 				$(this.parent).append(this.container);
+
+				if (this.components.length != 0) {
+					this.callback('showAttributes', {
+						id : this.components[0].base.id
+					});
+					this.setActive(this.components[0].base.id);
+				}
 
 			}
 
@@ -87,27 +96,38 @@ define(
 			NetworkElementResourcesOverviewView.prototype.refresh = function() {
 				var _this = this;
 				$(this.overViewContainer).empty();
-				this.overviewComponents = [];
+				this.components = [];
+				
 				for ( var i = 0; i < this.resources.length; i++) {
 					if (!this.resources[i].removed) {
-						this.overviewComponents.push(new OverviewComponent({
-							id : _this.resources[i].id,
-							name : _this.resources[i].name,
-							active : false
-						}, this.overViewContainer, function(evt, data) {
-							switch(evt){
-							case 'remove':
-								_this.removeResource(data.id);
-								break;
-							case 'click':
-								_this.callback('showAttributes',data);
-								break;
-							}
-							_this.refresh();
-						}));
+						this.components.push({
+							base : {
+								id : this.resources[i].id,
+								name : this.resources[i].name,
+								status : this.resources[i].status,
+							},
+							attributes : {},
+							component : new OverviewComponent({
+								id : _this.resources[i].id,
+								name : _this.resources[i].name,
+								active : false
+							}, this.overViewContainer, function(evt, data) {
+								switch (evt) {
+								case 'remove':
+									_this.removeResource(data.id);
+									_this.refresh();
+									break;
+								case 'click':
+									_this.callback('showAttributes', data);
+									_this.setActive(data.id);
+									break;
+								}
+
+							})
+						});
 					}
 				}
-				if (this.overviewComponents.length === 0) {
+				if (this.components.length === 0) {
 					$(this.overViewContainer)
 							.append(
 									$(document.createElement('div'))
@@ -115,8 +135,8 @@ define(
 											.addClass(
 													'flerdi-ui-overview-overviewcontainer-empty'));
 				} else {
-					for ( var i = 0; i < this.overviewComponents.length; i++) {
-						this.overviewComponents[i].show();
+					for ( var i = 0; i < this.components.length; i++) {
+						this.components[i].component.show();
 					}
 				}
 			}
@@ -128,10 +148,24 @@ define(
 			NetworkElementResourcesOverviewView.prototype.remove = function() {
 
 			}
-			
-			NetworkElementResourcesOverviewView.prototype.removeResource = function(id){
+
+			NetworkElementResourcesOverviewView.prototype.setActive = function(
+					id) {
+				for ( var i = 0; i < this.components.length; i++) {
+
+					if (this.components[i].base.id === id) {
+						this.components[i].component.active = true;
+					} else {
+						this.components[i].component.active = false;
+					}
+					this.components[i].component.refresh();
+				}
+			}
+
+			NetworkElementResourcesOverviewView.prototype.removeResource = function(
+					id) {
 				for ( var i = 0; i < this.resources.length; i++) {
-					if(this.resources[i].id === id){
+					if (this.resources[i].id === id) {
 						this.resources[i].removed = true;
 						break;
 					}
