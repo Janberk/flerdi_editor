@@ -170,6 +170,7 @@ define([ "jquery" ], (function($) {
 				'values' : '',
 				'standard' : ''
 			}
+			
 		}
 
 		return json;

@@ -67,6 +67,8 @@ requirejs
 				"linkDrawController" : "network/element/controller/link_draw_controller",
 				"networkElementResourcesOverviewController":"network/element/controller/network_element_resources_overview_controller",
 				"resourceGeneralAttributesController":"network/element/controller/resource_general_attributes_controller",
+				"networkElementFeaturesOverviewController":"network/element/controller/network_element_features_overview_controller",
+				"featureGeneralAttributesController":"network/element/controller/feature_general_attributes_controller",
 
 				"networkElementDrawView" : "gui/view/network_element_draw_view",
 				"networkElementAtrributesMainview" : "gui/view/network_element_attributes_mainview",
@@ -74,6 +76,8 @@ requirejs
 				"linkDrawView" : "gui/view/link_draw_view",
 				"networkElementResourcesOverviewView":"gui/view/network_element_resources_overview_view",
 				"resourceGeneralAttributesView" : "gui/view/resource_genral_attributes_view",
+				"networkElementFeaturesOverviewView":"gui/view/network_element_features_overview_view",
+				"featureGeneralAttributesView" : "gui/view/feature_general_attributes_view",
 
 				"commandManager" : "network/command_manager",
 				"newNodeCommand" : "network/commands/new_node_command",

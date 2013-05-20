@@ -12,10 +12,12 @@
 
 define([ "networkElementAtrributesMainview", "network", "controller",
 		"networkElementGeneralAttributesController", "composedCommand",
-		'observable', "networkElementResourcesOverviewController" ], (function(
+		'observable', "networkElementResourcesOverviewController",
+		"networkElementFeaturesOverviewController" ], (function(
 		NetworkElementAttributesMainview, Network, Controller,
 		NetworkElementGeneralAttributesController, ComposedCommand, Observable,
-		NetworkElementResourcesOverviewController) {
+		NetworkElementResourcesOverviewController,
+		NetworkElementFeaturesOverviewController) {
 
 	var NetworkElementAttributesController = function(model, parentController,
 			parentClass) {
@@ -43,6 +45,9 @@ define([ "networkElementAtrributesMainview", "network", "controller",
 
 		this.addObserver(new NetworkElementResourcesOverviewController(
 				this.model, this, 'resources-overview'));
+				
+		this.addObserver(new NetworkElementFeaturesOverviewController(
+				this.model, this, 'features-overview'));				
 	}
 
 	NetworkElementAttributesController.prototype = new Controller();

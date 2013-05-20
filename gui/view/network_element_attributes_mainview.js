@@ -79,14 +79,14 @@ define(
 							display: 'block',
 							width: '50%',
 							float:'left',
-						}).attr('class', 'features-overview').html('class : features-overview'));
+						}).attr('class', 'features-overview'));
 				
 				content.find('#features').append(
 						$(document.createElement('div')).css({
 							display: 'block',
 							width: '50%',
 							float:'left',
-						}).attr('class', 'feature-attributes').html('class : feature-attributes'));
+						}).attr('class', 'feature-attributes'));
 				
 				content.find('.nav a:first').tab('show');
 				this.setContent(content);
