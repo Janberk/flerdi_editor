@@ -39,7 +39,7 @@ define([ "jquery","networkElementModel", "idHandler" ],
 		this.node.x = this.pos.x;
 		this.node.y = this.pos.y;
 		
-		if (this.showInAttributesView) {
+		if (this.showInAttributesView == true) {
 			this.node.alias = "";
 			if (this.node.ne_type.indexOf("/node/host/") != -1) {
 				this.node.identifier = "{host}" + this.network.idHandler.getNextHostIdentifierId();
