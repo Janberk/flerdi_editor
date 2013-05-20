@@ -4,8 +4,8 @@
  */
 
 define(
-		[ "jquery", "button", "overviewComponent" ],
-		(function($, Button, OverviewComponent) {
+		[ "jquery", "button", "overviewComponent", "alertDialog" ],
+		(function($, Button, OverviewComponent, AlertDialog) {
 			var NetworkElementResourcesOverviewView = function(attributes,
 					parent, callback) {
 				this.parent = parent;
@@ -114,8 +114,10 @@ define(
 							}, this.overViewContainer, function(evt, data) {
 								switch (evt) {
 								case 'remove':
-									_this.removeResource(data.id);
-									_this.refresh();
+									new AlertDialog('Are you sure you want to delete this Resource?', function() {
+										_this.removeResource(data.id);
+										_this.refresh();
+									});
 									break;
 								case 'click':
 									_this.callback('showAttributes', data);
@@ -149,8 +151,7 @@ define(
 
 			}
 
-			NetworkElementResourcesOverviewView.prototype.setActive = function(
-					id) {
+			NetworkElementResourcesOverviewView.prototype.setActive = function(id) {
 				for ( var i = 0; i < this.components.length; i++) {
 
 					if (this.components[i].base.id === id) {
@@ -162,8 +163,7 @@ define(
 				}
 			}
 
-			NetworkElementResourcesOverviewView.prototype.removeResource = function(
-					id) {
+			NetworkElementResourcesOverviewView.prototype.removeResource = function(id) {					
 				for ( var i = 0; i < this.resources.length; i++) {
 					if (this.resources[i].id === id) {
 						this.resources[i].removed = true;

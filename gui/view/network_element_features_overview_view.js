@@ -4,8 +4,8 @@
  */
 
 define(
-		[ "jquery", "button", "overviewComponent" ],
-		(function($, Button, OverviewComponent) {
+		[ "jquery", "button", "overviewComponent", "alertDialog" ],
+		(function($, Button, OverviewComponent, AlertDialog) {
 			var NetworkElementFeaturesOverviewView = function(attributes,
 					parent, callback) {
 				this.parent = parent;
@@ -114,8 +114,10 @@ define(
 							}, this.overViewContainer, function(evt, data) {
 								switch (evt) {
 								case 'remove':
-									_this.removeFeature(data.id);
-									_this.refresh();
+									new AlertDialog('Are you sure you want to delete this Feature?', function() {
+										_this.removeFeature(data.id);
+										_this.refresh();
+									});
 									break;
 								case 'click':
 									_this.callback('showAttributes', data);
@@ -149,8 +151,7 @@ define(
 
 			}
 
-			NetworkElementFeaturesOverviewView.prototype.setActive = function(
-					id) {
+			NetworkElementFeaturesOverviewView.prototype.setActive = function(id) {
 				for ( var i = 0; i < this.components.length; i++) {
 
 					if (this.components[i].base.id === id) {
@@ -162,8 +163,7 @@ define(
 				}
 			}
 
-			NetworkElementFeaturesOverviewView.prototype.removeFeature = function(
-					id) {
+			NetworkElementFeaturesOverviewView.prototype.removeFeature = function(id) {
 				for ( var i = 0; i < this.features.length; i++) {
 					if (this.features[i].id === id) {
 						this.features[i].removed = true;

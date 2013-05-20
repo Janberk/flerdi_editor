@@ -71,7 +71,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 					.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
-				new AlertDialog(function() {
+				new AlertDialog('Unsaved Changes will be lost, click ok to continue', function() {
 					controllerFactory.build(undefined, 'graphlabelAttributesCreate');
 				});
 			} else {
@@ -83,7 +83,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 			var hasChanged = _this.networks.getNetwork().commandManager.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
-				new AlertDialog(function() {
+				new AlertDialog('Unsaved Changes will be lost, click ok to continue', function() {
 					new OpenDialog(_this)
 				});
 			} else {
