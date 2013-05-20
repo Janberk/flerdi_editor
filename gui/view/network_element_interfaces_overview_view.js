@@ -6,12 +6,12 @@
 define(
 		[ "jquery", "button", "overviewComponent", "alertDialog" ],
 		(function($, Button, OverviewComponent, AlertDialog) {
-			var NetworkElementResourcesOverviewView = function(attributes,
+			var NetworkElementInterfacesOverviewView = function(attributes,
 					parent, callback) {
 				this.parent = parent;
 				this.attributes = attributes || {};
 
-				this.resources = attributes.resources || [];
+				this.network_interfaces = attributes.network_interfaces || [];
 
 				this.components = [];
 
@@ -30,7 +30,7 @@ define(
 			 * This functions draws the View.
 			 * 
 			 */
-			NetworkElementResourcesOverviewView.prototype.drawView = function() {
+			NetworkElementInterfacesOverviewView.prototype.drawView = function() {
 				var _this = this;
 
 				$(this.container).addClass('flerdi-ui-overview').css({
@@ -51,14 +51,14 @@ define(
 				this.refresh();
 
 				var btn = new Button({
-					text : "New Resource",
+					text : "New Interface",
 					size : 'mini'
 				}, this.buttonBar, function() {
-					// TODO : hier muss dann die neue resource erstellt werden
+					// TODO : hier muss dann das neue interface erstellt werden
 					// bzw, die dummydatei
-					_this.resources.push({
+					_this.network_interfaces.push({
 						id : 10,
-						name : 'neue resource',
+						name : 'neues interface',
 						status : 'new',
 						removed : false
 					});
@@ -85,37 +85,37 @@ define(
 			 * Input and select fields, belonging to this Dialogue
 			 * 
 			 */
-			NetworkElementResourcesOverviewView.prototype.getValues = function() {
-				return this.resources;
+			NetworkElementInterfacesOverviewView.prototype.getValues = function() {
+				return this.network_interfaces;
 			}
 
 			/*
 			 * This view refreshes the view
 			 * 
 			 */
-			NetworkElementResourcesOverviewView.prototype.refresh = function() {
+			NetworkElementInterfacesOverviewView.prototype.refresh = function() {
 				var _this = this;
 				$(this.overViewContainer).empty();
 				this.components = [];
 				
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (!this.resources[i].removed) {
+				for ( var i = 0; i < this.network_interfaces.length; i++) {
+					if (!this.network_interfaces[i].removed) {
 						this.components.push({
 							base : {
-								id : this.resources[i].id,
-								name : this.resources[i].name,
-								status : this.resources[i].status,
+								id : this.network_interfaces[i].id,
+								name : this.network_interfaces[i].name,
+								status : this.network_interfaces[i].status,
 							},
 							attributes : {},
 							component : new OverviewComponent({
-								id : _this.resources[i].id,
-								name : _this.resources[i].name,
+								id : _this.network_interfaces[i].id,
+								name : _this.network_interfaces[i].name,
 								active : false
 							}, this.overViewContainer, function(evt, data) {
 								switch (evt) {
 								case 'remove':
-									new AlertDialog('Are you sure you want to delete this Resource?', function() {
-										_this.removeResource(data.id);
+									new AlertDialog('Are you sure you want to delete this Interface?', function() {
+										_this.removeInterface(data.id);
 										_this.refresh();
 									});
 									break;
@@ -133,7 +133,7 @@ define(
 					$(this.overViewContainer)
 							.append(
 									$(document.createElement('div'))
-											.html('no resources')
+											.html('no interfaces')
 											.addClass(
 													'flerdi-ui-overview-overviewcontainer-empty'));
 				} else {
@@ -143,15 +143,15 @@ define(
 				}
 			}
 
-			NetworkElementResourcesOverviewView.prototype.getBody = function() {
+			NetworkElementInterfacesOverviewView.prototype.getBody = function() {
 				return this.table;
 			}
 
-			NetworkElementResourcesOverviewView.prototype.remove = function() {
+			NetworkElementInterfacesOverviewView.prototype.remove = function() {
 
 			}
 
-			NetworkElementResourcesOverviewView.prototype.setActive = function(id) {
+			NetworkElementInterfacesOverviewView.prototype.setActive = function(id) {
 				for ( var i = 0; i < this.components.length; i++) {
 
 					if (this.components[i].base.id === id) {
@@ -163,14 +163,14 @@ define(
 				}
 			}
 
-			NetworkElementResourcesOverviewView.prototype.removeResource = function(id) {					
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id === id) {
-						this.resources[i].removed = true;
+			NetworkElementInterfacesOverviewView.prototype.removeInterface = function(id) {					
+				for ( var i = 0; i < this.network_interfaces.length; i++) {
+					if (this.network_interfaces[i].id === id) {
+						this.network_interfaces[i].removed = true;
 						break;
 					}
 				}
 			}
 
-			return NetworkElementResourcesOverviewView;
+			return NetworkElementInterfacesOverviewView;
 		})); // define
