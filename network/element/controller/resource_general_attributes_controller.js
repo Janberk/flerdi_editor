@@ -62,9 +62,17 @@ define(
 					command, data) {
 				switch (command) {
 				case "update":
-					this.view.ne_type = this.model.ne_type;
 					this.view.alias = this.model.alias;
+					this.view.avp_attribute = this.model.avp_attribute;
+					this.view.composing_operation = this.model.alias;
+					this.view.confidence = this.model.confidence;
 					this.view.identifier = this.model.identifier;
+					this.view.is_request = this.model.is_request;
+					this.view.resource_unit = this.model.resource_unit;
+					this.view.time_unit = this.model.time_unit;
+					this.view.timestamp = this.model.timestamp;
+					this.view.value = this.model.value;
+					this.view.value_type = this.model.value_type;
 					this.view.refresh();
 					break;
 				case "remove":
