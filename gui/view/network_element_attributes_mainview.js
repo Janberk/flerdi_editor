@@ -100,7 +100,7 @@ define(
 							display: 'block',
 							width: '50%',
 							float:'left',
-						}).attr('class', 'interfaces-attributes'));
+						}).attr('class', 'interface-attributes'));
 				
 				content.find('.nav a:first').tab('show');
 				this.setContent(content);

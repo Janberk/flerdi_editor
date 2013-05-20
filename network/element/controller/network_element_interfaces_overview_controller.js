@@ -59,17 +59,12 @@ define(
 
 			NetworkElementInterfacesOverviewController.prototype.createAttributesForView = function() {
 				return {
-					features : [ {
-						id : 1,
-						name : "test1",
+					network_interfaces : [ {
+						id : 9001,
+						name : "over9000",
 						status : 'old',
 						removed : false,
-					}, {
-						id : 5,
-						name : 'test2',
-						status : 'old',
-						removed : false,
-					} ]
+					}]
 				};
 			}
 
