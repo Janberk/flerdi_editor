@@ -5,8 +5,8 @@
  * interfaces : IUndoableCommand
  */
 
-define([ "jquery","networkElementModel" ], 
-(function($,NetworkElementModel) {
+define([ "jquery","networkElementModel", "idHandler" ], 
+(function($,NetworkElementModel, IdHandler) {
 
 	/**
 	 * This is the constructor
@@ -38,6 +38,15 @@ define([ "jquery","networkElementModel" ],
 		this.node.ne_type = this.json.attributes.ne_type;
 		this.node.x = this.pos.x;
 		this.node.y = this.pos.y;
+		
+		if (this.showInAttributesView) {
+			this.node.alias = "";
+			if (this.node.ne_type.indexOf("/node/host/") != -1) {
+				this.node.identifier = "{host}" + this.network.idHandler.getNextHostIdentifierId();
+			} else if (this.node.ne_type.indexOf("/node/switch/") != -1) {
+				this.node.identifier = "{switch}" + this.network.idHandler.getNextSwitchIdentifierId();
+			}			
+		}		
 	}
 	
 	/**

@@ -21,7 +21,11 @@ define([ "jquery" ], (function($) {
 			resource : 0,
 			feature : 0,
 			position : 0,
-			identifier: 0
+			identifier: 0,
+			// temporary solution: id.identifier should be 
+			// completely replaced by the following two identifier
+			host_identifier: 0,
+			switch_identifier: 0
 		};
 	};
 
@@ -44,6 +48,12 @@ define([ "jquery" ], (function($) {
 			var eleFier = element.attributes.identifier;
 			if(typeof eleFier === "number" && eleFier > this.id.identifier){
 				this.id.identifier = eleFier;
+				//temporary solution
+				if (element.attributes.ne_type.indexOf("/node/host/") != -1) {
+					this.id.host_identifier = eleFier;
+				} else if (element.attributes.ne_type.indexOf("/node/switch/") != -1) {
+					this.id.switch_identifier = eleFier;
+				}					
 			}
 
 			for ( var j = 0; j < element.network_interfaces.length; j++) {
@@ -56,6 +66,12 @@ define([ "jquery" ], (function($) {
 				var infFier = netInterface.attributes.identifier;
 				if(typeof infFier === "number" && infFier > this.id.identifier){
 					this.id.identifier = infFier;
+					//temporary solution
+					if (netInterface.attributes.ne_type.indexOf("/node/host/") != -1) {
+						this.id.host_identifier = infFier;
+					} else if (netInterface.attributes.ne_type.indexOf("/node/switch/") != -1) {
+						this.id.switch_identifier = infFier;
+					}						
 				}
 
 				for ( var k = 0; k < netInterface.resources.length; k++) {
@@ -66,6 +82,12 @@ define([ "jquery" ], (function($) {
 					var infResFier = netInterface.resources[k].attributes.identifier;
 					if(typeof infResFier === "number" && infResFier > this.id.identifier){
 						this.id.identifier = infResFier;
+						//temporary solution
+						if (netInterface.resources[k].attributes.ne_type.indexOf("/node/host/") != -1) {
+							this.id.host_identifier = infResFier;
+						} else if (netInterface.resources[k].attributes.ne_type.indexOf("/node/switch/") != -1) {
+							this.id.switch_identifier = infResFier;
+						}	
 					}
 				}
 
@@ -77,6 +99,12 @@ define([ "jquery" ], (function($) {
 					var infFeatFier = netInterface.features[k].attributes.identifier;
 					if(typeof infFeatFier === "number" && infFeatFier > this.id.identifier){
 						this.id.identifier = infFeatFier;
+						//temporary solution
+						if (netInterface.features[k].attributes.ne_type.indexOf("/node/host/") != -1) {
+							this.id.host_identifier = infFeatFier;
+						} else if (netInterface.features[k].attributes.ne_type.indexOf("/node/switch/") != -1) {
+							this.id.switch_identifier = infFeatFier;
+						}	
 					}
 				}
 			}
@@ -89,6 +117,12 @@ define([ "jquery" ], (function($) {
 				var resFier = element.resources[j].identifier;
 				if(typeof resFier === "number" && resFier > this.id.identifier){
 					this.id.identifier = resFier;
+					//temporary solution
+					if (element.resources[j].attributes.ne_type.indexOf("/node/host/") != -1) {
+						this.id.host_identifier = resFier;
+					} else if (element.resources[j].attributes.ne_type.indexOf("/node/switch/") != -1) {
+						this.id.switch_identifier = resFier;
+					}	
 				}
 			}
 			
@@ -100,6 +134,12 @@ define([ "jquery" ], (function($) {
 				var featFier = element.features[j].identifier;
 				if(typeof featFier === "number" && featFier > this.id.identifier){
 					this.id.identifier = featFier;
+					//temporary solution
+					if (element.features[j].attributes.ne_type.indexOf("/node/host/") != -1) {
+						this.id.host_identifier = featFier;
+					} else if (element.features[j].attributes.ne_type.indexOf("/node/switch/") != -1) {
+						this.id.switch_identifier = featFier;
+					}	
 				}
 			}
 		}
@@ -168,6 +208,25 @@ define([ "jquery" ], (function($) {
 	IdHandler.prototype.getNextIdentifierId = function(){
 		return ++this.id.identifier;
 	}
+	
+	/**
+	 * This function returns the next available host identifier
+	 * 
+	 * @return next available Position Id
+	 */
+	IdHandler.prototype.getNextHostIdentifierId = function(){
+		return ++this.id.host_identifier;
+	}
+	
+	/**
+	 * This function returns the next available switch identifier
+	 * 
+	 * @return next available Position Id
+	 */
+	IdHandler.prototype.getNextSwitchIdentifierId = function(){
+		return ++this.id.switch_identifier;
+	}	
+	
 
 	return IdHandler;
 })); // define
