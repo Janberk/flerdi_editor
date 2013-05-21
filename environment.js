@@ -84,7 +84,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 
 			if (_this.networks != 'undefined' && hasChanged) {
 				new AlertDialog('Unsaved Changes will be lost, click ok to continue', function() {
-					new OpenDialog(_this)
+					new OpenDialog(_this);
 				});
 			} else {
 				new OpenDialog(_this);

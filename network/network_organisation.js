@@ -33,7 +33,6 @@ define(
 					this.networks = network;
 				} else {
 					// this.networks.remove();
-					this.networks.remove();
 					this.networks = network;
 					if (drawOnDrawArea) {
 						for ( var i = 0; i < this.networks.networkElements.length; i++) {

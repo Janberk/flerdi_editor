@@ -3,8 +3,8 @@
  * RequireJS module definition
  */
 
-define(["commandManager",'observable', 'idHandler'], (function(
-		CommandManager, Observable, IdHandler) {
+define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (function(
+		CommandManager, Observable, IdHandler, NetworkElementModel) {
 	var NetworkModel = function(id,graph_type,role_identifier,v_net_identifier,graph_tag,graph_nr) {
 		this.id = id || 1;
 		this.graph_type = graph_type || "OL";
@@ -12,7 +12,7 @@ define(["commandManager",'observable', 'idHandler'], (function(
 		this.v_net_identifier = v_net_identifier || "";
 		this.graph_tag = graph_tag || "";
 		this.graph_nr = graph_nr || "";
-
+		
 		this.networkElements = [];
 		
 		// TODO einige sachen gehören hier nicht rein, und müssen ausgegliedert werden, damit es wirklcih ein model wird
@@ -22,7 +22,7 @@ define(["commandManager",'observable', 'idHandler'], (function(
 		this.commandManager = new CommandManager();
 	}
 	
-	// star extends
+	// start extends
 	NetworkModel.prototype = new Observable();
 	// end extends
 
