@@ -61,6 +61,20 @@ define(
 			ResourceGeneralAttributesController.prototype.update = function(
 					command, data) {
 				switch (command) {
+				case 'updateWithoutModel':
+					this.view.alias = data.alias;
+					this.view.avp_attribute = data.avp_attribute;
+					this.view.composing_operation = data.alias;
+					this.view.confidence = data.confidence;
+					this.view.identifier = data.identifier;
+					this.view.is_request = data.is_request;
+					this.view.resource_unit = data.resource_unit;
+					this.view.time_unit = data.time_unit;
+					this.view.timestamp = data.timestamp;
+					this.view.value = data.value;
+					this.view.value_type = data.value_type;
+					this.view.refresh();
+					break;
 				case "update":
 					this.view.alias = this.model.alias;
 					this.view.avp_attribute = this.model.avp_attribute;

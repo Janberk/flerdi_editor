@@ -89,6 +89,8 @@ requirejs
 				"deleteNodeCommand" : "network/commands/delete_node_command",
 				"changeAttributesCommand" : "network/commands/change_attributes_command",
 				"composedCommand":"network/commands/composed_command",
+				"newResourceCommand" : "network/commands/new_resource_command",
+				"deleteResourceCommand" : "network/commands/delete_resource_command",
 
 				"observable" : "network/observable",
 				

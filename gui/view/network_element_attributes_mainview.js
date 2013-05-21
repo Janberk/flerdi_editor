@@ -63,16 +63,7 @@ define(
 				content.find('#resources').append(
 						$(document.createElement('div')).css({
 							display: 'block',
-							width: '50%',
-							float:'left',
 						}).attr('class', 'resources-overview'));
-				
-				content.find('#resources').append(
-						$(document.createElement('div')).css({
-							display: 'block',
-							width: '50%',
-							float:'left',
-						}).attr('class', 'resource-attributes'));
 				
 				content.find('#features').append(
 						$(document.createElement('div')).css({

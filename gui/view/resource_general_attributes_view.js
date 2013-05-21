@@ -66,7 +66,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			ResourceGeneralAttributesView.prototype.getValues = function() {
-				var elements = $(this.parent).find('.ui-resource-genral-attributes-input');
+				var elements = $(this.table).find('.ui-resource-genral-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
 					json[$(elements[i]).attr('name')] = $(elements[i]).val()
@@ -80,7 +80,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			ResourceGeneralAttributesView.prototype.refresh = function() {
-				var elements =  $(this.parent).find('.ui-resource-genral-attributes-input');
+				var elements =  $(this.table).find('.ui-resource-genral-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
 					case 'alias':

@@ -42,7 +42,6 @@ define(
 			NetworkElementInterfacesOverviewController.prototype = new Controller();
 
 			NetworkElementInterfacesOverviewController.prototype.getCommand = function() {
-				console.log(this.view.getValues());
 				return undefined;
 			}
 

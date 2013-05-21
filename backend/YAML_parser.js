@@ -51,7 +51,6 @@ define(
 				}, function(json) {
 					// console.log(json);
 					loadingWindow.close();
-					_this.getNetworkFromJson(json);
 					callback(_this.getNetworkFromJson(json));
 				}, 'json');
 			}
@@ -91,7 +90,7 @@ define(
 							|| Math.floor(Math.random()
 									* $('#drawarea').height());
 				}
-
+				
 				return network;
 			}
 
@@ -128,7 +127,7 @@ define(
 					ne.addNetworkInterface(this.getNetworkInterface(
 							json.network_interfaces[i], ne));
 				}
-
+				
 				return ne;
 			}
 

@@ -56,7 +56,8 @@ define([ "jquery", "button" ], function($, Button) {
 			size : 'mini'
 		}, this.container, function(evt) {
 			_this.callback('remove', {
-				id : _this.id
+				id : _this.id,
+				active : _this.active
 			});
 		});
 		this.remove.show();

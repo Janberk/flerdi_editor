@@ -26,7 +26,7 @@ define(
 				this.parentController = parentController || undefined;
 				
 				if(this.parentController !== undefined){
-					this.parentController.addObserver(this);
+					//this.parentController.addObserver(this);
 				}else{
 					this.parentController = document.body;
 				}
@@ -35,7 +35,7 @@ define(
 				
 				if(this.parentClass !== undefined){
 					if(this.parentController !== undefined){
-						this.parent = parentController.view.getBody().find('.' + this.parentClass);
+						this.parent = $(parentController.view.getBody()).find('.' + this.parentClass);
 					}else{
 						this.parent = $(document.body).find('.' + this.parentClass);
 					}

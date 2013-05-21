@@ -42,7 +42,6 @@ define(
 			NetworkElementFeaturesOverviewController.prototype = new Controller();
 
 			NetworkElementFeaturesOverviewController.prototype.getCommand = function() {
-				console.log(this.view.getValues());
 				return undefined;
 			}
 
