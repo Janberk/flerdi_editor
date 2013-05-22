@@ -10,11 +10,11 @@
  * RequireJS module definition
  */
 
-define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
-		"menubar", "drawArea", "move", "newNode", "newLink", "openDialog",
-		"alertDialog", "statusbar", "network"],
-		(function($, NetworkOrganisation, ElementKey, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
-		OpenDialog, AlertDialog, Statusbar, Network) {
+define([ "jquery", "networkOrganisation", "parser", "toolbar",
+		"menubar", "drawArea", "move", "newNode", "newLink", "openDialogue",
+		"alertDialogue", "statusbar", "network"],
+		(function($, NetworkOrganisation, Parser, Toolbar, Menubar, DrawArea, Move, NewNode, NewLink,
+		OpenDialogue, AlertDialogue, Statusbar, Network) {
 
 	/* constructor */
 	var Environment = function() {
@@ -32,33 +32,33 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
 
 		// this.elementKey = new ElementKey(10, 10);
-		this.toolbar = new Toolbar("assets/img/");
+		this.toolbar = new Toolbar("vendor/assets/img/");
 		this.toolbar.addButton("arrow", function() {
 			_this.drawArea.setState(new Move(_this.networks.getNetwork()));
 		}, 'Selector');
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/generic_host", function(e) {
+		this.toolbar.addButton("generic_host", function(e) {
 			_this.drawArea.setState(new NewNode('/node/host/generic'));
 		}, 'Generic Host');
-		this.toolbar.addButton("network_elements/pip_host", function(e) {
+		this.toolbar.addButton("pip_host", function(e) {
 			_this.drawArea.setState(new NewNode('/node/host/pip'));
 		}, 'PIP Host');
-		this.toolbar.addButton("network_elements/cisco_switch", function(e) {
+		this.toolbar.addButton("cisco_switch", function(e) {
 			_this.drawArea.setState(new NewNode('/node/switch/cisco'));
 		}, 'Cisco Switch');
-		this.toolbar.addButton("network_elements/tunnelbridge_switch",
+		this.toolbar.addButton("tunnelbridge_switch",
 				function(e) {
 					_this.drawArea.setState(new NewNode(
 							'/node/switch/tunnelbridge'));
 				}, 'Tunnelbridge Switch');
-		this.toolbar.addButton("network_elements/pip_switch", function(e) {
+		this.toolbar.addButton("pip_switch", function(e) {
 			_this.drawArea.setState(new NewNode('/node/switch/pip'));
 		}, 'PIP Switch');
 		this.toolbar.addSeperator();
-		this.toolbar.addButton("network_elements/half_duplex", function(e) {
+		this.toolbar.addButton("half_duplex", function(e) {
 			_this.drawArea.setState(new NewLink(true));
 		}, 'Half-Duplex Link');
-		this.toolbar.addButton("network_elements/full_duplex", function(e) {
+		this.toolbar.addButton("full_duplex", function(e) {
 			_this.drawArea.setState(new NewLink(false));
 		}, 'Full-Duplex Link');
 		// add additional Buttons here
@@ -71,7 +71,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 					.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
-				new AlertDialog('Unsaved Changes will be lost, click ok to continue', function() {
+				new AlertDialogue('Unsaved Changes will be lost, click ok to continue', function() {
 					controllerFactory.build(undefined, 'graphlabelAttributesCreate');
 				});
 			} else {
@@ -84,11 +84,11 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 			var hasChanged = _this.networks.getNetwork().commandManager.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
-				new AlertDialog('Unsaved Changes will be lost, click ok to continue', function() {
-					new OpenDialog(_this);
+				new AlertDialogue('Unsaved Changes will be lost, click ok to continue', function() {
+					new OpenDialogue(_this);
 				});
 			} else {
-				new OpenDialog(_this);
+				new OpenDialogue(_this);
 			}
 		}));
 
@@ -231,7 +231,9 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 				.isHasChanged(hasChanged);
 
 	} // downloadYaml
-
+	
+	// TODO create bootstrap tooltips
+/*
 	$(function() {
 		$(document).tooltip({
 			items : "img",
@@ -243,7 +245,7 @@ define([ "jquery", "networkOrganisation", "element_key", "parser", "toolbar",
 			}
 		});
 	});
-
+*/
 	/**
 	 * This function returns the NetworkOrganisation object
 	 * 

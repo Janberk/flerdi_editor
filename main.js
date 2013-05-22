@@ -9,96 +9,98 @@
 requirejs
 		.config({
 			paths : {
-				"jquery" : "lib/jquery-1.8.2.min",
-				"bootstrap" : "lib/bootstrap",
-				"jquery_ui" : "lib/jquery-ui-1.10.0.custom",
-				"drag" : "lib/jquery.event.drag-1.5.min",
-				"json2yaml" : "lib/json2yaml",
-				"spinner" : "lib/spinner.min",
-				"progressbar": "gui/progressbar",
-				"button":"gui/button",
-				"parser" : "backend/YAML_parser",
-				
-				"overviewComponent": "gui/components/overview_component",
-
+				/* Environment */
 				"environment" : "environment",
-
-				"window" : "gui/dialogues/window",
-				"listDialogue" : "gui/dialogues/listDialogue",
-				"openDialogue" : "gui/dialogues/openDialogue",
-				"alertDialogue" : "gui/dialogues/alertDialogue",
-
-				"dialog" : "gui/dialogues/dialog",
-				"alertDialog" : "gui/dialogues/alertDialog",
-				"openDialog" : "gui/dialogues/openDialog",
-				"listDialog" : "gui/dialogues/listDialog",
-
-				"graphlabelAttributesView" : "gui/view/graphlabel_attributes_view",
-
-				"contextMenu" : "gui/contextMenu",
-				"element_key" : "gui/element_key",
-				"loadingWindow" : "gui/loadingWindow",
-				"toolbar" : "gui/toolbar",
-				"menubar" : "gui/menubar",
-				"statusbar" : "gui/statusbar",
-				"drawArea" : "gui/drawArea",
-				"jsonViewer" : "gui/jsonViewer",
-				"listDialogueAttributes" : "gui/list_dialogue_attributes",
-				"move" : "gui/States/move",
-				"newNode" : "gui/States/new_node",
-				"newLink" : "gui/States/new_link",
-
-				"networkOrganisation" : "network/network_organisation",
-				"idHandler" : "network/id_handler",
-
-				"network" : "network/element/model/network_model",
-				"networkElementModel" : "network/element/model/network_element_model",
-				"networkInterfaceModel" : "network/element/model/network_interface_model",
-				"resourceModel" : "network/element/model/resource_model",
-				"featureModel" : "network/element/model/feature_model",
 				
-				"controllerFactory" : "network/element/controller_factory",
-				"controller" : "network/element/controller/controller",
-				"graphLabelAttributesChangeController" : "network/element/controller/graphlabel_attributes_change_controller",
-				"graphLabelAttributesCreateController" : "network/element/controller/graphlabel_attributes_create_controller",
-				"networkElementDrawController" : "network/element/controller/network_element_draw_controller",
-				"networkElementAttributesController" : "network/element/controller/network_element_attributes_controller",
-				"networkElementGeneralAttributesController" : "network/element/controller/network_element_general_attributes_controller",
-				"linkDrawController" : "network/element/controller/link_draw_controller",
-				"networkElementResourcesOverviewController":"network/element/controller/network_element_resources_overview_controller",
-				"resourceGeneralAttributesController":"network/element/controller/resource_general_attributes_controller",
-				"networkElementFeaturesOverviewController":"network/element/controller/network_element_features_overview_controller",
-				"featureGeneralAttributesController":"network/element/controller/feature_general_attributes_controller",
-				"networkElementInterfacesOverviewController":"network/element/controller/network_element_interfaces_overview_controller",
-				"interfaceGeneralAttributesController":"network/element/controller/interface_general_attributes_controller",
-
-				"networkElementDrawView" : "gui/view/network_element_draw_view",
-				"networkElementAtrributesMainview" : "gui/view/network_element_attributes_mainview",
-				"networkElementGeneralAttributesView" : "gui/view/network_element_general_attributes_view",
-				"linkDrawView" : "gui/view/link_draw_view",
-				"networkElementResourcesOverviewView":"gui/view/network_element_resources_overview_view",
-				"resourceGeneralAttributesView" : "gui/view/resource_general_attributes_view",
-				"networkElementFeaturesOverviewView":"gui/view/network_element_features_overview_view",
-				"featureGeneralAttributesView" : "gui/view/feature_general_attributes_view",
-				"networkElementInterfacesOverviewView":"gui/view/network_element_interfaces_overview_view",
-				"interfaceGeneralAttributesView" : "gui/view/interface_general_attributes_view",
-
-				"commandManager" : "network/command_manager",
-				"newNodeCommand" : "network/commands/new_node_command",
-				"newLinkCommand" : "network/commands/new_link_command",
-				"deleteNodeCommand" : "network/commands/delete_node_command",
-				"changeAttributesCommand" : "network/commands/change_attributes_command",
-				"composedCommand":"network/commands/composed_command",
-				"newResourceCommand" : "network/commands/new_resource_command",
-				"deleteResourceCommand" : "network/commands/delete_resource_command",
-				"newFeatureCommand" : "network/commands/new_feature_command",
-				"deleteFeatureCommand" : "network/commands/delete_feature_command",
-				"newInterfaceCommand" : "network/commands/new_interface_command",
-				"deleteInterfaceCommand" : "network/commands/delete_interface_command",
-
-				"observable" : "network/observable",
+				/* Libraries */
+				"jquery" : "vendor/lib/jquery-1.8.2.min",
+				"bootstrap" : "vendor/lib/bootstrap",
+				"drag" : "vendor/lib/jquery.event.drag-1.5.min",
+				"json2yaml" : "vendor/lib/json2yaml",
+				"spinner" : "vendor/lib/spinner.min",
 				
+				/* Model */
+				"network" : "model/network_model",
+				"networkElementModel" : "model/network_element_model",
+				"networkInterfaceModel" : "model/network_interface_model",
+				"resourceModel" : "model/resource_model",
+				"featureModel" : "model/feature_model",
+				"networkOrganisation" : "model/network_organisation",
+				"idHandler" : "model/id_handler",
 				
+				/* View */
+				"networkElementDrawView" : "view/network_element_draw_view",
+				"networkElementAtrributesMainview" : "view/network_element_attributes_mainview",
+				"networkElementGeneralAttributesView" : "view/network_element_general_attributes_view",
+				"linkDrawView" : "view/link_draw_view",
+				"networkElementResourcesOverviewView":"view/network_element_resources_overview_view",
+				"resourceGeneralAttributesView" : "view/resource_general_attributes_view",
+				"networkElementFeaturesOverviewView":"view/network_element_features_overview_view",
+				"featureGeneralAttributesView" : "view/feature_general_attributes_view",
+				"networkElementInterfacesOverviewView":"view/network_element_interfaces_overview_view",
+				"interfaceGeneralAttributesView" : "view/interface_general_attributes_view",
+				"graphlabelAttributesView" : "view/graphlabel_attributes_view",
+				
+				/* Controller */
+				"controllerFactory" : "controller/controller_factory",
+				"controller" : "controller/controller",
+				"graphLabelAttributesChangeController" : "controller/graphlabel_attributes_change_controller",
+				"graphLabelAttributesCreateController" : "controller/graphlabel_attributes_create_controller",
+				"networkElementDrawController" : "controller/network_element_draw_controller",
+				"networkElementAttributesController" : "controller/network_element_attributes_controller",
+				"networkElementGeneralAttributesController" : "controller/network_element_general_attributes_controller",
+				"linkDrawController" : "controller/link_draw_controller",
+				"networkElementResourcesOverviewController":"controller/network_element_resources_overview_controller",
+				"resourceGeneralAttributesController" : "controller/resource_general_attributes_controller",
+				"networkElementFeaturesOverviewController" : "controller/network_element_features_overview_controller",
+				"featureGeneralAttributesController" : "controller/feature_general_attributes_controller",
+				"networkElementInterfacesOverviewController" : "controller/network_element_interfaces_overview_controller",
+				"interfaceGeneralAttributesController" : "controller/interface_general_attributes_controller",
+				
+				/* Back-End */
+				"parser" : "controller/backend/YAML_parser",
+				
+				/* Commands */
+				"commandManager" : "controller/commands/command_manager",
+				"newNodeCommand" : "controller/commands/new_node_command",
+				"newLinkCommand" : "controller/commands/new_link_command",
+				"deleteNodeCommand" : "controller/commands/delete_node_command",
+				"changeAttributesCommand" : "controller/commands/change_attributes_command",
+				"composedCommand":"controller/commands/composed_command",
+				"newResourceCommand" : "controller/commands/new_resource_command",
+				"deleteResourceCommand" : "controller/commands/delete_resource_command",
+				"newFeatureCommand" : "controller/commands/new_feature_command",
+				"deleteFeatureCommand" : "controller/commands/delete_feature_command",
+				"newInterfaceCommand" : "controller/commands/new_interface_command",
+				"deleteInterfaceCommand" : "controller/commands/delete_interface_command",
+				
+				/* Observer */
+				"observable" : "controller/observer/observable",
+				
+				/* GUI */
+				"progressbar": "view/gui/progressbar",
+				"button":"view/gui/button",
+				"overviewComponent": "view/gui/components/overview_component",
+				"contextMenu" : "view/gui/context_menu",
+				"loadingWindow" : "view/gui/loading_window",
+				"toolbar" : "view/gui/toolbar",
+				"menubar" : "view/gui/menubar",
+				"statusbar" : "view/gui/statusbar",
+				"drawArea" : "view/gui/draw_area",
+				"jsonViewer" : "view/gui/json_viewer",
+				"listDialogueAttributes" : "view/gui/list_dialogue_attributes",
+				
+				/* States */
+				"move" : "view/gui/states/move",
+				"newNode" : "view/gui/states/new_node",
+				"newLink" : "view/gui/states/new_link",
+				
+				/* Dialogues */
+				"window" : "view/gui/dialogues/window",
+				"dialogue" : "view/gui/dialogues/dialogue",
+				"alertDialogue" : "view/gui/dialogues/alert_dialogue",
+				"openDialogue" : "view/gui/dialogues/open_dialogue",
+				"listDialogue" : "view/gui/dialogues/list_dialogue"
 			},
 			shim : {
 				'bootstrap' : {
