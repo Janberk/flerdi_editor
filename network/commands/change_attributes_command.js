@@ -14,7 +14,7 @@ define([ "jquery" ],
 	 * This is the constructor
 	 * 
 	 * @param model reference to the model
-	 * @param values JSON of all values youw ant to change
+	 * @param values JSON of all values you want to change
 	 */
 	var ChangeAttributesCommand = function(model, values ){
 		this.model = model;

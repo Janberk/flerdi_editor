@@ -34,6 +34,7 @@ define(
 					this.update("save");
 				});
 
+				$(this.view.table).find('[name="ne_type"]').prop('disabled', true);
 			}
 
 			NetworkElementGeneralAttributesController.prototype = new Controller();
