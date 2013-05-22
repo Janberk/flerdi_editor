@@ -19,6 +19,8 @@ define(
 
 				this.drawView();
 				this.show();
+				
+				this.content.find('.nav a:first').tab('show');
 			}
 
 			NetworkElementAttributesMainview.prototype = new Dialog();
@@ -38,45 +40,44 @@ define(
 				var tab_titles = [ 'General', 'Resources', 'Features',
 						'Interfaces' ];
 
-				var content = $(document.createElement('div')).append(
+				this.content = $(document.createElement('div')).append(
 						$(document.createElement('ul'))
 								.addClass('nav nav-tabs')).append(
 						$(document.createElement('div'))
 								.addClass('tab-content'));
 
 				$.each(tab_titles,function() {
-									content.find('.nav').append(
+									_this.content.find('.nav').append(
 											$(document.createElement('li')).append($(document.createElement('a'))
 												.attr({'href' : '#'+ this.toLowerCase(),'data-toggle' : 'tab'})
 												.append(String(this))));
-									content.find('.tab-content').append($(document.createElement('div'))
+									_this.content.find('.tab-content').append($(document.createElement('div'))
 															.addClass('tab-pane')
 															.attr('id',this.toLowerCase()));
 								});
 
 				
-				content.find('#general').append(
+				this.content.find('#general').append(
 						$(document.createElement('div')).css({
 							display: 'block'
 						}).attr('class', 'attributes-general'));
 				
-				content.find('#resources').append(
+				this.content.find('#resources').append(
 						$(document.createElement('div')).css({
 							display: 'block',
 						}).attr('class', 'resources-overview'));
 				
-				content.find('#features').append(
+				this.content.find('#features').append(
 						$(document.createElement('div')).css({
 							display: 'block',
 						}).attr('class', 'features-overview'));
 				
-				content.find('#interfaces').append(
+				this.content.find('#interfaces').append(
 						$(document.createElement('div')).css({
 							display: 'block',
 						}).attr('class', 'interfaces-overview'));
-							
-				content.find('.nav a:first').tab('show');
-				this.setContent(content);
+		
+				this.setContent(this.content);
 			}
 
 			/**
