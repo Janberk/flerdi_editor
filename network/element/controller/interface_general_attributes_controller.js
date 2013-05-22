@@ -51,6 +51,15 @@ define(
 			InterfaceGeneralAttributesController.prototype.update = function(
 					command, data) {
 				switch (command) {
+				case 'updateWithoutModel':
+					this.view.ni_type = data.ni_type;
+				    this.view.id = data.id;
+				    this.view.network_interface_id = data.network_interface_id;
+				    this.view.network_element_id = data.network_element_id;
+				    this.view.alias = data.alias;
+				    this.view.identifier = data.identifier;
+					this.view.refresh();
+					break;
 				case "update":
 				    this.view.ni_type = this.model.ni_type;
 				    this.view.id = this.model.id;

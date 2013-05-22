@@ -36,7 +36,7 @@ define(
 																			e.target.result,
 																			file.name,
 																			function(network) {
-																				console.log(network);
+																				//console.log(network);
 																				environment.networks.newNetwork(network,true);
 																			})
 														});

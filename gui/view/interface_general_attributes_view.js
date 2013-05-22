@@ -9,7 +9,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 					callback) {
 				this.parent = parent;
 				this.attributes = attributes || {};
-
+				
 			    this.ni_type = attributes.ni_type;
 			    this.id = attributes.id;
 			    this.network_interface_id = attributes.network_interface_id;
@@ -56,7 +56,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			InterfaceGeneralAttributesView.prototype.getValues = function() {
-				var elements = $(this.parent).find('.ui-interface-genral-attributes-input');
+				var elements = $(this.table).find('.ui-interface-genral-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
 					json[$(elements[i]).attr('name')] = $(elements[i]).val()
@@ -70,7 +70,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			InterfaceGeneralAttributesView.prototype.refresh = function() {
-				var elements =  $(this.parent).find('.ui-interface-genral-attributes-input');
+				var elements =  $(this.table).find('.ui-interface-genral-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
 					case 'ni_type':

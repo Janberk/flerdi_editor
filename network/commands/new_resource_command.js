@@ -28,8 +28,6 @@ define([ "jquery","networkElementModel", "idHandler","resourceModel" ],
 			}
 		}
 		
-		console.log(this.res);
-		
 	}
 	
 	/**
@@ -38,6 +36,7 @@ define([ "jquery","networkElementModel", "idHandler","resourceModel" ],
 	NewResourceCommand.prototype.execute = function(){
 		// add new node to the network
 		this.node.addResource(this.res);
+		this.node.notifyAll('update',{});
 	}
 	
 	/**
@@ -47,6 +46,7 @@ define([ "jquery","networkElementModel", "idHandler","resourceModel" ],
 		// remove the node
 		this.node.removeResourceById(this.res.id);
 		this.res.notifyAll('remove',{});
+		this.node.notifyAll('update',{});
 	}
 	
 	return NewResourceCommand;

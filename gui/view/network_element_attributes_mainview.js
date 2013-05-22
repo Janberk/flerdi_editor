@@ -68,31 +68,13 @@ define(
 				content.find('#features').append(
 						$(document.createElement('div')).css({
 							display: 'block',
-							width: '50%',
-							float:'left',
 						}).attr('class', 'features-overview'));
 				
-				content.find('#features').append(
-						$(document.createElement('div')).css({
-							display: 'block',
-							width: '50%',
-							float:'left',
-						}).attr('class', 'feature-attributes'));
-				
 				content.find('#interfaces').append(
 						$(document.createElement('div')).css({
 							display: 'block',
-							width: '50%',
-							float:'left',
 						}).attr('class', 'interfaces-overview'));
-				
-				content.find('#interfaces').append(
-						$(document.createElement('div')).css({
-							display: 'block',
-							width: '50%',
-							float:'left',
-						}).attr('class', 'interface-attributes'));
-				
+							
 				content.find('.nav a:first').tab('show');
 				this.setContent(content);
 			}

@@ -52,7 +52,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			FeatureGeneralAttributesView.prototype.getValues = function() {
-				var elements = $(this.parent).find('.ui-feature-general-attributes-input');
+				var elements = $(this.table).find('.ui-feature-general-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
 					json[$(elements[i]).attr('name')] = $(elements[i]).val()
@@ -66,7 +66,7 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			FeatureGeneralAttributesView.prototype.refresh = function() {
-				var elements =  $(this.parent).find('.ui-feature-general-attributes-input');
+				var elements =  $(this.table).find('.ui-feature-general-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
 					case 'priority':
@@ -92,6 +92,8 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 			FeatureGeneralAttributesView.prototype.remove = function() {
 				$(this.parent).empty();
 			}
+			
+
 
 			return FeatureGeneralAttributesView;
 		})); // define

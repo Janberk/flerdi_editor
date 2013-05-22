@@ -27,6 +27,8 @@ define(
 
 				this.internId = 0;
 
+				this.model.addObserver(this);
+				
 				var _this = this;
 
 				this.resources = [];
@@ -66,6 +68,7 @@ define(
 
 								_this.attributesController = new ResourceGeneralAttributesController(
 										_this.model, _this, 'attributes');
+								_this.attributesController.model.removeObserver(_this.attributesController);
 
 								_this.setActive(data.id);
 
@@ -122,6 +125,7 @@ define(
 				}
 				// creating the views that should be shown inside this
 				// controllers view
+				
 			}
 
 			NetworkElementResourcesOverviewController.prototype = new Controller();
@@ -139,11 +143,11 @@ define(
 				for ( var i = 0; i < this.resources.length; i++) {
 					switch (this.resources[i].status) {
 					case 'old':
-						if (this.resources[i].removed == true) {
+						if (this.resources[i].removed == true && this.resources[i].model !== undefined) {
 							// commands.push('löschen');
 							commands.push(new DeleteResourceCommand(this.model,
 									this.resources[i].model));
-						} else if (this.resources[i].attr !== undefined) {
+						} else if (this.resources[i].attr !== undefined && this.resources[i].model !== undefined) {
 							commands.push(new ChangeAttributesCommand(
 									this.resources[i].model,
 									this.resources[i].attr));
@@ -166,7 +170,8 @@ define(
 					command, data) {
 				switch (command) {
 				case "update":
-					this.view.attributes = this.createAttributesForView();
+					this.setActive(this.nextVisibleResource());
+					this.view.resources = this.createAttributesForView();
 					this.view.refresh();
 					break;
 				case "remove":

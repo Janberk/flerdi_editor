@@ -25,7 +25,7 @@ define([ 'observable' ], (function(Observable) {
 		this.resources = [];
 		this.features = [];
 	}
-	
+
 	// star extends
 	NetworkInterfaceModel.prototype = new Observable();
 	// end extends
@@ -62,7 +62,13 @@ define([ 'observable' ], (function(Observable) {
 	 * @return JSON-Object representing this network interface
 	 */
 	NetworkInterfaceModel.prototype.getJson = function() {
-		return this.json;
+		return {
+			ni_type : this.ni_type,
+			id : this.id,
+			network_interface_id : this.network_interface_id.id,
+			network_element_id : this.network_element_id.id,
+			identifier : this.identifier,
+		}
 	}
 	return NetworkInterfaceModel;
 })); // define

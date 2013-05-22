@@ -49,7 +49,6 @@ define(
 					source : _text,
 					type : 'text'
 				}, function(json) {
-					// console.log(json);
 					loadingWindow.close();
 					callback(_this.getNetworkFromJson(json));
 				}, 'json');
@@ -72,7 +71,7 @@ define(
 					network[key] = json['--- !yaml.org,2002'].attributes[key];
 				}
 
-				for ( var i = 0; i < json.network_elements.length; i++) {
+				for ( var i = 0; i < json.network_elements.length; i++) {console.log(i);
 					network.addNetworkElement(this.getNetworkElement(
 							json.network_elements[i], network));
 				}

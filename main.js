@@ -91,6 +91,10 @@ requirejs
 				"composedCommand":"network/commands/composed_command",
 				"newResourceCommand" : "network/commands/new_resource_command",
 				"deleteResourceCommand" : "network/commands/delete_resource_command",
+				"newFeatureCommand" : "network/commands/new_feature_command",
+				"deleteFeatureCommand" : "network/commands/delete_feature_command",
+				"newInterfaceCommand" : "network/commands/new_interface_command",
+				"deleteInterfaceCommand" : "network/commands/delete_interface_command",
 
 				"observable" : "network/observable",
 				

@@ -124,9 +124,7 @@ define(
 													/*new AlertDialog(
 															'Are you sure you want to delete this Resource?',
 															function() {
-																_this
-																		.removeResource(data.id);
-																_this.refresh();
+																
 															});*/
 													_this.callback('remove',data)
 													break;

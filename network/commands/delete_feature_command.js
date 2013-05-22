@@ -14,27 +14,27 @@ define([ "jquery" ],
 	 * @param network the network
 	 * @param node the deleted node
 	 */
-	var DeleteResourceCommand = function(node, resource){
+	var DeleteFeatureCommand = function(node, feature){
 		this.node = node;
-		this.resource = resource;
+		this.feature = feature;
 	}
 	
 	/**
 	 * This function creates the node
 	 */
-	DeleteResourceCommand.prototype.execute = function(){
-		this.resource.notifyAll('remove',{});
-		this.node.removeResourceById(this.resource.id);
+	DeleteFeatureCommand.prototype.execute = function(){
+		this.feature.notifyAll('remove',{});
+		this.node.removeFeatureById(this.feature.id);
 		this.node.notifyAll('update',{});
 	}
 	
 	/**
 	 * This function removes the node
 	 */
-	DeleteResourceCommand.prototype.undo = function(){
-		this.node.addResource(this.resource);
+	DeleteFeatureCommand.prototype.undo = function(){
+		this.node.addFeature(this.feature);
 		this.node.notifyAll('update',{});
 	}
 	
-	return DeleteResourceCommand;
+	return DeleteFeatureCommand;
 })); // define
