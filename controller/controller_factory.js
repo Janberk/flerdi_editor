@@ -3,18 +3,18 @@
  * RequireJS module definition
  */
 
-define([ "networkElementDrawController",
+define(["nodeDrawController",
+        "linkDrawController",
 		"graphLabelAttributesChangeController",
 		"graphLabelAttributesCreateController",
 		"networkElementAttributesController",
-		"linkDrawController",
 		"networkElementResourcesOverviewController",
 		"networkElementFeaturesOverviewController"],
-		(function(NetworkElementDrawController,
+		(function(NodeDrawController,
+				LinkDrawController,
 				GraphLabelAttributesChangeController,
 				GraphLabelAttributesCreateController,
 				NetworkElementAttributesController, 
-				LinkDrawController,
 				NetworkElementResourcesOverviewController,
 				NetworkElementFeaturesOverviewController) {
 
@@ -27,7 +27,7 @@ define([ "networkElementDrawController",
 
 						switch (element) {
 						case "node":
-							return new NetworkElementDrawController(model);
+							return new NodeDrawController(model);
 						case "link":
 							return new LinkDrawController(model);
 						default:

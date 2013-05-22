@@ -5,8 +5,8 @@
  * interfaces : IUndoableCommand
  */
 
-define([ "jquery","networkElementModel", "idHandler" ], 
-(function($,NetworkElementModel, IdHandler) {
+define(["jquery", "networkElementModel", "idHandler"], 
+(function($, NetworkElementModel, IdHandler) {
 
 	/**
 	 * This is the constructor

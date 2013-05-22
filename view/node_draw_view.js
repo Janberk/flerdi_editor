@@ -15,7 +15,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 	 *            new Data for the Model
 	 * 
 	 */
-	var NetworkElementDrawView = function(controller, attributes, callback) {
+	var NodeDrawView = function(controller, attributes, callback) {
 		this.controller = controller;
 		this.attributes = attributes || {};
 		this.x = attributes.x;
@@ -40,7 +40,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 	 * This functions draws the View.
 	 * 
 	 */
-	NetworkElementDrawView.prototype.drawView = function() {
+	NodeDrawView.prototype.drawView = function() {
 		document.getElementById('nodes').appendChild(this.svg);
 	}
 
@@ -48,7 +48,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 	 * This function refreshes the Values in the View
 	 * 
 	 */
-	NetworkElementDrawView.prototype.refresh = function() {
+	NodeDrawView.prototype.refresh = function() {
 		this.svg.setAttribute("x", this.x);
 		this.svg.setAttribute("y", this.y);
 		this.svg.setAttribute("xlink:href", this.getPathToSvg());
@@ -58,7 +58,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 	 * This function creates all UI-Elements for this View
 	 * 
 	 */
-	NetworkElementDrawView.prototype.create = function() {
+	NodeDrawView.prototype.create = function() {
 		var _this = this;
 		this.svg = document.createElementNS("http://www.w3.org/2000/svg",
 				"image");
@@ -81,11 +81,11 @@ define([ "jquery", "drag" ], (function($, Drag) {
 	 * This function removes all UI-Elements this View created
 	 * 
 	 */
-	NetworkElementDrawView.prototype.remove = function() {
+	NodeDrawView.prototype.remove = function() {
 		document.getElementById('nodes').removeChild(this.svg);
 	}
 
-	NetworkElementDrawView.prototype.update = function(command, data) {
+	NodeDrawView.prototype.update = function(command, data) {
 		var _this = this;
 
 		switch (command) {
@@ -159,7 +159,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 		}
 	}
 
-	NetworkElementDrawView.prototype.getValues = function() {
+	NodeDrawView.prototype.getValues = function() {
 		return {
 			x : this.x,
 			y : this.y,
@@ -167,7 +167,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 		};
 	}
 
-	NetworkElementDrawView.prototype.removeEvents = function() {
+	NodeDrawView.prototype.removeEvents = function() {
 		$(this.svg).off('drag').off('dragend').off('dragstart').off('mouseup');
 	}
 	// TODO diese funktion gehört eich in eine Öffentliche Bibliothek, muss
@@ -177,7 +177,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 	 * ne-type
 	 * 
 	 */
-	NetworkElementDrawView.prototype.getPathToSvg = function() {
+	NodeDrawView.prototype.getPathToSvg = function() {
 		var path = '/vendor/assets/img/';
 		switch (this.ne_type) {
 		case "/node/host/generic":
@@ -196,9 +196,9 @@ define([ "jquery", "drag" ], (function($, Drag) {
 		}
 	}
 
-	NetworkElementDrawView.prototype.getBody = function(){
+	NodeDrawView.prototype.getBody = function(){
 		return undefined;
 	}
 	
-	return NetworkElementDrawView;
+	return NodeDrawView;
 }));

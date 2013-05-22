@@ -5,18 +5,18 @@
  * implements IObserver
  */
 
-define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
-		"changeAttributesCommand","controller" ], (function(NetworkElementDrawView,
+define([ "nodeDrawView", "contextMenu", "deleteNodeCommand",
+		"changeAttributesCommand","controller" ], (function(NodeDrawView,
 		ContextMenu, DeleteNodeCommand, ChangeAttributesCommand, Controller) {
 
-	var NetworkElementDrawController = function(model,parentController,parentClass) {
+	var NodeDrawController = function(model,parentController,parentClass) {
 		this.base = Controller;
 		this.base(model,parentController,parentClass);
 		this.model = model;
 		this.model.addObserver(this);
 		var _this = this;
 		
-		this.view = new NetworkElementDrawView(this, {x:this.model.x,y:this.model.y,ne_type:this.model.ne_type},
+		this.view = new NodeDrawView(this, {x:this.model.x,y:this.model.y,ne_type:this.model.ne_type},
 				function(evt, data) {
 					switch (evt){
 					case 'context':
@@ -41,13 +41,13 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 
 	}
 	
-	NetworkElementDrawController.prototype = new Controller();
+	NodeDrawController.prototype = new Controller();
 	
-	NetworkElementDrawController.prototype.getCommand = function(){
+	NodeDrawController.prototype.getCommand = function(){
 		return new ChangeAttributesCommand(this.model, this.view.getValues());
 	}
 
-	NetworkElementDrawController.prototype.update = function(command, data) {
+	NodeDrawController.prototype.update = function(command, data) {
 		switch (command) {
 		case "update":
 			this.view.x = this.model.x;
@@ -63,5 +63,5 @@ define([ "networkElementDrawView", "contextMenu", "deleteNodeCommand",
 	}
 	
 
-	return NetworkElementDrawController;
+	return NodeDrawController;
 }));
