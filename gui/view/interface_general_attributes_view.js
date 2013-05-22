@@ -3,8 +3,8 @@
  * RequireJS module definition
  */
 
-define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
-		(function($, Dialog, ListDialogueAttributes, JsonViewer) {
+define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer', 'button' ],
+		(function($, Dialog, ListDialogueAttributes, JsonViewer, Button) {
 			var InterfaceGeneralAttributesView = function(attributes, parent,
 					callback) {
 				this.parent = parent;
@@ -48,6 +48,28 @@ define([ "jquery", 'dialog', 'listDialogueAttributes', 'jsonViewer' ],
 						'100%');
 
 				$(this.parent).append(this.table);
+				
+				this.buttonBar = document.createElement('div');
+				
+				var btnRes = new Button({
+					text : "New Resource",
+					size : 'mini'
+				}, this.parent, function() {
+					// TODO add new Resource
+				});
+				
+				var btnFea = new Button({
+					text : "New Feature",
+					size : 'mini'
+				}, this.parent, function() {
+					// TODO add new Feature
+				});
+				
+				$(btnRes.button).css({margin: '5px'});
+				$(btnFea.button).css({margin: '5px'});
+				
+				btnRes.show();
+				btnFea.show();
 			}
 
 			/**

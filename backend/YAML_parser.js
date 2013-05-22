@@ -24,7 +24,6 @@ define(
 					source : path,
 					type : 'file'
 				}, function(json) {
-					// console.log(json);
 					_this.loadingScreen.close();
 					$('#yaml_datei').prop('disabled', false);
 					callback(_this.getNetworkFromJson(json));
@@ -71,7 +70,7 @@ define(
 					network[key] = json['--- !yaml.org,2002'].attributes[key];
 				}
 
-				for ( var i = 0; i < json.network_elements.length; i++) {console.log(i);
+				for ( var i = 0; i < json.network_elements.length; i++) {
 					network.addNetworkElement(this.getNetworkElement(
 							json.network_elements[i], network));
 				}
