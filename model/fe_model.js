@@ -12,7 +12,7 @@ define([ 'observable' ], (function(Observable) {
 	 */
 	var FeatureModel = function(values) {
 		values = values || {};
-		this.avp_attributes = values.avp_attributes || '';
+		this.avp_attribute = values.avp_attribute || '';
 		this.id = values.id || '';
 		this.is_request = values.is_request || '';
 		this.priority = values.priority || '';
@@ -39,7 +39,7 @@ define([ 'observable' ], (function(Observable) {
 	 */
 	FeatureModel.prototype.getJson = function() {
 		return {
-			avp_attributes : this.avp_attributes,
+			avp_attribute : this.avp_attribute,
 			id : this.id,
 			is_request : this.is_request,
 			priority : this.priority,

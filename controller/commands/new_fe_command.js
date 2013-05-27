@@ -23,7 +23,6 @@ define([ "jquery","networkElementModel", "idHandler","featureModel" ],
 		this.fet.network_element_id = this.node;
 		for(var key in json){
 			if(key != "the_parent_record_id" && this.fet[key] !== undefined){
-				console.log(key);
 				this.fet[key] = this.json[key];
 			}
 		}

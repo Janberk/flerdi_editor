@@ -45,17 +45,17 @@ define(
 					command, data) {
 				switch (command) {
 				case "updateWithoutModel":
-					this.view.priority = data.priority;
-					this.view.value = data.value;
 					this.view.avp_attribute = data.avp_attribute;
-					this.view.is_request = data.is_request;				
+					this.view.is_request = data.is_request;	
+					this.view.priority = data.priority;
+					this.view.value = data.value;		
 					this.view.refresh();
 					break;
 				case "update":
+					this.view.avp_attribute = this.model.avp_attribute;
+					this.view.is_request = this.model.is_request;	
 					this.view.priority = this.model.priority;
 					this.view.value = this.model.value;
-					this.view.avp_attribute = this.model.avp_attribute;
-					this.view.is_request = this.model.is_request;			
 					this.view.refresh();
 					break;
 				case "remove":

@@ -9,11 +9,11 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 					callback) {
 				this.parent = parent;
 				this.attributes = attributes || {};
-			
-				this.priority = this.attributes.priority || "";
-				this.value = this.attributes.value || "";
+
 				this.avp_attribute = this.attributes.avp_attribute || "";
 				this.is_request = this.attributes.is_request || "";
+				this.priority = this.attributes.priority || "";
+				this.value = this.attributes.value || "";
 				
 				this.callback = function() {
 				};
@@ -35,10 +35,10 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 				new JsonViewer().createHeader(this.table);
 				$(this.table).append(
 						new JsonViewer().createTable({
-							priority : _this.priority,
-							value : _this.value,
 							avp_attribute : _this.avp_attribute,
 							is_request : _this.is_request,
+							priority : _this.priority,
+							value : _this.value
 						}, new ListDialogueAttributes().getFeaturesJson(),
 								"ui-feature-general-attributes-input")).css('width',
 						'100%');
@@ -55,7 +55,7 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 				var elements = $(this.table).find('.ui-feature-general-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
-					json[$(elements[i]).attr('name')] = $(elements[i]).val()
+					json[$(elements[i]).attr('name')] = $(elements[i]).val();
 				}
 				
 				return json;
@@ -69,17 +69,17 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 				var elements =  $(this.table).find('.ui-feature-general-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
-					case 'priority':
-						$(elements[i]).val(this.priority);
-						break;
-					case 'value':
-						$(elements[i]).val(this.value);
-						break;
 					case 'avp_attribute':
 						$(elements[i]).val(this.avp_attribute);
 						break;
 					case 'is_request':
 						$(elements[i]).val(this.is_request);
+						break;
+					case 'priority':
+						$(elements[i]).val(this.priority);
+						break;
+					case 'value':
+						$(elements[i]).val(this.value);
 						break;
 					}
 				}

@@ -38,12 +38,12 @@ define(
 				var _this = this;
 
 				$(this.container).addClass('flerdi-ui-overview').css({
-					margin : '0px 10px 0px 0px',
+					margin : '0px 10px 0px 0px'
 				});
 
 				$(this.overViewContainer).css({
 					height : 200,
-					textAlign : 'center',
+					textAlign : 'center'
 				}).addClass('flerdi-ui-overview-overviewcontainer');
 
 				$(this.buttonBar).css({
@@ -53,14 +53,15 @@ define(
 				}).addClass('flerdi-ui-overview-btnbar');
 
 				$(this.attributesContainer).css({
-					width : '50%',
+					width : '70%',
 					float : 'right',
 					height: 500
 				}).attr('class', 'attributes');
 
 				$(this.left).css({
-					width : '50%',
-					float : 'left',
+					width : '30%',
+					height: '100%',
+					float : 'left'
 				});
 
 				this.refresh();

@@ -64,7 +64,7 @@ define(
 				case 'updateWithoutModel':
 					this.view.alias = data.alias;
 					this.view.avp_attribute = data.avp_attribute;
-					this.view.composing_operation = data.alias;
+					this.view.composing_operation = data.composing_operation;
 					this.view.confidence = data.confidence;
 					this.view.identifier = data.identifier;
 					this.view.is_request = data.is_request;
@@ -78,7 +78,7 @@ define(
 				case "update":
 					this.view.alias = this.model.alias;
 					this.view.avp_attribute = this.model.avp_attribute;
-					this.view.composing_operation = this.model.alias;
+					this.view.composing_operation = this.model.composing_operation;
 					this.view.confidence = this.model.confidence;
 					this.view.identifier = this.model.identifier;
 					this.view.is_request = this.model.is_request;

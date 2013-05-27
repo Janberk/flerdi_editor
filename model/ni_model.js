@@ -12,16 +12,13 @@ define([ 'observable' ], (function(Observable) {
 	 */
 	var NetworkInterfaceModel = function(values) {
 		values = values || {};
-		this.ni_type = values.ni_type || "";
-		this.id = values.id || "";
-		this.network_interface_id = values.network_interface_id || {};
-		// reference to then interface_model,"on the other side"
-		this.network_element_id = values.network_element_id || {};
-		// reference to the network element , this interface belongs to to the
-		// network_element, this model belongs to
 		this.alias = values.alias || "";
+		this.id = values.id || "";
 		this.identifier = values.identifier || "";
-
+		this.network_element_id = values.network_element_id || {}; // reference to the network element, this interface belongs to
+		this.network_interface_id = values.network_interface_id || {}; // reference to then interface_model "on the other side"
+		this.ni_type = values.ni_type || "";
+		
 		this.resources = [];
 		this.features = [];
 	}
@@ -63,11 +60,12 @@ define([ 'observable' ], (function(Observable) {
 	 */
 	NetworkInterfaceModel.prototype.getJson = function() {
 		return {
-			ni_type : this.ni_type,
+			alias : this.alias,
 			id : this.id,
-			network_interface_id : this.network_interface_id.id,
-			network_element_id : this.network_element_id.id,
 			identifier : this.identifier,
+			network_element_id : this.network_element_id.id,
+			network_interface_id : this.network_interface_id.id,
+			ni_type : this.ni_type
 		}
 	}
 	return NetworkInterfaceModel;

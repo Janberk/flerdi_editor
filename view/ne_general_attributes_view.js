@@ -54,7 +54,7 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 				var elements = $.find('.ui-genral-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
-					json[$(elements[i]).attr('name')] = $(elements[i]).val()
+					json[$(elements[i]).attr('name')] = $(elements[i]).val();
 				}
 				
 				return json;

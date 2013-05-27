@@ -81,7 +81,7 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
 				var elements = $(this.table).find('.ui-interface-genral-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
-					json[$(elements[i]).attr('name')] = $(elements[i]).val()
+					json[$(elements[i]).attr('name')] = $(elements[i]).val();
 				}
 				
 				return json;

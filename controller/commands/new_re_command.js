@@ -23,7 +23,6 @@ define([ "jquery","networkElementModel", "idHandler","resourceModel" ],
 		this.res.the_parent_record_id = this.node;
 		for(var key in json){
 			if(key != "the_parent_record_id" && this.res[key] !== undefined){
-				console.log(key);
 				this.res[key] = this.json[key];
 			}
 		}
