@@ -35,7 +35,7 @@ define([ "jquery", "bootstrap" ],
 				this.getBody().append(content);
 			}
 			Dialogue.prototype.addCancel = function(funct) {
-				_this = this;
+				var _this = this;
 				if(funct === undefined) {
 					funct = function() {};
 				}
@@ -54,7 +54,7 @@ define([ "jquery", "bootstrap" ],
 				return this.dia.find('.modal-body');
 			}
 			Dialogue.prototype.addOk = function(funct) {
-				_this = this;
+				var _this = this;
 				if(funct === undefined) {
 					funct = function() {};
 				}
