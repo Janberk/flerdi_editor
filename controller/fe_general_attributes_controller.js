@@ -30,7 +30,7 @@ define(
 					is_request : this.model.is_request
 	
 				}, this.parent, function(evt, data) {
-					this.update("save");
+					_this.update("save");
 				});
 
 			}

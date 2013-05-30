@@ -3,10 +3,13 @@
  * RequireJS module definition
  */
 
-define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
-		(function($, ListDialogueAttributes, JsonViewer) {
+define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'dialogue' ],
+		(function($, ListDialogueAttributes, JsonViewer, Dialogue) {
 			var ResourceGeneralAttributesView = function(attributes, parent,
 					callback) {
+				this.base = Dialogue;
+				this.base('editResourcesView', 'resource attributes');
+
 				this.parent = parent;
 				this.attributes = attributes || {};
 
@@ -21,15 +24,19 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 				this.timestamp = this.attributes.timestamp || "";
 				this.value = this.attributes.value || "";
 				this.value_type = this.attributes.value_type || "";
-				
+
 				this.callback = function() {
 				};
 				if (callback != undefined && typeof callback == 'function') {
 					this.callback = callback;
 				}
-
+				
 				this.drawView();
+				this.show();
+				
 			}
+
+			ResourceGeneralAttributesView.prototype = new Dialogue();
 
 			/**
 			 * This functions draws the View.
@@ -37,6 +44,14 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 			 */
 			ResourceGeneralAttributesView.prototype.drawView = function() {
 				var _this = this;
+
+				this.addOk(function() {
+					_this.callback('ok', _this.getValues());
+
+				});
+				this.addCancel(function() {
+					_this.callback('close', {});
+				});
 
 				this.table = document.createElement('table');
 				new JsonViewer().createHeader(this.table);
@@ -54,10 +69,10 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 							value : _this.value,
 							value_type : _this.value_type,
 						}, new ListDialogueAttributes().getResourcesJson(),
-								"ui-resource-genral-attributes-input")).css('width',
-						'100%');
-
-				$(this.parent).append(this.table);
+								"ui-resource-genral-attributes-input")).css(
+						'width', '100%');
+				
+				this.setContent(this.table);
 			}
 
 			/**
@@ -66,12 +81,13 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			ResourceGeneralAttributesView.prototype.getValues = function() {
-				var elements = $(this.table).find('.ui-resource-genral-attributes-input');
+				var elements = $(this.table).find(
+						'.ui-resource-genral-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
 					json[$(elements[i]).attr('name')] = $(elements[i]).val();
 				}
-				
+
 				return json;
 			}
 
@@ -80,7 +96,8 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 			 * 
 			 */
 			ResourceGeneralAttributesView.prototype.refresh = function() {
-				var elements =  $(this.table).find('.ui-resource-genral-attributes-input');
+				var elements = $(this.table).find(
+						'.ui-resource-genral-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
 					case 'alias':
@@ -118,14 +135,6 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 						break;
 					}
 				}
-			}
-
-			ResourceGeneralAttributesView.prototype.getBody = function(){
-				return this.table;
-			}
-			
-			ResourceGeneralAttributesView.prototype.remove = function() {
-				$(this.parent).empty();
 			}
 
 			return ResourceGeneralAttributesView;

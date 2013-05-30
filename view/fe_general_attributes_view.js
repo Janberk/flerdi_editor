@@ -3,10 +3,12 @@
  * RequireJS module definition
  */
 
-define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
-		(function($, ListDialogueAttributes, JsonViewer) {
+define([ "jquery", 'listDialogueAttributes', 'jsonViewer' , 'dialogue'],
+		(function($, ListDialogueAttributes, JsonViewer, Dialogue) {
 			var FeatureGeneralAttributesView = function(attributes, parent,
 					callback) {
+				this.base = Dialogue;
+				this.base('editFeatureView', 'feature attributes');
 				this.parent = parent;
 				this.attributes = attributes || {};
 
@@ -22,8 +24,12 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 				}
 
 				this.drawView();
+				this.show();
 			}
 
+			FeatureGeneralAttributesView.prototype = new Dialogue();
+			
+			
 			/**
 			 * This functions draws the View.
 			 * 
@@ -31,6 +37,14 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 			FeatureGeneralAttributesView.prototype.drawView = function() {
 				var _this = this;
 
+				this.addOk(function() {
+					_this.callback('ok', _this.getValues());
+
+				});
+				this.addCancel(function() {
+					_this.callback('close', {});
+				});
+				
 				this.table = document.createElement('table');
 				new JsonViewer().createHeader(this.table);
 				$(this.table).append(
@@ -43,7 +57,7 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 								"ui-feature-general-attributes-input")).css('width',
 						'100%');
 
-				$(this.parent).append(this.table);
+				this.setContent(this.table);
 			}
 
 			/**
@@ -84,16 +98,6 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' ],
 					}
 				}
 			}
-
-			FeatureGeneralAttributesView.prototype.getBody = function(){
-				return this.table;
-			}
-			
-			FeatureGeneralAttributesView.prototype.remove = function() {
-				$(this.parent).empty();
-			}
-			
-
 
 			return FeatureGeneralAttributesView;
 		})); // define

@@ -1,5 +1,5 @@
-define([ "jquery", "bootstrap" ],
-		function($, Bootstrap) {
+define([ "jquery", "bootstrap","button" ],
+		function($, Bootstrap, Button) {
 			var Dialogue = function(id, title) {
 				this.dia = $(document.createElement('div')).addClass(
 						'modal hide fade').attr({
@@ -22,24 +22,28 @@ define([ "jquery", "bootstrap" ],
 										'modal-body')).append(
 								$(document.createElement('div')).addClass(
 										'modal-footer'))
-
+										
+										
 				
+
 			}
-			
-			Dialogue.prototype.show = function(){
+
+			Dialogue.prototype.show = function() {
 				$('body').append(this.dia);
 				$(this.dia).modal('show');
 			}
-			
+
 			Dialogue.prototype.setContent = function(content) {
-				this.getBody().append(content);
+				$(this.getBody()).append(content);
 			}
+
 			Dialogue.prototype.addCancel = function(funct) {
 				var _this = this;
-				if(funct === undefined) {
-					funct = function() {};
+				if (funct === undefined) {
+					funct = function() {
+					};
 				}
-				
+
 				this.dia.find('.modal-footer').append(
 						$(document.createElement('button')).addClass(
 								'btn cancel').attr({
@@ -50,15 +54,18 @@ define([ "jquery", "bootstrap" ],
 							_this.remove();
 						}))
 			}
+			
 			Dialogue.prototype.getBody = function() {
 				return this.dia.find('.modal-body');
 			}
+			
 			Dialogue.prototype.addOk = function(funct) {
 				var _this = this;
-				if(funct === undefined) {
-					funct = function() {};
+				if (funct === undefined) {
+					funct = function() {
+					};
 				}
-				
+
 				this.dia.find('.modal-footer').append(
 						$(document.createElement('a')).addClass(
 								'btn btn-primary ok').attr({
@@ -68,9 +75,11 @@ define([ "jquery", "bootstrap" ],
 							_this.remove();
 						}))
 			}
+			
 			Dialogue.prototype.remove = function() {
 				this.dia.modal('hide');
 				this.dia.remove();
 			}
+			
 			return Dialogue;
 		})

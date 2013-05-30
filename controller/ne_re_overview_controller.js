@@ -84,9 +84,10 @@ define(
 
 								break;
 							case 'new':
+								var newId = ++_this.internId;
 								_this.resources.push({
 									model : undefined,
-									id : ++_this.internId,
+									id : newId,
 									name : 'neue resource',
 									status : 'new',
 									removed : false,
@@ -96,6 +97,9 @@ define(
 								_this.view.resources = _this
 										.createAttributesForView();
 								_this.view.refresh();
+								_this.view.setActive(newId);
+								_this.setActive(newId);
+								
 								break;
 							case 'remove':
 
@@ -119,10 +123,7 @@ define(
 							}
 						});
 
-				if (this.resources.length != 0) {
-					this.view.setActive(this.resources[0].id);
-					this.resources[0].active = true;
-				}
+
 				// creating the views that should be shown inside this
 				// controllers view
 				

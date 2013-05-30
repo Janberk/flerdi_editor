@@ -47,7 +47,7 @@ define(
 					value : this.value,
 					value_type : this.value_type
 				}, this.parent, function(evt, data) {
-					this.update("save");
+					_this.update("save");
 				});
 
 			}

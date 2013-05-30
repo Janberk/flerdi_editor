@@ -25,8 +25,6 @@ define(
 				this.overViewContainer = document.createElement('div');
 				this.container = document.createElement('div');
 
-				this.attributesContainer = document.createElement('div');
-
 				this.drawView();
 			}
 
@@ -52,17 +50,10 @@ define(
 					textAlign : "left"
 				}).addClass('flerdi-ui-overview-btnbar');
 
-				$(this.attributesContainer).css({
-					width : '70%',
-					float : 'right',
-					height: 500
-				}).attr('class', 'attributes');
-
 				$(this.left).css({
-					width : '30%',
-					float : 'left'
+					height: '100%',
 				});
-
+				
 				this.refresh();
 
 				var btn = new Button({
