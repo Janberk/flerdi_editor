@@ -1,53 +1,50 @@
 /*
  * Author: Flerdi Team
  */
- 
- /* 
+
+/* 
  *  This class handles the appearance of the context menu
  */
-define (['jquery'],function($) {
+define([ 'jquery', 'button' ], function($, Button) {
 	var ContextMenu = function() {
-		$('#contextmenu').remove();
-		$('body')
-			.append($(document.createElement('div'))
-				.addClass('dropdown')
-				.attr('id', 'contextmenu')
-				.append($(document.createElement('ul'))
-					.addClass('dropdown-menu')
-					.attr('role', 'menu')
-				)
-			);
+		this.container = $(document.createElement('ul')).addClass(
+				'dropdown-menu').attr({
+			'role' : 'menu',
+			'aria-labelledby' : 'dropdownMenu'
+		});
+
 	};
+
 	ContextMenu.prototype.addButton = function(label, funct) {
-		$('#contextmenu ul')
-			.append($(document.createElement('li'))
-				.append($(document.createElement('button'))
-					.addClass('btn btn-link')
-					.append(label)
-					.on('click', funct || function() { alert('comming soon') })
-				)
-		);
+		var btn = new Button();
+		$(this.container).append(
+				$(document.createElement('li')).append(
+						$(document.createElement('a')).attr('href','#').append(label).on('click',
+								funct || function() {
+									alert('comming soon')
+								})));
 	};
+
 	ContextMenu.prototype.addSeperator = function() {
-		$('#contextmenu ul')
-			.append($(document.createElement('li'))
-				.addClass('divider'))
+		$(this.container).append(
+				$(document.createElement('li')).addClass('divider'))
 	};
+
 	ContextMenu.prototype.show = function(e) {
-		var context_active = false;
-		$(document).bind("contextmenu",function(e){
-			return context_active;
+		var _this = this;
+		$('body').append(this.container);
+	
+		$(this.container).css({
+			'left' : e.clientX,
+			'top' : e.clientY,
+			'display' : 'block',
 		});
-		$('#contextmenu').css({
-			'left': e.clientX,
-			'top': e.clientY
-		});
-		$('#contextmenu')
-			.addClass('open');
+		
+		$(this.container).addClass('open');
 		$('body').on('click', function() {
-			$('#contextmenu').removeClass('open')
-			context_active = true;
+			$(_this.container).detach();
 		})
 	};
+	
 	return ContextMenu;
-});	
+});

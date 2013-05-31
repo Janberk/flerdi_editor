@@ -1,6 +1,7 @@
-define([ "jquery", "bootstrap","button" ],
+define([ "jquery", "bootstrap", "button" ],
 		function($, Bootstrap, Button) {
 			var Dialogue = function(id, title) {
+				var _this = this;
 				this.dia = $(document.createElement('div')).addClass(
 						'modal hide fade').attr({
 					'id' : id,
@@ -15,16 +16,13 @@ define([ "jquery", "bootstrap","button" ],
 									'type' : 'button',
 									'data-dismiss' : 'modal',
 									'aria-hidden' : true
-								}).append('&times;')).append(
+								}).append('&times;').on('click',function(){_this.remove()})).append(
 								$(document.createElement('h3')).append(title)))
 						.append(
 								$(document.createElement('div')).addClass(
 										'modal-body')).append(
 								$(document.createElement('div')).addClass(
 										'modal-footer'))
-										
-										
-				
 
 			}
 
@@ -44,21 +42,19 @@ define([ "jquery", "bootstrap","button" ],
 					};
 				}
 
-				this.dia.find('.modal-footer').append(
-						$(document.createElement('button')).addClass(
-								'btn cancel').attr({
-							'data-dismiss' : 'modal',
-							'aria-hidden' : true
-						}).append('Cancel').on('click', function() {
-							funct();
-							_this.remove();
-						}))
+				var btn = new Button({
+					text : "Cancel"
+				}, this.dia.find('.modal-footer'), function() {
+					funct();
+					_this.remove()
+				});
+				btn.show();
 			}
-			
+
 			Dialogue.prototype.getBody = function() {
 				return this.dia.find('.modal-body');
 			}
-			
+
 			Dialogue.prototype.addOk = function(funct) {
 				var _this = this;
 				if (funct === undefined) {
@@ -66,20 +62,19 @@ define([ "jquery", "bootstrap","button" ],
 					};
 				}
 
-				this.dia.find('.modal-footer').append(
-						$(document.createElement('a')).addClass(
-								'btn btn-primary ok').attr({
-							'aria-hidden' : true
-						}).append('OK').on('click', function() {
-							funct();
-							_this.remove();
-						}))
+				var btn = new Button({
+					text : 'OK',
+					type : 'primary'
+				}, this.dia.find('.modal-footer'), function() {
+					funct(), _this.remove()
+				});
+				btn.show();
 			}
-			
+
 			Dialogue.prototype.remove = function() {
 				this.dia.modal('hide');
 				this.dia.remove();
 			}
-			
+
 			return Dialogue;
 		})

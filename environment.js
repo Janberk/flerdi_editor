@@ -172,6 +172,9 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 		// });
 
 		// this.importJson(this.createTestJson());
+		
+		this.networks.getNetwork().commandManager.greying();
+		
 	}
 
 	/**
@@ -196,9 +199,9 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 
 		// temporary setHasChanged = false, to fix leave alert bug at download
 		var _this = this;
-		var hasChanged = _this.networks.getNetwork().getCommandManager()
+		var hasChanged = _this.networks.networks.commandManager
 				.isHasChanged();
-		_this.networks.getNetwork().getCommandManager().setHasChanged(false);
+		_this.networks.getNetwork().commandManager.setHasChanged(false);
 
 		var yaml = this.networks.getNetwork().getYaml();
 		var exportName = this.networks.getNetwork().getName();
