@@ -14,7 +14,7 @@ define(
 		[ "featureGeneralAttributesView", "changeAttributesCommand" , 'controller'],
 		(function(FeatureGeneralAttributesView, ChangeAttributesCommand, Controller) {
 
-			var FeatureGeneralAttributesController = function(model, parentController, parentClass) {
+			var FeatureAttributesChangeController = function(model, parentController, parentClass) {
 				this.base = Controller;
 				this.base(model, parentController, parentClass);
 
@@ -35,13 +35,13 @@ define(
 
 			}
 
-			FeatureGeneralAttributesController.prototype = new Controller();
+			FeatureAttributesChangeController.prototype = new Controller();
 			
-			FeatureGeneralAttributesController.prototype.getCommand = function() {
+			FeatureAttributesChangeController.prototype.getCommand = function() {
 				return new ChangeAttributesCommand(this.model, this.view.getValues());
 			}
 
-			FeatureGeneralAttributesController.prototype.update = function(
+			FeatureAttributesChangeController.prototype.update = function(
 					command, data) {
 				switch (command) {
 				case "updateWithoutModel":
@@ -66,5 +66,5 @@ define(
 				}
 			}
 
-			return FeatureGeneralAttributesController;
+			return FeatureAttributesChangeController;
 		}));

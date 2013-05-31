@@ -12,11 +12,11 @@
 
 define(
 		[ "networkElementResourcesOverviewView",
-				"resourceGeneralAttributesController", "controller",
+				"resourceAttributesChangeController", "controller",
 				"newResourceCommand", "composedCommand",
 				"changeAttributesCommand", "deleteResourceCommand" ],
 		(function(NetworkElementResourcesOverviewView,
-				ResourceGeneralAttributesController, Controller,
+				ResourceAttributesChangeController, Controller,
 				NewResourceCommand, ComposedCommand, ChangeAttributesCommand,
 				DeleteResourceCommand) {
 
@@ -28,7 +28,7 @@ define(
 				this.internId = 0;
 
 				this.model.addObserver(this);
-				
+
 				var _this = this;
 
 				this.resources = [];
@@ -40,115 +40,57 @@ define(
 						name : this.model.resources[i].identifier,
 						status : 'old',
 						removed : false,
-						active : false,
 						attr : this.model.resources[i].getJson()
 					});
 				}
 
-				this.lastActive = undefined;
-
 				this.attributesController = undefined;
 
-				this.view = new NetworkElementResourcesOverviewView(
-						this.createAttributesForView(),
-						this.parent,
-						function(evt, data) {
-							switch (evt) {
-							case 'showAttributes':
-
-								if (_this.attributesController !== undefined) {
-									_this.attributesController.update('remove',
-											{});
-								}
-
-								if (_this.lastActive !== undefined) {
-									_this.setAttributes(_this.lastActive);
-								}
-								_this.lastActive = data.id
-
-								_this.attributesController = new ResourceGeneralAttributesController(
-										_this.model, _this, 'attributes');
-								_this.attributesController.model.removeObserver(_this.attributesController);
-
-								_this.setActive(data.id);
-
-								if (_this.getAttributes(data.id) !== undefined) {
-									_this.attributesController.update(
-											'updateWithoutModel', _this
-													.getAttributes(data.id));
-								}
-
-								_this.view.resources = _this
-										.createAttributesForView();
-								_this.view.refresh();
-
-								break;
-							case 'new':
-								var newId = ++_this.internId;
-								_this.resources.push({
-									model : undefined,
-									id : newId,
-									name : 'neue resource',
-									status : 'new',
-									removed : false,
-									active : false,
-									attr : {}
-								});
-								_this.view.resources = _this
-										.createAttributesForView();
-								_this.view.refresh();
-								_this.view.setActive(newId);
-								_this.setActive(newId);
-								
-								break;
-							case 'remove':
-
-								_this.removeResource(data.id);
-								_this.view.resources = _this
-										.createAttributesForView();
-
-								if (data.active) {
-									if (_this.nextVisibleResource() !== undefined) {
-										_this.view.setActive(_this
-												.nextVisibleResource());
-									} else {
-										_this.attributesController
-												.update('remove');
-										_this.attributesController = undefined;
-									}
-								}
-
-								_this.view.refresh();
-								break;
-							}
+				this.view = new NetworkElementResourcesOverviewView(this
+						.createAttributesForView(), this.parent, function(evt,
+						data) {
+					switch (evt) {
+					case 'showAttributes':
+						_this.showAttributesController(data.id);
+						break;
+					case 'new':
+						var newId = ++_this.internId;
+						_this.resources.push({
+							model : undefined,
+							id : newId,
+							name : 'new resource',
+							status : 'new',
+							removed : false,
+							attr : {}
 						});
+						_this.view.resources = _this.createAttributesForView();
+						_this.view.refresh();
 
+						_this.showAttributesController(newId);
+						break;
+					case 'remove':
+						_this.removeResource(data.id);
+						_this.view.resources = _this.createAttributesForView();
 
-				// creating the views that should be shown inside this
-				// controllers view
-				
+						_this.view.refresh();
+						break;
+					}
+				});
 			}
 
 			NetworkElementResourcesOverviewController.prototype = new Controller();
 
 			NetworkElementResourcesOverviewController.prototype.getCommand = function() {
-				if (this.attributesController !== undefined) {
-					for ( var i = 0; i < this.resources.length; i++) {
-						if (this.resources[i].id == this.getActive()) {
-							this.resources[i].attr = this.attributesController.view
-									.getValues();
-						}
-					}
-				}
 				var commands = [];
 				for ( var i = 0; i < this.resources.length; i++) {
 					switch (this.resources[i].status) {
 					case 'old':
-						if (this.resources[i].removed == true && this.resources[i].model !== undefined) {
-							// commands.push('löschen');
+						if (this.resources[i].removed == true
+								&& this.resources[i].model !== undefined) {
 							commands.push(new DeleteResourceCommand(this.model,
 									this.resources[i].model));
-						} else if (this.resources[i].attr !== undefined && this.resources[i].model !== undefined) {
+						} else if (this.resources[i].attr !== undefined
+								&& this.resources[i].model !== undefined) {
 							commands.push(new ChangeAttributesCommand(
 									this.resources[i].model,
 									this.resources[i].attr));
@@ -157,7 +99,6 @@ define(
 					case 'new':
 						if (this.resources[i].removed == false
 								&& this.resources[i].attr !== undefined) {
-							// commands.push('neues');
 							commands.push(new NewResourceCommand(this.model,
 									this.resources[i].attr));
 						}
@@ -171,7 +112,6 @@ define(
 					command, data) {
 				switch (command) {
 				case "update":
-					this.setActive(this.nextVisibleResource());
 					this.view.resources = this.createAttributesForView();
 					this.view.refresh();
 					break;
@@ -210,11 +150,10 @@ define(
 			}
 
 			NetworkElementResourcesOverviewController.prototype.setAttributes = function(
-					id) {
+					id, attr) {
 				for ( var i = 0; i < this.resources.length; i++) {
 					if (this.resources[i].id == id) {
-						this.resources[i].attr = this.attributesController.view
-								.getValues();
+						this.resources[i].attr = attr;
 						break;
 					}
 				}
@@ -229,34 +168,42 @@ define(
 				}
 			}
 
-			NetworkElementResourcesOverviewController.prototype.setActive = function(
+			/**
+			 * This function shows the View for a resource, with the given
+			 * intern id
+			 * 
+			 * @param id
+			 *            intern id of the resource you want to show the
+			 *            attributes view for
+			 */
+			NetworkElementResourcesOverviewController.prototype.showAttributesController = function(
 					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id == id) {
-						this.resources[i].active = true;
-					} else {
-						this.resources[i].active = false;
+				var _this = this;
+				
+				if (this.attributesController !== undefined) {
+					this.attributesController.update('remove', {});
+					this.attributesController = undefined;
+				}
+				
+				this.attributesController = new ResourceAttributesChangeController(
+						this.model, this, '');
+
+				if (this.getAttributes(id) !== undefined) {
+					this.attributesController.update('updateWithoutModel',
+							this.getAttributes(id));
+				}
+				this.view.resources = this.createAttributesForView();
+				this.view.refresh();
+				this.attributesController.view.callback = function(evt, dataIn) {
+					switch (evt) {
+					case 'ok':
+						_this.setAttributes(id, dataIn);
+						break;
+					case 'close':
+						_this.attributesController = undefined;
+						break;
 					}
 				}
-			}
-
-			NetworkElementResourcesOverviewController.prototype.nextVisibleResource = function() {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].removed == false) {
-						return this.resources[i].id;
-					}
-				}
-
-				return undefined;
-			}
-
-			NetworkElementResourcesOverviewController.prototype.getActive = function() {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].active) {
-						return this.resources[i].id;
-					}
-				}
-				return undefined;
 			}
 
 			return NetworkElementResourcesOverviewController;

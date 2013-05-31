@@ -6,7 +6,7 @@
 define(
 		[ "jquery", "button", "overviewComponent", "alertDialogue" ],
 		(function($, Button, OverviewComponent, AlertDialogue) {
-			var NetworkElementResourcesOverviewView = function(attributes,
+			var NetworkElementFeaturesOverviewView = function(attributes,
 					parent, callback) {
 				this.parent = parent;
 
@@ -32,7 +32,7 @@ define(
 			 * This functions draws the View.
 			 * 
 			 */
-			NetworkElementResourcesOverviewView.prototype.drawView = function() {
+			NetworkElementFeaturesOverviewView.prototype.drawView = function() {
 				var _this = this;
 
 				$(this.container).addClass('flerdi-ui-overview').css({
@@ -78,7 +78,7 @@ define(
 			 * Input and select fields, belonging to this Dialogue
 			 * 
 			 */
-			NetworkElementResourcesOverviewView.prototype.getValues = function() {
+			NetworkElementFeaturesOverviewView.prototype.getValues = function() {
 				return this.resources;
 			}
 
@@ -86,7 +86,7 @@ define(
 			 * This view refreshes the view
 			 * 
 			 */
-			NetworkElementResourcesOverviewView.prototype.refresh = function() {
+			NetworkElementFeaturesOverviewView.prototype.refresh = function() {
 				var _this = this;
 				
 				$(this.overViewContainer).empty();
@@ -142,15 +142,15 @@ define(
 				}
 			}
 
-			NetworkElementResourcesOverviewView.prototype.getBody = function() {
+			NetworkElementFeaturesOverviewView.prototype.getBody = function() {
 				return this.parent;
 			}
 
-			NetworkElementResourcesOverviewView.prototype.remove = function() {
+			NetworkElementFeaturesOverviewView.prototype.remove = function() {
 
 			}
 
-			NetworkElementResourcesOverviewView.prototype.setActive = function(id) {
+			NetworkElementFeaturesOverviewView.prototype.setActive = function(id) {
 				if (this.components.length != 0) {
 					for ( var i = 0; i < this.components.length; i++) {
 
@@ -170,5 +170,5 @@ define(
 				
 			}
 
-			return NetworkElementResourcesOverviewView;
+			return NetworkElementFeaturesOverviewView;
 		})); // define

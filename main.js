@@ -51,9 +51,9 @@ requirejs
 				"networkElementAttributesController" : "controller/ne_attributes_controller",
 				"networkElementGeneralAttributesController" : "controller/ne_general_attributes_controller",
 				"networkElementResourcesOverviewController":"controller/ne_re_overview_controller",
-				"resourceGeneralAttributesController" : "controller/re_general_attributes_controller",
+				"resourceAttributesChangeController" : "controller/re_attributes_change_controller",
 				"networkElementFeaturesOverviewController" : "controller/ne_fe_overview_controller",
-				"featureGeneralAttributesController" : "controller/fe_general_attributes_controller",
+				"featureAttributesChangeController" : "controller/fe_attributes_change_controller",
 				"networkElementInterfacesOverviewController" : "controller/ne_ni_overview_controller",
 				"interfaceGeneralAttributesController" : "controller/ni_general_attributes_controller",
 				

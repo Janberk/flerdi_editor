@@ -45,7 +45,7 @@ define(
 			Controller.prototype = new Observable();
 
 			/**
-			 * overwrite this function, this function is called by the observables this controller has registered to.
+			 * overwrite this function, this function is called by the observable this controller has registered to.
 			 * 
 			 */
 			Controller.prototype.update = function(command, data) {

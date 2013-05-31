@@ -12,13 +12,13 @@
 
 define(
 		[ "networkElementFeaturesOverviewView",
-				"featureGeneralAttributesController", "controller",
-				"newFeatureCommand", "changeAttributesCommand",
-				"deleteFeatureCommand", "composedCommand" ],
+				"featureAttributesChangeController", "controller",
+				"newFeatureCommand", "composedCommand",
+				"changeAttributesCommand", "deleteFeatureCommand" ],
 		(function(NetworkElementFeaturesOverviewView,
-				FeatureGeneralAttributesController, Controller,
-				NewFeatureCommand, ChangeAttributesCommand,
-				DeleteFeatureCommand, ComposedCommand) {
+				FeatureAttributesChangeController, Controller,
+				NewFeatureCommand, ComposedCommand, ChangeAttributesCommand,
+				DeleteFeatureCommand) {
 
 			var NetworkElementFeaturesOverviewController = function(model,
 					parentController, parentClass) {
@@ -31,138 +31,76 @@ define(
 
 				var _this = this;
 
-				this.resources = [];
+				this.features = [];
 
 				for ( var i = 0; i < this.model.features.length; i++) {
-					this.resources.push({
+					this.features.push({
 						model : this.model.features[i],
 						id : ++this.internId,
-						name : 'fe-'+this.internId,
+						name : this.model.features[i].identifier,
 						status : 'old',
 						removed : false,
-						active : false,
 						attr : this.model.features[i].getJson()
 					});
 				}
 
-				this.lastActive = undefined;
-
 				this.attributesController = undefined;
 
-				this.view = new NetworkElementFeaturesOverviewView(
-						this.createAttributesForView(),
-						this.parent,
-						function(evt, data) {
-							switch (evt) {
-							case 'showAttributes':
-
-								if (_this.attributesController !== undefined) {
-									_this.attributesController.update('remove',
-											{});
-								}
-
-								if (_this.lastActive !== undefined) {
-									_this.setAttributes(_this.lastActive);
-								}
-								_this.lastActive = data.id
-
-								_this.attributesController = new FeatureGeneralAttributesController(
-										_this.model, _this, 'attributes');
-								_this.attributesController.model
-										.removeObserver(_this.attributesController);
-
-								_this.setActive(data.id);
-
-								if (_this.getAttributes(data.id) !== undefined) {
-									_this.attributesController.update(
-											'updateWithoutModel', _this
-													.getAttributes(data.id));
-								}
-
-								_this.view.resources = _this
-										.createAttributesForView();
-								_this.view.refresh();
-
-								break;
-							case 'new':
-								var newId = ++_this.internId;
-								_this.resources.push({
-									model : undefined,
-									id : newId,
-									name : 'new feature',
-									status : 'new',
-									removed : false,
-									active : false,
-									attr : {}
-								});
-								_this.view.resources = _this
-										.createAttributesForView();
-								_this.view.refresh();
-								
-								_this.view.setActive(newId);
-								_this.setActive(newId);
-								
-								break;
-							case 'remove':
-
-								_this.removeResource(data.id);
-								_this.view.resources = _this
-										.createAttributesForView();
-
-								if (data.active) {
-									if (_this.nextVisibleResource() !== undefined) {
-										_this.view.setActive(_this
-												.nextVisibleResource());
-									} else {
-										_this.attributesController
-												.update('remove');
-										_this.attributesController = undefined;
-									}
-								}
-
-								_this.view.refresh();
-								break;
-							}
+				this.view = new NetworkElementFeaturesOverviewView(this
+						.createAttributesForView(), this.parent, function(evt,
+						data) {
+					switch (evt) {
+					case 'showAttributes':
+						_this.showAttributesController(data.id);
+						break;
+					case 'new':
+						var newId = ++_this.internId;
+						_this.features.push({
+							model : undefined,
+							id : newId,
+							name : 'new feature',
+							status : 'new',
+							removed : false,
+							attr : {}
 						});
+						_this.view.resources = _this.createAttributesForView();
+						_this.view.refresh();
 
-				// creating the views that should be shown inside this
-				// controllers view
+						_this.showAttributesController(newId);
+						break;
+					case 'remove':
+						_this.removeResource(data.id);
+						_this.view.resources = _this.createAttributesForView();
 
+						_this.view.refresh();
+						break;
+					}
+				});
 			}
 
 			NetworkElementFeaturesOverviewController.prototype = new Controller();
 
 			NetworkElementFeaturesOverviewController.prototype.getCommand = function() {
-				if (this.attributesController !== undefined) {
-					for ( var i = 0; i < this.resources.length; i++) {
-						if (this.resources[i].id == this.getActive()) {
-							this.resources[i].attr = this.attributesController.view
-									.getValues();
-						}
-					}
-				}
 				var commands = [];
-				for ( var i = 0; i < this.resources.length; i++) {
-					switch (this.resources[i].status) {
+				for ( var i = 0; i < this.features.length; i++) {
+					switch (this.features[i].status) {
 					case 'old':
-						if (this.resources[i].removed == true
-								&& this.resources[i].model !== undefined) {
-							// commands.push('löschen');
+						if (this.features[i].removed == true
+								&& this.features[i].model !== undefined) {
 							commands.push(new DeleteFeatureCommand(this.model,
-									this.resources[i].model));
-						} else if (this.resources[i].attr !== undefined
-								&& this.resources[i].model !== undefined) {
+									this.features[i].model));
+						} else if (this.features[i].attr !== undefined
+								&& this.features[i].model !== undefined) {
 							commands.push(new ChangeAttributesCommand(
-									this.resources[i].model,
-									this.resources[i].attr));
+									this.features[i].model,
+									this.features[i].attr));
 						}
 						break;
 					case 'new':
-						if (this.resources[i].removed == false
-								&& this.resources[i].attr !== undefined) {
-							// commands.push('neues');
+						if (this.features[i].removed == false
+								&& this.features[i].attr !== undefined) {
 							commands.push(new NewFeatureCommand(this.model,
-									this.resources[i].attr));
+									this.features[i].attr));
 						}
 						break;
 					}
@@ -174,7 +112,6 @@ define(
 					command, data) {
 				switch (command) {
 				case "update":
-					this.setActive(this.nextVisibleResource());
 					this.view.resources = this.createAttributesForView();
 					this.view.refresh();
 					break;
@@ -189,12 +126,12 @@ define(
 
 			NetworkElementFeaturesOverviewController.prototype.createAttributesForView = function() {
 				var attributes = [];
-				for ( var i = 0; i < this.resources.length; i++) {
+				for ( var i = 0; i < this.features.length; i++) {
 					attributes.push({});
-					for ( var key in this.resources[i]) {
+					for ( var key in this.features[i]) {
 
 						if (key !== 'model') {
-							attributes[i][key] = this.resources[i][key];
+							attributes[i][key] = this.features[i][key];
 						}
 					}
 				}
@@ -203,9 +140,9 @@ define(
 
 			NetworkElementFeaturesOverviewController.prototype.removeResource = function(
 					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id === id) {
-						this.resources[i].removed = true;
+				for ( var i = 0; i < this.features.length; i++) {
+					if (this.features[i].id === id) {
+						this.features[i].removed = true;
 						break;
 					}
 				}
@@ -213,11 +150,10 @@ define(
 			}
 
 			NetworkElementFeaturesOverviewController.prototype.setAttributes = function(
-					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id == id) {
-						this.resources[i].attr = this.attributesController.view
-								.getValues();
+					id, attr) {
+				for ( var i = 0; i < this.features.length; i++) {
+					if (this.features[i].id == id) {
+						this.features[i].attr = attr;
 						break;
 					}
 				}
@@ -225,41 +161,49 @@ define(
 
 			NetworkElementFeaturesOverviewController.prototype.getAttributes = function(
 					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id === id) {
-						return this.resources[i].attr
+				for ( var i = 0; i < this.features.length; i++) {
+					if (this.features[i].id === id) {
+						return this.features[i].attr
 					}
 				}
 			}
 
-			NetworkElementFeaturesOverviewController.prototype.setActive = function(
+			/**
+			 * This function shows the View for a resource, with the given
+			 * intern id
+			 * 
+			 * @param id
+			 *            intern id of the resource you want to show the
+			 *            attributes view for
+			 */
+			NetworkElementFeaturesOverviewController.prototype.showAttributesController = function(
 					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id == id) {
-						this.resources[i].active = true;
-					} else {
-						this.resources[i].active = false;
+				var _this = this;
+				
+				if (this.attributesController !== undefined) {
+					this.attributesController.update('remove', {});
+					this.attributesController = undefined;
+				}
+				
+				this.attributesController = new FeatureAttributesChangeController(
+						this.model, this, '');
+
+				if (this.getAttributes(id) !== undefined) {
+					this.attributesController.update('updateWithoutModel',
+							this.getAttributes(id));
+				}
+				this.view.resources = this.createAttributesForView();
+				this.view.refresh();
+				this.attributesController.view.callback = function(evt, dataIn) {
+					switch (evt) {
+					case 'ok':
+						_this.setAttributes(id, dataIn);
+						break;
+					case 'close':
+						_this.attributesController = undefined;
+						break;
 					}
 				}
-			}
-
-			NetworkElementFeaturesOverviewController.prototype.nextVisibleResource = function() {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].removed == false) {
-						return this.resources[i].id;
-					}
-				}
-
-				return undefined;
-			}
-
-			NetworkElementFeaturesOverviewController.prototype.getActive = function() {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].active) {
-						return this.resources[i].id;
-					}
-				}
-				return undefined;
 			}
 
 			return NetworkElementFeaturesOverviewController;

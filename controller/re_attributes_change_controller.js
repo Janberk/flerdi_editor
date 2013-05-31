@@ -14,7 +14,7 @@ define(
 		[ "resourceGeneralAttributesView", "changeAttributesCommand" , 'controller'],
 		(function(ResourceGeneralAttributesView, ChangeAttributesCommand, Controller) {
 
-			var ResourceGeneralAttributesController = function(model, parentController, parentClass) {
+			var ResourceAttributesChangeController = function(model, parentController, parentClass) {
 				this.base = Controller;
 				this.base(model, parentController, parentClass);
 
@@ -52,13 +52,13 @@ define(
 
 			}
 
-			ResourceGeneralAttributesController.prototype = new Controller();
+			ResourceAttributesChangeController.prototype = new Controller();
 			
-			ResourceGeneralAttributesController.prototype.getCommand = function() {
+			ResourceAttributesChangeController.prototype.getCommand = function() {
 				return new ChangeAttributesCommand(this.model, this.view.getValues());
 			}
 
-			ResourceGeneralAttributesController.prototype.update = function(
+			ResourceAttributesChangeController.prototype.update = function(
 					command, data) {
 				switch (command) {
 				case 'updateWithoutModel':
@@ -97,5 +97,5 @@ define(
 				}
 			}
 
-			return ResourceGeneralAttributesController;
+			return ResourceAttributesChangeController;
 		}));
