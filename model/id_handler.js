@@ -21,9 +21,6 @@ define([ "jquery" ], (function($) {
 			resource : 0,
 			feature : 0,
 			position : 0,
-			identifier: 0,
-			// temporary solution: id.identifier should be 
-			// completely replaced by the following two identifier
 			host_identifier: 0,
 			switch_identifier: 0
 		};
@@ -45,15 +42,12 @@ define([ "jquery" ], (function($) {
 			if (eleId > this.id.networkElement) {
 				this.id.networkElement = eleId;
 			}
+			
 			var eleFier = element.attributes.identifier;
-			if(typeof eleFier === "number" && eleFier > this.id.identifier){
-				this.id.identifier = eleFier;
-				//temporary solution
-				if (element.attributes.ne_type.indexOf("/node/host/") != -1) {
-					this.id.host_identifier = eleFier;
-				} else if (element.attributes.ne_type.indexOf("/node/switch/") != -1) {
-					this.id.switch_identifier = eleFier;
-				}					
+			if (element.attributes.ne_type.indexOf("/node/host/") != -1) {
+				if(typeof eleFier === "number" && eleFier > this.id.host_identifier) this.id.host_identifier = eleFier;
+			} else if (element.attributes.ne_type.indexOf("/node/switch/") != -1) {
+				if(typeof eleFier === "number" && eleFier > this.id.switch_identifier) this.id.switch_identifier = eleFier;
 			}
 
 			for ( var j = 0; j < element.network_interfaces.length; j++) {
@@ -63,32 +57,27 @@ define([ "jquery" ], (function($) {
 				if (infId > this.id.networkInterface) {
 					this.id.networkInterface = infId
 				}
+				
 				var infFier = netInterface.attributes.identifier;
-				if(typeof infFier === "number" && infFier > this.id.identifier){
-					this.id.identifier = infFier;
-					//temporary solution
-					if (netInterface.attributes.ne_type.indexOf("/node/host/") != -1) {
-						this.id.host_identifier = infFier;
-					} else if (netInterface.attributes.ne_type.indexOf("/node/switch/") != -1) {
-						this.id.switch_identifier = infFier;
-					}						
-				}
+				if (netInterface.attributes.ne_type.indexOf("/node/host/") != -1) {
+					if(typeof infFier === "number" && infFier > this.id.host_identifier) this.id.host_identifier = infFier;
+				} else if (netInterface.attributes.ne_type.indexOf("/node/switch/") != -1) {
+					if(typeof infFier === "number" && infFier > this.id.switch_identifier) this.id.switch_identifier = infFier;
+				}						
+				
 
 				for ( var k = 0; k < netInterface.resources.length; k++) {
 					var infResId = parseInt(netInterface.resources[k].attributes.id);
 					if (infResId > this.id.resource) {
 						this.id.resource = infResId;
 					}
+					
 					var infResFier = netInterface.resources[k].attributes.identifier;
-					if(typeof infResFier === "number" && infResFier > this.id.identifier){
-						this.id.identifier = infResFier;
-						//temporary solution
-						if (netInterface.resources[k].attributes.ne_type.indexOf("/node/host/") != -1) {
-							this.id.host_identifier = infResFier;
-						} else if (netInterface.resources[k].attributes.ne_type.indexOf("/node/switch/") != -1) {
-							this.id.switch_identifier = infResFier;
-						}	
-					}
+					if (netInterface.resources[k].attributes.ne_type.indexOf("/node/host/") != -1) {
+						if(typeof infResFier === "number" && infResFier > this.id.host_identifier) this.id.host_identifier = infResFier;
+					} else if (netInterface.resources[k].attributes.ne_type.indexOf("/node/switch/") != -1) {
+						if(typeof infResFier === "number" && infResFier > this.id.switch_identifier) this.id.switch_identifier = infResFier;
+					}	
 				}
 
 				for ( var k = 0; k < netInterface.features.length; k++) {
@@ -96,16 +85,13 @@ define([ "jquery" ], (function($) {
 					if (infFeatId > this.id.feature) {
 						this.id.feature = infFeatId;
 					}
+					
 					var infFeatFier = netInterface.features[k].attributes.identifier;
-					if(typeof infFeatFier === "number" && infFeatFier > this.id.identifier){
-						this.id.identifier = infFeatFier;
-						//temporary solution
-						if (netInterface.features[k].attributes.ne_type.indexOf("/node/host/") != -1) {
-							this.id.host_identifier = infFeatFier;
-						} else if (netInterface.features[k].attributes.ne_type.indexOf("/node/switch/") != -1) {
-							this.id.switch_identifier = infFeatFier;
-						}	
-					}
+					if (netInterface.features[k].attributes.ne_type.indexOf("/node/host/") != -1) {
+						if(typeof infFeatFier === "number" && infFeatFier > this.id.host_identifier) this.id.host_identifier = infFeatFier;
+					} else if (netInterface.features[k].attributes.ne_type.indexOf("/node/switch/") != -1) {
+						if(typeof infFeatFier === "number" && infFeatFier > this.id.switch_identifier) this.id.switch_identifier = infFeatFier;
+					}	
 				}
 			}
 			
@@ -114,16 +100,13 @@ define([ "jquery" ], (function($) {
 				if(resId > this.id.resource){
 					this.id.resource = resId;
 				}
+				
 				var resFier = element.resources[j].identifier;
-				if(typeof resFier === "number" && resFier > this.id.identifier){
-					this.id.identifier = resFier;
-					//temporary solution
-					if (element.resources[j].attributes.ne_type.indexOf("/node/host/") != -1) {
-						this.id.host_identifier = resFier;
-					} else if (element.resources[j].attributes.ne_type.indexOf("/node/switch/") != -1) {
-						this.id.switch_identifier = resFier;
-					}	
-				}
+				if (element.resources[j].attributes.ne_type.indexOf("/node/host/") != -1) {
+					if(typeof resFier === "number" && resFier > this.id.host_identifier) this.id.host_identifier = resFier;
+				} else if (element.resources[j].attributes.ne_type.indexOf("/node/switch/") != -1) {
+					if(typeof resFier === "number" && resFier > this.id.switch_identifier) this.id.switch_identifier = resFier;
+				}	
 			}
 			
 			for(var j=0;j<element.features.length;j++){
@@ -131,16 +114,13 @@ define([ "jquery" ], (function($) {
 				if(featId > this.id.feature){
 					this.id.feature = featId;
 				}
+				
 				var featFier = element.features[j].identifier;
-				if(typeof featFier === "number" && featFier > this.id.identifier){
-					this.id.identifier = featFier;
-					//temporary solution
-					if (element.features[j].attributes.ne_type.indexOf("/node/host/") != -1) {
-						this.id.host_identifier = featFier;
-					} else if (element.features[j].attributes.ne_type.indexOf("/node/switch/") != -1) {
-						this.id.switch_identifier = featFier;
-					}	
-				}
+				if (element.features[j].attributes.ne_type.indexOf("/node/host/") != -1) {
+					if(typeof featFier === "number" && featFier > this.id.host_identifier) this.id.host_identifier = featFier;
+				} else if (element.features[j].attributes.ne_type.indexOf("/node/switch/") != -1) {
+					if(typeof featFier === "number" && featFier > this.id.switch_identifier) this.id.switch_identifier = featFier;
+				}	
 			}
 		}
 
@@ -199,16 +179,7 @@ define([ "jquery" ], (function($) {
 	IdHandler.prototype.getNextPositionId = function(){
 		return ++this.id.position;
 	}
-	
-	/**
-	 * This function returns the next available identifier
-	 * 
-	 * @return next available Position Id
-	 */
-	IdHandler.prototype.getNextIdentifierId = function(){
-		return ++this.id.identifier;
-	}
-	
+
 	/**
 	 * This function returns the next available host identifier
 	 * 
