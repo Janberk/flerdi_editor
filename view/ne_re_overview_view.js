@@ -25,7 +25,6 @@ define(
 				this.overViewContainer = document.createElement('div');
 				this.container = document.createElement('div');
 
-
 				this.drawView();
 			}
 
@@ -52,7 +51,7 @@ define(
 				}).addClass('flerdi-ui-overview-btnbar');
 
 				$(this.left).css({
-					height: '100%',
+					height: '100%'
 				});
 
 				this.refresh();

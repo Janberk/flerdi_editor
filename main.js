@@ -40,6 +40,7 @@ requirejs
 				"networkElementInterfacesOverviewView":"view/ne_ni_overview_view",
 				"interfaceGeneralAttributesView" : "view/ni_general_attributes_view",
 				"graphlabelAttributesView" : "view/graphlabel_attributes_view",
+				"interfaceAttributesMainview" : "view/ni_attributes_mainview",
 				
 				/* Controller */
 				"controllerFactory" : "controller/controller_factory",
@@ -56,6 +57,8 @@ requirejs
 				"featureAttributesChangeController" : "controller/fe_attributes_change_controller",
 				"networkElementInterfacesOverviewController" : "controller/ne_ni_overview_controller",
 				"interfaceGeneralAttributesController" : "controller/ni_general_attributes_controller",
+				"interfaceAttributesController" : "controller/ni_attributes_controller",
+				"interfaceAttributesChangeController" : "controller/ni_attributes_change_controller",
 				
 				/* Back-End */
 				"parser" : "controller/backend/YAML_parser",

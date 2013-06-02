@@ -3,13 +3,15 @@
  * RequireJS module definition
  */
 
-define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
-		(function($, ListDialogueAttributes, JsonViewer, Button) {
+define([ "jquery", 'listDialogueAttributes', 'jsonViewer' , 'dialogue'],
+		(function($, ListDialogueAttributes, JsonViewer, Dialogue) {
 			var InterfaceGeneralAttributesView = function(attributes, parent,
 					callback) {
+				this.base = Dialogue;
+				this.base('editFeatureView', 'feature attributes');
 				this.parent = parent;
 				this.attributes = attributes || {};
-				
+
 			    this.ni_type = attributes.ni_type;
 			    this.id = attributes.id;
 			    this.network_interface_id = attributes.network_interface_id;
@@ -24,8 +26,12 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
 				}
 
 				this.drawView();
+				this.show();
 			}
 
+			InterfaceGeneralAttributesView.prototype = new Dialogue();
+			
+			
 			/**
 			 * This functions draws the View.
 			 * 
@@ -33,6 +39,14 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
 			InterfaceGeneralAttributesView.prototype.drawView = function() {
 				var _this = this;
 
+				this.addOk(function() {
+					_this.callback('ok', _this.getValues());
+
+				});
+				this.addCancel(function() {
+					_this.callback('close', {});
+				});
+				
 				this.table = document.createElement('table');
 				new JsonViewer().createHeader(this.table);
 				$(this.table).append(
@@ -43,33 +57,11 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
 							network_element_id : _this.network_element_id,
 							alias : _this.alias,
 							identifier : _this.identifier
-						}, new ListDialogueAttributes().getInterfacesJson(),
-								"ui-interface-genral-attributes-input")).css('width',
+						}, new ListDialogueAttributes().getFeaturesJson(),
+								"ui-interface-general-attributes-input")).css('width',
 						'100%');
 
-				$(this.parent).append(this.table);
-				
-				this.buttonBar = document.createElement('div');
-				
-				var btnRes = new Button({
-					text : "New Resource",
-					size : 'mini'
-				}, this.parent, function() {
-					// TODO add new Resource
-				});
-				
-				var btnFea = new Button({
-					text : "New Feature",
-					size : 'mini'
-				}, this.parent, function() {
-					// TODO add new Feature
-				});
-				
-				$(btnRes.button).css({margin: '5px'});
-				$(btnFea.button).css({margin: '5px'});
-				
-				btnRes.show();
-				btnFea.show();
+				this.setContent(this.table);
 			}
 
 			/**
@@ -78,7 +70,7 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
 			 * 
 			 */
 			InterfaceGeneralAttributesView.prototype.getValues = function() {
-				var elements = $(this.table).find('.ui-interface-genral-attributes-input');
+				var elements = $(this.table).find('.ui-interface-general-attributes-input');
 				var json = {};
 				for ( var i = 0; i < elements.length; i++) {
 					json[$(elements[i]).attr('name')] = $(elements[i]).val();
@@ -92,7 +84,7 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
 			 * 
 			 */
 			InterfaceGeneralAttributesView.prototype.refresh = function() {
-				var elements =  $(this.table).find('.ui-interface-genral-attributes-input');
+				var elements =  $(this.table).find('.ui-feature-general-attributes-input');
 				for ( var i = 0; i < elements.length; i++) {
 					switch ($(elements[i]).attr('name')) {
 					case 'ni_type':
@@ -115,14 +107,6 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer', 'button' ],
 						break;
 					}
 				}
-			}
-
-			InterfaceGeneralAttributesView.prototype.getBody = function(){
-				return this.table;
-			}
-			
-			InterfaceGeneralAttributesView.prototype.remove = function() {
-				$(this.parent).empty();
 			}
 
 			return InterfaceGeneralAttributesView;

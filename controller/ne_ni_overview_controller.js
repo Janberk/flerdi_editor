@@ -12,15 +12,15 @@
 
 define(
 		[ "networkElementInterfacesOverviewView",
-				"interfaceGeneralAttributesController", "controller",
+				"interfaceAttributesChangeController", "controller",
 				"newInterfaceCommand", "composedCommand",
 				"changeAttributesCommand", "deleteInterfaceCommand" ],
 		(function(NetworkElementInterfacesOverviewView,
-				InterfaceGeneralAttributesController, Controller,
+				InterfaceAttributesChangeController, Controller,
 				NewInterfaceCommand, ComposedCommand, ChangeAttributesCommand,
 				DeleteInterfaceCommand) {
 
-			var NetworkElementResourcesOverviewController = function(model,
+			var NetworkElementInterfacesOverviewController = function(model,
 					parentController, parentClass) {
 				this.base = Controller;
 				this.base(model, parentController, parentClass);
@@ -31,16 +31,15 @@ define(
 				
 				var _this = this;
 
-				this.resources = [];
+				this.interfaces = [];
 
 				for ( var i = 0; i < this.model.network_interfaces.length; i++) {
-					this.resources.push({
+					this.interfaces.push({
 						model : this.model.network_interfaces[i],
 						id : ++this.internId,
 						name : this.model.network_interfaces[i].identifier,
 						status : 'old',
 						removed : false,
-						active : false,
 						attr : this.model.network_interfaces[i].getJson()
 					});
 				}
@@ -49,116 +48,61 @@ define(
 
 				this.attributesController = undefined;
 
-				this.view = new NetworkElementInterfacesOverviewView(
-						this.createAttributesForView(),
-						this.parent,
-						function(evt, data) {
-							switch (evt) {
-							case 'showAttributes':
-
-								if (_this.attributesController !== undefined) {
-									_this.attributesController.update('remove',
-											{});
-								}
-
-								if (_this.lastActive !== undefined) {
-									_this.setAttributes(_this.lastActive);
-								}
-								_this.lastActive = data.id
-
-								_this.attributesController = new InterfaceGeneralAttributesController(
-										_this.model, _this, 'attributes');
-								_this.attributesController.model.removeObserver(_this.attributesController);
-
-								_this.setActive(data.id);
-
-								if (_this.getAttributes(data.id) !== undefined) {
-									_this.attributesController.update(
-											'updateWithoutModel', _this
-													.getAttributes(data.id));
-								}
-
-								_this.view.resources = _this
-										.createAttributesForView();
-								_this.view.refresh();
-
-								break;
-							case 'new':
-								_this.resources.push({
-									model : undefined,
-									id : ++_this.internId,
-									name : 'new interface',
-									status : 'new',
-									removed : false,
-									active : false,
-									attr : {}
-								});
-								_this.view.resources = _this
-										.createAttributesForView();
-								_this.view.refresh();
-								break;
-							case 'remove':
-
-								_this.removeResource(data.id);
-								_this.view.resources = _this
-										.createAttributesForView();
-
-								if (data.active) {
-									if (_this.nextVisibleResource() !== undefined) {
-										_this.view.setActive(_this
-												.nextVisibleResource());
-									} else {
-										_this.attributesController
-												.update('remove');
-										_this.attributesController = undefined;
-									}
-								}
-
-								_this.view.refresh();
-								break;
-							}
+				this.view = new NetworkElementInterfacesOverviewView(this
+						.createAttributesForView(), this.parent, function(evt,
+						data) {
+					switch (evt) {
+					case 'showAttributes':
+						_this.showAttributesController(data.id);
+						break;
+					case 'new':
+						var newId = ++_this.internId;
+						_this.interfaces.push({
+							model : undefined,
+							id : newId,
+							name : 'new interface',
+							status : 'new',
+							removed : false,
+							attr : {}
 						});
+						_this.view.interfaces = _this.createAttributesForView();
+						_this.view.refresh();
 
-				if (this.resources.length != 0) {
-					this.view.setActive(this.resources[0].id);
-					this.resources[0].active = true;
-				}
-				// creating the views that should be shown inside this
-				// controllers view
-				
+						_this.showAttributesController(newId);
+						break;
+					case 'remove':
+						_this.removeInterface(data.id);
+						_this.view.interfaces = _this.createAttributesForView();
+
+						_this.view.refresh();
+						break;
+					}
+				});
 			}
 
-			NetworkElementResourcesOverviewController.prototype = new Controller();
+			NetworkElementInterfacesOverviewController.prototype = new Controller();
 
-			NetworkElementResourcesOverviewController.prototype.getCommand = function() {
-				if (this.attributesController !== undefined) {
-					for ( var i = 0; i < this.resources.length; i++) {
-						if (this.resources[i].id == this.getActive()) {
-							this.resources[i].attr = this.attributesController.view
-									.getValues();
-						}
-					}
-				}
+			NetworkElementInterfacesOverviewController.prototype.getCommand = function() {
 				var commands = [];
-				for ( var i = 0; i < this.resources.length; i++) {
-					switch (this.resources[i].status) {
+				for ( var i = 0; i < this.interfaces.length; i++) {
+					switch (this.interfaces[i].status) {
 					case 'old':
-						if (this.resources[i].removed == true && this.resources[i].model !== undefined) {
-							// commands.push('löschen');
+						if (this.interfaces[i].removed == true
+								&& this.interfaces[i].model !== undefined) {
 							commands.push(new DeleteInterfaceCommand(this.model,
-									this.resources[i].model));
-						} else if (this.resources[i].attr !== undefined && this.resources[i].model !== undefined) {
+									this.interfaces[i].model));
+						} else if (this.interfaces[i].attr !== undefined
+								&& this.interfaces[i].model !== undefined) {
 							commands.push(new ChangeAttributesCommand(
-									this.resources[i].model,
-									this.resources[i].attr));
+									this.interfaces[i].model,
+									this.interfaces[i].attr));
 						}
 						break;
 					case 'new':
-						if (this.resources[i].removed == false
-								&& this.resources[i].attr !== undefined) {
-							// commands.push('neues');
+						if (this.interfaces[i].removed == false
+								&& this.interfaces[i].attr !== undefined) {
 							commands.push(new NewInterfaceCommand(this.model,
-									this.resources[i].attr));
+									this.interfaces[i].attr));
 						}
 						break;
 					}
@@ -166,12 +110,11 @@ define(
 				return new ComposedCommand(commands);
 			}
 
-			NetworkElementResourcesOverviewController.prototype.update = function(
+			NetworkElementInterfacesOverviewController.prototype.update = function(
 					command, data) {
 				switch (command) {
 				case "update":
-					this.setActive(this.nextVisibleResource());
-					this.view.resources = this.createAttributesForView();
+					this.view.interfaces = this.createAttributesForView();
 					this.view.refresh();
 					break;
 				case "remove":
@@ -183,80 +126,87 @@ define(
 				}
 			}
 
-			NetworkElementResourcesOverviewController.prototype.createAttributesForView = function() {
+			NetworkElementInterfacesOverviewController.prototype.createAttributesForView = function() {
 				var attributes = [];
-				for ( var i = 0; i < this.resources.length; i++) {
+				for ( var i = 0; i < this.interfaces.length; i++) {
 					attributes.push({});
-					for ( var key in this.resources[i]) {
+					for ( var key in this.interfaces[i]) {
 
 						if (key !== 'model') {
-							attributes[i][key] = this.resources[i][key];
+							attributes[i][key] = this.interfaces[i][key];
 						}
 					}
 				}
 				return attributes;
 			}
 
-			NetworkElementResourcesOverviewController.prototype.removeResource = function(
+			NetworkElementInterfacesOverviewController.prototype.removeInterface = function(
 					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id === id) {
-						this.resources[i].removed = true;
+				for ( var i = 0; i < this.interfaces.length; i++) {
+					if (this.interfaces[i].id === id) {
+						this.interfaces[i].removed = true;
 						break;
 					}
 				}
 				this.view.refresh();
 			}
 
-			NetworkElementResourcesOverviewController.prototype.setAttributes = function(
-					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id == id) {
-						this.resources[i].attr = this.attributesController.view
-								.getValues();
+			NetworkElementInterfacesOverviewController.prototype.setAttributes = function(
+					id, attr) {
+				for ( var i = 0; i < this.interfaces.length; i++) {
+					if (this.interfaces[i].id == id) {
+						this.interfaces[i].attr = attr;
 						break;
 					}
 				}
 			}
 
-			NetworkElementResourcesOverviewController.prototype.getAttributes = function(
+			NetworkElementInterfacesOverviewController.prototype.getAttributes = function(
 					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id === id) {
-						return this.resources[i].attr
+				for ( var i = 0; i < this.interfaces.length; i++) {
+					if (this.interfaces[i].id === id) {
+						return this.interfaces[i].attr
 					}
 				}
 			}
 
-			NetworkElementResourcesOverviewController.prototype.setActive = function(
+			/**
+			 * This function shows the View for a interface, with the given
+			 * intern id
+			 * 
+			 * @param id
+			 *            intern id of the interface you want to show the
+			 *            attributes view for
+			 */
+			NetworkElementInterfacesOverviewController.prototype.showAttributesController = function(
 					id) {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].id == id) {
-						this.resources[i].active = true;
-					} else {
-						this.resources[i].active = false;
+				var _this = this;
+				
+				if (this.attributesController !== undefined) {
+					this.attributesController.update('remove', {});
+					this.attributesController = undefined;
+				}
+				
+				this.attributesController = new InterfaceAttributesChangeController(
+						this.model, this, '');
+
+				if (this.getAttributes(id) !== undefined) {
+					this.attributesController.update('updateWithoutModel',
+							this.getAttributes(id));
+				}
+				this.view.interfaces = this.createAttributesForView();
+				this.view.refresh();
+				this.attributesController.view.callback = function(evt, dataIn) {
+					switch (evt) {
+					case 'ok':
+						_this.setAttributes(id, dataIn);
+						break;
+					case 'close':
+						_this.attributesController = undefined;
+						break;
 					}
 				}
 			}
-
-			NetworkElementResourcesOverviewController.prototype.nextVisibleResource = function() {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].removed == false) {
-						return this.resources[i].id;
-					}
-				}
-
-				return undefined;
-			}
-
-			NetworkElementResourcesOverviewController.prototype.getActive = function() {
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (this.resources[i].active) {
-						return this.resources[i].id;
-					}
-				}
-				return undefined;
-			}
-
-			return NetworkElementResourcesOverviewController;
+			
+			return NetworkElementInterfacesOverviewController;
 		}));
