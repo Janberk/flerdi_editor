@@ -95,8 +95,8 @@ network_elements:
 --- !Flerdit,2012:Position
  -
   id: "1"
-  x: 256
-  y: 512
+  x: 50
+  y: 50
   network_element_id: "1"
  attributes_cache: {}
 
