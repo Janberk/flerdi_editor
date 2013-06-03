@@ -32,8 +32,6 @@ define(
 				this.view = new InterfaceGeneralAttributesView({
 					ni_type : _this.ni_type,
 					id : _this.id,
-					network_interface_id : _this.network_interface_id,
-					network_element_id : _this.network_element_id,
 					alias : _this.alias,
 					identifier : _this.identifier
 				}, this.parent, function(evt, data) {
@@ -54,8 +52,6 @@ define(
 				case 'updateWithoutModel':
 					this.view.ni_type = data.ni_type;
 				    this.view.id = data.id;
-				    this.view.network_interface_id = data.network_interface_id;
-				    this.view.network_element_id = data.network_element_id;
 				    this.view.alias = data.alias;
 				    this.view.identifier = data.identifier;
 					this.view.refresh();
@@ -63,8 +59,6 @@ define(
 				case "update":
 				    this.view.ni_type = this.model.ni_type;
 				    this.view.id = this.model.id;
-				    this.view.network_interface_id = this.model.network_interface_id;
-				    this.view.network_element_id = this.model.network_element_id;
 				    this.view.alias = this.model.alias;
 				    this.view.identifier = this.model.identifier;
 					this.view.refresh();
