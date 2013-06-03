@@ -18,7 +18,7 @@ define([ "interfaceAttributesMainview", "network", "controller",
 
 	var InterfaceAttributesController = function(model, parentController,
 			parentClass) {
-		this.base = Controller;console.log("test");
+		this.base = Controller;
 		this.base(model, parentController, parentClass);
 
 		var _this = this;

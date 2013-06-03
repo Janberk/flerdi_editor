@@ -22,14 +22,17 @@ define(
 				this.graph_label = graph_label || {}; // TODO das is jetzt die
 				// Netzwerkklasse, sollte aber
 				// eventuell gendert werden, das
-				// wir ein Model für GraphLaleb
+				// wir ein Model fï¿½r GraphLaleb
 				// haben und Network der
-				// Behälter für alles ist.
+				// Behï¿½lter fï¿½r alles ist.
 				this.resources = resources || [];
 				this.features = features || [];
 				this.network_interfaces = network_interfaces || [];
 				this.provisioning_interface = provisioning_interface || {};
 				this.customer_console_interface = customer_console_interface || {};
+				
+				//call observable to get an own observer variable
+				Observable.call(this);
 				
 				this.graph_label.addObserver(this);
 			}

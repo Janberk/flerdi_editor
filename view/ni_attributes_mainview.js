@@ -37,7 +37,7 @@ define(
 				});
 				this.addCancel(function(){_this.callback('')});
 
-				var tab_titles = [ 'General', 'Resources', 'Features' ];
+				var tab_titles = [ 'NI-General', 'NI-Resources', 'NI-Features' ];
 
 				this.content = $(document.createElement('div')).append(
 						$(document.createElement('ul'))
@@ -56,7 +56,7 @@ define(
 								});
 
 				
-				this.content.find('#general').append(
+				this.content.find('#ni-general').append(
 						$(document.createElement('div')).css({
 							display: 'block'
 						}).attr('class', 'attributes-general'));
