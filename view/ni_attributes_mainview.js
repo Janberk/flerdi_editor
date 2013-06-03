@@ -37,8 +37,7 @@ define(
 				});
 				this.addCancel(function(){_this.callback('')});
 
-				var tab_titles = [ 'General', 'Resources', 'Features',
-						'Interfaces' ];
+				var tab_titles = [ 'General', 'Resources', 'Features' ];
 
 				this.content = $(document.createElement('div')).append(
 						$(document.createElement('ul'))
