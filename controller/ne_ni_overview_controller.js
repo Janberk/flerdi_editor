@@ -12,11 +12,11 @@
 
 define(
 		[ "networkElementInterfacesOverviewView",
-				"interfaceAttributesChangeController", "controller",
+				"interfaceAttributesController", "controller",
 				"newInterfaceCommand", "composedCommand",
 				"changeAttributesCommand", "deleteInterfaceCommand" ],
 		(function(NetworkElementInterfacesOverviewView,
-				InterfaceAttributesChangeController, Controller,
+				InterfaceAttributesController, Controller,
 				NewInterfaceCommand, ComposedCommand, ChangeAttributesCommand,
 				DeleteInterfaceCommand) {
 
@@ -181,13 +181,13 @@ define(
 			NetworkElementInterfacesOverviewController.prototype.showAttributesController = function(
 					id) {
 				var _this = this;
-				
+
 				if (this.attributesController !== undefined) {
 					this.attributesController.update('remove', {});
 					this.attributesController = undefined;
 				}
-				
-				this.attributesController = new InterfaceAttributesChangeController(
+
+				this.attributesController = new InterfaceAttributesController(
 						this.model, this, '');
 
 				if (this.getAttributes(id) !== undefined) {

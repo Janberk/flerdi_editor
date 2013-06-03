@@ -8,7 +8,7 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' , 'dialogue'],
 			var InterfaceGeneralAttributesView = function(attributes, parent,
 					callback) {
 				this.base = Dialogue;
-				this.base('editFeatureView', 'feature attributes');
+				this.base('editInterfaceView', 'interface attributes');
 				this.parent = parent;
 				this.attributes = attributes || {};
 

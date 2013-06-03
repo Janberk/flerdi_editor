@@ -10,7 +10,7 @@
  *
  */
 
-define([ "interfaceAtrributesMainview", "network", "controller",
+define([ "interfaceAttributesMainview", "network", "controller",
 		"interfaceGeneralAttributesController", "composedCommand",
 		"observable"], (function(
 		InterfaceAttributesMainview, Network, Controller,
@@ -18,7 +18,7 @@ define([ "interfaceAtrributesMainview", "network", "controller",
 
 	var InterfaceAttributesController = function(model, parentController,
 			parentClass) {
-		this.base = Controller;
+		this.base = Controller;console.log("test");
 		this.base(model, parentController, parentClass);
 
 		var _this = this;
@@ -39,8 +39,6 @@ define([ "interfaceAtrributesMainview", "network", "controller",
 		// creating the views that should be shown inside this controllers view
 		this.addObserver(new InterfaceGeneralAttributesController(
 				this.model, this, 'attributes-general'));
-		
-		console.log("blub");
 	}
 
 	InterfaceAttributesController.prototype = new Controller();
