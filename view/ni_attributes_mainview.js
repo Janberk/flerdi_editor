@@ -58,9 +58,17 @@ define(
 				
 				this.content.find('#ni-general').append(
 						$(document.createElement('div')).css({
-							display: 'block'
 						}).attr('class', 'attributes-general'));
+				
+			
+				this.content.find('#ni-resources').append(
+						$(document.createElement('div')).css({
+						}).attr('class', 'attributes-resources'));
 		
+				this.content.find('#ni-features').append(
+						$(document.createElement('div')).css({
+						}).attr('class', 'attributes-features'));
+				
 				this.setContent(this.content);
 			}
 

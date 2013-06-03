@@ -11,16 +11,16 @@
  */
 
 define(
-		[ "networkElementInterfacesOverviewView",
+		[ "interfacesOverviewView",
 				"interfaceAttributesController", "controller",
 				"newInterfaceCommand", "composedCommand",
 				"changeAttributesCommand", "deleteInterfaceCommand" ],
-		(function(NetworkElementInterfacesOverviewView,
+		(function(InterfacesOverviewView,
 				InterfaceAttributesController, Controller,
 				NewInterfaceCommand, ComposedCommand, ChangeAttributesCommand,
 				DeleteInterfaceCommand) {
 
-			var NetworkElementInterfacesOverviewController = function(model,
+			var InterfacesOverviewController = function(model,
 					parentController, parentClass) {
 				this.base = Controller;
 				this.base(model, parentController, parentClass);
@@ -48,7 +48,7 @@ define(
 
 				this.attributesController = undefined;
 
-				this.view = new NetworkElementInterfacesOverviewView(this
+				this.view = new InterfacesOverviewView(this
 						.createAttributesForView(), this.parent, function(evt,
 						data) {
 					switch (evt) {
@@ -80,9 +80,9 @@ define(
 				});
 			}
 
-			NetworkElementInterfacesOverviewController.prototype = new Controller();
+			InterfacesOverviewController.prototype = new Controller();
 
-			NetworkElementInterfacesOverviewController.prototype.getCommand = function() {
+			InterfacesOverviewController.prototype.getCommand = function() {
 				var commands = [];
 				for ( var i = 0; i < this.interfaces.length; i++) {
 					switch (this.interfaces[i].status) {
@@ -110,7 +110,7 @@ define(
 				return new ComposedCommand(commands);
 			}
 
-			NetworkElementInterfacesOverviewController.prototype.update = function(
+			InterfacesOverviewController.prototype.update = function(
 					command, data) {
 				switch (command) {
 				case "update":
@@ -126,7 +126,7 @@ define(
 				}
 			}
 
-			NetworkElementInterfacesOverviewController.prototype.createAttributesForView = function() {
+			InterfacesOverviewController.prototype.createAttributesForView = function() {
 				var attributes = [];
 				for ( var i = 0; i < this.interfaces.length; i++) {
 					attributes.push({});
@@ -140,7 +140,7 @@ define(
 				return attributes;
 			}
 
-			NetworkElementInterfacesOverviewController.prototype.removeInterface = function(
+			InterfacesOverviewController.prototype.removeInterface = function(
 					id) {
 				for ( var i = 0; i < this.interfaces.length; i++) {
 					if (this.interfaces[i].id === id) {
@@ -151,7 +151,7 @@ define(
 				this.view.refresh();
 			}
 
-			NetworkElementInterfacesOverviewController.prototype.setAttributes = function(
+			InterfacesOverviewController.prototype.setAttributes = function(
 					id, attr) {
 				for ( var i = 0; i < this.interfaces.length; i++) {
 					if (this.interfaces[i].id == id) {
@@ -161,7 +161,7 @@ define(
 				}
 			}
 
-			NetworkElementInterfacesOverviewController.prototype.getAttributes = function(
+			InterfacesOverviewController.prototype.getAttributes = function(
 					id) {
 				for ( var i = 0; i < this.interfaces.length; i++) {
 					if (this.interfaces[i].id === id) {
@@ -178,7 +178,7 @@ define(
 			 *            intern id of the interface you want to show the
 			 *            attributes view for
 			 */
-			NetworkElementInterfacesOverviewController.prototype.showAttributesController = function(
+			InterfacesOverviewController.prototype.showAttributesController = function(
 					id) {
 				var _this = this;
 
@@ -208,5 +208,5 @@ define(
 				}
 			}
 			
-			return NetworkElementInterfacesOverviewController;
+			return InterfacesOverviewController;
 		}));
