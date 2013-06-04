@@ -67,7 +67,7 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 		this.menubar.addMenu("File");
 
 		this.menubar.addSubMenu("File", "New", (function() {
-			/*var hasChanged = _this.networks.getNetwork().commandManager
+			var hasChanged = _this.networks.getNetwork().commandManager
 					.isHasChanged();
 
 			if (_this.networks != 'undefined' && hasChanged) {
@@ -76,8 +76,7 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 				});
 			} else {
 				controllerFactory.build(undefined, 'graphlabelAttributesCreate');
-			}*/
-			console.log(_this.networks.getNetwork())
+			}
 		}));
 
 		this.menubar.addSubMenu("File", "Open...", (function() {

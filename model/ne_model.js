@@ -11,6 +11,8 @@ define(
 					resources, features, network_interfaces, ne_type,
 					provisioning_interface, console_interface, alias,
 					identifier, customer_console_interface) {
+				//call observable to get an own observer variable
+				Observable.call(this);
 				this.id = id || "";
 				this.x = x || "";
 				this.y = y || "";
@@ -31,8 +33,7 @@ define(
 				this.provisioning_interface = provisioning_interface || {};
 				this.customer_console_interface = customer_console_interface || {};
 				
-				//call observable to get an own observer variable
-				Observable.call(this);
+				
 				
 				this.graph_label.addObserver(this);
 			}

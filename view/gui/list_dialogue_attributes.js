@@ -156,7 +156,7 @@ define([ "jquery" ], (function($) {
 			'is_request' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : 1
+				'standard' : '0'
 			},
 
 			'priority' : {
@@ -168,7 +168,7 @@ define([ "jquery" ], (function($) {
 			'value' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : 100
 			}
 			
 		}
@@ -216,7 +216,7 @@ define([ "jquery" ], (function($) {
 			'role_identifier' : {
 				input : 'text',
 				values : '',
-				standard : ''
+				standard : 'team-flerdi'
 			},
 			'v_net_identifier' : {
 				input : 'text',
@@ -226,12 +226,12 @@ define([ "jquery" ], (function($) {
 			'graph_tag' : {
 				input : 'text',
 				values : '',
-				standard : ''
+				standard : 'request'
 			},
 			'graph_nr' : {
 				input : 'text',
 				values : '',
-				standard : ''
+				standard : '0'
 			}
 		};
 	}

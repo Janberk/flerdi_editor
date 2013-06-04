@@ -8,10 +8,10 @@ define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (fun
 	var NetworkModel = function(id,graph_type,role_identifier,v_net_identifier,graph_tag,graph_nr) {
 		this.id = id || 1;
 		this.graph_type = graph_type || "OL";
-		this.role_identifier = role_identifier || "";
+		this.role_identifier = role_identifier || "team-flerdi";
 		this.v_net_identifier = v_net_identifier || "";
-		this.graph_tag = graph_tag || "";
-		this.graph_nr = graph_nr || "";
+		this.graph_tag = graph_tag || "request";
+		this.graph_nr = graph_nr || '0';
 		
 		this.networkElements = [];
 		

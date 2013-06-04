@@ -115,7 +115,9 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		for (var attribute in compareJson) {
 			var content = contentJson[attribute];
 			
-			if(contentJson[attribute] === undefined) content = compareJson[attribute].standard;
+			if(contentJson[attribute] === undefined || contentJson[attribute] == '') 
+				content = compareJson[attribute].standard;
+			
 			
 			elements += '<tr><td>'+attribute+'</td>';
 			
