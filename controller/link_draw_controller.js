@@ -9,7 +9,7 @@ define(
 		[ "linkDrawView" ,"controller"],
 		(function(LinkDrawView, Controller) {
 
-			var LinkDrawController = function(model,parentController, parentClass) {
+			var LinkDrawController = function(model, parentController, parentClass) {
 				this.base = Controller;
 				this.base(model,parentController,parentClass);
 				this.model = model;
@@ -19,10 +19,15 @@ define(
 				this.points = [];
 
 				for ( var i = 0; i < this.model.network_interfaces.length; i++) {
+					var ne = this.model.network_interfaces[i].network_interface_id.network_element_id;
+					
 					this.points.push({
-						x : this.model.network_interfaces[i].network_interface_id.network_element_id.x,
-						y : this.model.network_interfaces[i].network_interface_id.network_element_id.y
+						x : ne.x,
+						y : ne.y
 					});
+					
+					// add observer to the connected elements
+					ne.addObserver(this);
 				}
 
 				this.view = new LinkDrawView(this.model.id, this.model.ne_type,

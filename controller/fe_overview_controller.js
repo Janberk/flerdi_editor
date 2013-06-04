@@ -11,16 +11,16 @@
  */
 
 define(
-		[ "networkElementFeaturesOverviewView",
+		[ "featuresOverviewView",
 				"featureAttributesChangeController", "controller",
 				"newFeatureCommand", "composedCommand",
 				"changeAttributesCommand", "deleteFeatureCommand" ],
-		(function(NetworkElementFeaturesOverviewView,
+		(function(FeaturesOverviewView,
 				FeatureAttributesChangeController, Controller,
 				NewFeatureCommand, ComposedCommand, ChangeAttributesCommand,
 				DeleteFeatureCommand) {
 
-			var NetworkElementFeaturesOverviewController = function(model,
+			var FeaturesOverviewController = function(model,
 					parentController, parentClass) {
 				this.base = Controller;
 				this.base(model, parentController, parentClass);
@@ -46,7 +46,7 @@ define(
 
 				this.attributesController = undefined;
 
-				this.view = new NetworkElementFeaturesOverviewView(this
+				this.view = new FeaturesOverviewView(this
 						.createAttributesForView(), this.parent, function(evt,
 						data) {
 					switch (evt) {
@@ -78,9 +78,9 @@ define(
 				});
 			}
 
-			NetworkElementFeaturesOverviewController.prototype = new Controller();
+			FeaturesOverviewController.prototype = new Controller();
 
-			NetworkElementFeaturesOverviewController.prototype.getCommand = function() {
+			FeaturesOverviewController.prototype.getCommand = function() {
 				var commands = [];
 				for ( var i = 0; i < this.features.length; i++) {
 					switch (this.features[i].status) {
@@ -108,7 +108,7 @@ define(
 				return new ComposedCommand(commands);
 			}
 
-			NetworkElementFeaturesOverviewController.prototype.update = function(
+			FeaturesOverviewController.prototype.update = function(
 					command, data) {
 				switch (command) {
 				case "update":
@@ -124,7 +124,7 @@ define(
 				}
 			}
 
-			NetworkElementFeaturesOverviewController.prototype.createAttributesForView = function() {
+			FeaturesOverviewController.prototype.createAttributesForView = function() {
 				var attributes = [];
 				for ( var i = 0; i < this.features.length; i++) {
 					attributes.push({});
@@ -138,7 +138,7 @@ define(
 				return attributes;
 			}
 
-			NetworkElementFeaturesOverviewController.prototype.removeResource = function(
+			FeaturesOverviewController.prototype.removeResource = function(
 					id) {
 				for ( var i = 0; i < this.features.length; i++) {
 					if (this.features[i].id === id) {
@@ -149,7 +149,7 @@ define(
 				this.view.refresh();
 			}
 
-			NetworkElementFeaturesOverviewController.prototype.setAttributes = function(
+			FeaturesOverviewController.prototype.setAttributes = function(
 					id, attr) {
 				for ( var i = 0; i < this.features.length; i++) {
 					if (this.features[i].id == id) {
@@ -159,7 +159,7 @@ define(
 				}
 			}
 
-			NetworkElementFeaturesOverviewController.prototype.getAttributes = function(
+			FeaturesOverviewController.prototype.getAttributes = function(
 					id) {
 				for ( var i = 0; i < this.features.length; i++) {
 					if (this.features[i].id === id) {
@@ -176,7 +176,7 @@ define(
 			 *            intern id of the resource you want to show the
 			 *            attributes view for
 			 */
-			NetworkElementFeaturesOverviewController.prototype.showAttributesController = function(
+			FeaturesOverviewController.prototype.showAttributesController = function(
 					id) {
 				var _this = this;
 				
@@ -206,5 +206,5 @@ define(
 				}
 			}
 
-			return NetworkElementFeaturesOverviewController;
+			return FeaturesOverviewController;
 		}));

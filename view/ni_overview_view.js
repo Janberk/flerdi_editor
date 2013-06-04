@@ -6,11 +6,11 @@
 define(
 		[ "jquery", "button", "overviewComponent", "alertDialogue" ],
 		(function($, Button, OverviewComponent, AlertDialogue) {
-			var NetworkElementFeaturesOverviewView = function(attributes,
+			var InterfacesOverviewView = function(attributes,
 					parent, callback) {
 				this.parent = parent;
 
-				this.resources = attributes || [];
+				this.interfaces = attributes || [];
 
 				this.components = [];
 
@@ -32,7 +32,7 @@ define(
 			 * This functions draws the View.
 			 * 
 			 */
-			NetworkElementFeaturesOverviewView.prototype.drawView = function() {
+			InterfacesOverviewView.prototype.drawView = function() {
 				var _this = this;
 
 				$(this.container).addClass('flerdi-ui-overview').css({
@@ -51,13 +51,13 @@ define(
 				}).addClass('flerdi-ui-overview-btnbar');
 
 				$(this.left).css({
-					height: '100%',
+					height: '100%'
 				});
-				
+
 				this.refresh();
 
 				var btn = new Button({
-					text : "New Feature",
+					text : "New Interface",
 					size : 'mini'
 				}, this.buttonBar, function() {
 					_this.callback('new',{});
@@ -78,42 +78,42 @@ define(
 			 * Input and select fields, belonging to this Dialogue
 			 * 
 			 */
-			NetworkElementFeaturesOverviewView.prototype.getValues = function() {
-				return this.resources;
+			InterfacesOverviewView.prototype.getValues = function() {
+				return this.interfaces;
 			}
 
 			/*
 			 * This view refreshes the view
 			 * 
 			 */
-			NetworkElementFeaturesOverviewView.prototype.refresh = function() {
+			InterfacesOverviewView.prototype.refresh = function() {
 				var _this = this;
 				
 				$(this.overViewContainer).empty();
 				this.components = [];
 
-				for ( var i = 0; i < this.resources.length; i++) {
-					if (!this.resources[i].removed) {
+				for ( var i = 0; i < this.interfaces.length; i++) {
+					if (!this.interfaces[i].removed) {
 						this.components
 								.push({
 									base : {
-										id : this.resources[i].id,
-										name : this.resources[i].name,
-										status : this.resources[i].status,
+										id : this.interfaces[i].id,
+										name : this.interfaces[i].name,
+										status : this.interfaces[i].status,
 									},
 
 									component : new OverviewComponent(
 											{
-												id : _this.resources[i].id,
-												name : _this.resources[i].name,
-												active : _this.resources[i].active,
+												id : _this.interfaces[i].id,
+												name : _this.interfaces[i].name,
+												active : _this.interfaces[i].active,
 											},
 											this.overViewContainer,
 											function(evt, data) {
 												switch (evt) {
 												case 'remove':
 													/*new AlertDialogue(
-															'Are you sure you want to delete this Feature?',
+															'Are you sure you want to delete this Interface?',
 															function() {
 																
 															});*/
@@ -132,7 +132,7 @@ define(
 					$(this.overViewContainer)
 							.append(
 									$(document.createElement('div'))
-											.html('no features')
+											.html('no interfaces')
 											.addClass(
 													'flerdi-ui-overview-overviewcontainer-empty'));
 				} else {
@@ -142,15 +142,15 @@ define(
 				}
 			}
 
-			NetworkElementFeaturesOverviewView.prototype.getBody = function() {
+			InterfacesOverviewView.prototype.getBody = function() {
 				return this.parent;
 			}
 
-			NetworkElementFeaturesOverviewView.prototype.remove = function() {
+			InterfacesOverviewView.prototype.remove = function() {
 
 			}
 
-			NetworkElementFeaturesOverviewView.prototype.setActive = function(id) {
+			InterfacesOverviewView.prototype.setActive = function(id) {
 				if (this.components.length != 0) {
 					for ( var i = 0; i < this.components.length; i++) {
 
@@ -170,5 +170,5 @@ define(
 				
 			}
 
-			return NetworkElementFeaturesOverviewView;
+			return InterfacesOverviewView;
 		})); // define

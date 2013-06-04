@@ -82,13 +82,13 @@ define([ "jquery", "networkElementModel", "resourceModel", "networkInterfaceMode
 		
 		// add new link to the network
 		this.network.addNetworkElement(this.link);
-		this.controller = controllerFactory.build(this.link,"draw_area");
+		this.controller = controllerFactory.build(this.link, "draw_area");
 	}
 	
 	/**
 	 * This function removes the link
 	 */
-	NewLinkCommand.prototype.undo = function(){
+	NewLinkCommand.prototype.undo = function(){		
 		// remove the link
 		this.network.removeNetworkElement(this.link);
 		this.controller.update('remove',{});

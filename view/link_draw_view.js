@@ -33,7 +33,6 @@ define([ "jquery" ], (function($) {
 
 		this.create();
 		this.drawView();
-
 	}
 
 	/**
