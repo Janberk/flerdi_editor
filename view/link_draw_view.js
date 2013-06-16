@@ -30,7 +30,10 @@ define([ "jquery" ], (function($) {
 
 		this.svg = document.createElementNS("http://www.w3.org/2000/svg", "g");
 		this.svg.setAttribute('id', 'link' + this.id);
+		this.svg_lines = [];
 
+		environment.drawArea.addObserver(this);
+		
 		this.create();
 		this.drawView();
 	}
@@ -58,12 +61,14 @@ define([ "jquery" ], (function($) {
 	 * 
 	 */
 	LinkDrawView.prototype.create = function() {
+		var _this = this;
+		
 		this.svg.setAttribute('id','link'+this.id);
 
+		this.svg_lines = [];
+		
 		var node_width = 50;
 		var node_height = 50;
-
-		var svg_lines = [];
 
 		// create the first line
 		var x1 = this.points[0].x + node_width / 2;
@@ -71,14 +76,14 @@ define([ "jquery" ], (function($) {
 		var x2 = this.points[1].x + node_width / 2;
 		var y2 = this.points[1].y + node_height / 2;
 
-		var i = svg_lines.push(document.createElementNS(
+		var i = this.svg_lines.push(document.createElementNS(
 				"http://www.w3.org/2000/svg", "line")) - 1;
 
-		svg_lines[i].setAttribute("x1", x1);
-		svg_lines[i].setAttribute("y1", y1);
-		svg_lines[i].setAttribute("x2", x2);
-		svg_lines[i].setAttribute("y2", y2);
-		svg_lines[i].setAttribute("style", this.getLinkStyle());
+		this.svg_lines[i].setAttribute("x1", x1);
+		this.svg_lines[i].setAttribute("y1", y1);
+		this.svg_lines[i].setAttribute("x2", x2);
+		this.svg_lines[i].setAttribute("y2", y2);
+		this.svg_lines[i].setAttribute("style", this.getLinkStyle());
 
 		// if there are more than 2 nodes connected, add more lines
 		if (this.points.length > 2) {
@@ -96,21 +101,25 @@ define([ "jquery" ], (function($) {
 				x2 = this.points[j].x + node_width / 2;
 				y2 = this.points[j].y + node_height / 2;
 
-				i = svg_lines.push(document.createElementNS(
+				i = this.svg_lines.push(document.createElementNS(
 						"http://www.w3.org/2000/svg", "line")) - 1;
 
-				svg_lines[i].setAttribute("x1", x1);
-				svg_lines[i].setAttribute("y1", y1);
-				svg_lines[i].setAttribute("x2", x2);
-				svg_lines[i].setAttribute("y2", y2);
-				svg_lines[i].setAttribute("style", this.getLinkStyle());
+				this.svg_lines[i].setAttribute("x1", x1);
+				this.svg_lines[i].setAttribute("y1", y1);
+				this.svg_lines[i].setAttribute("x2", x2);
+				this.svg_lines[i].setAttribute("y2", y2);
+				this.svg_lines[i].setAttribute("style", this.getLinkStyle());
 			}
 		}
 
-		for ( var i = 0; i < svg_lines.length; i++) {
-			this.svg.appendChild(svg_lines[i]);
+		for ( var i = 0; i < this.svg_lines.length; i++) {
+			this.svg.appendChild(this.svg_lines[i]);
 		}
-
+		
+		$(this.svg).on('contextmenu', function(e) {
+			_this.callback('context').show(e);
+			return false;
+		});
 	}
 
 	/**
@@ -122,6 +131,43 @@ define([ "jquery" ], (function($) {
 		$(this.svg).empty();
 	}
 
+	LinkDrawView.prototype.update = function(command, data) {
+		var _this = this;
+
+		switch (command) {
+
+		case "changeState":
+			switch (data) {
+			case "move":
+				this.removeEvents();
+
+				$(this.svg)
+						.on('dragstart', function(event) {
+							console.log("dragstart link");
+						}).on('drag', function(event) {
+							console.log("drag link");
+						}).on('dragend', function(event) {
+							console.log("dragend link");
+						}).on('click', function(event) {
+							for(var i=0; i<_this.svg_lines.length; i++) {
+								var line = _this.svg_lines[i];
+								var style = line.getAttribute("style") + "stroke-dasharray: 1, 1;";
+								line.setAttribute("style", style);
+							} // TODO display anchor points here
+						});
+				break;
+				
+			default:
+				this.removeEvents();
+			}
+			break;
+		}
+	}
+	
+	LinkDrawView.prototype.removeEvents = function() {
+		$(this.svg).off('drag').off('dragend').off('dragstart').off('click');
+	}
+	
 	// TODO diese funktion gehört eich in eine Öffentliche Bibliothek, muss
 	// später noch ausgelagert werden
 	/**
@@ -149,9 +195,9 @@ define([ "jquery" ], (function($) {
 		var suffix = "/symmetric/bandwidth";
 
 		if (avp.indexOf(suffix, avp.length - suffix.length) !== -1) {
-			link_style += "stroke-width:2"; // half-duplex-link
+			link_style += "stroke-width:2;"; // half-duplex-link
 		} else {
-			link_style += "stroke-width:4"; // full-duplex-link
+			link_style += "stroke-width:4;"; // full-duplex-link
 		}
 		return link_style;
 	}

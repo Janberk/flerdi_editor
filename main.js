@@ -68,6 +68,7 @@ requirejs
 				"newNodeCommand" : "controller/commands/new_node_command",
 				"newLinkCommand" : "controller/commands/new_link_command",
 				"deleteNodeCommand" : "controller/commands/delete_node_command",
+				"deleteLinkCommand" : "controller/commands/delete_link_command",
 				"changeAttributesCommand" : "controller/commands/change_attributes_command",
 				"composedCommand":"controller/commands/composed_command",
 				"newResourceCommand" : "controller/commands/new_re_command",

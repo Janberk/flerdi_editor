@@ -72,7 +72,7 @@ define([ "jquery", "drag" ], (function($, Drag) {
 		$(this.svg).on('contextmenu', function(e) {
 			_this.callback('context').show(e);
 			return false;
-		})
+		});
 
 		this.refresh();
 	}

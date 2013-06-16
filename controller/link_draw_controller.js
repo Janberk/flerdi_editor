@@ -6,8 +6,8 @@
  */
 
 define(
-		[ "linkDrawView" ,"controller"],
-		(function(LinkDrawView, Controller) {
+		[ "linkDrawView" ,"controller", "contextMenu", "deleteLinkCommand"],
+		(function(LinkDrawView, Controller, ContextMenu, DeleteLinkCommand) {
 
 			var LinkDrawController = function(model, parentController, parentClass) {
 				this.base = Controller;
@@ -32,7 +32,24 @@ define(
 
 				this.view = new LinkDrawView(this.model.id, this.model.ne_type,
 						this.model.resources[0].avp_attribute, this.points,
-						function(data) {});
+						function(evt, data) {
+							switch (evt){
+							case 'context':
+								return _this.menu;
+								break;
+							}
+						});
+				
+				this.menu = new ContextMenu();
+				this.menu.addButton('Delete', function(e) {
+					// create command for undo
+					_this.model.graph_label.commandManager
+							.newCommand(new DeleteLinkCommand(_this.model.graph_label,
+									_this.model));
+				});
+				this.menu.addButton('Properties', function(e) {
+					controllerFactory.build(_this.model, "networkElementAttributes");
+				});
 			}
 
 			LinkDrawController.prototype = new Controller();

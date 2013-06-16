@@ -31,7 +31,6 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 		this.drawArea = new DrawArea();
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
 
-		// this.elementKey = new ElementKey(10, 10);
 		this.toolbar = new Toolbar("vendor/assets/img/");
 		this.toolbar.addButton("arrow", function() {
 			_this.drawArea.setState(new Move(_this.networks.getNetwork()));
