@@ -48,7 +48,6 @@ define([ "jquery" ],
 
 				if (this.position == this.commands.length
 						|| this.commands.length == 0) {
-					console.log('nothing to undo');
 					this.hasChanged = false;
 					$('#btn-Undo').parent().addClass('disabled');
 				} else {
@@ -56,7 +55,6 @@ define([ "jquery" ],
 				}
 				
 				if ((this.position == 0 && this.commands.length > 0) || this.commands.length == 0) {
-					//console.log('nothing to redo');
 					$('#btn-Redo').parent().addClass('disabled');
 				} else {
 					$('#btn-Redo').parent().removeClass('disabled');

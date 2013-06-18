@@ -18,8 +18,6 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 
 	/* constructor */
 	var Environment = function() {
-		console.log("creating environment");
-
 		this.networks = new NetworkOrganisation();
 		this.networks.newNetwork(new Network());
 
@@ -30,7 +28,7 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 		/* user interface */
 		this.drawArea = new DrawArea();
 		this.drawArea.setState(new Move(_this.networks.getNetwork()));
-
+		
 		this.toolbar = new Toolbar("vendor/assets/img/");
 		this.toolbar.addButton("arrow", function() {
 			_this.drawArea.setState(new Move(_this.networks.getNetwork()));
@@ -61,7 +59,7 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 			_this.drawArea.setState(new NewLink(false));
 		}, 'Full-Duplex Link');
 		// add additional Buttons here
-
+		
 		this.menubar = new Menubar();
 		this.menubar.addMenu("File");
 
@@ -77,7 +75,7 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 				controllerFactory.build(undefined, 'graphlabelAttributesCreate');
 			}
 		}));
-
+		
 		this.menubar.addSubMenu("File", "Open...", (function() {
 			var hasChanged = _this.networks.getNetwork().commandManager.isHasChanged();
 
@@ -90,6 +88,8 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 			}
 		}));
 
+		
+		
 		/* alert dialogue - window/tab closed or refresh */
 		$(window).on('beforeunload', function() {
 			 var hasChanged =  _this.networks.getNetwork().commandManager.isHasChanged();
@@ -141,35 +141,6 @@ define([ "jquery", "networkOrganisation", "parser", "toolbar",
 			}
 		});
 
-		/* yaml parsing */
-		this.creating = false;
-		this.test = 0;
-
-		// loads selected yaml file and parses it
-		this.jsonObj;
-
-		$('#yaml_datei').on('change', function() {
-			var environment = _this;
-			var name = $('#yaml_datei').val();
-			name = name.replace(/\..*/, '');
-			Parser.load("test_files/" + $('#yaml_datei').val(), function(json) {
-				environment.importJson(json, name);
-
-				// set move tool as current state, adds drag listeners to all
-				// imported notes
-				_this.drawArea.setState(new Move(_this.networks.getNetwork()));
-			});
-		});
-
-		// $('#save_button').on('click', function() {
-		// if (_this.network == undefined) {
-		// alert("Load a network first.");
-		// } else {
-		// _this.saveNetwork();
-		// }
-		// });
-
-		// this.importJson(this.createTestJson());
 		
 		this.networks.getNetwork().commandManager.greying();
 		

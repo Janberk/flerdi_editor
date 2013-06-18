@@ -124,8 +124,6 @@ define([ "jquery", "environment", "controllerFactory" ], (function($,
 
 	/* main program, called when document loaded */
 	$(document).ready((function() {
-		console.log("document loaded - starting program");
-
 		environment = new Environment();
 		controllerFactory = ControllerFactory;
 	})); // &(document).ready()
