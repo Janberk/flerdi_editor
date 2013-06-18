@@ -11,8 +11,9 @@ define(
 					resources, features, network_interfaces, ne_type,
 					provisioning_interface, console_interface, alias,
 					identifier, customer_console_interface) {
-				//call observable to get an own observer variable
-				Observable.call(this);
+				this.base = Observable;
+				this.base();
+
 				this.id = id || "";
 				this.x = x || "";
 				this.y = y || "";
@@ -21,19 +22,12 @@ define(
 				this.alias = alias || "";
 				this.identifier = identifier || "";
 
-				this.graph_label = graph_label || {}; // TODO das is jetzt die
-				// Netzwerkklasse, sollte aber
-				// eventuell gendert werden, das
-				// wir ein Model f�r GraphLaleb
-				// haben und Network der
-				// Beh�lter f�r alles ist.
+				this.graph_label = graph_label || {};
 				this.resources = resources || [];
 				this.features = features || [];
 				this.network_interfaces = network_interfaces || [];
 				this.provisioning_interface = provisioning_interface || {};
 				this.customer_console_interface = customer_console_interface || {};
-				
-				
 				
 				this.graph_label.addObserver(this);
 			}

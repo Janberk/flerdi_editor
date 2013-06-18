@@ -11,7 +11,7 @@ define([ "jquery", 'network' ], (function($, Network) {
 		/*
 		 * in order to manage more than one networks, this had to be a array
 		 */
-		this.networks;
+		this.networks = undefined;
 	}
 
 			/**
@@ -30,7 +30,7 @@ define([ "jquery", 'network' ], (function($, Network) {
 				if (this.networks === undefined) {
 					this.networks = network;
 				} else {
-					//this.networks.remove();
+					this.networks.remove();
 					this.networks = network;
 					if (drawOnDrawArea) {
 						for ( var i = 0; i < this.networks.networkElements.length; i++) {

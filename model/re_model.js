@@ -11,6 +11,9 @@ define([ 'observable' ], (function(Observable) {
 	 *            all values to build this model
 	 */
 	var ResourceModel = function(values) {
+		this.base = Observable;
+		this.base();
+		
 		values = values || {};
 		this.timestamp = values.timestamp || "";
 		this.time_unit = values.time_unit || "";

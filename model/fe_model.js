@@ -11,6 +11,9 @@ define([ 'observable' ], (function(Observable) {
 	 *            all values to build this model
 	 */
 	var FeatureModel = function(values) {
+		this.base = Observable;
+		this.base();
+		
 		values = values || {};
 		this.avp_attribute = values.avp_attribute || '';
 		this.id = values.id || '';
@@ -18,13 +21,7 @@ define([ 'observable' ], (function(Observable) {
 		this.priority = values.priority || '';
 		this.value = values.value || '';
 
-		this.network_element_id = values.network_element_id || {}; // reference
-		// to the
-		// network_element
-		// this
-		// feature
-		// belongs
-		// to
+		this.network_element_id = values.network_element_id || {};
 		this.network_interface_id = values.network_interface_id || {};
 	}
 

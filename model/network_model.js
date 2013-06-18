@@ -6,6 +6,9 @@
 define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (function(
 		CommandManager, Observable, IdHandler, NetworkElementModel) {
 	var NetworkModel = function(id,graph_type,role_identifier,v_net_identifier,graph_tag,graph_nr) {
+		this.base = Observable;
+		this.base();
+		
 		this.id = id || 1;
 		this.graph_type = graph_type || "OL";
 		this.role_identifier = role_identifier || "team-flerdi";
