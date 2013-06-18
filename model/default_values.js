@@ -17,6 +17,12 @@ define([], (function() {
 			'graph_type':'OL',
 			
 		};
+		
+		this.resource = {
+			'is_request':'1',
+			valueType:'constant',
+			'value':1000
+		}
 	}
 
 	return DefaultValues;

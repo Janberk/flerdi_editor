@@ -27,6 +27,7 @@ requirejs
 				"networkInterfaceModel" : "model/ni_model",
 				"resourceModel" : "model/re_model",
 				"featureModel" : "model/fe_model",
+				"defaultvalues" : "model/default_values",
 				
 				/* View */
 				"nodeDrawView" : "view/node_draw_view",
@@ -117,8 +118,8 @@ requirejs
 /*
  * RequireJS module definition
  */
-define([ "jquery", "environment", "controllerFactory" ], (function($,
-		Environment, ControllerFactory) {
+define([ "jquery", "environment", "controllerFactory", "defaultvalues" ], (function($,
+		Environment, ControllerFactory, DefaultValues) {
 
 	"use strict";
 
@@ -126,9 +127,11 @@ define([ "jquery", "environment", "controllerFactory" ], (function($,
 	$(document).ready((function() {
 		environment = new Environment();
 		controllerFactory = ControllerFactory;
+		defaultValues = new DefaultValues();
 	})); // &(document).ready()
 
 })); // define
 
 var environment = "";
 var controllerFactory = "";
+var defaultValues = "";

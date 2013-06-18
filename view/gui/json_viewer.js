@@ -117,15 +117,19 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 			
 			if(contentJson[attribute] === undefined || contentJson[attribute] == '') 
 				content = compareJson[attribute].standard;
+
+			console.log(content);
+			
+			var attName = compareJson[attribute].shownAs || attribute;
+			elements += '<div class="control-group"><label class="control-label">'+attName+'</label>';
 			
 			
-			elements += '<tr><td>'+attribute+'</td>';
-			
+			elements += '<div class="controls">';
 			if(compareJson[attribute].input == 'text') {
-				elements += '<td><input class="'+elementClass+'" type="text" name="'+attribute+'" value="'+content+'"/></td>';
+				elements += '<input class="'+elementClass+'" type="text" name="'+attribute+'" value="'+content+'"/>';
 			}
 			else if(compareJson[attribute].input == 'select') {
-				elements += '<td><select class="'+elementClass+'" name="'+attribute+'">';
+				elements += '<select class="'+elementClass+'" name="'+attribute+'">';
 				
 				for (var i in compareJson[attribute].values) {
 					var option = compareJson[attribute].values[i];
@@ -138,13 +142,13 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 					elements += '>'+option+'</option>';
 				}
 				
-				elements += '</select></td>';
+				elements += '</select>';
 			}
 			else if(compareJson[attribute].input == 'none') {
-				elements += '<td>'+content+'</td>';
+				elements +=content+'';
 			}
 			
-			elements += '</tr>';
+			elements += '</div></div>';
 		}
 
 		return elements;
@@ -155,7 +159,9 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
  	*
 	*/
 	JsonViewer.prototype.createHeader = function(table){
-		$(table).html('<tr><td>Attributes</td><td>Values</td></tr>');
+		$(table).append('');
+		
+		//$(table).html('<tr><td>Attributes</td><td>Values</td></tr>');
 	}
 	/**
 	* This function appends all css values to the elements

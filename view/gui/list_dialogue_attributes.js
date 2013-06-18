@@ -36,13 +36,15 @@ define([ "jquery" ], (function($) {
 				'values' : [ '/node/host/generic', '/node/host/pip',
 						'/node/switch/cisco', '/node/switch/tunnelbridge',
 						'/node/switch/pip' ],
-				'standard' : '/node/host/generic'
+				'standard' : '/node/host/generic',
+				shownAs : 'ne type'
 			},
 
 			'v_net_identifier' : {
 				'input' : 'none',
 				'values' : '',
-				'standard' : ''
+				'standard' : '',
+				shownAs : 'v net identifier'
 			}
 		}
 
@@ -66,13 +68,15 @@ define([ "jquery" ], (function($) {
 			'avp_attribute' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : '',
+				shownAs : 'avp attribute'
 			},
 
 			'composing_operation' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : '',
+				shownAs : 'composing operation'
 			},
 
 			'confidence' : {
@@ -94,15 +98,17 @@ define([ "jquery" ], (function($) {
 			},
 
 			'is_request' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : 1
+				'input' : 'select',
+				'values' : ['0','1'],
+				'standard' : defaultValues.resource['is_request'],
+				shownAs : 'is request'
 			},
 
 			'resource_unit' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : '',
+				shownAs : 'resource unit'
 			},
 
 /*			'the_parent_record_id' : {
@@ -114,7 +120,8 @@ define([ "jquery" ], (function($) {
 			'time_unit' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : '',
+				shownAs : 'time unit'
 			},
 
 			'timestamp' : {
@@ -126,13 +133,14 @@ define([ "jquery" ], (function($) {
 			'value' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : defaultValues.resource['value']
 			},
 
 			'value_type' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : defaultValues.resource['value_type'],
+				shownAs : 'value type'
 			}
 		}
 
@@ -150,13 +158,15 @@ define([ "jquery" ], (function($) {
 			'avp_attribute' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : '',
+				shownAs : 'avp attribute'
 			},
 
 			'is_request' : {
-				'input' : 'text',
-				'values' : '',
-				'standard' : '0'
+				'input' : 'select',
+				'values' : ['0','1'],
+				'standard' : '0',
+				shownAs : 'is request'
 			},
 
 			'priority' : {
@@ -199,7 +209,8 @@ define([ "jquery" ], (function($) {
 			'ni_type' : {
 				'input' : 'text',
 				'values' : '',
-				'standard' : ''
+				'standard' : '',
+				shownAs : 'ni type'
 			}
 		}
 
@@ -211,27 +222,32 @@ define([ "jquery" ], (function($) {
 			'graph_type' : {
 				'input' : 'select',
 				'values' : [ 'OL', 'UL' ],
-				'standard' : 'OL'
+				'standard' : 'OL',
+				shownAs : 'graph type'
 			},
 			'role_identifier' : {
 				input : 'text',
 				values : '',
-				standard : 'team-flerdi'
+				standard : 'team-flerdi',
+				shownAs : 'role identifier'
 			},
 			'v_net_identifier' : {
 				input : 'text',
 				values : '',
-				standard : ''
+				standard : '',
+				shownAs : 'v net identifier'
 			},
 			'graph_tag' : {
 				input : 'text',
 				values : '',
-				standard : 'request'
+				standard : 'request',
+				shownAs : 'graph tag'
 			},
 			'graph_nr' : {
 				input : 'text',
 				values : '',
-				standard : '0'
+				standard : '0',
+				shownAs : 'graph nr'
 			}
 		};
 	}
