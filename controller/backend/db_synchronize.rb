@@ -28,6 +28,7 @@ end
 # modify graph_label
 put '/graph_label/:id' do
   GraphLabel.update(
+    params[:id].to_i,
     :role_identifier => params[:role_identifier],
     :graph_type => params[:graph_type],
     :graph_nr => params[:graph_nr],
