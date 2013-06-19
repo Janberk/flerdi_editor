@@ -6,16 +6,31 @@
 define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (function(
 		CommandManager, Observable, IdHandler, NetworkElementModel) {
 	var NetworkModel = function(id,graph_type,role_identifier,v_net_identifier,graph_tag,graph_nr) {
-		this.id = id || 1;
-		this.graph_type = graph_type || "OL";
-		this.role_identifier = role_identifier || "team-flerdi";
-		this.v_net_identifier = v_net_identifier || "";
-		this.graph_tag = graph_tag || "request";
-		this.graph_nr = graph_nr || '0';
-		
+		var _this = this;
+		$.post('http://localhost:4567/graph_label/new', {
+			graph_type: graph_type || 'OL',
+			graph_tag: graph_tag || 'request',
+			graph_nr: graph_nr || '0',
+			role_identifier: role_identifier || 'team-flerdi',
+			v_net_identifier: v_net_identifier || ''
+		}, function(data) {
+			_this.id = data.id;
+			_this.graph_type = data.graph_type;
+			_this.graph_tag = data.graph_tag;
+			_this.graph_nr = data.graph_nr;
+			_this.role_identifier = data.role_identifier;
+			_this.v_net_identifier = data.v_net_identifier;
+		}, 'json').fail(function() {
+			this.id = id || 1;
+			this.graph_type = graph_type || "OL";
+			this.role_identifier = role_identifier || "team-flerdi";
+			this.v_net_identifier = v_net_identifier || "";
+			this.graph_tag = graph_tag || "request";
+			this.graph_nr = graph_nr || '0';
+		});	
 		this.networkElements = [];
 		
-		// TODO einige sachen gehören hier nicht rein, und müssen ausgegliedert werden, damit es wirklcih ein model wird
+		// TODO einige sachen gehï¿½ren hier nicht rein, und mï¿½ssen ausgegliedert werden, damit es wirklcih ein model wird
 		
 		this.idHandler = new IdHandler();
 

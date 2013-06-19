@@ -15,7 +15,7 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ,'controller'], (
 
 		this.model.addObserver(this);
 		var _this = this;
-
+		
 		this.view = new GraphLabelAttribuesView({
 			graph_type : this.model.graph_type,
 			role_identifier : this.model.role_identifier,
@@ -41,6 +41,14 @@ define([ "graphlabelAttributesView", 'changeAttributesCommand' ,'controller'], (
 
 	GraphLabelAttributesChangeController.prototype.getCommand = function() {
 		var attributes = this.view.getValues();
+		$.post('http://localhost:4567/graph_label/' + this.model.id, {
+			_method: 'put',
+			graph_type: attributes.graph_type,
+			graph_tag: attributes.graph_tag,
+			graph_nr: attributes.graph_nr,
+			role_identifier: attributes.role_identifier,
+			v_net_identifier: attributes.v_net_identifier
+		});
 		return new ChangeAttributesCommand(this.model, {
 			graph_type : attributes.graph_type,
 			role_identifier : attributes.role_identifier,
