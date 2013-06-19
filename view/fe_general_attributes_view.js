@@ -12,10 +12,10 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' , 'dialogue'],
 				this.parent = parent;
 				this.attributes = attributes || {};
 
-				this.avp_attribute = this.attributes.avp_attribute || "";
-				this.is_request = this.attributes.is_request || "";
-				this.priority = this.attributes.priority || "";
-				this.value = this.attributes.value || "";
+				this.avp_attribute = this.attributes.avp_attribute;
+				this.is_request = this.attributes.is_request;
+				this.priority = this.attributes.priority;
+				this.value = this.attributes.value;
 				
 				this.callback = function() {
 				};
@@ -45,7 +45,8 @@ define([ "jquery", 'listDialogueAttributes', 'jsonViewer' , 'dialogue'],
 					_this.callback('close', {});
 				});
 				
-				this.table = document.createElement('table');
+				this.table = document.createElement('div');
+				$(this.table).addClass('form-horizontal');
 				new JsonViewer().createHeader(this.table);
 				$(this.table).append(
 						new JsonViewer().createTable({

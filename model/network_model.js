@@ -6,6 +6,8 @@
 define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (function(
 		CommandManager, Observable, IdHandler, NetworkElementModel) {
 	var NetworkModel = function(id,graph_type,role_identifier,v_net_identifier,graph_tag,graph_nr) {
+		this.base = Observable;
+		this.base();
 		var _this = this;
 		$.post('http://localhost:4567/graph_label/new', {
 			graph_type: graph_type || 'OL',
@@ -27,7 +29,7 @@ define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (fun
 			this.v_net_identifier = v_net_identifier || "";
 			this.graph_tag = graph_tag || "request";
 			this.graph_nr = graph_nr || '0';
-		});	
+		});
 		this.networkElements = [];
 		
 		// TODO einige sachen geh�ren hier nicht rein, und m�ssen ausgegliedert werden, damit es wirklcih ein model wird

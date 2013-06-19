@@ -35,9 +35,7 @@ define(
 			FeaturesOverviewView.prototype.drawView = function() {
 				var _this = this;
 
-				$(this.container).addClass('flerdi-ui-overview').css({
-					margin : '0px 10px 0px 0px'
-				});
+				$(this.container).addClass('flerdi-ui-overview');
 
 				$(this.overViewContainer).css({
 					height : 200,

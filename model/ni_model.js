@@ -11,6 +11,9 @@ define([ 'observable' ], (function(Observable) {
 	 *            all values to build this model
 	 */
 	var NetworkInterfaceModel = function(values) {
+		this.base = Observable;
+		this.base();
+		
 		values = values || {};
 		this.alias = values.alias || "";
 		this.id = values.id || "";
