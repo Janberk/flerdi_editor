@@ -47,7 +47,6 @@ define([ "jquery", 'dialogue', 'listDialogueAttributes', 'jsonViewer' ],
 
 				this.table = document.createElement('div');
 				$(this.table).addClass('form-horizontal');
-				new JsonViewer().createHeader(this.table);
 				$(this.table).append(
 						new JsonViewer().createTable({
 							id : _this.id,

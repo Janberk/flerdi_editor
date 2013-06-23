@@ -25,7 +25,7 @@ define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (fun
 			_this.v_net_identifier = data.v_net_identifier;
 		}, 'json').fail(function() {
 			
-			console.log(this);
+			//console.log(this);
 			
 			this.id = id || 1;
 			this.graph_type = graph_type || "OL";

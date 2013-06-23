@@ -28,6 +28,7 @@ requirejs
 				"resourceModel" : "model/re_model",
 				"featureModel" : "model/fe_model",
 				"defaultvalues" : "model/default_values",
+				"provisioningInterfaceModel" : "model/pi_model",
 				
 				/* View */
 				"nodeDrawView" : "view/node_draw_view",

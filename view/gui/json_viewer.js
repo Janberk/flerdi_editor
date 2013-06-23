@@ -8,98 +8,13 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 
 	/**
 	* This class creates a table showing the content of a certain tab
-	*
-	* @param node the node from which the contents are taken
 	*/
-	var JsonViewer = function(node){
-		this.node = node;
+	var JsonViewer = function(){
 		this.listDialogueAttributes = new ListDialogueAttributes();
 		
 		//je nach tab -> fkt aufrufen
 		//fkt -> sucht aus dem node die richtigen Infos + aus list_dialogue_attributes das richtige json -> neue fkt
 		//neue fkt -> bastelt aus beiden eine bearbeitbare Tabelle	
-	}
-	
-	/**
-	 * This function fills the General Tab for a given node
-	 * 
-	 * @return the table of the General Tab, including the possibility to edit attributes
-	 */
-	JsonViewer.prototype.generalTab = function(){
-		var table = document.createElement('table');
-		this.createHeader(table);
-		var contentJson = this.node.getJson().attributes;
-		var compareJson = this.listDialogueAttributes.getGeneralJson();
-
-		$(table).append(this.createTable(contentJson, compareJson, "ui-general-attributes-input"));
-		this.appendCss(table);
-		return table;
-	}
-	
-	/**
-	 * This function fills the Resources Tab for a given node
-	 * 
-	 * @return the table of the Resources Tab, including the possibility to edit attributes
-	 */
-	JsonViewer.prototype.resourcesTab = function(){
-		var table = document.createElement('table');
-		this.createHeader(table);
-		var array = this.node.getJson().resources;
-		var compareJson = this.listDialogueAttributes.getResourcesJson();
-		
-		var elements = '';
-		for (var i=0; i<array.length; i++) {
-			elements += '<tr><th colspan="2"> Resource ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson, "ui-resources-attributes-input "+i);
-		}
-		
-		$(table).append(elements);
-		this.appendCss(table);
-		return table;
-	}
-	
-	/**
-	 * This function fills the Features Tab for a given node
-	 * 
-	 * @return the table of the Features Tab, including the possibility to edit attributes
-	 */
-	JsonViewer.prototype.featuresTab = function(){
-		var table = document.createElement('table');
-		this.createHeader(table);
-		var array = this.node.getJson().features;
-		var compareJson = this.listDialogueAttributes.getFeaturesJson();
-		
-		var elements = '';
-		for (var i=0; i<array.length; i++) {
-			elements += '<tr><th colspan="2"> Feature ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson, "ui-features-attributes-input "+i);
-		}
-		
-		$(table).append(elements);
-		this.appendCss(table);
-		return table;
-	}
-
-	/**
-	 * This function fills the NetworkInterfaces Tab for a given node
-	 * 
-	 * @return the table of the NetworkInterfaces Tab, including the possibility to edit attributes
-	 */
-	JsonViewer.prototype.networkInterfacesTab = function(){
-		var table = document.createElement('table');
-		this.createHeader(table);
-		var array = this.node.getJson().network_interfaces;
-		var compareJson = this.listDialogueAttributes.getInterfacesJson();
-		
-		var elements = '';
-		for (var i=0; i<array.length; i++) {
-			elements += '<tr><th colspan="2"> NetworkInterface ' + (i+1) + '</th></tr>';
-			elements += this.createTable(array[i].attributes, compareJson, "ui-interfaces-attributes-input "+i);
-		}
-		
-		$(table).append(elements);
-		this.appendCss(table);
-		return table;
 	}
 	
 	/**
@@ -111,19 +26,23 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 	*/
 	JsonViewer.prototype.createTable = function(contentJson, compareJson, elementClass){
 		var elements = "";
-		
+		console.log(contentJson);
+		console.log(compareJson);
 		for (var attribute in compareJson) {
 			var content = contentJson[attribute];
 			
-			if(contentJson[attribute] === undefined || contentJson[attribute] == '') 
+			
+			
+			
+			if(content === undefined || content == ''){
 				content = compareJson[attribute].standard;
-
+			}
+			
 			console.log(content);
 			
 			var attName = compareJson[attribute].shownAs || attribute;
 			elements += '<div class="control-group"><label class="control-label">'+attName+'</label>';
-			
-			
+						
 			elements += '<div class="controls">';
 			if(compareJson[attribute].input == 'text') {
 				elements += '<input class="'+elementClass+'" type="text" name="'+attribute+'" value="'+content+'"/>';
@@ -152,16 +71,6 @@ define (["jquery", "listDialogueAttributes"], (function($, ListDialogueAttribute
 		}
 
 		return elements;
-	}
-	
-	/**
-	* This function fills the information in the table
- 	*
-	*/
-	JsonViewer.prototype.createHeader = function(table){
-		$(table).append('');
-		
-		//$(table).html('<tr><td>Attributes</td><td>Values</td></tr>');
 	}
 	/**
 	* This function appends all css values to the elements

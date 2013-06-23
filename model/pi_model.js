@@ -27,7 +27,7 @@ define([ 'observable' ], (function(Observable) {
 	// end extends
 
 	/**
-	 * This function returns a JSON-Object, representing this feature
+	 * This function returns a JSON-Object, representing this provisioning interface
 	 * 
 	 * @return JSON-Object representing this feature
 	 */
