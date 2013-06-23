@@ -16,6 +16,7 @@ define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (fun
 			role_identifier: role_identifier || 'team-flerdi',
 			v_net_identifier: v_net_identifier || ''
 		}, function(data) {
+			console.log(data);
 			_this.id = data.id;
 			_this.graph_type = data.graph_type;
 			_this.graph_tag = data.graph_tag;
@@ -23,6 +24,9 @@ define(["commandManager",'observable', 'idHandler', 'networkElementModel'], (fun
 			_this.role_identifier = data.role_identifier;
 			_this.v_net_identifier = data.v_net_identifier;
 		}, 'json').fail(function() {
+			
+			console.log(this);
+			
 			this.id = id || 1;
 			this.graph_type = graph_type || "OL";
 			this.role_identifier = role_identifier || "team-flerdi";
