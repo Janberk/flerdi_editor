@@ -29,6 +29,7 @@ define([ "jquery", "bootstrap", "button" ],
 			Dialogue.prototype.show = function() {
 				$('body').append(this.dia);
 				$(this.dia).modal('show');
+				$(document).unbind('focusin.modal');
 			}
 
 			Dialogue.prototype.setContent = function(content) {
